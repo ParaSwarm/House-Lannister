@@ -31,7 +31,7 @@ public class Match {
     /**
      * 
      */
-    private Double personallityMatchPercent;
+    private Double personalityMatchPercent;
 
     /**
      * 
