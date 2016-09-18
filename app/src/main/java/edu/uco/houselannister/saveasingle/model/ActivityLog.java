@@ -16,7 +16,7 @@ public class ActivityLog {
     /**
      * 
      */
-    private ArrayList<Activity> activities;
+    private ArrayList<UserActivity> activities;
 
 
 }
