@@ -5,12 +5,12 @@ import java.util.*;
 /**
  * 
  */
-public class Activity {
+public class UserActivity {
 
     /**
      * Default constructor
      */
-    public Activity() {
+    public UserActivity() {
     }
 
     /**
