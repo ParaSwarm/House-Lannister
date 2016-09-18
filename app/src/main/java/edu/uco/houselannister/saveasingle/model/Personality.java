@@ -10,6 +10,6 @@ public enum Personality {
     INTUITIVE,
     THOUGHTFUL,
     INSIGHTFUL,
-    JUDGEMENTAL,
+    JUDGMENTAL,
     PERCEPTIVE
 }
