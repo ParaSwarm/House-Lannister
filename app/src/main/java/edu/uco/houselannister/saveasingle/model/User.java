@@ -63,6 +63,11 @@ public class User {
      */
     private UserInteractions interactions;
 
+    /**
+     *
+     */
+    private Photo profilePhoto;
+
 
 
 
