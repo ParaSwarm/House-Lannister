@@ -7,7 +7,7 @@ public enum GiftType {
     BOXOFCHOCOLATES(10),
     FLOWER(20),
     STUFFEDANIMAL(30),
-    JEWELL(40),
+    JEWEL(40),
     HUMANORGAN(50);
 
     private final int cost;
