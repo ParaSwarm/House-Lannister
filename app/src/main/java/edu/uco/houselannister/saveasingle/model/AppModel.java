@@ -6,7 +6,7 @@ import java.util.Objects;
 /**
  * Created by Gordon on 9/20/2016.
  */
-public class AppModel implements IAuthentication, IQuestionnaire, IUserProfile {
+public class AppModel implements IAuthentication, IPreferences, IUserProfile, IAppModel {
 
     private IServiceProxy proxy;
 
@@ -20,10 +20,12 @@ public class AppModel implements IAuthentication, IQuestionnaire, IUserProfile {
         this.proxy = proxy;
     }
 
+
     public static AppModel createAppModel(IServiceProxy proxy) {
         return new AppModel(proxy);
     }
 
+    //region Implementation if IAuthentication
     @Override
     public void Authenticate(String username, String password) {
         User u = proxy.GetUser(username);
@@ -45,7 +47,9 @@ public class AppModel implements IAuthentication, IQuestionnaire, IUserProfile {
         }
         return false;
     }
+    //endregion Implementation if IAuthentication
 
+    //region Implementation of IPreferences
     @Override
     public Questionnaire GetQuestionnaire(String username) {
         this.questionnaire = proxy.GetQuestionnaire();
@@ -61,18 +65,25 @@ public class AppModel implements IAuthentication, IQuestionnaire, IUserProfile {
     public Response GetUserResponse(String username, Question question) {
         return this.proxy.GetUserResponse(username, question);
     }
+    //endregion Implementation of IPreferences
 
     @Override
     public User GetUser(String username) {
         return proxy.GetUser(username);
     }
 
-    public User getCurrentUser() {
-        return currentUser;
-    }
-
     @Override
     public void saveCurrentUser() {
         this.proxy.SaveUser(currentUser);
     }
+
+
+    //region Implementation of IAppModel
+    @Override
+    public User getCurrentUser() {
+        return currentUser;
+    }
+    //endregion
+
+
 }
