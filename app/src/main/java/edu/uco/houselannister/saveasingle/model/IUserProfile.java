@@ -7,7 +7,7 @@ package edu.uco.houselannister.saveasingle.model;
  */
 public interface IUserProfile {
 
-    User GetUser(String username);
+    User GetUser(String username );
 
     void saveCurrentUser();
 }
