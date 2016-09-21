@@ -13,7 +13,9 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import edu.uco.houselannister.saveasingle.model.ZipCode;
+import edu.uco.houselannister.saveasingle.domain.*;
+import edu.uco.houselannister.saveasingle.model.AppModel;
+import edu.uco.houselannister.saveasingle.service.AppService;
 
 public class MainActivity extends Activity {
     private String[] navigationTitle;
@@ -21,21 +23,23 @@ public class MainActivity extends Activity {
     private ListView navigationDrawerListView;
     private ActionBarDrawerToggle mDrawerToggle;
 
-//    @BindView(R.id.sample_TextView) TextView mTextView;
 
-    public String something(){
-        ZipCode x = new ZipCode("83838",23.34343,-38.333,"Edmond, OK");
-        return x.Name();
-    }
+    @BindView(R.id.sample_TextView) TextView mTextView;
+
+    // region Example Use of MVC pattern.
+    // Get the AppModel from a Singleton instance
+    // Used for constructor injection
+    private Model appModel = AppModel.createAppModel(AppService.createAppService());
+    // endregion Example Use of MVC pattern.
+
 @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        ButterKnife.bind(this);
-        //this is master!
+        ButterKnife.bind(this);
 
-        //mTextView = (TextView) findViewById(R.id.sample_TextView);
-//        mTextView.setText(something());
+        // Use of model to access static model behind proxy
+        mTextView.setText(this.appModel.GetUser("numberOne").getName());
 
         //navigation drawer
         navigationTitle = getResources().getStringArray(R.array.navigation_titles);

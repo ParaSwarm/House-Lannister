@@ -1,17 +1,17 @@
-package edu.uco.houselannister.saveasingle.Service;
+package edu.uco.houselannister.saveasingle.service;
 
 import java.util.ArrayList;
+import edu.uco.houselannister.saveasingle.domain.*;
 
-import edu.uco.houselannister.saveasingle.model.IServiceProxy;
-import edu.uco.houselannister.saveasingle.model.Question;
-import edu.uco.houselannister.saveasingle.model.Questionnaire;
-import edu.uco.houselannister.saveasingle.model.Response;
-import edu.uco.houselannister.saveasingle.model.User;
+public class AppService implements ServiceProxy {
 
-/**
- * Created by Gordon on 9/20/2016.
- */
-public class AppService implements IServiceProxy {
+    private AppService() {
+    }
+
+    public static AppService createAppService() {
+        return new AppService();
+    }
+
     @Override
     public User GetUser(String username) {
         for (User u : StaticUserModel.Users())
@@ -21,10 +21,16 @@ public class AppService implements IServiceProxy {
         return null;
     }
 
-
     @Override
     public void SaveUser(User user) {
-
+        int i=0;
+        for(; i < StaticUserModel.Users().size(); ++i){
+            if (StaticUserModel.Users().get(i).getName().toLowerCase().equals(user.getName().toLowerCase())) {
+                break;
+            }
+        }
+        StaticUserModel.Users().remove(i);
+        StaticUserModel.Users().add(i,user);
     }
 
     @Override
