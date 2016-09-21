@@ -30,21 +30,19 @@ public class ZipCode {
     Z73003("73003", 35.668905, -97.497380, "Edmond, OK");
 */
 
-
-
-    public Double Lat() {
-        return lat;
-    }
-
-    public Double Lon() {
-        return lon;
-    }
-
-    public String Zip() {
+    public String getZip() {
         return zip;
     }
 
-    public String Name() {
+    public Double getLat() {
+        return lat;
+    }
+
+    public Double getLon() {
+        return lon;
+    }
+
+    public String getName() {
         return name;
     }
 }

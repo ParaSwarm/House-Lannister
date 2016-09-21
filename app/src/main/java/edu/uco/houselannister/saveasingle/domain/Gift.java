@@ -26,8 +26,49 @@ public class Gift {
      */
     private User from;
 
+    public GiftType getGiftType() {
+        return giftType;
+    }
+
+    public void setGiftType(GiftType giftType) {
+        this.giftType = giftType;
+    }
+
+    public User getTo() {
+        return to;
+    }
+
+    public void setTo(User to) {
+        this.to = to;
+    }
+
+    public User getFrom() {
+        return from;
+    }
+
+    public void setFrom(User from) {
+        this.from = from;
+    }
+
+    public String getCaption() {
+        return caption;
+    }
+
+    public void setCaption(String caption) {
+        this.caption = caption;
+    }
+
+    public Boolean getReceived() {
+        return isReceived;
+    }
+
+    public void setReceived(Boolean received) {
+        isReceived = received;
+    }
+
     /**
-     * 
+     *
+
      */
     private String caption;
 
