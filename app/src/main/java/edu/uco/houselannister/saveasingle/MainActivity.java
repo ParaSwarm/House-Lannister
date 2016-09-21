@@ -22,7 +22,7 @@ public class MainActivity extends Activity {
 
     public String something(){
         ZipCode x = new ZipCode("83838",23.34343,-38.333,"Edmond, OK");
-        return x.Name();
+        return x.getName();
     }
 @Override
     public void onCreate(Bundle savedInstanceState) {
