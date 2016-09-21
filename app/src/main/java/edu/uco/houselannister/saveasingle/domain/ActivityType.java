@@ -1,8 +1,5 @@
 package edu.uco.houselannister.saveasingle.domain;
 
-/**
- * 
- */
 public enum ActivityType {
     MADEFRIEND(true),
     MADEMATCH(true),

@@ -1,8 +1,5 @@
 package edu.uco.houselannister.saveasingle.domain;
 
-/**
- * 
- */
 public enum GiftType {
     BOXOFCHOCOLATES(10),
     FLOWER(20),

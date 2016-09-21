@@ -2,16 +2,7 @@ package edu.uco.houselannister.saveasingle.domain;
 
 import java.util.*;
 
-/**
- * 
- */
 public class User {
-
-    /**
-     * Default constructor
-     */
-    public User() {
-    }
 
     private String name;
 
@@ -39,9 +30,6 @@ public class User {
 
     private Boolean isAdmin;
 
-    /**
-     *
-     */
     public String getName() {
         return name;
     }
@@ -50,9 +38,6 @@ public class User {
         this.name = name;
     }
 
-    /**
-     *
-     */
     public String getEmailAddress() {
         return emailAddress;
     }
@@ -61,9 +46,6 @@ public class User {
         this.emailAddress = emailAddress;
     }
 
-    /**
-     *
-     */
     public UserNotificationPreferences getUserNotificationPreferences() {
         return userNotificationPreferences;
     }
@@ -72,9 +54,6 @@ public class User {
         this.userNotificationPreferences = userNotificationPreferences;
     }
 
-    /**
-     *
-     */
     public UserDemographics getUserDemographics() {
         return userDemographics;
     }
@@ -83,9 +62,6 @@ public class User {
         this.userDemographics = userDemographics;
     }
 
-    /**
-     *
-     */
     public UserPreferences getUserPreferences() {
         return userPreferences;
     }
@@ -94,9 +70,6 @@ public class User {
         this.userPreferences = userPreferences;
     }
 
-    /**
-     *
-     */
     public UserPreferences getUserExcludes() {
         return userExcludes;
     }
@@ -105,9 +78,6 @@ public class User {
         this.userExcludes = userExcludes;
     }
 
-    /**
-     *
-     */
     public ArrayList<Photo> getPhotos() {
         return photos;
     }
@@ -116,9 +86,6 @@ public class User {
         this.photos = photos;
     }
 
-    /**
-     *
-     */
     public Bio getBio() {
         return bio;
     }
@@ -127,9 +94,6 @@ public class User {
         this.bio = bio;
     }
 
-    /**
-     *
-     */
     public ArrayList<Response> getQuestionResponses() {
         return questionResponses;
     }
@@ -138,9 +102,6 @@ public class User {
         this.questionResponses = questionResponses;
     }
 
-    /**
-     *
-     */
     public UserInteractions getInteractions() {
         return interactions;
     }
@@ -149,9 +110,6 @@ public class User {
         this.interactions = interactions;
     }
 
-    /**
-     *
-     */
     public Photo getProfilePhoto() {
         return profilePhoto;
     }
