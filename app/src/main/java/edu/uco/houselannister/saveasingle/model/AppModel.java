@@ -13,10 +13,7 @@ import edu.uco.houselannister.saveasingle.domain.Questionnaire;
 import edu.uco.houselannister.saveasingle.domain.Response;
 import edu.uco.houselannister.saveasingle.domain.User;
 
-/**
- * Created by Gordon on 9/20/2016.
- */
-public class AppModel implements Authentication, Preferences, UserProfile, Model {
+public class AppModel implements Model {
 
     private ServiceProxy proxy;
 
@@ -26,14 +23,15 @@ public class AppModel implements Authentication, Preferences, UserProfile, Model
 
     private Questionnaire questionnaire;
 
+    //region Implementation of Singleton Pattern for Model
     private AppModel(ServiceProxy proxy) {
         this.proxy = proxy;
     }
 
-
     public static AppModel createAppModel(ServiceProxy proxy) {
         return new AppModel(proxy);
     }
+    //endregion Implementation of Singleton Pattern for Model
 
     //region Implementation if Authentication
     @Override
@@ -77,6 +75,7 @@ public class AppModel implements Authentication, Preferences, UserProfile, Model
     }
     //endregion Implementation of Preferences
 
+    //region Implementation of User Profile Interface.
     @Override
     public User GetUser(String username) {
         return proxy.GetUser(username);
@@ -86,7 +85,7 @@ public class AppModel implements Authentication, Preferences, UserProfile, Model
     public void saveCurrentUser() {
         this.proxy.SaveUser(currentUser);
     }
-
+    //endregion Implementation of User Profile Interface.
 
     //region Implementation of Model
     @Override
@@ -94,6 +93,4 @@ public class AppModel implements Authentication, Preferences, UserProfile, Model
         return currentUser;
     }
     //endregion
-
-
 }
