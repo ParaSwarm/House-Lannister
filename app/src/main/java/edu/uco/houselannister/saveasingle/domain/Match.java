@@ -2,46 +2,23 @@ package edu.uco.houselannister.saveasingle.domain;
 
 import java.util.*;
 
-/**
- * 
- */
 public class Match {
 
-    /**
-     * Default constructor
-     */
-    public Match() {
-    }
-
-    /**
-     * 
-     */
     private User user;
 
-    /**
-     * 
-     */
     private Date matchDate;
 
-    /**
-     * 
-     */
     private Double overallMatchPercent;
 
-    /**
-     * 
-     */
     private Double personalityMatchPercent;
 
-    /**
-     * 
-     */
     private Double interestsMatchPercent;
 
-    /**
-     * 
-     */
     private Double relationshipMatchPercent;
+
+    private Double demographicsMatchPercent;
+
+    private Double qaMatchPercent;
 
     public User getUser() {
         return user;
@@ -106,17 +83,4 @@ public class Match {
     public void setQaMatchPercent(Double qaMatchPercent) {
         this.qaMatchPercent = qaMatchPercent;
     }
-
-    /**
-     * 
-     */
-
-    private Double demographicsMatchPercent;
-
-    /**
-     * 
-     */
-    private Double qaMatchPercent;
-
-
 }

@@ -9,9 +9,9 @@ import java.util.ArrayList;
  */
 public interface Preferences {
 
-    Questionnaire GetQuestionnaire(String username);
+    Questionnaire getQuestionnaire(String username);
 
-    ArrayList<Response> GetUserResponses(String username);
+    ArrayList<Response> getUserResponses(String username);
 
-    Response GetUserResponse (String username, Question question);
+    Response getUserResponse(String username, Question question);
 }

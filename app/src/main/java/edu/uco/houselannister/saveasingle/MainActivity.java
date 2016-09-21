@@ -23,19 +23,22 @@ public class MainActivity extends Activity {
     private ListView navigationDrawerListView;
     private ActionBarDrawerToggle mDrawerToggle;
 
-    private Model appModel = AppModel.createAppModel(AppService.createAppService());
 
     @BindView(R.id.sample_TextView) TextView mTextView;
 
+    // region Example Use of MVC pattern.
+    // Get the AppModel from a Singleton instance
+    // Used for constructor injection
+    private Model appModel = AppModel.createAppModel(AppService.createAppService());
+    // endregion Example Use of MVC pattern.
 
 @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        //this is master!
 
-        //mTextView = (TextView) findViewById(R.id.sample_TextView);
+        // Use of model to access static model behind proxy
         mTextView.setText(this.appModel.GetUser("numberOne").getName());
 
         //navigation drawer

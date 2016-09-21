@@ -1,30 +1,16 @@
 package edu.uco.houselannister.saveasingle.domain;
 
-/**
- * 
- */
 public class Gift {
 
-    /**
-     * Default constructor
-     */
-    public Gift() {
-    }
-
-    /**
-     * 
-     */
     private GiftType giftType;
 
-    /**
-     * 
-     */
     private User to;
 
-    /**
-     * 
-     */
     private User from;
+
+    private String caption;
+
+    private Boolean isReceived;
 
     public GiftType getGiftType() {
         return giftType;
@@ -65,17 +51,4 @@ public class Gift {
     public void setReceived(Boolean received) {
         isReceived = received;
     }
-
-    /**
-     *
-
-     */
-    private String caption;
-
-    /**
-     * 
-     */
-    private Boolean isReceived;
-
-
 }

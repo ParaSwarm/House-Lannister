@@ -41,7 +41,7 @@ public class AppModel implements Model {
     }
 
     @Override
-    public Boolean IsUser() {
+    public Boolean isUser() {
         if (getCurrentUser() != null) {
             return this.isAuthenticated;
         }
@@ -49,7 +49,7 @@ public class AppModel implements Model {
     }
 
     @Override
-    public Boolean IsAdmin() {
+    public Boolean isAdmin() {
         if (getCurrentUser() != null) {
             return getCurrentUser().getAdmin();
         }
@@ -59,18 +59,18 @@ public class AppModel implements Model {
 
     //region Implementation of Preferences
     @Override
-    public Questionnaire GetQuestionnaire(String username) {
+    public Questionnaire getQuestionnaire(String username) {
         this.questionnaire = proxy.GetQuestionnaire();
         return this.questionnaire;
     }
 
     @Override
-    public ArrayList<Response> GetUserResponses(String username) {
+    public ArrayList<Response> getUserResponses(String username) {
         return this.proxy.GetUserResponses(username);
     }
 
     @Override
-    public Response GetUserResponse(String username, Question question) {
+    public Response getUserResponse(String username, Question question) {
         return this.proxy.GetUserResponse(username, question);
     }
     //endregion Implementation of Preferences

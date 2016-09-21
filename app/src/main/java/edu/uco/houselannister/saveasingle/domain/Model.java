@@ -11,8 +11,6 @@ package edu.uco.houselannister.saveasingle.domain;
  * (such as determining current user)
  */
 public interface Model extends Authentication, Preferences, UserProfile {
-    /**
-     * @return
-     */
+
     User getCurrentUser();
 }

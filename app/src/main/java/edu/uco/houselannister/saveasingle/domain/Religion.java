@@ -1,8 +1,5 @@
 package edu.uco.houselannister.saveasingle.domain;
 
-/**
- * 
- */
 public enum Religion {
     CHRISTIAN,
     ISLAM,

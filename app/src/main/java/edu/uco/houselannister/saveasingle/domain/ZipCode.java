@@ -1,10 +1,5 @@
 package edu.uco.houselannister.saveasingle.domain;
 
-import java.util.*;
-
-/**
- *
- */
 public class ZipCode {
 
     private final String zip;
@@ -12,9 +7,6 @@ public class ZipCode {
     private final Double lon;
     private final String name;
 
-    /**
-     * Default constructor
-     */
     public ZipCode(String zip, Double latitude, Double longitude, String locationName) {
         this.zip = zip;
         this.lat = latitude;

@@ -1,27 +1,12 @@
 package edu.uco.houselannister.saveasingle.domain;
 
-import java.util.*;
-
-/**
- * 
- */
 public class Bio {
 
-    /**
-     * Default constructor
-     */
-    public Bio() {
-    }
-
-    /**
-     * 
-     */
     private String aboutMe;
 
-    /**
-     * 
-     */
     private String aboutYou;
+
+    private String whyMessageMe;
 
     public String getAboutMe() {
         return aboutMe;
@@ -46,11 +31,4 @@ public class Bio {
     public void setWhyMessageMe(String whyMessageMe) {
         this.whyMessageMe = whyMessageMe;
     }
-
-    /**
-     * 
-     */
-    private String whyMessageMe;
-
-
 }

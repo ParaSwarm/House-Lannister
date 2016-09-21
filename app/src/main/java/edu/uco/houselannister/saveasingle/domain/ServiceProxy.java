@@ -7,10 +7,8 @@ import java.util.ArrayList;
  * This interface provides methods to access the service
  * for the model.  The model uses the service proxy to
  * access the RealSubject in the Proxy pattern.
- *
  */
 public interface ServiceProxy {
-
 
     User GetUser(String username);
     

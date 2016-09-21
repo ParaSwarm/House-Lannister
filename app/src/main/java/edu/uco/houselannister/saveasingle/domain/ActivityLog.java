@@ -2,16 +2,9 @@ package edu.uco.houselannister.saveasingle.domain;
 
 import java.util.*;
 
-/**
- * 
- */
 public class ActivityLog {
 
-    /**
-     * Default constructor
-     */
-    public ActivityLog() {
-    }
+    private ArrayList<UserActivity> activities;
 
     public ArrayList<UserActivity> getActivities() {
         return activities;
@@ -21,10 +14,6 @@ public class ActivityLog {
         this.activities = activities;
     }
 
-    /**
-     * 
-     */
-    private ArrayList<UserActivity> activities;
 
 
 }
