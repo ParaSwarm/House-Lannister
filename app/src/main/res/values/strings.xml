@@ -1,9 +1,17 @@
 <resources>
     <string name="app_name">SaveASingle</string>
+    <string name="app_title">Save a Single</string>
     <string-array name="navigation_titles">
-        <item>First menu item</item>
-        <item>Second menu item</item>
+        <item>User Profile</item>
     </string-array>
-    <string name="open">Open</string>
-    <string name="closed">Closed</string>
+    <string-array name="user_profile_titles">
+        <item>Basic Profile</item>
+        <item>Settings</item>
+        <item>Photo Album</item>
+    </string-array>
+    <string-array name="settings_sub_menus">
+        <item>Search</item>
+    </string-array>
+    <string name="drawer_open">Open Navigation</string>
+    <string name="drawer_closed">Close Navigation</string>
 </resources>
