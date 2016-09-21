@@ -4,6 +4,14 @@ import java.util.ArrayList;
 import edu.uco.houselannister.saveasingle.domain.*;
 
 public class AppService implements ServiceProxy {
+
+    private AppService() {
+    }
+
+    public static AppService createAppService() {
+        return new AppService();
+    }
+
     @Override
     public User GetUser(String username) {
         for (User u : StaticUserModel.Users())

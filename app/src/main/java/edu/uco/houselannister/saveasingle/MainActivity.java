@@ -9,8 +9,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
-import edu.uco.houselannister.saveasingle.domain.ZipCode;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import edu.uco.houselannister.saveasingle.domain.*;
+import edu.uco.houselannister.saveasingle.model.AppModel;
+import edu.uco.houselannister.saveasingle.service.AppService;
 
 public class MainActivity extends Activity {
     private String[] navigationTitle;
@@ -18,21 +23,20 @@ public class MainActivity extends Activity {
     private ListView navigationDrawerListView;
     private ActionBarDrawerToggle mDrawerToggle;
 
-//    @BindView(R.id.sample_TextView) TextView mTextView;
+    private Model appModel = AppModel.createAppModel(AppService.createAppService());
 
-    public String something(){
-        ZipCode x = new ZipCode("83838",23.34343,-38.333,"Edmond, OK");
-        return x.getName();
-    }
+    @BindView(R.id.sample_TextView) TextView mTextView;
+
+
 @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        ButterKnife.bind(this);
+        ButterKnife.bind(this);
         //this is master!
 
         //mTextView = (TextView) findViewById(R.id.sample_TextView);
-//        mTextView.setText(something());
+        mTextView.setText(this.appModel.GetUser("numberOne").getName());
 
         //navigation drawer
         navigationTitle = getResources().getStringArray(R.array.navigation_titles);
