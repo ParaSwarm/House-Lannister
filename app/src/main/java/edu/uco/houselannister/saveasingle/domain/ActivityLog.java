@@ -13,6 +13,14 @@ public class ActivityLog {
     public ActivityLog() {
     }
 
+    public ArrayList<UserActivity> getActivities() {
+        return activities;
+    }
+
+    public void setActivities(ArrayList<UserActivity> activities) {
+        this.activities = activities;
+    }
+
     /**
      * 
      */
