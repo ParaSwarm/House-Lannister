@@ -9,11 +9,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import edu.uco.houselannister.saveasingle.model.ZipCode;
+import edu.uco.houselannister.saveasingle.domain.ZipCode;
 
 public class MainActivity extends Activity {
     private String[] navigationTitle;

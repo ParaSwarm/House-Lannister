@@ -3,12 +3,22 @@ package edu.uco.houselannister.saveasingle.model;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import edu.uco.houselannister.saveasingle.domain.Authentication;
+import edu.uco.houselannister.saveasingle.domain.Model;
+import edu.uco.houselannister.saveasingle.domain.Preferences;
+import edu.uco.houselannister.saveasingle.domain.ServiceProxy;
+import edu.uco.houselannister.saveasingle.domain.UserProfile;
+import edu.uco.houselannister.saveasingle.domain.Question;
+import edu.uco.houselannister.saveasingle.domain.Questionnaire;
+import edu.uco.houselannister.saveasingle.domain.Response;
+import edu.uco.houselannister.saveasingle.domain.User;
+
 /**
  * Created by Gordon on 9/20/2016.
  */
-public class AppModel implements IAuthentication, IPreferences, IUserProfile, IAppModel {
+public class AppModel implements Authentication, Preferences, UserProfile, Model {
 
-    private IServiceProxy proxy;
+    private ServiceProxy proxy;
 
     private User currentUser;
 
@@ -16,16 +26,16 @@ public class AppModel implements IAuthentication, IPreferences, IUserProfile, IA
 
     private Questionnaire questionnaire;
 
-    private AppModel(IServiceProxy proxy) {
+    private AppModel(ServiceProxy proxy) {
         this.proxy = proxy;
     }
 
 
-    public static AppModel createAppModel(IServiceProxy proxy) {
+    public static AppModel createAppModel(ServiceProxy proxy) {
         return new AppModel(proxy);
     }
 
-    //region Implementation if IAuthentication
+    //region Implementation if Authentication
     @Override
     public void Authenticate(String username, String password) {
         User u = proxy.GetUser(username);
@@ -47,9 +57,9 @@ public class AppModel implements IAuthentication, IPreferences, IUserProfile, IA
         }
         return false;
     }
-    //endregion Implementation if IAuthentication
+    //endregion Implementation if Authentication
 
-    //region Implementation of IPreferences
+    //region Implementation of Preferences
     @Override
     public Questionnaire GetQuestionnaire(String username) {
         this.questionnaire = proxy.GetQuestionnaire();
@@ -65,7 +75,7 @@ public class AppModel implements IAuthentication, IPreferences, IUserProfile, IA
     public Response GetUserResponse(String username, Question question) {
         return this.proxy.GetUserResponse(username, question);
     }
-    //endregion Implementation of IPreferences
+    //endregion Implementation of Preferences
 
     @Override
     public User GetUser(String username) {
@@ -78,7 +88,7 @@ public class AppModel implements IAuthentication, IPreferences, IUserProfile, IA
     }
 
 
-    //region Implementation of IAppModel
+    //region Implementation of Model
     @Override
     public User getCurrentUser() {
         return currentUser;
