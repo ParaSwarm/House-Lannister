@@ -25,7 +25,8 @@ import edu.uco.houselannister.saveasingle.Service.FragmentNavigationManager;
 import edu.uco.houselannister.saveasingle.Service.NavigationManager;
 
 public class MainActivity extends AppCompatActivity {
-    private String[] navigationTitle;
+    private String[] settingsNavigationTitles;
+    private String[] homeNavigationTitles;
     private DrawerLayout mDrawerLayout;
     private ExpandableListView navigationDrawerListView;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -55,7 +56,8 @@ public class MainActivity extends AppCompatActivity {
 
         //navigation drawer
         mActivityTitle = getTitle().toString();
-        navigationTitle = getResources().getStringArray(R.array.navigation_titles);
+        settingsNavigationTitles = getResources().getStringArray(R.array.navigation_titles);
+        homeNavigationTitles = getResources().getStringArray(R.array.home_menu_titles);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationDrawerListView = (ExpandableListView) findViewById(R.id.navList);
         mNavigationManager = FragmentNavigationManager.obtain(this);
@@ -76,10 +78,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void selectFirstItemAsDefault() {
+        //starts the main fragment first to use as the starting point for the app
         if (mNavigationManager != null) {
 //            String firstSettings = getResources().getStringArray(R.array.settings_sub_menus)[0];
             String firstSettings = "Search";
-            mNavigationManager.showFragmentSettings(firstSettings);
+            mNavigationManager.showFragmentMain();
 //            getSupportActionBar().setTitle(firstSettings);
         }
     }
@@ -106,7 +109,11 @@ public class MainActivity extends AppCompatActivity {
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                 String selectedItem = ((List) (mExpandableListData.get(mExpandableListTitle.get(groupPosition)))).get(childPosition).toString();
 //                getSupportActionBar().setTitle(selectedItem);
-                if(navigationTitle[0].equals(mExpandableListTitle.get(groupPosition))) {
+                //checks which menu you are clicking on, home navigation is first, settings navigation is the second list
+                if(homeNavigationTitles[0].equals(mExpandableListTitle.get(groupPosition))) {
+                    mNavigationManager.showFragmentMain();
+                }
+                else if(settingsNavigationTitles[1].equals(mExpandableListTitle.get(groupPosition))) {
                     mNavigationManager.showFragmentSettings(selectedItem);
                 }
                 else {

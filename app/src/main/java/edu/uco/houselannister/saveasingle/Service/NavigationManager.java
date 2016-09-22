@@ -6,4 +6,5 @@ package edu.uco.houselannister.saveasingle.Service;
 public interface NavigationManager {
     //interface for the fragments available
     void showFragmentSettings(String title);
+    void showFragmentMain();
 }

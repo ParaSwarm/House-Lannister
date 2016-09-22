@@ -2,7 +2,11 @@
     <string name="app_name">SaveASingle</string>
     <string name="app_title">Save a Single</string>
     <string-array name="navigation_titles">
+        <item>Home</item>
         <item>User Profile</item>
+    </string-array>
+    <string-array name="home_menu_titles">
+        <item>Home</item>
     </string-array>
     <string-array name="user_profile_titles">
         <item>Basic Profile</item>

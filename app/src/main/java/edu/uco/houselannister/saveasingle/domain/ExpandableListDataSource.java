@@ -14,20 +14,20 @@ import edu.uco.houselannister.saveasingle.R;
  */
 public class ExpandableListDataSource {
 
-    /**
-     * Returns fake data of films
-     *
-     * @param context
-     * @return
-     */
+
     public static Map<String, List<String>> getData(Context context) {
         Map<String, List<String>> expandableListData = new TreeMap<>();
 
+        //this is the main set of items in the drawer
         List<String> menu = Arrays.asList(context.getResources().getStringArray(R.array.navigation_titles));
-        //copy above for each sub array of menu options
-        List<String> userProfile = Arrays.asList(context.getResources().getStringArray(R.array.user_profile_titles));
 
-        expandableListData.put(menu.get(0), userProfile);
+        //for each sub array of menu options
+        List<String> home = Arrays.asList(context.getResources().getStringArray(R.array.home_menu_titles));
+        List<String> settings = Arrays.asList(context.getResources().getStringArray(R.array.user_profile_titles));
+
+        //the second item in the array is for settings so I am adding the sub list onto that
+        expandableListData.put(menu.get(0), home); //add the home array of strings to the home expandable list
+        expandableListData.put(menu.get(1), settings); //add the settings options for the settings expandable
 
         return expandableListData;
     }

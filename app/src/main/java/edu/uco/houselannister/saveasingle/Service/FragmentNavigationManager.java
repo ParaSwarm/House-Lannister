@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import edu.uco.houselannister.saveasingle.BuildConfig;
 import edu.uco.houselannister.saveasingle.MainActivity;
 import edu.uco.houselannister.saveasingle.R;
+import edu.uco.houselannister.saveasingle.fragments.MainFragment;
 import edu.uco.houselannister.saveasingle.fragments.SearchFragment;
 
 /**
@@ -35,10 +36,17 @@ public class FragmentNavigationManager implements NavigationManager {
 
     @Override
     public void showFragmentSettings(String title) {
+        //called when wanting to show the settings fragment
         showFragment(SearchFragment.newInstance(title), false);
     }
 
+    @Override
+    public void showFragmentMain() {
+        showFragment(MainFragment.newInstance(), false);
+    }
+
     private void showFragment(Fragment fragment, boolean allowStateLoss) {
+        //actually handles creating the fragment and sending to the caller to change
         FragmentManager fm = mFragmentManager;
 
         @SuppressLint("CommitTransaction")
