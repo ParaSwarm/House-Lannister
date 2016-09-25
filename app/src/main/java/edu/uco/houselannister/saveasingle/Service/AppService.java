@@ -1,4 +1,4 @@
-package edu.uco.houselannister.saveasingle.Service;
+package edu.uco.houselannister.saveasingle.service;
 
 import java.util.ArrayList;
 import edu.uco.houselannister.saveasingle.domain.*;
