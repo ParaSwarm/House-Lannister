@@ -1,4 +1,4 @@
-package edu.uco.houselannister.saveasingle.Service;
+package edu.uco.houselannister.saveasingle.service;
 
 /**
  * Created by ryan on 9/21/2016.

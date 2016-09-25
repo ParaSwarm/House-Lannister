@@ -1,4 +1,4 @@
-package edu.uco.houselannister.saveasingle.Service;
+package edu.uco.houselannister.saveasingle.service;
 
 import android.annotation.SuppressLint;
 import android.support.v4.app.Fragment;
