@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import edu.uco.houselannister.saveasingle.BuildConfig;
 import edu.uco.houselannister.saveasingle.MainActivity;
 import edu.uco.houselannister.saveasingle.R;
+import edu.uco.houselannister.saveasingle.fragments.FavoriteListFragment;
 import edu.uco.houselannister.saveasingle.fragments.MainFragment;
 import edu.uco.houselannister.saveasingle.fragments.SearchFragment;
 
@@ -43,6 +44,11 @@ public class FragmentNavigationManager implements NavigationManager {
     @Override
     public void showFragmentMain() {
         showFragment(MainFragment.newInstance(), false);
+    }
+
+    @Override
+    public void showFragmentList() {
+        showFragment(FavoriteListFragment.newInstance(), false);
     }
 
     private void showFragment(Fragment fragment, boolean allowStateLoss) {
