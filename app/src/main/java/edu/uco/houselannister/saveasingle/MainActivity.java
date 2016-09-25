@@ -19,10 +19,10 @@ import java.util.Map;
 import butterknife.ButterKnife;
 import edu.uco.houselannister.saveasingle.domain.*;
 import edu.uco.houselannister.saveasingle.model.AppModel;
-import edu.uco.houselannister.saveasingle.Service.AppService;
-import edu.uco.houselannister.saveasingle.Service.CustomExpandableListAdapter;
-import edu.uco.houselannister.saveasingle.Service.FragmentNavigationManager;
-import edu.uco.houselannister.saveasingle.Service.NavigationManager;
+import edu.uco.houselannister.saveasingle.service.AppService;
+import edu.uco.houselannister.saveasingle.service.CustomExpandableListAdapter;
+import edu.uco.houselannister.saveasingle.service.FragmentNavigationManager;
+import edu.uco.houselannister.saveasingle.service.NavigationManager;
 
 public class MainActivity extends AppCompatActivity {
     private String[] settingsNavigationTitles;
