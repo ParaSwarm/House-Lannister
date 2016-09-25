@@ -1,4 +1,4 @@
-package edu.uco.houselannister.saveasingle;
+package edu.uco.houselannister.saveasingle.activities;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -17,12 +17,11 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.ButterKnife;
+import edu.uco.houselannister.saveasingle.R;
 import edu.uco.houselannister.saveasingle.domain.*;
+import edu.uco.houselannister.saveasingle.helpers.*;
 import edu.uco.houselannister.saveasingle.model.AppModel;
 import edu.uco.houselannister.saveasingle.service.AppService;
-import edu.uco.houselannister.saveasingle.service.CustomExpandableListAdapter;
-import edu.uco.houselannister.saveasingle.service.FragmentNavigationManager;
-import edu.uco.houselannister.saveasingle.service.NavigationManager;
 
 public class MainActivity extends AppCompatActivity {
     private String[] settingsNavigationTitles;
@@ -38,22 +37,11 @@ public class MainActivity extends AppCompatActivity {
     private String mActivityTitle;
 
 
-//    @BindView(R.id.sample_TextView) TextView mTextView;
-
-    // region Example Use of MVC pattern.
-    // Get the AppModel from a Singleton instance
-    // Used for constructor injection
-    private Model appModel = AppModel.createAppModel(AppService.createAppService());
-    // endregion Example Use of MVC pattern.
-
 @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
-        // Use of model to access static model behind proxy
-//        mTextView.setText(this.appModel.GetUser("numberOne").getName());
 
         //navigation drawer
         mActivityTitle = getTitle().toString();

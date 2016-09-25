@@ -1,6 +1,5 @@
 package edu.uco.houselannister.saveasingle.fragments;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import android.support.annotation.Nullable;
@@ -12,10 +11,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.Toast;
 
-import edu.uco.houselannister.saveasingle.MainActivity;
 import edu.uco.houselannister.saveasingle.R;
 
 /**
