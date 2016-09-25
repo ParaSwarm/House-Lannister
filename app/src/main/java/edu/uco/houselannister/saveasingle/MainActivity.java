@@ -19,14 +19,15 @@ import java.util.Map;
 import butterknife.ButterKnife;
 import edu.uco.houselannister.saveasingle.domain.*;
 import edu.uco.houselannister.saveasingle.model.AppModel;
-import edu.uco.houselannister.saveasingle.service.AppService;
-import edu.uco.houselannister.saveasingle.service.CustomExpandableListAdapter;
-import edu.uco.houselannister.saveasingle.service.FragmentNavigationManager;
-import edu.uco.houselannister.saveasingle.service.NavigationManager;
+import edu.uco.houselannister.saveasingle.Service.AppService;
+import edu.uco.houselannister.saveasingle.Service.CustomExpandableListAdapter;
+import edu.uco.houselannister.saveasingle.Service.FragmentNavigationManager;
+import edu.uco.houselannister.saveasingle.Service.NavigationManager;
 
 public class MainActivity extends AppCompatActivity {
     private String[] settingsNavigationTitles;
     private String[] homeNavigationTitles;
+    private String[] listNavigationTitles;
     private DrawerLayout mDrawerLayout;
     private ExpandableListView navigationDrawerListView;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -56,8 +57,9 @@ public class MainActivity extends AppCompatActivity {
 
         //navigation drawer
         mActivityTitle = getTitle().toString();
-        settingsNavigationTitles = getResources().getStringArray(R.array.navigation_titles);
+        settingsNavigationTitles = getResources().getStringArray(R.array.user_profile_titles);
         homeNavigationTitles = getResources().getStringArray(R.array.home_menu_titles);
+        listNavigationTitles = getResources().getStringArray(R.array.friends_list_titles);    ///////////////////// home titles
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationDrawerListView = (ExpandableListView) findViewById(R.id.navList);
         mNavigationManager = FragmentNavigationManager.obtain(this);
@@ -110,11 +112,15 @@ public class MainActivity extends AppCompatActivity {
                 String selectedItem = ((List) (mExpandableListData.get(mExpandableListTitle.get(groupPosition)))).get(childPosition).toString();
 //                getSupportActionBar().setTitle(selectedItem);
                 //checks which menu you are clicking on, home navigation is first, settings navigation is the second list
+                //probably can be changed to a switch statement later
                 if(homeNavigationTitles[0].equals(mExpandableListTitle.get(groupPosition))) {
                     mNavigationManager.showFragmentMain();
                 }
-                else if(settingsNavigationTitles[1].equals(mExpandableListTitle.get(groupPosition))) {
+                else if(settingsNavigationTitles[1].compareTo(selectedItem) == 0) { //checking that selectedItem == "Settings"
                     mNavigationManager.showFragmentSettings(selectedItem);
+                }
+                else if(listNavigationTitles[0].compareTo(selectedItem) == 0) { //checking that selectedItem == Favorite List
+                    mNavigationManager.showFragmentList();
                 }
                 else {
                     throw new IllegalArgumentException("Not supported fragment type");

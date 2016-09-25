@@ -7,4 +7,5 @@ public interface NavigationManager {
     //interface for the fragments available
     void showFragmentSettings(String title);
     void showFragmentMain();
+    void showFragmentList();
 }
