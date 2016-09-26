@@ -1,50 +1,130 @@
 package edu.uco.houselannister.saveasingle.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import edu.uco.houselannister.saveasingle.domain.*;
 
 public class AppService implements ServiceProxy {
 
+    private User currentUser;
+    private Boolean isAuthenticated;
+    private Questionnaire questionnaire;
+    private ArrayList<User> users;
+
+
+
+    //region Implementation of Singleton Pattern for Creation
+    private static ServiceProxy appServiceInstance = null;
+
     private AppService() {
     }
 
-    public static AppService createAppService() {
-        return new AppService();
+    public static ServiceProxy getAppServiceInstance() {
+        if (appServiceInstance == null) {
+            appServiceInstance = new AppService();
+        }
+        return appServiceInstance;
+    }
+
+    //endregion Implementation of Singleton Pattern for Creation
+
+    //region Implementation of Service Model Interface
+    @Override
+    public ArrayList<User> getUsers() {
+        if (users == null)
+            users = StaticUserModel.getUsers();
+        return users;
     }
 
     @Override
-    public User GetUser(String username) {
-        for (User u : StaticUserModel.Users())
-            if (u.getName().toLowerCase().equals(username.toLowerCase())) {
-                return u;
-            }
-        return null;
+    public ArrayList<String> getUsernameArray() {
+        ArrayList<String> ret = new ArrayList<>();
+        for (User u : getUsers()) {
+            ret.add(u.getName() + " - " + u.getEmailAddress());
+        }
+        return ret;
     }
 
     @Override
-    public void SaveUser(User user) {
-        int i=0;
-        for(; i < StaticUserModel.Users().size(); ++i){
-            if (StaticUserModel.Users().get(i).getName().toLowerCase().equals(user.getName().toLowerCase())) {
+    public ArrayList<HashMap<String, String>> getUsernameMap() {
+        ArrayList<HashMap<String, String>> ret = new ArrayList<>();
+
+        for (User u : getUsers()) {
+            HashMap<String, String> item = new HashMap<>();
+            item.put(u.getName(), u.getEmailAddress());
+            ret.add(item);
+        }
+
+        return ret;
+    }
+    //endregion Implementation of Service Model Interface
+
+    //region Implementation of Service Authentication Methods
+    @Override
+    public void Authenticate(String email, String password) {
+        isAuthenticated = false;
+        currentUser = null;
+        for (User u : getUsers()) {
+            this.isAuthenticated = email.toLowerCase().equals(u.getEmailAddress().toLowerCase()) && password.toLowerCase().equals(u.getPassword().toLowerCase());
+            if (isAuthenticated) {
+                this.currentUser = u;
                 break;
             }
         }
-        StaticUserModel.Users().remove(i);
-        StaticUserModel.Users().add(i,user);
     }
 
     @Override
-    public Questionnaire GetQuestionnaire() {
+    public Boolean isUser() {
+        return this.currentUser != null;
+    }
+
+    @Override
+    public Boolean isAdmin() {
+        if (this.currentUser != null) return this.currentUser.getAdmin();
+        return false;
+    }
+
+    @Override
+    public User getAuthenticatedUser() {
+        return currentUser;
+    }
+    //endregion Implementation of Service Authentication Methods
+
+    //region Implementation of Questionnaire Responses and Preferences
+    @Override
+    public Questionnaire getQuestionnaire() {
+        if(questionnaire==null)
+            questionnaire=StaticUserModel.getQuestionnaire();
+        return questionnaire;
+    }
+
+    @Override
+    public ArrayList<Response> getUserResponses(String username) {
         return null;
     }
 
     @Override
-    public ArrayList<Response> GetUserResponses(String username) {
+    public Response getUserResponse(String username, Question question) {
         return null;
+    }
+    //endregion Implementation of Questionnaire Responses and Preferences
+
+    @Override
+    public User getUser(String username) {
+        User ret = null;
+        for (User u : getUsers()) {
+            if(u.getName().toLowerCase().equals(username)){
+                ret = u;
+                break;
+            }
+        }
+        return ret;
     }
 
     @Override
-    public Response GetUserResponse(String username, Question question) {
-        return null;
+    public void saveCurrentUser() {
+
     }
 }

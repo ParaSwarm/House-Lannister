@@ -4,7 +4,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import edu.uco.houselannister.saveasingle.domain.ServiceProxy;
+import edu.uco.houselannister.saveasingle.domain.Model;
+import edu.uco.houselannister.saveasingle.domain.Questionnaire;
 import edu.uco.houselannister.saveasingle.service.AppService;
 
 import static org.junit.Assert.*;
@@ -14,11 +15,11 @@ import static org.junit.Assert.*;
  */
 public class AppModelTest {
 
-    AppModel appModel;
+    Model appModel;
 
     @Before
     public void setUp() throws Exception {
-        this.appModel = AppModel.createAppModel(AppService.createAppService());
+        this.appModel = AppModel.getAppModelInstance(AppService.getAppServiceInstance());
     }
 
     @After
@@ -27,27 +28,59 @@ public class AppModelTest {
     }
 
     @Test
-    public void testCreateAppModel() throws Exception {
+    public void testGetAppModelInstance() throws Exception {
         assertNotNull(this.appModel);
     }
 
     @Test
     public void testAuthenticate() throws Exception {
 
+        this.appModel.Authenticate("jackson@uco.edu", "password");
+        assertTrue("User failed authentication", appModel.isUser());
+
+        this.appModel.Authenticate("jackson@uco.edu", "wrong");
+        assertTrue("User should not be authentication", !appModel.isUser());
     }
 
     @Test
     public void testIsUser() throws Exception {
 
+        this.appModel.Authenticate("jackson@uco.edu", "password");
+        assertTrue("User failed authentication", appModel.isUser());
+
+        this.appModel.Authenticate("jackson@uco.edu", "wrongPassword");
+        assertTrue("User should not be authentication", !appModel.isUser());
     }
 
     @Test
     public void testIsAdmin() throws Exception {
 
+        this.appModel.Authenticate("goliath@gmail.com", "password");
+        assertTrue("User is an admin", appModel.isAdmin());
+
+
+        this.appModel.Authenticate("jackson@uco.edu", "password");
+        assertTrue("User is not an admin", !appModel.isAdmin());
+
     }
 
     @Test
     public void testGetQuestionnaire() throws Exception {
+        Questionnaire q = this.appModel.getQuestionnaire();
+        assertNotNull(q);
+
+    }
+
+    @Test
+    public void testGetAuthenticatedUser() throws Exception {
+        String email = "goliath@gmail.com";
+        String password = "password";
+        this.appModel.Authenticate(email, password);
+        assertEquals(appModel.getAuthenticatedUser().getEmailAddress(), email);
+
+
+        this.appModel.Authenticate("jackson@uco.edu", "password");
+        assertNotEquals(appModel.getAuthenticatedUser().getEmailAddress(), email);
 
     }
 
@@ -72,7 +105,17 @@ public class AppModelTest {
     }
 
     @Test
-    public void testGetCurrentUser() throws Exception {
+    public void testGetUsers() throws Exception {
+
+    }
+
+    @Test
+    public void testGetUsernameArray() throws Exception {
+
+    }
+
+    @Test
+    public void testGetUsernameMap() throws Exception {
 
     }
 }
