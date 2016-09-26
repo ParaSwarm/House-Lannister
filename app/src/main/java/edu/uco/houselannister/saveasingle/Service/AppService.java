@@ -6,9 +6,11 @@ import edu.uco.houselannister.saveasingle.domain.*;
 
 public class AppService implements ServiceProxy {
 
-    private static ServiceProxy appServiceInstance = null;
-
     private ArrayList<User> users;
+    private Questionnaire questionnaire;
+
+    //region Implementation of Singleton Pattern for Creation
+    private static ServiceProxy appServiceInstance = null;
 
     private AppService() {
     }
@@ -19,6 +21,7 @@ public class AppService implements ServiceProxy {
         }
         return appServiceInstance;
     }
+    //endregion Implementation of Singleton Pattern for Creation
 
     @Override
     public User GetUser(String username) {
@@ -43,7 +46,9 @@ public class AppService implements ServiceProxy {
 
     @Override
     public Questionnaire GetQuestionnaire() {
-        return null;
+        if(questionnaire==null)
+            questionnaire=StaticUserModel.getQuestionnaire();
+        return questionnaire;
     }
 
     @Override

@@ -17,7 +17,6 @@ import java.util.Map;
  */
 public interface Model extends Authentication, Preferences, UserProfile {
 
-    User getCurrentUser();
     ArrayList<User> getUsers();
     List<String> getUsernameArray();
 

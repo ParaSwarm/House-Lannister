@@ -7,4 +7,6 @@ public interface Authentication {
     Boolean isUser();
 
     Boolean isAdmin();
+
+    User getAuthenticatedUser();
 }
