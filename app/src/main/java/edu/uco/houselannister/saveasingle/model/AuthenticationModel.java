@@ -9,8 +9,6 @@ import edu.uco.houselannister.saveasingle.domain.User;
  */
 public class AuthenticationModel implements Authentication {
 
-    private User currentUser;
-    private Boolean isAuthenticated;
     private ServiceProxy proxy;
 
     private static Authentication authenticationInstance = null;
@@ -27,38 +25,25 @@ public class AuthenticationModel implements Authentication {
 
     @Override
     public void Authenticate(String email, String password) {
-
-        this.isAuthenticated = false;
-        this.currentUser = null;
-
-        for (User u : this.proxy.getUsers()) {
-            this.isAuthenticated = email.toLowerCase().equals(u.getEmailAddress().toLowerCase()) && password.toLowerCase().equals(u.getPassword().toLowerCase());
-            if (isAuthenticated) {
-                this.currentUser = u;
-                break;
-            }
-        }
+        proxy.Authenticate(email, password);
     }
 
     @Override
     public Boolean isUser() {
-        if (this.currentUser != null) {
-            return this.isAuthenticated;
-        }
-        return false;
+        return this.proxy.getAuthenticatedUser() != null;
     }
 
     @Override
     public Boolean isAdmin() {
-        if (currentUser != null) {
-            return currentUser.getAdmin();
+        if (this.proxy.getAuthenticatedUser() != null) {
+            return this.proxy.getAuthenticatedUser().getAdmin();
         }
         return false;
     }
 
     @Override
     public User getAuthenticatedUser() {
-        return this.currentUser;
+        return this.proxy.getAuthenticatedUser();
     }
 
 }

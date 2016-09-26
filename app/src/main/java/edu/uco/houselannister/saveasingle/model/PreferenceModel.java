@@ -2,17 +2,12 @@ package edu.uco.houselannister.saveasingle.model;
 
 import java.util.ArrayList;
 
-import edu.uco.houselannister.saveasingle.domain.Authentication;
 import edu.uco.houselannister.saveasingle.domain.Preferences;
 import edu.uco.houselannister.saveasingle.domain.Question;
 import edu.uco.houselannister.saveasingle.domain.Questionnaire;
 import edu.uco.houselannister.saveasingle.domain.Response;
 import edu.uco.houselannister.saveasingle.domain.ServiceProxy;
-import edu.uco.houselannister.saveasingle.domain.User;
 
-/**
- * Created by Gordon on 9/25/2016.
- */
 public class PreferenceModel implements Preferences {
 
     private Questionnaire questionnaire;
@@ -34,17 +29,17 @@ public class PreferenceModel implements Preferences {
     @Override
     public Questionnaire getQuestionnaire() {
         if (questionnaire == null)
-            questionnaire = proxy.GetQuestionnaire();
+            questionnaire = proxy.getQuestionnaire();
         return questionnaire;
     }
 
     @Override
     public ArrayList<Response> getUserResponses(String username) {
-        return null;
+        return proxy.getUserResponses(username);
     }
 
     @Override
     public Response getUserResponse(String username, Question question) {
-        return null;
+        return proxy.getUserResponse(username, question);
     }
 }
