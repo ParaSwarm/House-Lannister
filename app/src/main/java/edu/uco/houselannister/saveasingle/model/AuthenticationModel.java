@@ -29,6 +29,7 @@ public class AuthenticationModel implements Authentication {
     public void Authenticate(String email, String password) {
 
         this.isAuthenticated = false;
+        this.currentUser = null;
 
         for (User u : this.proxy.getUsers()) {
             this.isAuthenticated = email.toLowerCase().equals(u.getEmailAddress().toLowerCase()) && password.toLowerCase().equals(u.getPassword().toLowerCase());
@@ -54,4 +55,10 @@ public class AuthenticationModel implements Authentication {
         }
         return false;
     }
+
+    @Override
+    public User getAuthenticatedUser() {
+        return this.currentUser;
+    }
+
 }

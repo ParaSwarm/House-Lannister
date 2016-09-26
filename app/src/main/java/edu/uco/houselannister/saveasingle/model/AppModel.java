@@ -1,11 +1,7 @@
 package edu.uco.houselannister.saveasingle.model;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 
 import edu.uco.houselannister.saveasingle.domain.*;
 
@@ -14,13 +10,6 @@ public class AppModel implements Model {
     private static Model appModelInstance;
 
     private ServiceProxy proxy;
-
-    private User currentUser;
-
-
-    private Boolean isAuthenticated;
-
-    private Questionnaire questionnaire;
 
     //region Implementation of Singleton Pattern for Model
     private AppModel(ServiceProxy proxy) {
@@ -50,13 +39,18 @@ public class AppModel implements Model {
     public Boolean isAdmin() {
         return AuthenticationModel.getAuthenticationInstance(proxy).isAdmin();
     }
+
+    @Override
+    public User getAuthenticatedUser() {
+        return AuthenticationModel.getAuthenticationInstance(proxy).getAuthenticatedUser();
+    }
+
     //endregion Implementation of Authentication
 
     //region Implementation of Preferences
     @Override
-    public Questionnaire getQuestionnaire(String username) {
-        this.questionnaire = proxy.GetQuestionnaire();
-        return this.questionnaire;
+    public Questionnaire getQuestionnaire() {
+        return PreferenceModel.getPreferencesInstance(proxy).getQuestionnaire();
     }
 
     @Override
@@ -78,15 +72,11 @@ public class AppModel implements Model {
 
     @Override
     public void saveCurrentUser() {
-        this.proxy.SaveUser(currentUser);
+        this.proxy.SaveUser(getAuthenticatedUser());
     }
     //endregion Implementation of User Profile Interface.
 
     //region Implementation of Model
-    @Override
-    public User getCurrentUser() {
-        return currentUser;
-    }
 
     @Override
     public ArrayList<User> getUsers() {
