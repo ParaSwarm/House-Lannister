@@ -17,7 +17,7 @@ public class AppServiceTest {
 
     @Before
     public void setUp() throws Exception {
-        this.serviceProxy = AppService.createAppService();
+        this.serviceProxy = AppService.getAppServiceInstance();
     }
 
     @After

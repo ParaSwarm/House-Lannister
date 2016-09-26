@@ -1,14 +1,22 @@
 package edu.uco.houselannister.saveasingle.model;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+
 import edu.uco.houselannister.saveasingle.domain.*;
 
 public class AppModel implements Model {
 
+    private static Model appModelInstance;
+
     private ServiceProxy proxy;
 
     private User currentUser;
+
 
     private Boolean isAuthenticated;
 
@@ -19,32 +27,28 @@ public class AppModel implements Model {
         this.proxy = proxy;
     }
 
-    public static AppModel createAppModel(ServiceProxy proxy) {
-        return new AppModel(proxy);
+    public static Model getAppModelInstance(ServiceProxy proxy) {
+        if (appModelInstance == null) {
+            appModelInstance = new AppModel(proxy);
+        }
+        return appModelInstance;
     }
     //endregion Implementation of Singleton Pattern for Model
 
     //region Implementation of Authentication
     @Override
-    public void Authenticate(String username, String password) {
-        User u = proxy.GetUser(username);
-        this.isAuthenticated = Objects.equals(u.getPassword(), password);
+    public void Authenticate(String email, String password) {
+        AuthenticationModel.getAuthenticationInstance(proxy).Authenticate(email, password);
     }
 
     @Override
     public Boolean isUser() {
-        if (getCurrentUser() != null) {
-            return this.isAuthenticated;
-        }
-        return false;
+        return AuthenticationModel.getAuthenticationInstance(proxy).isUser();
     }
 
     @Override
     public Boolean isAdmin() {
-        if (getCurrentUser() != null) {
-            return getCurrentUser().getAdmin();
-        }
-        return false;
+        return AuthenticationModel.getAuthenticationInstance(proxy).isAdmin();
     }
     //endregion Implementation of Authentication
 
@@ -83,5 +87,35 @@ public class AppModel implements Model {
     public User getCurrentUser() {
         return currentUser;
     }
+
+    @Override
+    public ArrayList<User> getUsers() {
+        return proxy.getUsers();
+    }
+
+    @Override
+    public ArrayList<String> getUsernameArray() {
+        ArrayList<String> ret = new ArrayList<>();
+        for (User u : proxy.getUsers()) {
+            ret.add(u.getName() + " - " + u.getEmailAddress());
+        }
+        return ret;
+    }
+
+    @Override
+    public ArrayList<HashMap<String, String>> getUsernameMap() {
+
+        ArrayList<HashMap<String, String>> ret = new ArrayList<>();
+
+
+        for (User u : proxy.getUsers()) {
+            HashMap<String, String> item = new HashMap<>();
+            item.put(u.getName(), u.getEmailAddress());
+            ret.add(item);
+        }
+
+        return ret;
+    }
+
     //endregion
 }

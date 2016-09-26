@@ -1,5 +1,7 @@
 package edu.uco.houselannister.saveasingle.service;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -13,11 +15,25 @@ import static org.junit.Assert.*;
  */
 public class StaticUserModelTest {
 
-    StaticUserModel staticUserModel;
-    @Test
-    public void testUsers() throws Exception {
+    @Before
+    public void setUp() throws Exception {
 
-        ArrayList<User> users = this.staticUserModel.Users();
-        assertEquals(users.size(),4);
+    }
+
+    @After
+    public void tearDown() throws Exception {
+
+    }
+
+    @Test
+    public void testGetUsers() throws Exception {
+
+        ArrayList<User> users = StaticUserModel.getUsers();
+        assertEquals(3, users.size());
+    }
+
+    @Test
+    public void testGetQuestionnaire() throws Exception {
+
     }
 }

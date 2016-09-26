@@ -4,7 +4,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import edu.uco.houselannister.saveasingle.domain.ServiceProxy;
 import edu.uco.houselannister.saveasingle.service.AppService;
 
 import static org.junit.Assert.*;
@@ -18,7 +17,7 @@ public class AppModelTest {
 
     @Before
     public void setUp() throws Exception {
-        this.appModel = AppModel.createAppModel(AppService.createAppService());
+        this.appModel = AppModel.getAppModelInstance(AppService.getAppServiceInstance());
     }
 
     @After

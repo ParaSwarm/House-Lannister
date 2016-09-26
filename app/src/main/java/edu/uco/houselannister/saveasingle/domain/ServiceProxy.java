@@ -19,4 +19,6 @@ public interface ServiceProxy {
     ArrayList<Response> GetUserResponses(String username);
 
     Response GetUserResponse(String username, Question question);
+
+    ArrayList<User> getUsers();
 }
