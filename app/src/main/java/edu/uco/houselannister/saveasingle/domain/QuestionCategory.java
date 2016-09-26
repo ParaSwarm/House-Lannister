@@ -6,5 +6,6 @@ public enum QuestionCategory {
     SEX,
     ETHICS,
     RELATIONSHIP,
-    HYGIENE
+    HYGIENE,
+    FOOD
 }

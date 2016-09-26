@@ -24,13 +24,20 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import edu.uco.houselannister.saveasingle.MainActivity;
+import java.util.HashMap;
+import java.util.Map;
+
 import edu.uco.houselannister.saveasingle.R;
+import edu.uco.houselannister.saveasingle.domain.Model;
+import edu.uco.houselannister.saveasingle.model.AppModel;
+import edu.uco.houselannister.saveasingle.service.AppService;
 
 /**
  * Created by Samuel Song on 9/22/2016.
  */
 public class FavoriteListFragment extends ListFragment implements OnItemClickListener {
+    private Model appModel;
+
 
     private static final String KEY_MOVIE_TITLE = "key_title";
     ActionMode mMode;
@@ -50,6 +57,7 @@ public class FavoriteListFragment extends ListFragment implements OnItemClickLis
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        appModel = AppModel.getAppModelInstance(AppService.getAppServiceInstance());
     }
 
     @Override
@@ -62,7 +70,9 @@ public class FavoriteListFragment extends ListFragment implements OnItemClickLis
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        ArrayAdapter adapter = ArrayAdapter.createFromResource(getActivity(), R.array.user_list, android.R.layout.simple_list_item_1);
+
+        ArrayAdapter adapter = new ArrayAdapter(getActivity(),android.R.layout.simple_expandable_list_item_1,appModel.getUsernameArray());
+        //ArrayAdapter adapter = ArrayAdapter.createFromResource(getActivity(), R.array.user_list, android.R.layout.simple_list_item_1);
         setListAdapter(adapter);
         getListView().setOnItemClickListener(this);
         getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
