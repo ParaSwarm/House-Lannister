@@ -2,16 +2,7 @@ package edu.uco.houselannister.saveasingle.model;
 
 import java.util.ArrayList;
 import java.util.Objects;
-
-import edu.uco.houselannister.saveasingle.domain.Authentication;
-import edu.uco.houselannister.saveasingle.domain.Model;
-import edu.uco.houselannister.saveasingle.domain.Preferences;
-import edu.uco.houselannister.saveasingle.domain.ServiceProxy;
-import edu.uco.houselannister.saveasingle.domain.UserProfile;
-import edu.uco.houselannister.saveasingle.domain.Question;
-import edu.uco.houselannister.saveasingle.domain.Questionnaire;
-import edu.uco.houselannister.saveasingle.domain.Response;
-import edu.uco.houselannister.saveasingle.domain.User;
+import edu.uco.houselannister.saveasingle.domain.*;
 
 public class AppModel implements Model {
 
@@ -33,7 +24,7 @@ public class AppModel implements Model {
     }
     //endregion Implementation of Singleton Pattern for Model
 
-    //region Implementation if Authentication
+    //region Implementation of Authentication
     @Override
     public void Authenticate(String username, String password) {
         User u = proxy.GetUser(username);
@@ -55,7 +46,7 @@ public class AppModel implements Model {
         }
         return false;
     }
-    //endregion Implementation if Authentication
+    //endregion Implementation of Authentication
 
     //region Implementation of Preferences
     @Override
