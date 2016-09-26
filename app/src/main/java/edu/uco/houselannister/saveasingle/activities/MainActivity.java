@@ -50,10 +50,13 @@ public class MainActivity extends AppCompatActivity {
         listNavigationTitles = getResources().getStringArray(R.array.friends_list_titles);    ///////////////////// home titles
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationDrawerListView = (ExpandableListView) findViewById(R.id.navList);
+
+
+
         mNavigationManager = FragmentNavigationManager.obtain(this);
         LayoutInflater inflater = getLayoutInflater();
         View listHeaderView = inflater.inflate(R.layout.nav_header, null, false);
-//        navigationDrawerListView.addHeaderView(listHeaderView);
+        navigationDrawerListView.addHeaderView(listHeaderView);
         mExpandableListData = ExpandableListDataSource.getData(this);
         mExpandableListTitle = new ArrayList(mExpandableListData.keySet());
         addDrawerItems();
