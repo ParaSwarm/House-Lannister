@@ -1,9 +1,6 @@
 package edu.uco.houselannister.saveasingle.fragments;
 
-import android.annotation.SuppressLint;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 
 import android.support.annotation.Nullable;
@@ -13,7 +10,6 @@ import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -21,16 +17,12 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Toast;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import edu.uco.houselannister.saveasingle.R;
 import edu.uco.houselannister.saveasingle.domain.Model;
 import edu.uco.houselannister.saveasingle.model.AppModel;
-import edu.uco.houselannister.saveasingle.service.AppService;
+import edu.uco.houselannister.saveasingle.serivce.AppService;
 
 /**
  * Created by Samuel Song on 9/22/2016.
@@ -43,6 +35,7 @@ public class FavoriteListFragment extends ListFragment implements OnItemClickLis
     ActionMode mMode;
     ActionMode.Callback mCallback;
     int place;
+    String name;
     ActionMode check;
 
 
@@ -71,20 +64,18 @@ public class FavoriteListFragment extends ListFragment implements OnItemClickLis
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        ArrayAdapter adapter = new ArrayAdapter(getActivity(),android.R.layout.simple_expandable_list_item_1,appModel.getUsernameArray());
+        ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_expandable_list_item_1, appModel.getUsernameArray());
         //ArrayAdapter adapter = ArrayAdapter.createFromResource(getActivity(), R.array.user_list, android.R.layout.simple_list_item_1);
         setListAdapter(adapter);
         getListView().setOnItemClickListener(this);
         getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                if (mMode != null) {
-                    mMode = getActivity().startActionMode(mCallback);
-                    return false;
-                } else {
-                    place = position;
-                    mMode = getActivity().startActionMode(mCallback);
-                }
+                mMode = null;
+                place = position;
+                name = getResources().getStringArray(R.array.user_list)[position];
+                mMode = getActivity().startActionMode(mCallback);
+
                 return true;
             }
         });
@@ -94,6 +85,7 @@ public class FavoriteListFragment extends ListFragment implements OnItemClickLis
             @Override
             public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
                 check = mode;
+                mode.setTitle(name);
                 return false;
             }
 
@@ -106,7 +98,6 @@ public class FavoriteListFragment extends ListFragment implements OnItemClickLis
             /** This is called when the action mode is created. This is called by startActionMode() */
             @Override
             public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-                mode.setTitle("");
                 getActivity().getMenuInflater().inflate(R.menu.menu_fav_list, menu);
                 return true;
             }
@@ -132,7 +123,7 @@ public class FavoriteListFragment extends ListFragment implements OnItemClickLis
                                     }
                                 })
                                 .show();
-                        Toast.makeText(getActivity(), getResources().getStringArray(R.array.user_list)[place] + " Message" + mode, Toast.LENGTH_SHORT).show();
+                        //   Toast.makeText(getActivity(), getResources().getStringArray(R.array.user_list)[place] + " Message" + mode, Toast.LENGTH_SHORT).show();
                         mode.finish();    // Automatically exists the action mode, when the user selects this action
                         break;
                     case R.id.item2:
@@ -151,7 +142,7 @@ public class FavoriteListFragment extends ListFragment implements OnItemClickLis
                                 })
                                 .setIcon(android.R.drawable.ic_dialog_alert)
                                 .show();
-                        Toast.makeText(getActivity(), getResources().getStringArray(R.array.user_list)[place] + " BLOCK", Toast.LENGTH_SHORT).show();
+                        //        Toast.makeText(getActivity(), getResources().getStringArray(R.array.user_list)[place] + " BLOCK", Toast.LENGTH_SHORT).show();
                         mode.finish();
                         break;
                 }

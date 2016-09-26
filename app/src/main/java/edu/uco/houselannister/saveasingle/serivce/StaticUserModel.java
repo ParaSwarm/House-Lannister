@@ -1,4 +1,4 @@
-package edu.uco.houselannister.saveasingle.service;
+package edu.uco.houselannister.saveasingle.serivce;
 
 import java.util.ArrayList;
 import java.util.Collections;
