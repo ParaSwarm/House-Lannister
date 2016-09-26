@@ -1,3 +1,33 @@
 <resources>
     <string name="app_name">SaveASingle</string>
+    <string name="app_title">Save a Single</string>
+    <string-array name="navigation_titles">
+        <item>Home</item>
+        <item>User Profile</item>
+        <item>List</item>
+    </string-array>
+    <string-array name="home_menu_titles">
+        <item>Home</item>
+    </string-array>
+    <string-array name="user_profile_titles">
+        <item>Basic Profile</item>
+        <item>Settings</item>
+        <item>Photo Album</item>
+    </string-array>
+    <string-array name="friends_list_titles">
+        <item>Favorite List</item>
+        <item>Forked Me List</item>
+    </string-array>
+    <string-array name="settings_sub_menus">
+        <item>Search</item>
+    </string-array>
+    <string name="drawer_open">Open Navigation</string>
+    <string name="drawer_closed">Close Navigation</string>
+
+    <string-array name="user_list">
+        <item>Jackson</item>
+        <item>Sierra</item>
+        <item>Goliath</item>
+    </string-array>
+
 </resources>

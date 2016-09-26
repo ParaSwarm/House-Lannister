@@ -1,0 +1,30 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="edu.uco.houselannister.saveasingle.fragments.MainFragment">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/movie_icon_container_height">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="@dimen/layout_padding_default"
+            android:text="I am starting fragment"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/starting_fragment_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:padding="@dimen/layout_padding_default"
+        android:text="starting fragment"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"/>
+
+</LinearLayout>
