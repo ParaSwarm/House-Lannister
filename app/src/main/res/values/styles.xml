@@ -10,5 +10,4 @@
         <item name="android:colorForeground">@color/foreground_material_light</item>
         <item name="android:textColorPrimary">@color/abc_primary_text_material_light</item>
     </style>
-
 </resources>
