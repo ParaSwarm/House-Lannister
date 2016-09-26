@@ -1,20 +1,28 @@
 package edu.uco.houselannister.saveasingle.service;
 
 import java.util.ArrayList;
+
 import edu.uco.houselannister.saveasingle.domain.*;
 
 public class AppService implements ServiceProxy {
 
+    private static ServiceProxy appServiceInstance = null;
+
+    private ArrayList<User> users;
+
     private AppService() {
     }
 
-    public static AppService createAppService() {
-        return new AppService();
+    public static ServiceProxy getAppServiceInstance() {
+        if (appServiceInstance == null){
+            appServiceInstance = new AppService();
+        }
+        return appServiceInstance;
     }
 
     @Override
     public User GetUser(String username) {
-        for (User u : StaticUserModel.Users())
+        for (User u : StaticUserModel.getUsers())
             if (u.getName().toLowerCase().equals(username.toLowerCase())) {
                 return u;
             }
@@ -23,14 +31,14 @@ public class AppService implements ServiceProxy {
 
     @Override
     public void SaveUser(User user) {
-        int i=0;
-        for(; i < StaticUserModel.Users().size(); ++i){
-            if (StaticUserModel.Users().get(i).getName().toLowerCase().equals(user.getName().toLowerCase())) {
+        int i = 0;
+        for (; i < StaticUserModel.getUsers().size(); ++i) {
+            if (StaticUserModel.getUsers().get(i).getName().toLowerCase().equals(user.getName().toLowerCase())) {
                 break;
             }
         }
-        StaticUserModel.Users().remove(i);
-        StaticUserModel.Users().add(i,user);
+        StaticUserModel.getUsers().remove(i);
+        StaticUserModel.getUsers().add(i, user);
     }
 
     @Override
@@ -46,5 +54,12 @@ public class AppService implements ServiceProxy {
     @Override
     public Response GetUserResponse(String username, Question question) {
         return null;
+    }
+
+    @Override
+    public ArrayList<User> getUsers(){
+        if(users == null)
+            users = StaticUserModel.getUsers();
+        return users;
     }
 }

@@ -30,6 +30,9 @@
         android:divider="@android:color/transparent"
         android:dividerHeight="0dp"
         android:background="@color/colorPrimary"
-        android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft">
+        android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
+        android:groupIndicator="@drawable/menu_selector"
+        >
     </ExpandableListView>
+
 </android.support.v4.widget.DrawerLayout>
