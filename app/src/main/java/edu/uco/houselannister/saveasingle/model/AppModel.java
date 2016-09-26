@@ -55,28 +55,28 @@ public class AppModel implements Model {
 
     @Override
     public ArrayList<Response> getUserResponses(String username) {
-        return this.proxy.GetUserResponses(username);
+        return PreferenceModel.getPreferencesInstance(proxy).getUserResponses(username);
     }
 
     @Override
     public Response getUserResponse(String username, Question question) {
-        return this.proxy.GetUserResponse(username, question);
+        return PreferenceModel.getPreferencesInstance(proxy).getUserResponse(username, question);
     }
     //endregion Implementation of Preferences
 
     //region Implementation of User Profile Interface.
     @Override
-    public User GetUser(String username) {
-        return proxy.GetUser(username);
+    public User getUser(String username) {
+        return proxy.getUser(username);
     }
 
     @Override
     public void saveCurrentUser() {
-        this.proxy.SaveUser(getAuthenticatedUser());
+        this.proxy.saveCurrentUser();
     }
     //endregion Implementation of User Profile Interface.
 
-    //region Implementation of Model
+    //region Implementation of Model Specialized methods
 
     @Override
     public ArrayList<User> getUsers() {
@@ -85,27 +85,13 @@ public class AppModel implements Model {
 
     @Override
     public ArrayList<String> getUsernameArray() {
-        ArrayList<String> ret = new ArrayList<>();
-        for (User u : proxy.getUsers()) {
-            ret.add(u.getName() + " - " + u.getEmailAddress());
-        }
-        return ret;
+        return proxy.getUsernameArray();
     }
 
     @Override
     public ArrayList<HashMap<String, String>> getUsernameMap() {
-
-        ArrayList<HashMap<String, String>> ret = new ArrayList<>();
-
-
-        for (User u : proxy.getUsers()) {
-            HashMap<String, String> item = new HashMap<>();
-            item.put(u.getName(), u.getEmailAddress());
-            ret.add(item);
-        }
-
-        return ret;
+        return proxy.getUsernameMap();
     }
 
-    //endregion
+    //endregion Implementation of Model Specialized methods
 }

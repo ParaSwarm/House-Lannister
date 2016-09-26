@@ -72,6 +72,19 @@ public class AppModelTest {
     }
 
     @Test
+    public void testGetAuthenticatedUser() throws Exception {
+        String email = "goliath@gmail.com";
+        String password = "password";
+        this.appModel.Authenticate(email, password);
+        assertEquals(appModel.getAuthenticatedUser().getEmailAddress(), email);
+
+
+        this.appModel.Authenticate("jackson@uco.edu", "password");
+        assertNotEquals(appModel.getAuthenticatedUser().getEmailAddress(), email);
+
+    }
+
+    @Test
     public void testGetUserResponses() throws Exception {
 
     }
@@ -88,11 +101,6 @@ public class AppModelTest {
 
     @Test
     public void testSaveCurrentUser() throws Exception {
-
-    }
-
-    @Test
-    public void testGetCurrentUser() throws Exception {
 
     }
 
