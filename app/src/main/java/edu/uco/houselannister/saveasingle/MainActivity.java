@@ -6,6 +6,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,6 +19,7 @@ import java.util.Map;
 
 import butterknife.ButterKnife;
 import edu.uco.houselannister.saveasingle.domain.*;
+import edu.uco.houselannister.saveasingle.fragments.FavoriteListFragment;
 import edu.uco.houselannister.saveasingle.model.AppModel;
 import edu.uco.houselannister.saveasingle.Service.AppService;
 import edu.uco.houselannister.saveasingle.Service.CustomExpandableListAdapter;
@@ -36,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
     private List<String> mExpandableListTitle;
     private CustomExpandableListAdapter mExpandableListAdapter;
     private String mActivityTitle;
-
 
 //    @BindView(R.id.sample_TextView) TextView mTextView;
 
@@ -138,7 +139,8 @@ public class MainActivity extends AppCompatActivity {
                 super.onDrawerOpened(drawerView);
 //                getSupportActionBar().setTitle(R.string.app_title);
                 invalidateOptionsMenu();
-            }
+
+           }
 
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
