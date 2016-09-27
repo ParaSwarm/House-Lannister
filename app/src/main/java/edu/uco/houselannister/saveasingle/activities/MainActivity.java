@@ -19,12 +19,12 @@ import java.util.Map;
 import butterknife.ButterKnife;
 import edu.uco.houselannister.saveasingle.R;
 import edu.uco.houselannister.saveasingle.domain.Model;
+import edu.uco.houselannister.saveasingle.domain.ServiceProxy;
 import edu.uco.houselannister.saveasingle.helpers.CustomExpandableListAdapter;
 import edu.uco.houselannister.saveasingle.helpers.ExpandableListDataSource;
 import edu.uco.houselannister.saveasingle.helpers.FragmentNavigationManager;
 import edu.uco.houselannister.saveasingle.helpers.NavigationManager;
 import edu.uco.houselannister.saveasingle.model.AppModel;
-import edu.uco.houselannister.saveasingle.serivce.AppService;
 
 public class MainActivity extends AppCompatActivity {
     private String[] settingsNavigationTitles;
@@ -45,7 +45,8 @@ public class MainActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        appModel = AppModel.getAppModelInstance(AppService.getAppServiceInstance());
+//        appModel = AppModel.getAppModelInstance(new ServiceProxy()) {
+//        });
 
 
         ButterKnife.bind(this);

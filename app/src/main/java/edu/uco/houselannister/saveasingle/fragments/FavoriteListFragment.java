@@ -22,7 +22,7 @@ import android.widget.Toast;
 import edu.uco.houselannister.saveasingle.R;
 import edu.uco.houselannister.saveasingle.domain.Model;
 import edu.uco.houselannister.saveasingle.model.AppModel;
-import edu.uco.houselannister.saveasingle.serivce.AppService;
+import edu.uco.houselannister.saveasingle.service.AppService;
 
 /**
  * Created by Samuel Song on 9/22/2016.
