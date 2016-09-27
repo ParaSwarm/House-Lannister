@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import edu.uco.houselannister.saveasingle.domain.Model;
 import edu.uco.houselannister.saveasingle.domain.Questionnaire;
-import edu.uco.houselannister.saveasingle.service.AppService;
+import edu.uco.houselannister.saveasingle.serivce.AppService;
 
 import static org.junit.Assert.*;
 

@@ -33,9 +33,8 @@ import java.util.List;
 
 import edu.uco.houselannister.saveasingle.R;
 import edu.uco.houselannister.saveasingle.domain.Authentication;
-import edu.uco.houselannister.saveasingle.domain.Model;
 import edu.uco.houselannister.saveasingle.model.AppModel;
-import edu.uco.houselannister.saveasingle.service.AppService;
+import edu.uco.houselannister.saveasingle.serivce.AppService;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
