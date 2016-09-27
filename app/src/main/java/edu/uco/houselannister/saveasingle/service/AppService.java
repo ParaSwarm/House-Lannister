@@ -1,10 +1,9 @@
 package edu.uco.houselannister.saveasingle.service;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import edu.uco.houselannister.saveasingle.domain.*;
+
 
 public class AppService implements ServiceProxy {
 
