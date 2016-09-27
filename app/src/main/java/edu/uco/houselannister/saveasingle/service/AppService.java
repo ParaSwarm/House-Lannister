@@ -1,4 +1,4 @@
-package edu.uco.houselannister.saveasingle.serivce;
+package edu.uco.houselannister.saveasingle.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -39,29 +39,39 @@ public class AppService implements ServiceProxy {
 
     @Override
     public ArrayList<String> getUsernameArray() {
-        return null;
+        ArrayList<String> ret = new ArrayList<>();
+        for (User u : getUsers()) {
+            ret.add(u.getName() + " - " + u.getEmailAddress());
+        }
+        return ret;
     }
 
     @Override
     public ArrayList<HashMap<String, String>> getUsernameMap() {
-        return null;
+        ArrayList<HashMap<String, String>> ret = new ArrayList<>();
+
+        for (User u : getUsers()) {
+            HashMap<String, String> item = new HashMap<>();
+            item.put(u.getName(), u.getEmailAddress());
+            ret.add(item);
+        }
+
+        return ret;
     }
+    //endregion Implementation of Service Model Interface
 
-
-    public void SaveUser(User user) {
-        int i=0;
-        for(; i < StaticUserModel.getUsers().size(); ++i){
-            if (StaticUserModel.getUsers().get(i).getName().toLowerCase().equals(user.getName().toLowerCase())) {
+    //region Implementation of Service Authentication Methods
+    @Override
+    public void Authenticate(String email, String password) {
+        isAuthenticated = false;
+        currentUser = null;
+        for (User u : getUsers()) {
+            this.isAuthenticated = email.toLowerCase().equals(u.getEmailAddress().toLowerCase()) && password.toLowerCase().equals(u.getPassword().toLowerCase());
+            if (isAuthenticated) {
+                this.currentUser = u;
                 break;
             }
         }
-        StaticUserModel.getUsers().remove(i);
-        StaticUserModel.getUsers().add(i,user);
-    }
-
-    @Override
-    public void Authenticate(String email, String password) {
-
     }
 
     @Override

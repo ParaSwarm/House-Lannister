@@ -1,4 +1,4 @@
-package edu.uco.houselannister.saveasingle.serivce;
+package edu.uco.houselannister.saveasingle.service;
 
 import org.junit.After;
 import org.junit.Before;
