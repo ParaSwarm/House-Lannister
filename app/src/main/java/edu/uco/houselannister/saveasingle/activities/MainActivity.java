@@ -24,7 +24,7 @@ import edu.uco.houselannister.saveasingle.helpers.ExpandableListDataSource;
 import edu.uco.houselannister.saveasingle.helpers.FragmentNavigationManager;
 import edu.uco.houselannister.saveasingle.helpers.NavigationManager;
 import edu.uco.houselannister.saveasingle.model.AppModel;
-import edu.uco.houselannister.saveasingle.service.AppService;
+import edu.uco.houselannister.saveasingle.serivce.AppService;
 
 public class MainActivity extends AppCompatActivity {
     private String[] settingsNavigationTitles;
