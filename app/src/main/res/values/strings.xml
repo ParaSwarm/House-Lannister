@@ -17,6 +17,7 @@
     <string-array name="friends_list_titles">
         <item>Favorite List</item>
         <item>Forked Me List</item>
+        <item>Search</item>
     </string-array>
     <string-array name="settings_sub_menus">
         <item>Search</item>
@@ -30,6 +31,25 @@
         <item>Goliath</item>
     </string-array>
     <string name="title_activity_login">SaveASingle</string>
+    <string-array name="language_spinner_text">
+        <item>English</item>
+        <item>Spanish</item>
+        <item>Chinese</item>
+        <item>Hindi</item>
+        <item>Arabic</item>
+    </string-array>
+    <string-array name="religion_spinner_text">
+        <item>Christianity</item>
+        <item>Islam</item>
+        <item>Hinduism</item>
+        <item>Buddhism</item>
+        <item>Sikhism</item>
+        <item>Judaism</item>
+        <item>Baha\'ism</item>
+        <item>Confucianism</item>
+        <item>Jainism</item>
+        <item>Shintoism</item>
+    </string-array>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
