@@ -13,197 +13,273 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-        <TableLayout
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Language"
-                    android:id="@+id/textView" />
+                    android:id="@+id/textView6" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
 
                 <Spinner
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/language_spinner" />
+            </LinearLayout>
 
-            </TableRow>
+        </LinearLayout>
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Religion"
-                    android:id="@+id/textView2" />
+                    android:id="@+id/textView" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
 
                 <Spinner
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/relgion_spinner" />
-            </TableRow>
+            </LinearLayout>
+        </LinearLayout>
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
 
                 <Switch
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Single"
-                    android:id="@+id/switch1" />
+                    android:id="@+id/switch3" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
 
                 <Switch
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Monogamous"
-                    android:id="@+id/switch2" />
-            </TableRow>
+                    android:id="@+id/switch4" />
+            </LinearLayout>
+        </LinearLayout>
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Pets"
-                    android:id="@+id/textView3" />
+                    android:id="@+id/textView2" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
 
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Has Cat(s)"
-                    android:id="@+id/checkBox" />
+                    android:id="@+id/checkBox13" />
 
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Has Dog(s)"
-                    android:id="@+id/checkBox2" />
+                    android:id="@+id/checkBox14" />
 
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="None"
-                    android:id="@+id/checkBox3" />
+                    android:id="@+id/checkBox15" />
+            </LinearLayout>
+        </LinearLayout>
 
-            </TableRow>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Kids"
-                    android:id="@+id/textView4" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-            </TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kids"
+                android:id="@+id/textView4" />
 
             <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
 
-                <CheckBox
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Wants kids"
-                    android:id="@+id/checkBox4" />
+                    android:layout_height="wrap_content" >
 
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Might want Kids"
-                    android:id="@+id/checkBox5" />
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" >
 
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Doesn&apos;t want kids"
-                    android:id="@+id/checkBox6" />
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Wants kids"
+                            android:id="@+id/checkBox" />
 
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Has kid(s)"
-                    android:id="@+id/checkBox7" />
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Might want Kids"
+                            android:id="@+id/checkBox2" />
 
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Doesn&apos;t have kid(s)"
-                    android:id="@+id/checkBox8" />
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Doesn&apos;t want kids"
+                            android:id="@+id/checkBox3" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" >
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Has kid(s)"
+                            android:id="@+id/checkBox16" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Doesn&apos;t have kid(s)"
+                            android:id="@+id/checkBox17" />
+                    </LinearLayout>
+                </LinearLayout>
             </RelativeLayout>
+        </LinearLayout>
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-                <TextView
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Education"
+                android:id="@+id/textView3" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TableLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Education"
-                    android:id="@+id/textView5" />
-            </TableRow>
+                    android:layout_height="wrap_content" >
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <CheckBox
+                    <TableRow
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="High School"
-                        android:id="@+id/checkBox9" />
+                        android:layout_height="wrap_content" >
 
-                    <CheckBox
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="High School"
+                            android:id="@+id/checkBox4" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="2-year college"
+                            android:id="@+id/checkBox5" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="4-year college"
+                            android:id="@+id/checkBox6" />
+                    </TableRow>
+
+                    <TableRow
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="2-year college"
-                        android:id="@+id/checkBox10" />
+                        android:layout_height="wrap_content" >
 
-                    <CheckBox
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="4-year college"
-                        android:id="@+id/checkBox11" />
-
-                    <CheckBox
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Post grad"
-                        android:id="@+id/checkBox12" />
-                </RelativeLayout>
-            </TableRow>
-
-        </TableLayout>
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Post grad"
+                            android:id="@+id/checkBox7" />
+                    </TableRow>
+                </TableLayout>
+            </RelativeLayout>
+        </LinearLayout>
 
         <MultiAutoCompleteTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Search by interest"
             android:id="@+id/multiAutoCompleteTextView" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Search near me"
+            android:id="@+id/button" />
+
     </LinearLayout>
 
 </RelativeLayout>
