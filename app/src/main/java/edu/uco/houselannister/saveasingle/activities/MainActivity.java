@@ -24,23 +24,18 @@ import java.util.Map;
 import butterknife.ButterKnife;
 import edu.uco.houselannister.saveasingle.R;
 import edu.uco.houselannister.saveasingle.domain.Model;
-<<<<<<< HEAD
 import edu.uco.houselannister.saveasingle.domain.Question;
 import edu.uco.houselannister.saveasingle.domain.Questionnaire;
 import edu.uco.houselannister.saveasingle.domain.Response;
 import edu.uco.houselannister.saveasingle.domain.ServiceProxy;
 import edu.uco.houselannister.saveasingle.domain.User;
-=======
->>>>>>> Bibash
 import edu.uco.houselannister.saveasingle.helpers.CustomExpandableListAdapter;
 import edu.uco.houselannister.saveasingle.helpers.ExpandableListDataSource;
 import edu.uco.houselannister.saveasingle.helpers.FragmentNavigationManager;
 import edu.uco.houselannister.saveasingle.helpers.NavigationManager;
-<<<<<<< HEAD
 import edu.uco.houselannister.saveasingle.model.AppModel;
 import edu.uco.houselannister.saveasingle.service.AppService;
-=======
->>>>>>> Bibash
+
 
 public class MainActivity extends AppCompatActivity {
     private String[] settingsNavigationTitles;
@@ -87,15 +82,6 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             selectFirstItemAsDefault();
         }
-<<<<<<< HEAD
-=======
-
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setHomeButtonEnabled(true);
-
-
-
->>>>>>> Bibash
     }
 
     private void selectFirstItemAsDefault() {
