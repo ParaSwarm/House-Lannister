@@ -10,6 +10,7 @@ import edu.uco.houselannister.saveasingle.activities.MainActivity;
 import edu.uco.houselannister.saveasingle.R;
 import edu.uco.houselannister.saveasingle.fragments.FavoriteListFragment;
 import edu.uco.houselannister.saveasingle.fragments.MainFragment;
+import edu.uco.houselannister.saveasingle.fragments.SearchCriteriaFragment;
 import edu.uco.houselannister.saveasingle.fragments.SearchFragment;
 
 /**
@@ -49,6 +50,11 @@ public class FragmentNavigationManager implements NavigationManager {
     @Override
     public void showFragmentList() {
         showFragment(FavoriteListFragment.newInstance(), false);
+    }
+
+    @Override
+    public void showFragmentSearchCriteria() {
+        showFragment(SearchCriteriaFragment.newInstance(), false);
     }
 
     private void showFragment(Fragment fragment, boolean allowStateLoss) {

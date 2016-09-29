@@ -13,18 +13,24 @@ import android.view.View;
 import android.widget.ExpandableListView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import butterknife.ButterKnife;
 import edu.uco.houselannister.saveasingle.R;
 import edu.uco.houselannister.saveasingle.domain.Model;
+import edu.uco.houselannister.saveasingle.domain.Question;
+import edu.uco.houselannister.saveasingle.domain.Questionnaire;
+import edu.uco.houselannister.saveasingle.domain.Response;
+import edu.uco.houselannister.saveasingle.domain.ServiceProxy;
+import edu.uco.houselannister.saveasingle.domain.User;
 import edu.uco.houselannister.saveasingle.helpers.CustomExpandableListAdapter;
 import edu.uco.houselannister.saveasingle.helpers.ExpandableListDataSource;
 import edu.uco.houselannister.saveasingle.helpers.FragmentNavigationManager;
 import edu.uco.houselannister.saveasingle.helpers.NavigationManager;
 import edu.uco.houselannister.saveasingle.model.AppModel;
-import edu.uco.houselannister.saveasingle.serivce.AppService;
+import edu.uco.houselannister.saveasingle.service.AppService;
 
 public class MainActivity extends AppCompatActivity {
     private String[] settingsNavigationTitles;
@@ -70,19 +76,12 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             selectFirstItemAsDefault();
         }
-
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setHomeButtonEnabled(true);
-
     }
 
     private void selectFirstItemAsDefault() {
         //starts the main fragment first to use as the starting point for the app
         if (mNavigationManager != null) {
-//            String firstSettings = getResources().getStringArray(R.array.settings_sub_menus)[0];
-            String firstSettings = "Search";
             mNavigationManager.showFragmentMain();
-//            getSupportActionBar().setTitle(firstSettings);
         }
     }
 
@@ -92,14 +91,12 @@ public class MainActivity extends AppCompatActivity {
         navigationDrawerListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             @Override
             public void onGroupExpand(int groupPosition) {
-//                getSupportActionBar().setTitle(mExpandableListTitle.get(groupPosition).toString());
             }
         });
 
         navigationDrawerListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
             @Override
             public void onGroupCollapse(int groupPosition) {
-//                getSupportActionBar().setTitle(R.string.app_title);
             }
         });
 
@@ -107,7 +104,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                 String selectedItem = ((List) (mExpandableListData.get(mExpandableListTitle.get(groupPosition)))).get(childPosition).toString();
-//                getSupportActionBar().setTitle(selectedItem);
                 //checks which menu you are clicking on, home navigation is first, settings navigation is the second list
                 //probably can be changed to a switch statement later
                 if (homeNavigationTitles[0].equals(mExpandableListTitle.get(groupPosition))) {
@@ -116,7 +112,10 @@ public class MainActivity extends AppCompatActivity {
                     mNavigationManager.showFragmentSettings(selectedItem);
                 } else if (listNavigationTitles[0].compareTo(selectedItem) == 0) { //checking that selectedItem == Favorite List
                     mNavigationManager.showFragmentList();
-                } else {
+                } else if(selectedItem.compareTo("Search") == 0) {
+                    mNavigationManager.showFragmentSearchCriteria();
+                }
+                else {
                     throw new IllegalArgumentException("Not supported fragment type");
                 }
 
@@ -130,13 +129,11 @@ public class MainActivity extends AppCompatActivity {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_closed) {
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-//                getSupportActionBar().setTitle(R.string.app_title);
                 invalidateOptionsMenu();
             }
 
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
-//                getSupportActionBar().setTitle(mActivityTitle);
                 invalidateOptionsMenu();
             }
         };
