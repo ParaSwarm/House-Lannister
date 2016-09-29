@@ -112,10 +112,11 @@ public class MainActivity extends AppCompatActivity {
                     mNavigationManager.showFragmentSettings(selectedItem);
                 } else if (listNavigationTitles[0].compareTo(selectedItem) == 0) { //checking that selectedItem == Favorite List
                     mNavigationManager.showFragmentList();
-                } else if(selectedItem.compareTo("Search") == 0) {
+                } else if (listNavigationTitles[1].compareTo(selectedItem) == 0) {
+                    mNavigationManager.showFragmentWhoLikesMe();
+                } else if (selectedItem.compareTo("Search") == 0) {
                     mNavigationManager.showFragmentSearchCriteria();
-                }
-                else {
+                } else {
                     throw new IllegalArgumentException("Not supported fragment type");
                 }
 

@@ -8,5 +8,6 @@ public interface NavigationManager {
     void showFragmentSettings(String title);
     void showFragmentMain();
     void showFragmentList();
+    void showFragmentWhoLikesMe();
     void showFragmentSearchCriteria();
 }

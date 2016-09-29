@@ -15,8 +15,8 @@
         <item>Photo Album</item>
     </string-array>
     <string-array name="friends_list_titles">
-        <item>Favorite List</item>
-        <item>Forked Me List</item>
+        <item>My Likes</item>
+        <item>Who Likes Me</item>
         <item>Search</item>
     </string-array>
     <string-array name="settings_sub_menus">
@@ -29,6 +29,10 @@
         <item>Jackson</item>
         <item>Sierra</item>
         <item>Goliath</item>
+    </string-array>
+    <string-array name="user_list2">
+        <item>Goliath</item>
+        <item>Sierra</item>
     </string-array>
     <string name="title_activity_login">SaveASingle</string>
     <string-array name="language_spinner_text">
