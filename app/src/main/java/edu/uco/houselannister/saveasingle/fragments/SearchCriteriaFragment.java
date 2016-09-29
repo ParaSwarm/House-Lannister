@@ -45,10 +45,10 @@ public class SearchCriteriaFragment extends Fragment {
         languageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         languageSpinner.setAdapter(languageAdapter);
         //reglion spinner
-        Spinner reglionSpinner = (Spinner) view.findViewById(R.id.relgion_spinner);
+        Spinner religionSpinner = (Spinner) view.findViewById(R.id.religion_spinner);
         ArrayAdapter<CharSequence> religionAdapter = ArrayAdapter.createFromResource(this.getContext(), R.array.religion_spinner_text, android.R.layout.simple_spinner_dropdown_item);
         religionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        reglionSpinner.setAdapter(religionAdapter);
+        religionSpinner.setAdapter(religionAdapter);
         //age spinner
         Spinner minAgeSpinner = (Spinner) view.findViewById(R.id.min_age_spinner);
         Integer[] ages = new Integer[]{18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
