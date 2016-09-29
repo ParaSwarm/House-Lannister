@@ -8,6 +8,10 @@ public interface NavigationManager {
     void showFragmentSettings(String title);
     void showFragmentMain();
     void showFragmentList();
+<<<<<<< HEAD
     void showFragmentWhoLikesMe();
     void showFragmentSearchCriteria();
+=======
+    void showFragmentUserProfile();
+>>>>>>> Bibash
 }
