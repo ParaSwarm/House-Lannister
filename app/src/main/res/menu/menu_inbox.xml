@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:icon="@android:drawable/ic_dialog_email"
+        android:id="@+id/inboxLink"
+        android:text="Inbox"
+        android:title="Inbox" />
+
+    <item
+        android:icon="@android:drawable/ic_dialog_email"
+        android:id="@+id/sentLink"
+        android:text="Sent"
+        android:title="Sent" />
+</menu>

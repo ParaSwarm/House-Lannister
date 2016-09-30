@@ -22,13 +22,14 @@ public class ExpandableListDataSource {
         List<String> menu = Arrays.asList(context.getResources().getStringArray(R.array.navigation_titles));
 
         //for each sub array of menu options
-        List<String> home = Arrays.asList(context.getResources().getStringArray(R.array.home_menu_titles));
-        List<String> settings = Arrays.asList(context.getResources().getStringArray(R.array.user_profile_titles));
-        List<String> lists = Arrays.asList(context.getResources().getStringArray(R.array.friends_list_titles));
+        List<String> homeItems = Arrays.asList(context.getResources().getStringArray(R.array.home_menu_titles));
+        List<String> peopleMenuItems = Arrays.asList(context.getResources().getStringArray(R.array.people_titles));
+        List<String> userProfileItems = Arrays.asList(context.getResources().getStringArray(R.array.user_profile_titles));
+
         //the second item in the array is for settings so I am adding the sub list onto that
-        expandableListData.put(menu.get(0), home); //add the home array of strings to the home expandable list
-        expandableListData.put(menu.get(1), settings); //add the settings options for the settings expandable
-        expandableListData.put(menu.get(2), lists); //add the list options for the list expandable
+        expandableListData.put(menu.get(0), homeItems); // Home
+        expandableListData.put(menu.get(1), userProfileItems); // Lists
+        expandableListData.put(menu.get(2), peopleMenuItems); // Profile
         return expandableListData;
     }
 }

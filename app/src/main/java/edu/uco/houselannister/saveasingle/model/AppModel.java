@@ -93,5 +93,10 @@ public class AppModel implements Model {
         return proxy.getUsernameMap();
     }
 
+    @Override
+    public ArrayList<Message> getInboxMessages() {
+        return proxy.getInboxMessages();
+    }
+
     //endregion Implementation of Model Specialized methods
 }
