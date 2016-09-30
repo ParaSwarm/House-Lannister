@@ -7,13 +7,16 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 import edu.uco.houselannister.saveasingle.BuildConfig;
-import edu.uco.houselannister.saveasingle.activities.MainActivity;
 import edu.uco.houselannister.saveasingle.R;
+import edu.uco.houselannister.saveasingle.activities.MainActivity;
 import edu.uco.houselannister.saveasingle.fragments.FavoriteListFragment;
 import edu.uco.houselannister.saveasingle.fragments.InboxFragment;
+import edu.uco.houselannister.saveasingle.fragments.WhoLikesMeFragment;
 import edu.uco.houselannister.saveasingle.fragments.MainFragment;
+import edu.uco.houselannister.saveasingle.fragments.SearchCriteriaFragment;
 import edu.uco.houselannister.saveasingle.fragments.SearchFragment;
 import edu.uco.houselannister.saveasingle.fragments.ViewMessageFragment;
+import edu.uco.houselannister.saveasingle.fragments.UserProfile_Fragment;
 
 /**
  * Created by ryan on 9/21/2016.
@@ -51,6 +54,19 @@ public class FragmentNavigationManager implements NavigationManager {
     @Override
     public void showFragmentList() {
         showFragment(FavoriteListFragment.newInstance(), false);
+    }
+    public void showFragmentUserProfile() {
+        showFragment(UserProfile_Fragment.newInstance(), false);
+    }
+
+    @Override
+    public void showFragmentWhoLikesMe() {
+        showFragment(WhoLikesMeFragment.newInstance(), false);
+    }
+
+    @Override
+    public void showFragmentSearchCriteria() {
+        showFragment(SearchCriteriaFragment.newInstance(), false);
     }
 
     @Override

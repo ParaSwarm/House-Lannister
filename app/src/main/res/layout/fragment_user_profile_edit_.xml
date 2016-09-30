@@ -1,0 +1,145 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="edu.uco.houselannister.saveasingle.fragments.UserProfile_Fragment">
+
+
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:id="@+id/EditImageView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="231dp"
+        android:src="@drawable/userprofile_image"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/Firstname_userprofile_edittext"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:hint="First Name" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/Lastname_userprofile_edittext"
+        android:layout_below="@+id/Firstname_userprofile_edittext"
+        android:layout_alignStart="@+id/Firstname_userprofile_edittext"
+        android:hint="Last Name" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/DisplayName_UserProfile_EditText"
+        android:layout_below="@+id/Lastname_userprofile_edittext"
+        android:layout_alignParentEnd="true"
+        android:hint="Display Name" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Date Of Birth"
+        android:id="@+id/DOB_TextView"
+        android:onClick="setDate"
+        android:layout_below="@+id/DisplayName_UserProfile_EditText"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Your Story"
+        android:id="@+id/textView9"
+        android:textStyle="bold"
+        android:layout_marginTop="39dp"
+        android:layout_below="@+id/DOB_TextView"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/EditStory_EditText"
+        android:layout_below="@+id/textView9"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Perfect Match"
+        android:id="@+id/textView10"
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/EditStory_EditText"
+        android:layout_alignParentStart="true"
+        android:textStyle="bold" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/editText3"
+        android:layout_below="@+id/textView10" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:id="@+id/UserProfileSave_Button"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/DisplayName_UserProfile_EditText" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/DOB_TextView"
+        android:layout_alignEnd="@+id/EditStory_EditText"
+        android:layout_above="@+id/EditStory_EditText"
+        android:layout_toEndOf="@+id/UserProfileSave_Button"
+        android:id="@+id/radioGroup2">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Male"
+            android:id="@+id/maleRadioButton"
+            android:checked="false"
+            android:onClick="onRadioButtonChecked"
+            android:textStyle="bold" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Female"
+            android:id="@+id/femaleRadiobutton"
+            android:checked="false"
+            android:onClick="onRadioButtonChecked"
+            android:textStyle="bold" />
+
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Gender"
+        android:id="@+id/textView8"
+        android:layout_alignTop="@+id/radioGroup2"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

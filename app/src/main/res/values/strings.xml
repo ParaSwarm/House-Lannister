@@ -19,6 +19,11 @@
         <item>Photo Album</item>
         <item>Settings</item>
     </string-array>
+    <string-array name="friends_list_titles">
+        <item>My Likes</item>
+        <item>Who Likes Me</item>
+        <item>Search</item>
+    </string-array>
     <string-array name="settings_sub_menus">
         <item>Search</item>
     </string-array>
@@ -30,7 +35,37 @@
         <item>Sierra</item>
         <item>Goliath</item>
     </string-array>
+    <string-array name="user_list2">
+        <item>Goliath</item>
+        <item>Sierra</item>
+    </string-array>
     <string name="title_activity_login">SaveASingle</string>
+    <string-array name="language_spinner_text">
+        <item>English</item>
+        <item>Spanish</item>
+        <item>Chinese</item>
+        <item>Hindi</item>
+        <item>Arabic</item>
+    </string-array>
+    <string-array name="religion_spinner_text">
+        <item>Christianity</item>
+        <item>Islam</item>
+        <item>Hinduism</item>
+        <item>Buddhism</item>
+        <item>Sikhism</item>
+        <item>Judaism</item>
+        <item>Baha\'ism</item>
+        <item>Confucianism</item>
+        <item>Jainism</item>
+        <item>Shintoism</item>
+    </string-array>
+    <string-array name="distances_to_search">
+        <item>1 mile</item>
+        <item>5 miles</item>
+        <item>10 miles</item>
+        <item>25 miles</item>
+        <item>50 miles</item>
+    </string-array>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
