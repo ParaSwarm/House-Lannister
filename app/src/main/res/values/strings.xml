@@ -4,15 +4,20 @@
     <string-array name="navigation_titles">
         <item>Home</item>
         <item>User Profile</item>
-        <item>List</item>
+        <item>People</item>
     </string-array>
     <string-array name="home_menu_titles">
         <item>Home</item>
+        <item>Inbox</item>
+    </string-array>
+    <string-array name="people_titles">
+        <item>My Favorites</item>
+        <item>Who Favorited Me?</item>
     </string-array>
     <string-array name="user_profile_titles">
         <item>Basic Profile</item>
-        <item>Settings</item>
         <item>Photo Album</item>
+        <item>Settings</item>
     </string-array>
     <string-array name="friends_list_titles">
         <item>My Likes</item>
