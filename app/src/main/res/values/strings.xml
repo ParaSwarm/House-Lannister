@@ -4,19 +4,20 @@
     <string-array name="navigation_titles">
         <item>Home</item>
         <item>User Profile</item>
-        <item>List</item>
+        <item>People</item>
     </string-array>
     <string-array name="home_menu_titles">
         <item>Home</item>
+        <item>Inbox</item>
+    </string-array>
+    <string-array name="people_titles">
+        <item>My Favorites</item>
+        <item>Who Favorited Me?</item>
     </string-array>
     <string-array name="user_profile_titles">
         <item>Basic Profile</item>
-        <item>Settings</item>
         <item>Photo Album</item>
-    </string-array>
-    <string-array name="friends_list_titles">
-        <item>Favorite List</item>
-        <item>Forked Me List</item>
+        <item>Settings</item>
     </string-array>
     <string-array name="settings_sub_menus">
         <item>Search</item>
@@ -43,5 +44,8 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

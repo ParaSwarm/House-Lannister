@@ -11,8 +11,7 @@ public class AppService implements ServiceProxy {
     private Boolean isAuthenticated;
     private Questionnaire questionnaire;
     private ArrayList<User> users;
-
-
+    private ArrayList<Message> messages;
 
     //region Implementation of Singleton Pattern for Creation
     private static ServiceProxy appServiceInstance = null;
@@ -57,6 +56,13 @@ public class AppService implements ServiceProxy {
         }
 
         return ret;
+    }
+
+    @Override
+    public ArrayList<Message> getInboxMessages() {
+        if (messages == null)
+            messages = StaticUserModel.getMessages();
+        return messages;
     }
     //endregion Implementation of Service Model Interface
 

@@ -30,8 +30,6 @@ import edu.uco.houselannister.saveasingle.service.AppService;
 public class FavoriteListFragment extends ListFragment implements OnItemClickListener {
     private Model appModel;
 
-
-    private static final String KEY_MOVIE_TITLE = "key_title";
     ActionMode mMode;
     ActionMode.Callback mCallback;
     int place;
