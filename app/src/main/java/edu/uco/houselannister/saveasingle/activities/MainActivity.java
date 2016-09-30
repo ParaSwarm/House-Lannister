@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ExpandableListView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -158,6 +159,20 @@ public class MainActivity extends AppCompatActivity {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
 
+    public void onRadioButtonChecked(View v){
+        boolean checked = ((RadioButton) v).isChecked();
+        switch(v.getId()){
+            case R.id.maleRadioButton:
+                if (checked)
+                    break;
+
+            case R.id.femaleRadiobutton:
+                if(checked)
+                    break;
+                }
+
+
+    }
 
     // for date of birth in User Profile Fragment
     @Override
