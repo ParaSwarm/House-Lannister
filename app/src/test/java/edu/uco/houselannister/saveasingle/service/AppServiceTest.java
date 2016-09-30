@@ -56,7 +56,42 @@ public class AppServiceTest {
     }
 
     @Test
-    public void testCreateAppService1() throws Exception {
+    public void testGetUsers() throws Exception {
+
+    }
+
+    @Test
+    public void testGetUsernameArray() throws Exception {
+
+    }
+
+    @Test
+    public void testGetUsernameMap() throws Exception {
+
+    }
+
+    @Test
+    public void testAuthenticate() throws Exception {
+
+    }
+
+    @Test
+    public void testIsUser() throws Exception {
+
+    }
+
+    @Test
+    public void testIsAdmin() throws Exception {
+
+    }
+
+    @Test
+    public void testGetAuthenticatedUser() throws Exception {
+
+    }
+
+    @Test
+    public void testSaveCurrentUser() throws Exception {
 
     }
 }
