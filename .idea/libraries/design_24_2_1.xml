@@ -9,7 +9,15 @@
     </CLASSES>
     <JAVADOC />
     <SOURCES>
+<<<<<<< HEAD
+<<<<<<< HEAD
+      <root url="jar://$USER_HOME$/AppData/Local/Android/Sdk/extras/android/m2repository/com/android/support/design/24.2.1/design-24.2.1-sources.jar!/" />
+=======
       <root url="jar://$USER_HOME$/AppData/Local/Android/sdk/extras/android/m2repository/com/android/support/design/24.2.1/design-24.2.1-sources.jar!/" />
+>>>>>>> master
+=======
+      <root url="jar://$USER_HOME$/AppData/Local/Android/sdk/extras/android/m2repository/com/android/support/design/24.2.1/design-24.2.1-sources.jar!/" />
+>>>>>>> Samuel
     </SOURCES>
   </library>
 </component>

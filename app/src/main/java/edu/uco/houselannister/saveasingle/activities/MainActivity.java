@@ -1,5 +1,7 @@
 package edu.uco.houselannister.saveasingle.activities;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
@@ -10,21 +12,30 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import butterknife.ButterKnife;
 import edu.uco.houselannister.saveasingle.R;
 import edu.uco.houselannister.saveasingle.domain.Model;
+import edu.uco.houselannister.saveasingle.domain.Question;
+import edu.uco.houselannister.saveasingle.domain.Questionnaire;
+import edu.uco.houselannister.saveasingle.domain.Response;
 import edu.uco.houselannister.saveasingle.domain.ServiceProxy;
+import edu.uco.houselannister.saveasingle.domain.User;
 import edu.uco.houselannister.saveasingle.helpers.CustomExpandableListAdapter;
 import edu.uco.houselannister.saveasingle.helpers.ExpandableListDataSource;
 import edu.uco.houselannister.saveasingle.helpers.FragmentNavigationManager;
 import edu.uco.houselannister.saveasingle.helpers.NavigationManager;
 import edu.uco.houselannister.saveasingle.model.AppModel;
+import edu.uco.houselannister.saveasingle.service.AppService;
+
 
 public class MainActivity extends AppCompatActivity {
     private String[] settingsNavigationTitles;
@@ -39,14 +50,14 @@ public class MainActivity extends AppCompatActivity {
     private CustomExpandableListAdapter mExpandableListAdapter;
     private String mActivityTitle;
     private Model appModel;
-
+    private int year, month, day;
+    String radioButton = "";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        appModel = AppModel.getAppModelInstance(new ServiceProxy()) {
-//        });
+        appModel = AppModel.getAppModelInstance(AppService.getAppServiceInstance());
 
 
         ButterKnife.bind(this);
@@ -71,19 +82,12 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             selectFirstItemAsDefault();
         }
-
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setHomeButtonEnabled(true);
-
     }
 
     private void selectFirstItemAsDefault() {
         //starts the main fragment first to use as the starting point for the app
         if (mNavigationManager != null) {
-//            String firstSettings = getResources().getStringArray(R.array.settings_sub_menus)[0];
-            String firstSettings = "Search";
             mNavigationManager.showFragmentMain();
-//            getSupportActionBar().setTitle(firstSettings);
         }
     }
 
@@ -93,14 +97,12 @@ public class MainActivity extends AppCompatActivity {
         navigationDrawerListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             @Override
             public void onGroupExpand(int groupPosition) {
-//                getSupportActionBar().setTitle(mExpandableListTitle.get(groupPosition).toString());
             }
         });
 
         navigationDrawerListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
             @Override
             public void onGroupCollapse(int groupPosition) {
-//                getSupportActionBar().setTitle(R.string.app_title);
             }
         });
 
@@ -108,15 +110,22 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                 String selectedItem = ((List) (mExpandableListData.get(mExpandableListTitle.get(groupPosition)))).get(childPosition).toString();
-//                getSupportActionBar().setTitle(selectedItem);
                 //checks which menu you are clicking on, home navigation is first, settings navigation is the second list
                 //probably can be changed to a switch statement later
                 if (homeNavigationTitles[0].equals(mExpandableListTitle.get(groupPosition))) {
                     mNavigationManager.showFragmentMain();
                 } else if (settingsNavigationTitles[1].compareTo(selectedItem) == 0) { //checking that selectedItem == "Settings"
                     mNavigationManager.showFragmentSettings(selectedItem);
-                } else if (listNavigationTitles[0].compareTo(selectedItem) == 0) { //checking that selectedItem == Favorite List
+                }
+                else if (settingsNavigationTitles[0].compareTo(selectedItem) == 0) { //checking that selectedItem == "User Profile"
+                    mNavigationManager.showFragmentUserProfile();
+                }
+                else if (listNavigationTitles[0].compareTo(selectedItem) == 0) { //checking that selectedItem == Favorite List
                     mNavigationManager.showFragmentList();
+                } else if (listNavigationTitles[1].compareTo(selectedItem) == 0) {
+                    mNavigationManager.showFragmentWhoLikesMe();
+                } else if (selectedItem.compareTo("Search") == 0) {
+                    mNavigationManager.showFragmentSearchCriteria();
                 } else {
                     throw new IllegalArgumentException("Not supported fragment type");
                 }
@@ -131,13 +140,11 @@ public class MainActivity extends AppCompatActivity {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_closed) {
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-//                getSupportActionBar().setTitle(R.string.app_title);
                 invalidateOptionsMenu();
             }
 
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
-//                getSupportActionBar().setTitle(mActivityTitle);
                 invalidateOptionsMenu();
             }
         };
@@ -145,6 +152,38 @@ public class MainActivity extends AppCompatActivity {
         mDrawerToggle.setDrawerIndicatorEnabled(true);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
+
+
+    // for date of birth in User Profile Fragment
+    @Override
+    protected Dialog onCreateDialog(int id) {
+
+        if (id == 999) {
+            return new DatePickerDialog(this, myDateListener, year, month, day);
+        }
+        return null;
+    }
+
+
+
+    @SuppressWarnings("deprecation")
+    public void setDate(View view) {
+        showDialog(999);
+    }
+
+    private DatePickerDialog.OnDateSetListener myDateListener = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
+            onDateClick(arg1, arg2+1, arg3);
+        }
+    };
+    private void onDateClick(int year, int month, int day) {
+        TextView txt = (TextView)findViewById(R.id.DOB_TextView);
+        txt.setText("Date of Birth : " + new StringBuilder().append(day).append("/")
+                .append(month).append("/").append(year));
+    }
+
+    // for date of birth in User Profile Fragment
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
