@@ -49,19 +49,12 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView8"
-        android:textStyle="bold"
-        android:layout_alignBottom="@+id/DOB_TextView" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Date Of Birth"
         android:id="@+id/DOB_TextView"
         android:onClick="setDate"
         android:layout_below="@+id/DisplayName_UserProfile_EditText"
-        android:layout_alignStart="@+id/DisplayName_UserProfile_EditText" />
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -69,9 +62,10 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Your Story"
         android:id="@+id/textView9"
-        android:layout_alignParentStart="true"
         android:textStyle="bold"
-        android:layout_below="@+id/textView8" />
+        android:layout_marginTop="39dp"
+        android:layout_below="@+id/DOB_TextView"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -81,7 +75,7 @@
         android:id="@+id/EditStory_EditText"
         android:layout_below="@+id/textView9"
         android:layout_alignParentEnd="true"
-        android:layout_alignStart="@+id/EditImageView" />
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -109,5 +103,43 @@
         android:id="@+id/UserProfileSave_Button"
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/DisplayName_UserProfile_EditText" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/DOB_TextView"
+        android:layout_alignEnd="@+id/EditStory_EditText"
+        android:layout_above="@+id/EditStory_EditText"
+        android:layout_toEndOf="@+id/UserProfileSave_Button"
+        android:id="@+id/radioGroup2">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Male"
+            android:id="@+id/maleRadioButton"
+            android:checked="false"
+            android:onClick="onRadioButtonChecked"
+            android:textStyle="bold" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Female"
+            android:id="@+id/femaleRadiobutton"
+            android:checked="false"
+            android:onClick="onRadioButtonChecked"
+            android:textStyle="bold" />
+
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Gender"
+        android:id="@+id/textView8"
+        android:layout_alignTop="@+id/radioGroup2"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
