@@ -125,9 +125,9 @@ public class MainActivity extends AppCompatActivity {
                 else if (settingsNavigationTitles[0].compareTo(selectedItem) == 0) { //checking that selectedItem == "User Profile"
                     mNavigationManager.showFragmentUserProfile();
                 }
-                else if (listNavigationTitles[0].compareTo(selectedItem) == 0) { //checking that selectedItem == Favorite List
+                else if (peopleNavigationTitles[0].compareTo(selectedItem) == 0) { //checking that selectedItem == Favorite List
                     mNavigationManager.showFragmentList();
-                } else if (listNavigationTitles[1].compareTo(selectedItem) == 0) {
+                } else if (peopleNavigationTitles[1].compareTo(selectedItem) == 0) {
                     mNavigationManager.showFragmentWhoLikesMe();
                 } else if (selectedItem.compareTo("Search") == 0) {
                     mNavigationManager.showFragmentSearchCriteria();
