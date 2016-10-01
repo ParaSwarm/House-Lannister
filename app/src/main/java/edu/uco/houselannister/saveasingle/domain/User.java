@@ -103,6 +103,8 @@ public class User {
     }
 
     public UserInteractions getInteractions() {
+        if(interactions == null)
+            interactions = new UserInteractions();
         return interactions;
     }
 

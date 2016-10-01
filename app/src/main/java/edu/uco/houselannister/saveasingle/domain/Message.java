@@ -1,7 +1,7 @@
 package edu.uco.houselannister.saveasingle.domain;
 
 /**
- * 
+ *
  */
 public class Message {
 
@@ -18,6 +18,8 @@ public class Message {
     private Boolean isDeletedBySender;
 
     private Boolean isDeletedByRecipient;
+
+    private Message replyToMessage;
 
     public User getTo() {
         return to;
@@ -73,6 +75,14 @@ public class Message {
 
     public void setDeletedByRecipient(Boolean deletedByRecipient) {
         isDeletedByRecipient = deletedByRecipient;
+    }
+
+    public Message getReplyToMessage() {
+        return this.replyToMessage;
+    }
+
+    public void setReplyToMessage(Message replyToMessage) {
+        this.replyToMessage = replyToMessage;
     }
 
     public String toString() {
