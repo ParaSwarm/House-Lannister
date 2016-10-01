@@ -1,4 +1,5 @@
 package edu.uco.houselannister.saveasingle.service;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -8,7 +9,7 @@ import edu.uco.houselannister.saveasingle.domain.*;
 public class AppService implements ServiceProxy {
 
     private User currentUser;
-    private Boolean isAuthenticated;
+    private User impersonatedUser;
     private Questionnaire questionnaire;
     private ArrayList<User> users;
     private ArrayList<Message> messages;
@@ -27,6 +28,100 @@ public class AppService implements ServiceProxy {
     }
 
     //endregion Implementation of Singleton Pattern for Creation
+
+    //region Implementation of Service Authentication Methods
+    @Override
+    public void Authenticate(String email, String password) {
+        Boolean isAuthenticated;
+        this.currentUser = null;
+        this.impersonatedUser = null;
+        for (User u : getUsers()) {
+            isAuthenticated = email.toLowerCase().equals(u.getEmailAddress().toLowerCase()) && password.toLowerCase().equals(u.getPassword().toLowerCase());
+            if (isAuthenticated) {
+                this.currentUser = u;
+                this.impersonatedUser = u;
+                break;
+            }
+        }
+    }
+
+    @Override
+    public Boolean isUser() {
+        return this.currentUser != null;
+    }
+
+    @Override
+    public Boolean isAdmin() {
+        if (this.currentUser != null) return this.currentUser.getAdmin();
+        return false;
+    }
+
+    @Override
+    public User getAuthenticatedUser() {
+        return this.currentUser;
+    }
+
+    @Override
+    public User getCurrentUser() {
+        return this.impersonatedUser;
+    }
+
+    @Override
+    public void setCurrentUserImpersonation(User user) {
+        this.impersonatedUser = user;
+    }
+
+    @Override
+    public void resetCurrentUserImpersonation() {
+        this.impersonatedUser = currentUser;
+    }
+    //endregion Implementation of Service Authentication Methods
+
+    //region Implementation of Preferences
+    @Override
+    public Questionnaire getQuestionnaire() {
+        if (questionnaire == null)
+            questionnaire = StaticUserModel.getQuestionnaire();
+        return questionnaire;
+    }
+
+    @Override
+    public ArrayList<Response> getUserResponses(String username) {
+        return getUser(username).getQuestionResponses();
+    }
+
+    @Override
+    public Response getUserResponse(String username, Question question) {
+        for (Response r : this.getUserResponses(username)) {
+            if (r.getQuestion().equals(question.getQuestion())) return r;
+        }
+        return null;
+    }
+    //endregion Implementation of Questionnaire Responses and Preferences
+
+    //region Implementation of UserProfile Interface
+    @Override
+    public User getUser(String username) {
+        for (User u : getUsers()) {
+            if (u.getName().toLowerCase().equals(username)) {
+                return u;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void saveUser(User user) {
+        int i = 0;
+        for (; i < StaticUserModel.getUsers().size(); ++i) {
+            if (StaticUserModel.getUsers().get(i).getName().toLowerCase().equals(user.getName().toLowerCase())) {
+                break;
+            }
+        }
+        StaticUserModel.getUsers().remove(i);
+        StaticUserModel.getUsers().add(i, user);
+    }
+    //endregion Implementation of UserProfile Interface
 
     //region Implementation of Service Model Interface
     @Override
@@ -58,99 +153,5 @@ public class AppService implements ServiceProxy {
         return ret;
     }
 
-    @Override
-    public ArrayList<Message> getInboxMessages() {
-        if (messages == null)
-            messages = StaticUserModel.getMessages();
-        return messages;
-    }
     //endregion Implementation of Service Model Interface
-
-    //region Implementation of Service Authentication Methods
-    @Override
-    public void Authenticate(String email, String password) {
-        isAuthenticated = false;
-        currentUser = null;
-        for (User u : getUsers()) {
-            this.isAuthenticated = email.toLowerCase().equals(u.getEmailAddress().toLowerCase()) && password.toLowerCase().equals(u.getPassword().toLowerCase());
-            if (isAuthenticated) {
-                this.currentUser = u;
-                break;
-            }
-        }
-    }
-
-    @Override
-    public Boolean isUser() {
-        return this.currentUser != null;
-    }
-
-    @Override
-    public Boolean isAdmin() {
-        if (this.currentUser != null) return this.currentUser.getAdmin();
-        return false;
-    }
-
-    @Override
-    public User getAuthenticatedUser() {
-        return currentUser;
-    }
-    //endregion Implementation of Service Authentication Methods
-
-    //region Implementation of Questionnaire Responses and Preferences
-    @Override
-    public Questionnaire getQuestionnaire() {
-        if(questionnaire==null)
-            questionnaire=StaticUserModel.getQuestionnaire();
-        return questionnaire;
-    }
-
-    @Override
-    public ArrayList<Response> getUserResponses(String username) {
-        return null;
-    }
-
-    @Override
-    public Response getUserResponse(String username, Question question) {
-        return null;
-    }
-    //endregion Implementation of Questionnaire Responses and Preferences
-
-    @Override
-    public User getUser(String username) {
-        User ret = null;
-        for (User u : getUsers()) {
-            if(u.getName().toLowerCase().equals(username)){
-                ret = u;
-                break;
-            }
-        }
-        return ret;
-    }
-
-    @Override
-    public void saveCurrentUser() {
-        int i=0;
-        for(; i < StaticUserModel.getUsers().size(); ++i){
-            if (StaticUserModel.getUsers().get(i).getName().toLowerCase().equals(currentUser.getName().toLowerCase())) {
-                break;
-            }
-        }
-        StaticUserModel.getUsers().remove(i);
-        StaticUserModel.getUsers().add(i,currentUser);
-
-    }
-
-    @Override
-    public void SaveUser(User user) {
-        int i=0;
-        for(; i < StaticUserModel.getUsers().size(); ++i){
-            if (StaticUserModel.getUsers().get(i).getName().toLowerCase().equals(user.getName().toLowerCase())) {
-                break;
-            }
-        }
-        StaticUserModel.getUsers().remove(i);
-        StaticUserModel.getUsers().add(i,user);
-    }
-
 }

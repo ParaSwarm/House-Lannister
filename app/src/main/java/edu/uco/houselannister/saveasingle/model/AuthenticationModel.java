@@ -46,4 +46,19 @@ public class AuthenticationModel implements Authentication {
         return this.proxy.getAuthenticatedUser();
     }
 
+    @Override
+    public User getCurrentUser() {
+        return this.proxy.getCurrentUser();
+    }
+
+    @Override
+    public void setCurrentUserImpersonation(User user) {
+        this.proxy.setCurrentUserImpersonation(user);
+    }
+
+    @Override
+    public void resetCurrentUserImpersonation() {
+        this.proxy.resetCurrentUserImpersonation();
+    }
+
 }

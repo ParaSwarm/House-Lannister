@@ -4,18 +4,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import edu.uco.houselannister.saveasingle.domain.*;
-import edu.uco.houselannister.saveasingle.model.AppModel;
 
 public class StaticUserModel {
 
-    private static User currentUser = null;
-
+    //region Private Fields
     private static Questionnaire questionnaire = null;
-
     private static ArrayList<User> users = null;
+    private static ArrayList<ZipCode> zipCodes = null;
+    //endregion Private Fields
 
-    private static ArrayList<Message> messages = null;
-
+    //region Top Level Objects (Users and Questionnaires)
     public static Questionnaire getQuestionnaire() {
         if (questionnaire == null) {
             questionnaire = new Questionnaire();
@@ -32,12 +30,6 @@ public class StaticUserModel {
         return questionnaire;
     }
 
-    public static User getCurrentUser(){
-        return currentUser == null ?
-                currentUser = AppModel.getAppModelInstance(AppService.getAppServiceInstance()).getAuthenticatedUser()
-                : currentUser;
-    }
-
     public static ArrayList<User> getUsers() {
         if (users == null) {
             users = new ArrayList<>();
@@ -45,19 +37,13 @@ public class StaticUserModel {
             users.add(CreateUser("Sierra", false, "password", "sierra@uco.edu"));
             users.add(CreateUser("Goliath", true, "password", "goliath@gmail.com"));
         }
+
+        // Interactions must be set after all users are created
+        CreateUserInteractions();
+
         return users;
     }
-
-    public static ArrayList<Message> getMessages() {
-        if (messages == null) {
-            messages = new ArrayList<>();
-            messages.add(CreateMessage(getCurrentUser(), getUsers().get(0), "I have no personality! Want to date?", "How are ya, sweetie?", false));
-            messages.add(CreateMessage(getCurrentUser(), getUsers().get(1), "I can't believe you're single, Gordon! You're so hot!", "OMG, are you single?!", false));
-            messages.add(CreateMessage(getCurrentUser(), getUsers().get(2), "I've had enough of your tomfoolery. Purchase me dinner!", "Buy me dinner or you will be sorry.", false));
-        }
-
-        return messages;
-    }
+    //endregion  Top Level Objects (Users and Questionnaires)
 
     //region Generate Sample Questionnaire
     private static Question CreateQuestion(Boolean allowMultipleResponses, QuestionCategory questionCategory, String questionText, QuestionResponseType responseType) {
@@ -115,27 +101,7 @@ public class StaticUserModel {
     }
     //endregion Generate Sample Questionnaire
 
-    //region Generate Sample Question Responses
-    private static Response CreateResponse(Integer questionIndex, String explanation, Integer myResponse, Integer... acceptableResponseParams) {
-        Response response = new Response();
-
-        response.setQuestion(getQuestionnaire().getQuestions().get(questionIndex));
-
-        response.setExplanation(explanation);
-
-        ArrayList<Integer> myResponses = new ArrayList<>();
-        myResponses.add(myResponse);
-        response.setResponses(myResponses);
-
-        ArrayList<Integer> acceptableResponses = new ArrayList<>();
-        Collections.addAll(acceptableResponses, acceptableResponseParams);
-        response.setAcceptableResponses(acceptableResponses);
-
-        return response;
-    }
-    //endregion Generate Sample Question Responses
-
-
+    //region Create User Main Method
     private static User CreateUser(String username, Boolean isAdmin, String userPassword, String userEmail) {
 
         User ret = new User();
@@ -160,37 +126,39 @@ public class StaticUserModel {
 
         ret.setUserDemographics(CreateUserDemographics());
         ret.setUserPreferences(CreateUserPreferences());
-        ret.setUserNotificationPreferences(CreateUserNotificationPreferences());
-
         ret.setUserExcludes(CreateUserExcludes());
-        ret.setInteractions(CreateUserInteractions());
+
+        ret.setUserNotificationPreferences(CreateUserNotificationPreferences());
 
         return ret;
     }
+    //endregion Create User Main Method
 
-    private static UserNotificationPreferences CreateUserNotificationPreferences() {
-        UserNotificationPreferences userNotificationPreferences = new UserNotificationPreferences();
-        return userNotificationPreferences;
+    //region Create User Helpers
+    private static Bio CreateBio() {
+        Bio bio = new Bio();
+        bio.setAboutMe("This is stuff about me.");
+        bio.setAboutYou("This is stuff about you.");
+        bio.setWhyMessageMe("This is why you should message me.");
+        return bio;
     }
 
-    private static UserPreferences CreateUserExcludes() {
-        UserPreferences userExcludes = new UserPreferences();
-        return userExcludes;
-    }
+    private static Response CreateResponse(Integer questionIndex, String explanation, Integer myResponse, Integer... acceptableResponseParams) {
+        Response response = new Response();
 
-    private static UserPreferences CreateUserPreferences() {
-        UserPreferences userPreferences = new UserPreferences();
-        return userPreferences;
-    }
+        response.setQuestion(getQuestionnaire().getQuestions().get(questionIndex));
 
-    private static UserInteractions CreateUserInteractions() {
-        UserInteractions userInteractions = new UserInteractions();
-        return userInteractions;
-    }
+        response.setExplanation(explanation);
 
-    private static UserDemographics CreateUserDemographics() {
-        UserDemographics userDemographics = new UserDemographics();
-        return userDemographics;
+        ArrayList<Integer> myResponses = new ArrayList<>();
+        myResponses.add(myResponse);
+        response.setResponses(myResponses);
+
+        ArrayList<Integer> acceptableResponses = new ArrayList<>();
+        Collections.addAll(acceptableResponses, acceptableResponseParams);
+        response.setAcceptableResponses(acceptableResponses);
+
+        return response;
     }
 
     private static Photo CreatePhoto(Boolean isPrivate) {
@@ -200,22 +168,224 @@ public class StaticUserModel {
         return photo;
     }
 
-    private static Bio CreateBio() {
-        Bio bio = new Bio();
-        bio.setAboutMe("This is stuff about me.");
-        bio.setAboutYou("This is stuff about you.");
-        bio.setWhyMessageMe("This is why you should message me.");
-        return bio;
+    private static UserDemographics CreateUserDemographics() {
+        UserDemographics userDemographics = new UserDemographics();
+        userDemographics.setMyAge(21);
+        userDemographics.setMyEducationLevel(EducationLevel.SOMECOLLEGE);
+        userDemographics.setMyEthnicity(Ethnicity.NONSPECIFIC);
+        userDemographics.setMyGender(Gender.NONSPECIFIC);
+        userDemographics.setMyReligion(Religion.NONRELIGIOUS);
+        userDemographics.setMySalaryRange(SalaryRange.GETTINGBY);
+        userDemographics.setMyStatus(Status.COMPLICATED);
+        userDemographics.setMyZipCode(CreateZipCodes().get(3));
+        userDemographics.setInterestTags(new ArrayList<Interests>() {{
+            add(Interests.COOKING);
+            add(Interests.CYCLING);
+        }});
+        userDemographics.setPersonalityTags(new ArrayList<Personality>() {{
+            add(Personality.EXTROVERT);
+            add(Personality.INSIGHTFUL);
+        }});
+        userDemographics.setRelationshipTags(new ArrayList<Relationship>() {{
+            add(Relationship.DATING);
+            add(Relationship.PLATONIC);
+        }});
+
+
+        return userDemographics;
     }
 
-    private static Message CreateMessage(User to, User from, String subjectText, String messageText, boolean read) {
+    private static UserPreferences CreateUserPreferences() {
+        UserPreferences userPreferences = new UserPreferences();
+
+        userPreferences.setAgeLow(25);
+        userPreferences.setAgeHigh(65);
+        userPreferences.setZipCodeRadius(10);
+
+        userPreferences.setPersonalityTags(new ArrayList<Personality>() {{
+            add(Personality.JUDGMENTAL);
+        }});
+        userPreferences.setRelationshipTags(new ArrayList<Relationship>() {{
+            add(Relationship.SHORTTERM);
+            add(Relationship.INTIMATE);
+        }});
+        userPreferences.setInterestTags(new ArrayList<Interests>() {{
+            add(Interests.COLLECTING);
+            add(Interests.GARDENING);
+        }});
+        userPreferences.setEduLevels(new ArrayList<EducationLevel>() {{
+            add(EducationLevel.BACHELORS);
+            add(EducationLevel.MASTERS);
+        }});
+        userPreferences.setEthnicities(new ArrayList<Ethnicity>() {{
+            add(Ethnicity.HISPANIC);
+            add(Ethnicity.OTHER);
+        }});
+        userPreferences.setGenders(new ArrayList<Gender>() {{
+            add(Gender.NONSPECIFIC);
+            add(Gender.FEMALE);
+        }});
+        userPreferences.setReligions(new ArrayList<Religion>() {{
+            add(Religion.CONFUCIUS);
+            add(Religion.JAINIST);
+        }});
+        userPreferences.setSalaryRanges(new ArrayList<SalaryRange>() {{
+            add(SalaryRange.DADDYWARBUCKS);
+            add(SalaryRange.POORSLOB);
+        }});
+        userPreferences.setStatus(new ArrayList<Status>() {{
+            add(Status.SINGLE);
+        }});
+        return userPreferences;
+    }
+
+    private static UserPreferences CreateUserExcludes() {
+        UserPreferences userExcludes = new UserPreferences();
+
+        userExcludes.setAgeLow(18);
+        userExcludes.setAgeHigh(24);
+        userExcludes.setZipCodeRadius(100);
+        userExcludes.setPersonalityTags(new ArrayList<Personality>() {{
+            add(Personality.THOUGHTFUL);
+        }});
+        userExcludes.setRelationshipTags(new ArrayList<Relationship>() {{
+            add(Relationship.PLATONIC);
+            add(Relationship.SERIOUS);
+        }});
+        userExcludes.setInterestTags(new ArrayList<Interests>() {{
+            add(Interests.MOVIES);
+            add(Interests.MARTIALARTS);
+        }});
+        userExcludes.setEduLevels(new ArrayList<EducationLevel>() {{
+            add(EducationLevel.NONE);
+            add(EducationLevel.DOCTORAL);
+        }});
+        userExcludes.setEthnicities(new ArrayList<Ethnicity>() {{
+            add(Ethnicity.OTHER);
+        }});
+        userExcludes.setGenders(new ArrayList<Gender>() {{
+            add(Gender.MALE);
+            add(Gender.FEMALE);
+        }});
+        userExcludes.setReligions(new ArrayList<Religion>() {{
+            add(Religion.NONRELIGIOUS);
+            add(Religion.PRIMAL);
+        }});
+        userExcludes.setSalaryRanges(new ArrayList<SalaryRange>() {{
+            add(SalaryRange.STARVINGARTIST);
+            add(SalaryRange.DADDYWARBUCKS);
+        }});
+        userExcludes.setStatus(new ArrayList<Status>() {{
+            add(Status.MARRIED);
+        }});
+        return userExcludes;
+    }
+
+    private static void CreateUserInteractions() {
+
+        //Messsages
+
+        ArrayList<Message> in0 = new ArrayList<>();
+        ArrayList<Message> out0 = new ArrayList<>();
+        ArrayList<Message> in1 = new ArrayList<>();
+        ArrayList<Message> out1 = new ArrayList<>();
+        ArrayList<Message> in2 = new ArrayList<>();
+        ArrayList<Message> out2 = new ArrayList<>();
+
+        /*
+            users.add(CreateUser("Jackson", false, "password", "jackson@uco.edu"));
+            users.add(CreateUser("Sierra", false, "password", "sierra@uco.edu"));
+            users.add(CreateUser("Goliath", true, "password", "goliath@gmail.com"));
+        to from
+
+        */
+        Message m1 = CreateMessage(users.get(1), users.get(0), "I have no personality! Want to date?", "How are ya, sweetie?", false, null);
+        Message m2 = CreateMessage(users.get(0), users.get(1), "I have no personality! Want to date?", "Get a personality, we'll talk", false, m1);
+        Message m3 = CreateMessage(users.get(0), users.get(1), "I can't believe you're single, Gordon! You're so hot!", "OMG, are you single?!", false, null);
+        Message m4 = CreateMessage(users.get(1), users.get(0), "I can't believe you're single, Gordon! You're so hot!", "Go fish!", false, m3);
+        Message m5 = CreateMessage(users.get(2), users.get(0), "I've had enough of your tomfoolery. Purchase me dinner!", "Buy me dinner or you will be sorry.", false, null);
+        Message m6 = CreateMessage(users.get(0), users.get(2), "I've had enough of your tomfoolery. Purchase me dinner!", "You're on!", false, m5);
+
+        out0.add(m1);
+        in1.add(m1);
+
+        out1.add(m2);
+        in0.add(m2);
+
+        out1.add(m3);
+        in0.add(m3);
+
+        out0.add(m4);
+        in1.add(m4);
+
+        out0.add(m5);
+        in2.add(m5);
+
+        out2.add(m6);
+        in0.add(m6);
+
+        users.get(0).getInteractions().setInBox(in0);
+        users.get(0).getInteractions().setOutBox(out0);
+
+//        userInteractions.setBlocked();
+//        userInteractions.setFavorites();
+//        userInteractions.setFriendRequests();
+//        userInteractions.setFriends();
+//        userInteractions.setLikes();
+//        userInteractions.setMatches();
+//        userInteractions.setMyPrivatePhotos();
+//        userInteractions.setPrivatePhotoAccess();
+//        userInteractions.setReceivedGifts();
+//        userInteractions.setRecommendees();
+//        userInteractions.setRecommenders();
+//        userInteractions.setSentGifts();
+//        userInteractions.setViewed();
+    }
+
+    private static UserNotificationPreferences CreateUserNotificationPreferences() {
+        UserNotificationPreferences userNotificationPreferences = new UserNotificationPreferences();
+
+        userNotificationPreferences.setFavorite(true);
+        userNotificationPreferences.setFriendRequestAccepted(true);
+        userNotificationPreferences.setFriendRequests(true);
+        userNotificationPreferences.setLikes(true);
+        userNotificationPreferences.setMessages(true);
+        userNotificationPreferences.setPhotoKeyAccept(true);
+        userNotificationPreferences.setPhotoKeyRequest(true);
+        userNotificationPreferences.setRecRecommendation(true);
+        userNotificationPreferences.setViews(true);
+        userNotificationPreferences.setWasRecommended(true);
+
+        return userNotificationPreferences;
+    }
+
+    //endregion Create User Helpers
+
+    //region Helper helpers ...
+    private static ArrayList<ZipCode> CreateZipCodes() {
+        if (zipCodes != null)
+            return zipCodes;
+
+        zipCodes = new ArrayList<ZipCode>() {{
+            add(new ZipCode("73012", 35.733957, -97.577310, "Edmond, OK"));
+            add(new ZipCode("73013", 35.618788, -97.484375, "Edmond, OK"));
+            add(new ZipCode("73025", 35.667234, -97.593657, "Edmond, OK"));
+            add(new ZipCode("73034", 35.703414, -97.434052, "Edmond, OK"));
+            add(new ZipCode("73003", 35.668905, -97.497380, "Edmond, OK"));
+        }};
+        return zipCodes;
+    }
+
+    private static Message CreateMessage(User to, User from, String subjectText, String messageText, boolean read, Message replyToMessage) {
         Message message = new Message();
         message.setTo(to);
         message.setFrom(from);
         message.setMessage(messageText);
         message.setSubject(subjectText);
         message.setRead(read);
+        message.setReplyToMessage(replyToMessage);
         return message;
     }
+    //endregion Helper helpers ...
 
 }
