@@ -168,7 +168,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    // for date of birth in User Profile Fragment
+    //region For date of birth in User Profile Fragment
+
     @Override
     @SuppressWarnings("deprecation")
     protected Dialog onCreateDialog(int id) {
@@ -198,7 +199,7 @@ public class MainActivity extends AppCompatActivity {
                 .append(month).append("/").append(year));
     }
 
-    // for date of birth in User Profile Fragment
+    //endregion For date of birth in User Profile Fragment
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {

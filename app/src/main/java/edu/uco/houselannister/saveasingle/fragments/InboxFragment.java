@@ -46,7 +46,7 @@ public class InboxFragment extends ListFragment implements OnItemClickListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         appModel = AppModel.getAppModelInstance(AppService.getAppServiceInstance());
-        messages =  appModel.getInboxMessages();
+        messages =  appModel.getCurrentUser().getInteractions().getInBox();
     }
 
     @Override
