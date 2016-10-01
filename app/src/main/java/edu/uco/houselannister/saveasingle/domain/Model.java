@@ -1,5 +1,10 @@
 package edu.uco.houselannister.saveasingle.domain;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Created by Gordon on 9/20/2016.
  * Application Model interface holds behaviors for the application
@@ -12,5 +17,8 @@ package edu.uco.houselannister.saveasingle.domain;
  */
 public interface Model extends Authentication, Preferences, UserProfile {
 
-    User getCurrentUser();
+    ArrayList<User> getUsers();
+    ArrayList<String> getUsernameArray();
+    ArrayList<HashMap<String, String>> getUsernameMap();
+    ArrayList<Message> getInboxMessages();
 }
