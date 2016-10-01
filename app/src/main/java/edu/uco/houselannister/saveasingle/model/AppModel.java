@@ -74,6 +74,11 @@ public class AppModel implements Model {
     public void saveCurrentUser() {
         this.proxy.saveCurrentUser();
     }
+
+    @Override
+    public void SaveUser(User user) {
+        this.proxy.SaveUser(user);
+    }
     //endregion Implementation of User Profile Interface.
 
     //region Implementation of Model Specialized methods
