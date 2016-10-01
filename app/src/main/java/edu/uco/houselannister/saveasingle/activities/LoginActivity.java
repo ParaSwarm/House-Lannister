@@ -78,7 +78,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mPasswordView = (EditText) findViewById(R.id.password);
 
         // TODO: Set these in build variants for debug
-        mEmailView.setText("jackson@uco.edu");
+        mEmailView.setText("goliath@gmail.com");
         mPasswordView.setText("password");
 
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
