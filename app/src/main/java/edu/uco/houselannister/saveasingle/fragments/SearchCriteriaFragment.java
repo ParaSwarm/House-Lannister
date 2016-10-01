@@ -10,6 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import edu.uco.houselannister.saveasingle.R;
+import edu.uco.houselannister.saveasingle.domain.Language;
+import edu.uco.houselannister.saveasingle.domain.Religion;
 
 /**
  * Created by ryan on 9/27/2016.
@@ -41,14 +43,21 @@ public class SearchCriteriaFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Spinner languageSpinner = (Spinner) view.findViewById(R.id.language_spinner);
-        ArrayAdapter<CharSequence> languageAdapter = ArrayAdapter.createFromResource(this.getContext(), R.array.language_spinner_text, android.R.layout.simple_spinner_dropdown_item);
+
+
+        ArrayAdapter<CharSequence> languageAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_dropdown_item, Language.GetNames());
+        //ArrayAdapter<CharSequence> languageAdapter = ArrayAdapter.createFromResource(this.getContext(), R.array.language_spinner_text, android.R.layout.simple_spinner_dropdown_item);
         languageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         languageSpinner.setAdapter(languageAdapter);
-        //reglion spinner
+
+        //region reglion spinner
         Spinner religionSpinner = (Spinner) view.findViewById(R.id.religion_spinner);
-        ArrayAdapter<CharSequence> religionAdapter = ArrayAdapter.createFromResource(this.getContext(), R.array.religion_spinner_text, android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> religionAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_dropdown_item, Religion.GetIsm());
+        //ArrayAdapter<CharSequence> religionAdapter = ArrayAdapter.createFromResource(this.getContext(), R.array.religion_spinner_text, android.R.layout.simple_spinner_dropdown_item);
         religionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         religionSpinner.setAdapter(religionAdapter);
+        //endregion reglion spinner
+
         //age spinner
         Spinner minAgeSpinner = (Spinner) view.findViewById(R.id.min_age_spinner);
         Integer[] ages = new Integer[]{18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
