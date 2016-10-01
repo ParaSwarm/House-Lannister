@@ -18,9 +18,6 @@ import edu.uco.houselannister.saveasingle.fragments.SearchFragment;
 import edu.uco.houselannister.saveasingle.fragments.ViewMessageFragment;
 import edu.uco.houselannister.saveasingle.fragments.UserProfile_Fragment;
 
-/**
- * Created by ryan on 9/21/2016.
- */
 public class FragmentNavigationManager implements NavigationManager {
 
     private static FragmentNavigationManager sInstance;
@@ -55,6 +52,8 @@ public class FragmentNavigationManager implements NavigationManager {
     public void showFragmentList() {
         showFragment(FavoriteListFragment.newInstance(), false);
     }
+
+    @Override
     public void showFragmentUserProfile() {
         showFragment(UserProfile_Fragment.newInstance(), false);
     }
