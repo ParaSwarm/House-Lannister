@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 import edu.uco.houselannister.saveasingle.domain.Gender;
 import edu.uco.houselannister.saveasingle.domain.User;
-import edu.uco.houselannister.saveasingle.model.AppModel;
-import edu.uco.houselannister.saveasingle.service.AppService;
 
 /**
  * Created by ryan on 9/28/2016.
