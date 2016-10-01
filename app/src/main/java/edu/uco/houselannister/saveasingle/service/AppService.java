@@ -130,6 +130,27 @@ public class AppService implements ServiceProxy {
 
     @Override
     public void saveCurrentUser() {
+        int i=0;
+        for(; i < StaticUserModel.getUsers().size(); ++i){
+            if (StaticUserModel.getUsers().get(i).getName().toLowerCase().equals(currentUser.getName().toLowerCase())) {
+                break;
+            }
+        }
+        StaticUserModel.getUsers().remove(i);
+        StaticUserModel.getUsers().add(i,currentUser);
 
     }
+
+    @Override
+    public void SaveUser(User user) {
+        int i=0;
+        for(; i < StaticUserModel.getUsers().size(); ++i){
+            if (StaticUserModel.getUsers().get(i).getName().toLowerCase().equals(user.getName().toLowerCase())) {
+                break;
+            }
+        }
+        StaticUserModel.getUsers().remove(i);
+        StaticUserModel.getUsers().add(i,user);
+    }
+
 }
