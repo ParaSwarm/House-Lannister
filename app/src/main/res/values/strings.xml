@@ -13,6 +13,7 @@
     <string-array name="people_titles">
         <item>My Favorites</item>
         <item>Who Favorited Me?</item>
+        <item>Search</item>
     </string-array>
     <string-array name="user_profile_titles">
         <item>Basic Profile</item>
@@ -31,25 +32,7 @@
     <string name="drawer_closed">Close Navigation</string>
 
     <string name="title_activity_login">SaveASingle</string>
-    <string-array name="language_spinner_text">
-        <item>English</item>
-        <item>Spanish</item>
-        <item>Chinese</item>
-        <item>Hindi</item>
-        <item>Arabic</item>
-    </string-array>
-    <string-array name="religion_spinner_text">
-        <item>Christianity</item>
-        <item>Islam</item>
-        <item>Hinduism</item>
-        <item>Buddhism</item>
-        <item>Sikhism</item>
-        <item>Judaism</item>
-        <item>Baha\'ism</item>
-        <item>Confucianism</item>
-        <item>Jainism</item>
-        <item>Shintoism</item>
-    </string-array>
+
     <string-array name="distances_to_search">
         <item>1 mile</item>
         <item>5 miles</item>
