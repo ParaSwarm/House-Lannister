@@ -1,6 +1,5 @@
 package edu.uco.houselannister.saveasingle.activities;
 
-import android.app.Fragment;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.res.Configuration;
@@ -19,18 +18,12 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import butterknife.ButterKnife;
 import edu.uco.houselannister.saveasingle.R;
 import edu.uco.houselannister.saveasingle.domain.Model;
-import edu.uco.houselannister.saveasingle.domain.Question;
-import edu.uco.houselannister.saveasingle.domain.Questionnaire;
-import edu.uco.houselannister.saveasingle.domain.Response;
-import edu.uco.houselannister.saveasingle.domain.ServiceProxy;
-import edu.uco.houselannister.saveasingle.domain.User;
 import edu.uco.houselannister.saveasingle.helpers.CustomExpandableListAdapter;
 import edu.uco.houselannister.saveasingle.helpers.ExpandableListDataSource;
 import edu.uco.houselannister.saveasingle.helpers.FragmentNavigationManager;
