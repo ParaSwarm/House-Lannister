@@ -281,8 +281,46 @@ public class StaticUserModel {
         return userExcludes;
     }
 
-    private static void CreateUserInteractions() {
+    private static UserNotificationPreferences CreateUserNotificationPreferences() {
+        UserNotificationPreferences userNotificationPreferences = new UserNotificationPreferences();
 
+        userNotificationPreferences.setFavorite(true);
+        userNotificationPreferences.setFriendRequestAccepted(true);
+        userNotificationPreferences.setFriendRequests(true);
+        userNotificationPreferences.setLikes(true);
+        userNotificationPreferences.setMessages(true);
+        userNotificationPreferences.setPhotoKeyAccept(true);
+        userNotificationPreferences.setPhotoKeyRequest(true);
+        userNotificationPreferences.setRecRecommendation(true);
+        userNotificationPreferences.setViews(true);
+        userNotificationPreferences.setWasRecommended(true);
+
+        return userNotificationPreferences;
+    }
+
+    //endregion Create User Helpers
+
+    //region Create Sample Interactions
+    private static void CreateUserInteractions() {
+        //Messsages
+        CreateUserInteractionMessages();
+
+//        userInteractions.setBlocked();
+//        userInteractions.setFavorites();
+//        userInteractions.setFriendRequests();
+//        userInteractions.setFriends();
+//        userInteractions.setLikes();
+//        userInteractions.setMatches();
+//        userInteractions.setMyPrivatePhotos();
+//        userInteractions.setPrivatePhotoAccess();
+//        userInteractions.setReceivedGifts();
+//        userInteractions.setRecommendees();
+//        userInteractions.setRecommenders();
+//        userInteractions.setSentGifts();
+//        userInteractions.setViewed();
+    }
+
+    private static void CreateUserInteractionMessages() {
         //Messsages
 
         ArrayList<Message> in0 = new ArrayList<>();
@@ -292,13 +330,6 @@ public class StaticUserModel {
         ArrayList<Message> in2 = new ArrayList<>();
         ArrayList<Message> out2 = new ArrayList<>();
 
-        /*
-            users.add(CreateUser("Jackson", false, "password", "jackson@uco.edu"));
-            users.add(CreateUser("Sierra", false, "password", "sierra@uco.edu"));
-            users.add(CreateUser("Goliath", true, "password", "goliath@gmail.com"));
-        to from
-
-        */
         Message m1 = CreateMessage(users.get(1), users.get(0), "I have no personality! Want to date?", "How are ya, sweetie?", false, null);
         Message m2 = CreateMessage(users.get(0), users.get(1), "I have no personality! Want to date?", "Get a personality, we'll talk", false, m1);
         Message m3 = CreateMessage(users.get(0), users.get(1), "I can't believe you're single, Gordon! You're so hot!", "OMG, are you single?!", false, null);
@@ -327,39 +358,15 @@ public class StaticUserModel {
         users.get(0).getInteractions().setInBox(in0);
         users.get(0).getInteractions().setOutBox(out0);
 
-//        userInteractions.setBlocked();
-//        userInteractions.setFavorites();
-//        userInteractions.setFriendRequests();
-//        userInteractions.setFriends();
-//        userInteractions.setLikes();
-//        userInteractions.setMatches();
-//        userInteractions.setMyPrivatePhotos();
-//        userInteractions.setPrivatePhotoAccess();
-//        userInteractions.setReceivedGifts();
-//        userInteractions.setRecommendees();
-//        userInteractions.setRecommenders();
-//        userInteractions.setSentGifts();
-//        userInteractions.setViewed();
+        users.get(1).getInteractions().setInBox(in1);
+        users.get(1).getInteractions().setOutBox(out1);
+
+        users.get(2).getInteractions().setInBox(in2);
+        users.get(2).getInteractions().setOutBox(out2);
     }
+    //endregion Create Sample Interactions
 
-    private static UserNotificationPreferences CreateUserNotificationPreferences() {
-        UserNotificationPreferences userNotificationPreferences = new UserNotificationPreferences();
 
-        userNotificationPreferences.setFavorite(true);
-        userNotificationPreferences.setFriendRequestAccepted(true);
-        userNotificationPreferences.setFriendRequests(true);
-        userNotificationPreferences.setLikes(true);
-        userNotificationPreferences.setMessages(true);
-        userNotificationPreferences.setPhotoKeyAccept(true);
-        userNotificationPreferences.setPhotoKeyRequest(true);
-        userNotificationPreferences.setRecRecommendation(true);
-        userNotificationPreferences.setViews(true);
-        userNotificationPreferences.setWasRecommended(true);
-
-        return userNotificationPreferences;
-    }
-
-    //endregion Create User Helpers
 
     //region Helper helpers ...
     private static ArrayList<ZipCode> CreateZipCodes() {
