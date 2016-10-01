@@ -74,4 +74,8 @@ public class Message {
     public void setDeletedByRecipient(Boolean deletedByRecipient) {
         isDeletedByRecipient = deletedByRecipient;
     }
+
+    public String toString() {
+        return "From: " + this.getFrom().getName() + "    Subject: " + this.getSubject();
+    }
 }

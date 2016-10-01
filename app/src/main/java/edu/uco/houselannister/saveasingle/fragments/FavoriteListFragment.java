@@ -2,7 +2,6 @@ package edu.uco.houselannister.saveasingle.fragments;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-
 import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
 import android.support.v7.app.AlertDialog;
@@ -12,9 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -25,9 +22,9 @@ import edu.uco.houselannister.saveasingle.model.AppModel;
 import edu.uco.houselannister.saveasingle.service.AppService;
 
 /**
- * Created by Samuel Song on 9/22/2016.
+ * Created by ThinkPad on 9/28/2016.
  */
-public class FavoriteListFragment extends ListFragment implements OnItemClickListener {
+public class FavoriteListFragment extends ListFragment implements AdapterView.OnItemClickListener {
     private Model appModel;
 
 
@@ -37,7 +34,6 @@ public class FavoriteListFragment extends ListFragment implements OnItemClickLis
     int place;
     String name;
     ActionMode check;
-
 
     public FavoriteListFragment() {
         // Required empty public constructor
@@ -160,6 +156,4 @@ public class FavoriteListFragment extends ListFragment implements OnItemClickLis
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
-
-
 }

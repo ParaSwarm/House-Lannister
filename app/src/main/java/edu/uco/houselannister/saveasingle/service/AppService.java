@@ -11,8 +11,7 @@ public class AppService implements ServiceProxy {
     private Boolean isAuthenticated;
     private Questionnaire questionnaire;
     private ArrayList<User> users;
-
-
+    private ArrayList<Message> messages;
 
     //region Implementation of Singleton Pattern for Creation
     private static ServiceProxy appServiceInstance = null;
@@ -57,6 +56,13 @@ public class AppService implements ServiceProxy {
         }
 
         return ret;
+    }
+
+    @Override
+    public ArrayList<Message> getInboxMessages() {
+        if (messages == null)
+            messages = StaticUserModel.getMessages();
+        return messages;
     }
     //endregion Implementation of Service Model Interface
 
@@ -124,6 +130,27 @@ public class AppService implements ServiceProxy {
 
     @Override
     public void saveCurrentUser() {
+        int i=0;
+        for(; i < StaticUserModel.getUsers().size(); ++i){
+            if (StaticUserModel.getUsers().get(i).getName().toLowerCase().equals(currentUser.getName().toLowerCase())) {
+                break;
+            }
+        }
+        StaticUserModel.getUsers().remove(i);
+        StaticUserModel.getUsers().add(i,currentUser);
 
     }
+
+    @Override
+    public void SaveUser(User user) {
+        int i=0;
+        for(; i < StaticUserModel.getUsers().size(); ++i){
+            if (StaticUserModel.getUsers().get(i).getName().toLowerCase().equals(user.getName().toLowerCase())) {
+                break;
+            }
+        }
+        StaticUserModel.getUsers().remove(i);
+        StaticUserModel.getUsers().add(i,user);
+    }
+
 }

@@ -1,6 +1,7 @@
 package edu.uco.houselannister.saveasingle.helpers;
 
 import android.annotation.SuppressLint;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -9,8 +10,12 @@ import edu.uco.houselannister.saveasingle.BuildConfig;
 import edu.uco.houselannister.saveasingle.R;
 import edu.uco.houselannister.saveasingle.activities.MainActivity;
 import edu.uco.houselannister.saveasingle.fragments.FavoriteListFragment;
+import edu.uco.houselannister.saveasingle.fragments.InboxFragment;
+import edu.uco.houselannister.saveasingle.fragments.WhoLikesMeFragment;
 import edu.uco.houselannister.saveasingle.fragments.MainFragment;
+import edu.uco.houselannister.saveasingle.fragments.SearchCriteriaFragment;
 import edu.uco.houselannister.saveasingle.fragments.SearchFragment;
+import edu.uco.houselannister.saveasingle.fragments.ViewMessageFragment;
 import edu.uco.houselannister.saveasingle.fragments.UserProfile_Fragment;
 
 /**
@@ -38,7 +43,6 @@ public class FragmentNavigationManager implements NavigationManager {
 
     @Override
     public void showFragmentSettings(String title) {
-        //called when wanting to show the settings fragment
         showFragment(SearchFragment.newInstance(title), false);
     }
 
@@ -55,12 +59,36 @@ public class FragmentNavigationManager implements NavigationManager {
         showFragment(UserProfile_Fragment.newInstance(), false);
     }
 
+    @Override
+    public void showFragmentWhoLikesMe() {
+        showFragment(WhoLikesMeFragment.newInstance(), false);
+    }
+
+    @Override
+    public void showFragmentSearchCriteria() {
+        showFragment(SearchCriteriaFragment.newInstance(), false);
+    }
+
+    @Override
+    public void showFragmentInbox() {
+        showFragment(InboxFragment.newInstance(), false);
+    }
+
+    @Override
+    public void showFragmentViewMessage(Bundle data) {
+        ViewMessageFragment viewMessageFragment = new ViewMessageFragment();
+        viewMessageFragment.setArguments(data);
+        showFragment(viewMessageFragment, false);
+    }
+
     private void showFragment(Fragment fragment, boolean allowStateLoss) {
         //actually handles creating the fragment and sending to the caller to change
         FragmentManager fm = mFragmentManager;
 
         @SuppressLint("CommitTransaction")
         FragmentTransaction ft = fm.beginTransaction().replace(R.id.container, fragment);
+
+
 
 //        ft.addToBackStack(null);
 

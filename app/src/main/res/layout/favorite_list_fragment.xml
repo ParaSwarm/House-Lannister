@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="edu.uco.houselannister.saveasingle.fragments.FavoriteListFragment">
+    tools:context=".fragments.WhoLikesMeFragment">
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/movie_icon_container_height">
@@ -14,7 +14,7 @@
                 android:gravity="center"
                 android:padding="@dimen/layout_padding_default"
                 android:text="list favorite fragment"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+                android:textAppearance="?android:textAppearanceLarge" />
 
         </FrameLayout>
 
@@ -23,6 +23,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/layout_padding_default"
-            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"/>
+            android:textAppearance="?android:textAppearanceLarge"/>
 
     </LinearLayout>
