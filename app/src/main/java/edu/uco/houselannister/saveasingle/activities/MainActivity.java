@@ -1,5 +1,6 @@
 package edu.uco.houselannister.saveasingle.activities;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.res.Configuration;
@@ -68,10 +69,11 @@ public class MainActivity extends AppCompatActivity {
 
         mNavigationManager = FragmentNavigationManager.obtain(this);
         LayoutInflater inflater = getLayoutInflater();
+        @SuppressLint("InflateParams")
         View listHeaderView = inflater.inflate(R.layout.nav_header, null, false);
         navigationDrawerListView.addHeaderView(listHeaderView);
         mExpandableListData = ExpandableListDataSource.getData(this);
-        mExpandableListTitle = new ArrayList(mExpandableListData.keySet());
+        mExpandableListTitle = mExpandableListTitle == null ? new ArrayList(mExpandableListData.keySet()) : mExpandableListTitle;
         addDrawerItems();
         setupDrawer();
         if (savedInstanceState == null) {
@@ -149,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
         };
 
         mDrawerToggle.setDrawerIndicatorEnabled(true);
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        mDrawerLayout.addDrawerListener(mDrawerToggle);
     }
 
     public void onRadioButtonChecked(View v) {
@@ -163,12 +165,12 @@ public class MainActivity extends AppCompatActivity {
                 if (checked)
                     break;
         }
-
-
     }
+
 
     // for date of birth in User Profile Fragment
     @Override
+    @SuppressWarnings("deprecation")
     protected Dialog onCreateDialog(int id) {
 
         if (id == 999) {

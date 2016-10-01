@@ -68,16 +68,16 @@ public class WhoLikesMeFragment extends ListFragment implements OnItemClickListe
                 mMode = null;
                 pos = position;
                 new AlertDialog.Builder(getActivity())
-                        .setTitle(getResources().getStringArray(R.array.user_list)[position])
+                        .setTitle(appModel.getUsers().get(position).getName())
                         .setItems(array, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 switch (which) {
                                     case 0:
-                                        Toast.makeText(getActivity(), getResources().getStringArray(R.array.user_list)[pos] + " is added to My Likes.", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getActivity(), appModel.getUsers().get(pos).getName() + " is added to My Likes.", Toast.LENGTH_SHORT).show();
                                         break;
                                     case 1:
                                         new AlertDialog.Builder(getActivity())
-                                                .setTitle("Do you want to share the private album with " + getResources().getStringArray(R.array.user_list)[pos] + "?")
+                                                .setTitle("Do you want to share the private album with " + appModel.getUsers().get(pos).getName() + "?")
                                                 .setNegativeButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                                     public void onClick(DialogInterface dialog, int which) {
                                                         // do nothing
@@ -92,7 +92,7 @@ public class WhoLikesMeFragment extends ListFragment implements OnItemClickListe
                                         break;
                                     case 2:
                                         new AlertDialog.Builder(getActivity())
-                                                .setTitle("Do you want to block " + getResources().getStringArray(R.array.user_list)[pos] + "?")
+                                                .setTitle("Do you want to block " + appModel.getUsers().get(pos).getName() + "?")
                                                 .setNegativeButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                                     public void onClick(DialogInterface dialog, int which) {
                                                         // do nothing
@@ -121,7 +121,7 @@ public class WhoLikesMeFragment extends ListFragment implements OnItemClickListe
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(getActivity(), "User: " + getResources().getStringArray(R.array.user_list)[position], Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "User: " + appModel.getUsers().get(position).getName(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
