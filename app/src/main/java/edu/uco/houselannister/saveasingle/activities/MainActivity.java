@@ -116,17 +116,17 @@ public class MainActivity extends AppCompatActivity {
 
                 //checks which menu you are clicking on, home navigation is first, settings navigation is the second list
                 //probably can be changed to a switch statement later
-                if (homeNavigationTitles[0].compareTo(selectedItem) == 0) {
+                if (homeNavigationTitles[0].compareTo(selectedItem) == 0) { // Home
                     mNavigationManager.showFragmentMain();
                 } else if (homeNavigationTitles[1].compareTo(selectedItem) == 0) {  // Inbox
                     mNavigationManager.showFragmentInbox();
                 } else if (settingsNavigationTitles[0].compareTo(selectedItem) == 0) {
-                    mNavigationManager.showFragmentSettings(selectedItem);
-                }
-                else if (settingsNavigationTitles[0].compareTo(selectedItem) == 0) { //checking that selectedItem == "User Profile"
                     mNavigationManager.showFragmentUserProfile();
-                }
-                else if (peopleNavigationTitles[0].compareTo(selectedItem) == 0) { //checking that selectedItem == Favorite List
+                } else if (settingsNavigationTitles[1].compareTo(selectedItem) == 0) { // TODO : Implement this, currently set to main fragment to avoid exception
+                    mNavigationManager.showFragmentMain();
+                } else if (settingsNavigationTitles[2].compareTo(selectedItem) == 0) {
+                    mNavigationManager.showFragmentSettings(selectedItem);
+                } else if (peopleNavigationTitles[0].compareTo(selectedItem) == 0) {
                     mNavigationManager.showFragmentList();
                 } else if (peopleNavigationTitles[1].compareTo(selectedItem) == 0) {
                     mNavigationManager.showFragmentWhoLikesMe();
@@ -159,17 +159,17 @@ public class MainActivity extends AppCompatActivity {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
 
-    public void onRadioButtonChecked(View v){
+    public void onRadioButtonChecked(View v) {
         boolean checked = ((RadioButton) v).isChecked();
-        switch(v.getId()){
+        switch (v.getId()) {
             case R.id.maleRadioButton:
                 if (checked)
                     break;
 
             case R.id.femaleRadiobutton:
-                if(checked)
+                if (checked)
                     break;
-                }
+        }
 
 
     }
@@ -185,7 +185,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     @SuppressWarnings("deprecation")
     public void setDate(View view) {
         showDialog(999);
@@ -194,11 +193,12 @@ public class MainActivity extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener myDateListener = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
-            onDateClick(arg1, arg2+1, arg3);
+            onDateClick(arg1, arg2 + 1, arg3);
         }
     };
+
     private void onDateClick(int year, int month, int day) {
-        TextView txt = (TextView)findViewById(R.id.DOB_TextView);
+        TextView txt = (TextView) findViewById(R.id.DOB_TextView);
         txt.setText("Date of Birth : " + new StringBuilder().append(day).append("/")
                 .append(month).append("/").append(year));
     }
