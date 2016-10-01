@@ -1,5 +1,6 @@
 package edu.uco.houselannister.saveasingle.activities;
 
+import android.app.Fragment;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.res.Configuration;
@@ -14,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ExpandableListView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -40,7 +42,7 @@ import edu.uco.houselannister.saveasingle.service.AppService;
 public class MainActivity extends AppCompatActivity {
     private String[] settingsNavigationTitles;
     private String[] homeNavigationTitles;
-    private String[] listNavigationTitles;
+    private String[] peopleNavigationTitles;
     private DrawerLayout mDrawerLayout;
     private ExpandableListView navigationDrawerListView;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -66,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         mActivityTitle = getTitle().toString();
         settingsNavigationTitles = getResources().getStringArray(R.array.user_profile_titles);
         homeNavigationTitles = getResources().getStringArray(R.array.home_menu_titles);
-        listNavigationTitles = getResources().getStringArray(R.array.friends_list_titles);    ///////////////////// home titles
+        peopleNavigationTitles = getResources().getStringArray(R.array.people_titles);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationDrawerListView = (ExpandableListView) findViewById(R.id.navList);
 
@@ -110,19 +112,23 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                 String selectedItem = ((List) (mExpandableListData.get(mExpandableListTitle.get(groupPosition)))).get(childPosition).toString();
+//                getSupportActionBar().setTitle(selectedItem);
+
                 //checks which menu you are clicking on, home navigation is first, settings navigation is the second list
                 //probably can be changed to a switch statement later
-                if (homeNavigationTitles[0].equals(mExpandableListTitle.get(groupPosition))) {
+                if (homeNavigationTitles[0].compareTo(selectedItem) == 0) { // Home
                     mNavigationManager.showFragmentMain();
-                } else if (settingsNavigationTitles[1].compareTo(selectedItem) == 0) { //checking that selectedItem == "Settings"
-                    mNavigationManager.showFragmentSettings(selectedItem);
-                }
-                else if (settingsNavigationTitles[0].compareTo(selectedItem) == 0) { //checking that selectedItem == "User Profile"
+                } else if (homeNavigationTitles[1].compareTo(selectedItem) == 0) {  // Inbox
+                    mNavigationManager.showFragmentInbox();
+                } else if (settingsNavigationTitles[0].compareTo(selectedItem) == 0) {
                     mNavigationManager.showFragmentUserProfile();
-                }
-                else if (listNavigationTitles[0].compareTo(selectedItem) == 0) { //checking that selectedItem == Favorite List
+                } else if (settingsNavigationTitles[1].compareTo(selectedItem) == 0) { // TODO : Implement this, currently set to main fragment to avoid exception
+                    mNavigationManager.showFragmentMain();
+                } else if (settingsNavigationTitles[2].compareTo(selectedItem) == 0) {
+                    mNavigationManager.showFragmentSettings(selectedItem);
+                } else if (peopleNavigationTitles[0].compareTo(selectedItem) == 0) {
                     mNavigationManager.showFragmentList();
-                } else if (listNavigationTitles[1].compareTo(selectedItem) == 0) {
+                } else if (peopleNavigationTitles[1].compareTo(selectedItem) == 0) {
                     mNavigationManager.showFragmentWhoLikesMe();
                 } else if (selectedItem.compareTo("Search") == 0) {
                     mNavigationManager.showFragmentSearchCriteria();
@@ -153,6 +159,20 @@ public class MainActivity extends AppCompatActivity {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
 
+    public void onRadioButtonChecked(View v) {
+        boolean checked = ((RadioButton) v).isChecked();
+        switch (v.getId()) {
+            case R.id.maleRadioButton:
+                if (checked)
+                    break;
+
+            case R.id.femaleRadiobutton:
+                if (checked)
+                    break;
+        }
+
+
+    }
 
     // for date of birth in User Profile Fragment
     @Override
@@ -165,7 +185,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     @SuppressWarnings("deprecation")
     public void setDate(View view) {
         showDialog(999);
@@ -174,11 +193,12 @@ public class MainActivity extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener myDateListener = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
-            onDateClick(arg1, arg2+1, arg3);
+            onDateClick(arg1, arg2 + 1, arg3);
         }
     };
+
     private void onDateClick(int year, int month, int day) {
-        TextView txt = (TextView)findViewById(R.id.DOB_TextView);
+        TextView txt = (TextView) findViewById(R.id.DOB_TextView);
         txt.setText("Date of Birth : " + new StringBuilder().append(day).append("/")
                 .append(month).append("/").append(year));
     }

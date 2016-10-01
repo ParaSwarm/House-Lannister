@@ -4,12 +4,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import edu.uco.houselannister.saveasingle.domain.*;
+import edu.uco.houselannister.saveasingle.model.AppModel;
 
 public class StaticUserModel {
+
+    private static User currentUser = null;
 
     private static Questionnaire questionnaire = null;
 
     private static ArrayList<User> users = null;
+
+    private static ArrayList<Message> messages = null;
 
     public static Questionnaire getQuestionnaire() {
         if (questionnaire == null) {
@@ -27,6 +32,12 @@ public class StaticUserModel {
         return questionnaire;
     }
 
+    public static User getCurrentUser(){
+        return currentUser == null ?
+                currentUser = AppModel.getAppModelInstance(AppService.getAppServiceInstance()).getAuthenticatedUser()
+                : currentUser;
+    }
+
     public static ArrayList<User> getUsers() {
         if (users == null) {
             users = new ArrayList<>();
@@ -35,6 +46,17 @@ public class StaticUserModel {
             users.add(CreateUser("Goliath", true, "password", "goliath@gmail.com"));
         }
         return users;
+    }
+
+    public static ArrayList<Message> getMessages() {
+        if (messages == null) {
+            messages = new ArrayList<>();
+            messages.add(CreateMessage(getCurrentUser(), getUsers().get(0), "I have no personality! Want to date?", "How are ya, sweetie?", false));
+            messages.add(CreateMessage(getCurrentUser(), getUsers().get(1), "I can't believe you're single, Gordon! You're so hot!", "OMG, are you single?!", false));
+            messages.add(CreateMessage(getCurrentUser(), getUsers().get(2), "I've had enough of your tomfoolery. Purchase me dinner!", "Buy me dinner or you will be sorry.", false));
+        }
+
+        return messages;
     }
 
     //region Generate Sample Questionnaire
@@ -186,5 +208,14 @@ public class StaticUserModel {
         return bio;
     }
 
+    private static Message CreateMessage(User to, User from, String subjectText, String messageText, boolean read) {
+        Message message = new Message();
+        message.setTo(to);
+        message.setFrom(from);
+        message.setMessage(messageText);
+        message.setSubject(subjectText);
+        message.setRead(read);
+        return message;
+    }
 
 }
