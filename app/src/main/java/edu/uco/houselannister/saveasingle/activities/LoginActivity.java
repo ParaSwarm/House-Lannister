@@ -78,8 +78,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mPasswordView = (EditText) findViewById(R.id.password);
 
         //region Test Account
-        //mEmailView.setText("goliath@gmail.com");
-        mEmailView.setText("jackson@uco.edu");
+        mEmailView.setText("goliath@gmail.com");
+        //mEmailView.setText("jackson@uco.edu");
         mPasswordView.setText("password");
         //endregion Test Account
 

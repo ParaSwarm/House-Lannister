@@ -9,10 +9,11 @@ import android.support.v4.app.FragmentTransaction;
 import edu.uco.houselannister.saveasingle.BuildConfig;
 import edu.uco.houselannister.saveasingle.R;
 import edu.uco.houselannister.saveasingle.activities.MainActivity;
+import edu.uco.houselannister.saveasingle.fragments.AdminUsersFragment;
 import edu.uco.houselannister.saveasingle.fragments.FavoriteListFragment;
 import edu.uco.houselannister.saveasingle.fragments.InboxFragment;
-import edu.uco.houselannister.saveasingle.fragments.WhoLikesMeFragment;
 import edu.uco.houselannister.saveasingle.fragments.MainFragment;
+import edu.uco.houselannister.saveasingle.fragments.WhoLikesMeFragment;
 import edu.uco.houselannister.saveasingle.fragments.SearchCriteriaFragment;
 import edu.uco.houselannister.saveasingle.fragments.SearchFragment;
 import edu.uco.houselannister.saveasingle.fragments.ViewMessageFragment;
@@ -20,10 +21,12 @@ import edu.uco.houselannister.saveasingle.fragments.UserProfile_Fragment;
 
 public class FragmentNavigationManager implements NavigationManager {
 
-    private static FragmentNavigationManager sInstance;
 
-    private FragmentManager mFragmentManager;
+
+    //region Singleton Constructor
+    private static FragmentNavigationManager sInstance;
     private MainActivity mActivity;
+    private FragmentManager mFragmentManager;
 
     public static FragmentNavigationManager obtain(MainActivity activity) {
         if (sInstance == null) {
@@ -37,6 +40,7 @@ public class FragmentNavigationManager implements NavigationManager {
         mActivity = activity;
         mFragmentManager = mActivity.getSupportFragmentManager();
     }
+    //endregion
 
     @Override
     public void showFragmentSettings(String title) {
@@ -56,6 +60,11 @@ public class FragmentNavigationManager implements NavigationManager {
     @Override
     public void showFragmentUserProfile() {
         showFragment(UserProfile_Fragment.newInstance(), false);
+    }
+
+    @Override
+    public void showFragmentAdminUsers() {
+        showFragment(AdminUsersFragment.newInstance(1), false);
     }
 
     @Override
