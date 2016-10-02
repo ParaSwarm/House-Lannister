@@ -103,7 +103,7 @@ public class AppService implements ServiceProxy {
     @Override
     public User getUser(String username) {
         for (User u : getUsers()) {
-            if (u.getName().toLowerCase().equals(username)) {
+            if (u.getName().toLowerCase().equals(username.toLowerCase())) {
                 return u;
             }
         }
@@ -118,8 +118,26 @@ public class AppService implements ServiceProxy {
                 break;
             }
         }
-        StaticUserModel.getUsers().remove(i);
-        StaticUserModel.getUsers().add(i, user);
+
+        if (StaticUserModel.getUsers().size() > i) {
+            StaticUserModel.getUsers().remove(i);
+            StaticUserModel.getUsers().add(i, user);
+        } else {
+            StaticUserModel.getUsers().add(user);
+        }
+    }
+
+    public void deleteUser(User user) {
+        int i = 0;
+        for (; i < StaticUserModel.getUsers().size(); ++i) {
+            if (StaticUserModel.getUsers().get(i).getName().toLowerCase().equals(user.getName().toLowerCase())) {
+                break;
+            }
+        }
+
+        if (StaticUserModel.getUsers().size() > i) {
+            StaticUserModel.getUsers().remove(i);
+        }
     }
     //endregion Implementation of UserProfile Interface
 

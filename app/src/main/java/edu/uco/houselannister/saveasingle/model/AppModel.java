@@ -89,6 +89,11 @@ public class AppModel implements Model {
     public void saveUser(User user) {
         UserProfileModel.getUserProfileInstance(proxy).saveUser(user);
     }
+
+    @Override
+    public  void deleteUser(User user){
+        UserProfileModel.getUserProfileInstance(proxy).deleteUser(user);
+    }
     //endregion Implementation of User Profile Interface.
 
     //region Implementation of Model Specialized methods

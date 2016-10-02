@@ -10,4 +10,6 @@ public interface UserProfile {
     User getUser(String username );
 
     void saveUser(User user);
+
+    void deleteUser(User user);
 }

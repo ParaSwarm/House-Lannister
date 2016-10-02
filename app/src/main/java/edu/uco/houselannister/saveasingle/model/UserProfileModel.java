@@ -36,4 +36,9 @@ public class UserProfileModel implements UserProfile {
     public void saveUser(User user) {
         this.proxy.saveUser(user);
     }
+
+    @Override
+    public void deleteUser(User user) {
+        this.proxy.deleteUser(user);
+    }
 }
