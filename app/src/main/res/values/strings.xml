@@ -6,7 +6,10 @@
         <item>Home</item>
         <item>User Profile</item>
         <item>People</item>
+        <item>Admin</item>
     </string-array>
+
+    <string name="admin_key">Admin</string>
 
     <string-array name="home_menu_titles">
         <item>Home</item>
@@ -29,6 +32,12 @@
         <item>My Likes</item>
         <item>Who Likes Me</item>
         <item>Search</item>
+    </string-array>
+
+    <string-array name="admin_titles">
+        <item>List Users</item>
+        <item>List Questions</item>
+        <item>List Zip Codes</item>
     </string-array>
 
     <string-array name="settings_sub_menus">

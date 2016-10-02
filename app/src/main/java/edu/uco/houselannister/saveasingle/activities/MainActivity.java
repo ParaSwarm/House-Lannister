@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindArray;
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.uco.houselannister.saveasingle.R;
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     @BindArray(R.array.people_titles) public String[] peopleNavigationTitles;
     @BindView(R.id.navList) ExpandableListView navigationDrawerListView;
     @BindView(R.id.drawer_layout) DrawerLayout mDrawerLayout;
+    @BindString(R.string.admin_key) String mAdminKey;
 
     private ActionBarDrawerToggle mDrawerToggle;
     private NavigationManager mNavigationManager;
@@ -70,6 +72,9 @@ public class MainActivity extends AppCompatActivity {
         View listHeaderView = inflater.inflate(R.layout.nav_header, null, false);
         navigationDrawerListView.addHeaderView(listHeaderView);
         mExpandableListData = ExpandableListDataSource.getData(this);
+        if(!appModel.getAuthenticatedUser().getAdmin()){
+            mExpandableListData.remove(mAdminKey);
+        }
         mExpandableListTitle = mExpandableListTitle == null ? new ArrayList(mExpandableListData.keySet()) : mExpandableListTitle;
         addDrawerItems();
         setupDrawer();
