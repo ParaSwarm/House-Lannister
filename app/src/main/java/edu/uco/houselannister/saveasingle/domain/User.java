@@ -55,6 +55,8 @@ public class User {
     }
 
     public UserDemographics getUserDemographics() {
+        if (userDemographics == null)
+            userDemographics = new UserDemographics();
         return userDemographics;
     }
 
@@ -103,7 +105,7 @@ public class User {
     }
 
     public UserInteractions getInteractions() {
-        if(interactions == null)
+        if (interactions == null)
             interactions = new UserInteractions();
         return interactions;
     }
