@@ -15,4 +15,5 @@ public interface NavigationManager {
     void showFragmentWhoLikesMe();
     void showFragmentSearchCriteria();
     void showFragmentUserProfile();
+    void showFragmentAdminUsers();
 }

@@ -17,6 +17,7 @@ import android.widget.DatePicker;
 import android.widget.ExpandableListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.uco.houselannister.saveasingle.R;
 import edu.uco.houselannister.saveasingle.domain.Model;
+import edu.uco.houselannister.saveasingle.domain.User;
+import edu.uco.houselannister.saveasingle.fragments.AdminUsersFragment;
 import edu.uco.houselannister.saveasingle.helpers.CustomExpandableListAdapter;
 import edu.uco.houselannister.saveasingle.helpers.ExpandableListDataSource;
 import edu.uco.houselannister.saveasingle.helpers.FragmentNavigationManager;
@@ -36,14 +39,22 @@ import edu.uco.houselannister.saveasingle.model.AppModel;
 import edu.uco.houselannister.saveasingle.service.AppService;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AdminUsersFragment.OnUserAdminListFragmentInteractionListener {
 
-    @BindArray(R.array.user_profile_titles) public String[] settingsNavigationTitles;
-    @BindArray(R.array.home_menu_titles) public String[] homeNavigationTitles;
-    @BindArray(R.array.people_titles) public String[] peopleNavigationTitles;
-    @BindView(R.id.navList) ExpandableListView navigationDrawerListView;
-    @BindView(R.id.drawer_layout) DrawerLayout mDrawerLayout;
-    @BindString(R.string.admin_key) String mAdminKey;
+    @BindArray(R.array.user_profile_titles)
+    public String[] settingsNavigationTitles;
+    @BindArray(R.array.home_menu_titles)
+    public String[] homeNavigationTitles;
+    @BindArray(R.array.admin_titles)
+    public String[] adminNavigationTitles;
+    @BindArray(R.array.people_titles)
+    public String[] peopleNavigationTitles;
+    @BindView(R.id.navList)
+    ExpandableListView navigationDrawerListView;
+    @BindView(R.id.drawer_layout)
+    DrawerLayout mDrawerLayout;
+    @BindString(R.string.admin_key)
+    String mAdminKey;
 
     private ActionBarDrawerToggle mDrawerToggle;
     private NavigationManager mNavigationManager;
@@ -72,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         View listHeaderView = inflater.inflate(R.layout.nav_header, null, false);
         navigationDrawerListView.addHeaderView(listHeaderView);
         mExpandableListData = ExpandableListDataSource.getData(this);
-        if(!appModel.getAuthenticatedUser().getAdmin()){
+        if (!appModel.getAuthenticatedUser().getAdmin()) {
             mExpandableListData.remove(mAdminKey);
         }
         mExpandableListTitle = mExpandableListTitle == null ? new ArrayList(mExpandableListData.keySet()) : mExpandableListTitle;
@@ -129,6 +140,12 @@ public class MainActivity extends AppCompatActivity {
                     mNavigationManager.showFragmentWhoLikesMe();
                 } else if (selectedItem.compareTo("Search") == 0) {
                     mNavigationManager.showFragmentSearchCriteria();
+                } else if (adminNavigationTitles[0].compareTo(selectedItem) == 0) {
+                    mNavigationManager.showFragmentAdminUsers();
+                } else if (adminNavigationTitles[1].compareTo(selectedItem) == 0) {
+                    mNavigationManager.showFragmentMain();
+                } else if (adminNavigationTitles[2].compareTo(selectedItem) == 0) {
+                    mNavigationManager.showFragmentMain();
                 } else {
                     throw new IllegalArgumentException("Not supported fragment type");
                 }
@@ -236,5 +253,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onUserAdminListFragmentInteraction(User userItem) {
+        appModel.setCurrentUserImpersonation(userItem);
+        Toast.makeText(MainActivity.this, "Now Impersonating " + userItem.getName(), Toast.LENGTH_SHORT).show();
     }
 }
