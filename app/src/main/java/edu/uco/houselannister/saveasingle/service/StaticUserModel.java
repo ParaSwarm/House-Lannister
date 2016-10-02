@@ -164,7 +164,6 @@ public class StaticUserModel {
     private static Photo CreatePhoto(Boolean isPrivate) {
         Photo photo = new Photo();
         photo.setPrivate(isPrivate);
-        // TODO: Implement URI and Blob Storage for images
         return photo;
     }
 

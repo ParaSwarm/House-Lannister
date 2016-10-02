@@ -77,7 +77,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mPasswordView = (EditText) findViewById(R.id.password);
 
-        // TODO: Set these in build variants for debug
         mEmailView.setText("goliath@gmail.com");
         mPasswordView.setText("password");
 
@@ -325,7 +324,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             appModel.Authenticate(mEmail,mPassword);
 
-            // TODO: register the new account here.
             return appModel.isUser();
         }
 

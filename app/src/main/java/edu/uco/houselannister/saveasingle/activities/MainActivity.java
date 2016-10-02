@@ -110,11 +110,11 @@ public class MainActivity extends AppCompatActivity {
                 //probably can be changed to a switch statement later
                 if (homeNavigationTitles[0].compareTo(selectedItem) == 0) { // Home
                     mNavigationManager.showFragmentMain();
-                } else if (homeNavigationTitles[1].compareTo(selectedItem) == 0) {  // Inbox
+                } else if (homeNavigationTitles[1].compareTo(selectedItem) == 0) {
                     mNavigationManager.showFragmentInbox();
                 } else if (settingsNavigationTitles[0].compareTo(selectedItem) == 0) {
                     mNavigationManager.showFragmentUserProfile();
-                } else if (settingsNavigationTitles[1].compareTo(selectedItem) == 0) { // TODO : Implement this, currently set to main fragment to avoid exception
+                } else if (settingsNavigationTitles[1].compareTo(selectedItem) == 0) {
                     mNavigationManager.showFragmentMain();
                 } else if (settingsNavigationTitles[2].compareTo(selectedItem) == 0) {
                     mNavigationManager.showFragmentSettings(selectedItem);
