@@ -34,6 +34,6 @@ public class StaticUserModelTest {
 
     @Test
     public void testGetQuestionnaire() throws Exception {
-
+        assertFalse("Test Method Not Implemented", true);
     }
 }

@@ -1,5 +1,6 @@
 package edu.uco.houselannister.saveasingle.activities;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.res.Configuration;
@@ -21,6 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.BindArray;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.uco.houselannister.saveasingle.R;
 import edu.uco.houselannister.saveasingle.domain.Model;
@@ -33,11 +36,13 @@ import edu.uco.houselannister.saveasingle.service.AppService;
 
 
 public class MainActivity extends AppCompatActivity {
-    private String[] settingsNavigationTitles;
-    private String[] homeNavigationTitles;
-    private String[] peopleNavigationTitles;
-    private DrawerLayout mDrawerLayout;
-    private ExpandableListView navigationDrawerListView;
+
+    @BindArray(R.array.user_profile_titles) public String[] settingsNavigationTitles;
+    @BindArray(R.array.home_menu_titles) public String[] homeNavigationTitles;
+    @BindArray(R.array.people_titles) public String[] peopleNavigationTitles;
+    @BindView(R.id.navList) ExpandableListView navigationDrawerListView;
+    @BindView(R.id.drawer_layout) DrawerLayout mDrawerLayout;
+
     private ActionBarDrawerToggle mDrawerToggle;
     private NavigationManager mNavigationManager;
     private Map<String, List<String>> mExpandableListData;
@@ -48,30 +53,24 @@ public class MainActivity extends AppCompatActivity {
     private int year, month, day;
     String radioButton = "";
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        appModel = AppModel.getAppModelInstance(AppService.getAppServiceInstance());
-
-
         ButterKnife.bind(this);
+        appModel = AppModel.getAppModelInstance(AppService.getAppServiceInstance());
 
         //navigation drawer
         mActivityTitle = getTitle().toString();
-        settingsNavigationTitles = getResources().getStringArray(R.array.user_profile_titles);
-        homeNavigationTitles = getResources().getStringArray(R.array.home_menu_titles);
-        peopleNavigationTitles = getResources().getStringArray(R.array.people_titles);
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        navigationDrawerListView = (ExpandableListView) findViewById(R.id.navList);
-
 
         mNavigationManager = FragmentNavigationManager.obtain(this);
         LayoutInflater inflater = getLayoutInflater();
+        @SuppressLint("InflateParams")
         View listHeaderView = inflater.inflate(R.layout.nav_header, null, false);
         navigationDrawerListView.addHeaderView(listHeaderView);
         mExpandableListData = ExpandableListDataSource.getData(this);
-        mExpandableListTitle = new ArrayList(mExpandableListData.keySet());
+        mExpandableListTitle = mExpandableListTitle == null ? new ArrayList(mExpandableListData.keySet()) : mExpandableListTitle;
         addDrawerItems();
         setupDrawer();
         if (savedInstanceState == null) {
@@ -111,11 +110,11 @@ public class MainActivity extends AppCompatActivity {
                 //probably can be changed to a switch statement later
                 if (homeNavigationTitles[0].compareTo(selectedItem) == 0) { // Home
                     mNavigationManager.showFragmentMain();
-                } else if (homeNavigationTitles[1].compareTo(selectedItem) == 0) {  // Inbox
+                } else if (homeNavigationTitles[1].compareTo(selectedItem) == 0) {
                     mNavigationManager.showFragmentInbox();
                 } else if (settingsNavigationTitles[0].compareTo(selectedItem) == 0) {
                     mNavigationManager.showFragmentUserProfile();
-                } else if (settingsNavigationTitles[1].compareTo(selectedItem) == 0) { // TODO : Implement this, currently set to main fragment to avoid exception
+                } else if (settingsNavigationTitles[1].compareTo(selectedItem) == 0) {
                     mNavigationManager.showFragmentMain();
                 } else if (settingsNavigationTitles[2].compareTo(selectedItem) == 0) {
                     mNavigationManager.showFragmentSettings(selectedItem);
@@ -149,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
         };
 
         mDrawerToggle.setDrawerIndicatorEnabled(true);
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        mDrawerLayout.addDrawerListener(mDrawerToggle);
     }
 
     public void onRadioButtonChecked(View v) {
@@ -163,12 +162,13 @@ public class MainActivity extends AppCompatActivity {
                 if (checked)
                     break;
         }
-
-
     }
 
-    // for date of birth in User Profile Fragment
+
+    //region For date of birth in User Profile Fragment
+
     @Override
+    @SuppressWarnings("deprecation")
     protected Dialog onCreateDialog(int id) {
 
         if (id == 999) {
@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
                 .append(month).append("/").append(year));
     }
 
-    // for date of birth in User Profile Fragment
+    //endregion For date of birth in User Profile Fragment
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {

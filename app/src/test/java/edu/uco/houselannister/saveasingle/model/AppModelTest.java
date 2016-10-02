@@ -2,10 +2,18 @@ package edu.uco.houselannister.saveasingle.model;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.util.ArrayList;
+
+import edu.uco.houselannister.saveasingle.domain.Interests;
 import edu.uco.houselannister.saveasingle.domain.Model;
+import edu.uco.houselannister.saveasingle.domain.Personality;
 import edu.uco.houselannister.saveasingle.domain.Questionnaire;
+import edu.uco.houselannister.saveasingle.domain.Relationship;
+import edu.uco.houselannister.saveasingle.domain.User;
+import edu.uco.houselannister.saveasingle.domain.ZipCode;
 import edu.uco.houselannister.saveasingle.service.AppService;
 
 import static org.junit.Assert.*;
@@ -16,15 +24,34 @@ import static org.junit.Assert.*;
 public class AppModelTest {
 
     Model appModel;
+    User testUserJoe;
 
     @Before
     public void setUp() throws Exception {
         this.appModel = AppModel.getAppModelInstance(AppService.getAppServiceInstance());
+        testUserJoe = new User() {
+            {
+                setName("Joe");
+                setAdmin(true);
+                setEmailAddress("joe@gmail.com");
+                setPassword("thepass");
+                getUserDemographics().setMyZipCode(new ZipCode("83838", 97.32, -37.4, "somwhere, ok"));
+                getUserDemographics().setPersonalityTags(new ArrayList<Personality>() {{
+                    add(Personality.INSIGHTFUL);
+                    add(Personality.THOUGHTFUL);
+                }});
+                getUserDemographics().setRelationshipTags(new ArrayList<Relationship>() {
+                    {
+                        add(Relationship.INTIMATE);
+                        add(Relationship.SERIOUS);
+                    }
+                });
+            }
+        };
     }
 
     @After
     public void tearDown() throws Exception {
-
     }
 
     @Test
@@ -86,36 +113,108 @@ public class AppModelTest {
 
     @Test
     public void testGetUserResponses() throws Exception {
-
+        assertFalse("Test Method Not Implemented", true);
     }
 
     @Test
     public void testGetUserResponse() throws Exception {
-
+        assertFalse("Test Method Not Implemented", true);
     }
 
     @Test
     public void testGetUser() throws Exception {
-
+        assertFalse("Test Method Not Implemented", true);
     }
 
     @Test
     public void testSaveCurrentUser() throws Exception {
-
+        assertFalse("Test Method Not Implemented", true);
     }
 
     @Test
     public void testGetUsers() throws Exception {
-
+        assertFalse("Test Method Not Implemented", true);
     }
 
     @Test
     public void testGetUsernameArray() throws Exception {
-
+        assertFalse("Test Method Not Implemented", true);
     }
 
     @Test
     public void testGetUsernameMap() throws Exception {
+        assertFalse("Test Method Not Implemented", true);
+    }
 
+    @Test
+    public void testGetAppModelInstance1() throws Exception {
+        assertFalse("Test Method Not Implemented", true);
+    }
+
+    @Test
+    public void testGetCurrentUser() throws Exception {
+        assertFalse("Test Method Not Implemented", true);
+    }
+
+    @Test
+    public void testSetCurrentUserImpersonation() throws Exception {
+        assertFalse("Test Method Not Implemented", true);
+    }
+
+    @Test
+    public void testResetCurrentUserImpersonation() throws Exception {
+        assertFalse("Test Method Not Implemented", true);
+    }
+
+    @Test
+    public void testUserCrud() throws Exception {
+        assertEquals(3, appModel.getUsers().size());
+        testAddUser();
+        assertEquals(4, appModel.getUsers().size());
+        testSaveUser_Password();
+        assertEquals(4, appModel.getUsers().size());
+        testSaveUser_Deeper();
+        assertEquals(4, appModel.getUsers().size());
+        testDeleteUser();
+        assertEquals(3, appModel.getUsers().size());
+    }
+
+
+    public void testAddUser() throws Exception {
+        appModel.saveUser(testUserJoe);
+        assertEquals(4, appModel.getUsers().size());
+        assertEquals("thepass", testUserJoe.getPassword());
+    }
+
+    public void testSaveUser_Password() throws Exception {
+        testUserJoe.setPassword("theotherpass");
+        appModel.saveUser(testUserJoe);
+
+        assertEquals(4, appModel.getUsers().size());
+        String actualPass = "theotherpass";
+        String testPass = appModel.getUser("Joe").getPassword();
+        assertEquals(actualPass, testPass);
+
+    }
+
+    public void testSaveUser_Deeper() throws Exception {
+
+        Personality i = testUserJoe.getUserDemographics().getPersonalityTags().get(testUserJoe.getUserDemographics().getPersonalityTags().size()-1);
+        assertEquals(Personality.THOUGHTFUL, i);
+        testUserJoe.getUserDemographics().getPersonalityTags().set(testUserJoe.getUserDemographics().getPersonalityTags().size()-1, Personality.EXTROVERT);
+        appModel.saveUser(testUserJoe);
+        i = testUserJoe.getUserDemographics().getPersonalityTags().get(testUserJoe.getUserDemographics().getPersonalityTags().size()-1);
+        assertEquals(Personality.EXTROVERT, i);
+
+        assertEquals(4, appModel.getUsers().size());
+        String actualPass = "theotherpass";
+        String testPass = appModel.getUser("Joe").getPassword();
+        assertEquals(actualPass, testPass);
+
+    }
+
+    public void testDeleteUser() throws Exception {
+        appModel.deleteUser(testUserJoe);
+        assertEquals(3, appModel.getUsers().size());
     }
 }

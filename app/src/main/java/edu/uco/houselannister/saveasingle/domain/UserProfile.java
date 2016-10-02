@@ -9,7 +9,7 @@ public interface UserProfile {
 
     User getUser(String username );
 
-    void saveCurrentUser();
+    void saveUser(User user);
 
-    void SaveUser(User user);
+    void deleteUser(User user);
 }

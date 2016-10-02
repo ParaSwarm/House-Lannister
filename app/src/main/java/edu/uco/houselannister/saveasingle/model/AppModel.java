@@ -7,11 +7,11 @@ import edu.uco.houselannister.saveasingle.domain.*;
 
 public class AppModel implements Model {
 
+    //region Implementation of Singleton Pattern for Model
     private static Model appModelInstance;
 
     private ServiceProxy proxy;
 
-    //region Implementation of Singleton Pattern for Model
     private AppModel(ServiceProxy proxy) {
         this.proxy = proxy;
     }
@@ -45,6 +45,21 @@ public class AppModel implements Model {
         return AuthenticationModel.getAuthenticationInstance(proxy).getAuthenticatedUser();
     }
 
+    @Override
+    public User getCurrentUser() {
+        return AuthenticationModel.getAuthenticationInstance(proxy).getCurrentUser();
+    }
+
+    @Override
+    public void setCurrentUserImpersonation(User user) {
+        AuthenticationModel.getAuthenticationInstance(proxy).setCurrentUserImpersonation(user);
+    }
+
+    @Override
+    public void resetCurrentUserImpersonation() {
+        AuthenticationModel.getAuthenticationInstance(proxy).resetCurrentUserImpersonation();
+    }
+
     //endregion Implementation of Authentication
 
     //region Implementation of Preferences
@@ -67,17 +82,17 @@ public class AppModel implements Model {
     //region Implementation of User Profile Interface.
     @Override
     public User getUser(String username) {
-        return proxy.getUser(username);
+        return UserProfileModel.getUserProfileInstance(proxy).getUser(username);
     }
 
     @Override
-    public void saveCurrentUser() {
-        this.proxy.saveCurrentUser();
+    public void saveUser(User user) {
+        UserProfileModel.getUserProfileInstance(proxy).saveUser(user);
     }
 
     @Override
-    public void SaveUser(User user) {
-        this.proxy.SaveUser(user);
+    public  void deleteUser(User user){
+        UserProfileModel.getUserProfileInstance(proxy).deleteUser(user);
     }
     //endregion Implementation of User Profile Interface.
 
@@ -98,10 +113,6 @@ public class AppModel implements Model {
         return proxy.getUsernameMap();
     }
 
-    @Override
-    public ArrayList<Message> getInboxMessages() {
-        return proxy.getInboxMessages();
-    }
 
     //endregion Implementation of Model Specialized methods
 }

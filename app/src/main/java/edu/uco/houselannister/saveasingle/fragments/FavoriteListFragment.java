@@ -69,7 +69,8 @@ public class FavoriteListFragment extends ListFragment implements AdapterView.On
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 mMode = null;
                 place = position;
-                name = getResources().getStringArray(R.array.user_list)[position];
+                //name = getResources().getStringArray(R.array.user_list)[position];
+                name = appModel.getUsers().get(position).getName();
                 mMode = getActivity().startActionMode(mCallback);
 
                 return true;
@@ -105,7 +106,7 @@ public class FavoriteListFragment extends ListFragment implements AdapterView.On
                     case R.id.item1:
                         EditText input = new EditText(getActivity());
                         new AlertDialog.Builder(getActivity())
-                                .setTitle("Send a message to " + getResources().getStringArray(R.array.user_list)[place])
+                                .setTitle("Send a message to " + appModel.getUsers().get(place).getName())
                                 .setView(input)
                                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
@@ -125,7 +126,7 @@ public class FavoriteListFragment extends ListFragment implements AdapterView.On
                     case R.id.item2:
                         new AlertDialog.Builder(getActivity())
                                 .setTitle("Block entry")
-                                .setMessage("Are you sure you want to block" + getResources().getStringArray(R.array.user_list)[place])
+                                .setMessage("Are you sure you want to block" + appModel.getUsers().get(place).getName())
                                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
                                         // continue with delete
@@ -149,7 +150,7 @@ public class FavoriteListFragment extends ListFragment implements AdapterView.On
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(getActivity(), "User: " + getResources().getStringArray(R.array.user_list)[position], Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "User: " + appModel.getUsers().get(position).getName(), Toast.LENGTH_SHORT).show();
     }
 
     @Override

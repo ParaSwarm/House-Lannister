@@ -46,7 +46,7 @@ public class InboxFragment extends ListFragment implements OnItemClickListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         appModel = AppModel.getAppModelInstance(AppService.getAppServiceInstance());
-        messages =  appModel.getInboxMessages();
+        messages =  appModel.getCurrentUser().getInteractions().getInBox();
     }
 
     @Override
@@ -69,7 +69,7 @@ public class InboxFragment extends ListFragment implements OnItemClickListener {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 mMode = null;
                 place = position;
-                name = getResources().getStringArray(R.array.user_list)[position];
+                name = appModel.getUsers().get(position).getName();
                 mMode = getActivity().startActionMode(mCallback);
 
                 return true;

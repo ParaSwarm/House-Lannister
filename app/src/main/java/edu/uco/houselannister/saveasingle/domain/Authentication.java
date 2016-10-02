@@ -9,4 +9,11 @@ public interface Authentication {
     Boolean isAdmin();
 
     User getAuthenticatedUser();
+
+    User getCurrentUser();
+
+    void setCurrentUserImpersonation(User user);
+
+    void resetCurrentUserImpersonation();
+
 }

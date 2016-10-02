@@ -77,8 +77,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mPasswordView = (EditText) findViewById(R.id.password);
 
-        // TODO: Set these in build variants for debug
-        mEmailView.setText("jackson@uco.edu");
+        mEmailView.setText("goliath@gmail.com");
         mPasswordView.setText("password");
 
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -202,12 +201,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
         return email.contains("@");
     }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
         return password.length() > 4;
     }
 
@@ -327,7 +324,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             appModel.Authenticate(mEmail,mPassword);
 
-            // TODO: register the new account here.
             return appModel.isUser();
         }
 
