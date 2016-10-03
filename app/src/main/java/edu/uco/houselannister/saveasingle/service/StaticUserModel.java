@@ -44,9 +44,9 @@ public class StaticUserModel {
     public static ArrayList<User> getUsers() {
         if (users == null) {
             users = new ArrayList<>();
-            users.add(CreateUser("Jackson", false, "password", "jackson@uco.edu"));
-            users.add(CreateUser("Sierra", false, "password", "sierra@uco.edu"));
-            users.add(CreateUser("Goliath", true, "password", "goliath@gmail.com"));
+            users.add(CreateUser("Jackson", false, "password", "jackson@uco.edu", true));
+            users.add(CreateUser("Sierra", false, "password", "sierra@uco.edu", false));
+            users.add(CreateUser("Goliath", true, "password", "goliath@gmail.com", true));
 
             // Interactions must be set after all users are created
             CreateUserInteractions();
@@ -114,7 +114,7 @@ public class StaticUserModel {
     //endregion Generate Sample Questionnaire
 
     //region Create User Main Method
-    private static User CreateUser(String username, Boolean isAdmin, String userPassword, String userEmail) {
+    private static User CreateUser(String username, Boolean isAdmin, String userPassword, String userEmail, Boolean enabled) {
 
         User ret = new User();
 
@@ -122,6 +122,7 @@ public class StaticUserModel {
         ret.setAdmin(isAdmin);
         ret.setEmailAddress(userEmail);
         ret.setPassword(userPassword);
+        ret.setEnabled(enabled);
 
         ret.setBio(CreateBio());
 
@@ -343,8 +344,8 @@ public class StaticUserModel {
 
         Message m1 = CreateMessage(users.get(1), users.get(0), "I have no personality! Want to date?", "How are ya, sweetie?", false, null);
         Message m2 = CreateMessage(users.get(0), users.get(1), "I have no personality! Want to date?", "Get a personality, we'll talk", false, m1);
-        Message m3 = CreateMessage(users.get(0), users.get(1), "I can't believe you're single, Gordon! You're so hot!", "OMG, are you single?!", false, null);
-        Message m4 = CreateMessage(users.get(1), users.get(0), "I can't believe you're single, Gordon! You're so hot!", "Go fish!", false, m3);
+        Message m3 = CreateMessage(users.get(0), users.get(1), "I can't believe you're single! You're so hot!", "OMG, are you single?!", false, null);
+        Message m4 = CreateMessage(users.get(1), users.get(0), "I can't believe you're single! You're so hot!", "Go fish!", false, m3);
         Message m5 = CreateMessage(users.get(2), users.get(0), "I've had enough of your tomfoolery. Purchase me dinner!", "Buy me dinner or you will be sorry.", false, null);
         Message m6 = CreateMessage(users.get(0), users.get(2), "I've had enough of your tomfoolery. Purchase me dinner!", "You're on!", false, m5);
 
