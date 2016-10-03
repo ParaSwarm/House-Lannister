@@ -1,6 +1,8 @@
 package edu.uco.houselannister.saveasingle.domain;
 
-public enum Language {
+import java.io.Serializable;
+
+public enum Language implements Serializable {
     SPANISH("Spanish"),
     CHINESE("Chinese"),
     ENGLISH("English"),

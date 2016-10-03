@@ -1,8 +1,9 @@
 package edu.uco.houselannister.saveasingle.domain;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class ActivityLog {
+public class ActivityLog implements Serializable {
 
     private ArrayList<UserActivity> activities;
 

@@ -1,6 +1,6 @@
 package edu.uco.houselannister.saveasingle.domain;
 
-public interface Authentication {
+public interface Authentication  {
 
     void Authenticate(String email, String password);
 

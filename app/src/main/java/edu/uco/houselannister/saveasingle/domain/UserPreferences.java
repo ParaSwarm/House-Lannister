@@ -1,8 +1,9 @@
 package edu.uco.houselannister.saveasingle.domain;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class UserPreferences {
+public class UserPreferences implements Serializable {
 
     private ArrayList<SalaryRange> salaryRanges;
 

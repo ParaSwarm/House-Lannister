@@ -1,6 +1,8 @@
 package edu.uco.houselannister.saveasingle.domain;
 
-public enum Ethnicity {
+import java.io.Serializable;
+
+public enum Ethnicity implements Serializable {
     WHITE,
     HISPANIC,
     BLACK,
