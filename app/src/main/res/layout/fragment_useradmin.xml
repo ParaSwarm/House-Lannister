@@ -5,20 +5,29 @@
     android:orientation="horizontal">
 
     <TextView
-        android:id="@+id/id"
+        android:id="@+id/admin_username"
         android:layout_width="0dp"
-        android:layout_weight="1"
+        android:layout_weight="25"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
         android:textAppearance="?attr/textAppearanceListItem"
         android:hint="First"/>
 
     <TextView
-        android:id="@+id/content"
-        android:layout_weight="4"
+        android:id="@+id/admin_email"
+        android:layout_weight="55"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
         android:textAppearance="?attr/textAppearanceListItem"
         android:hint="Second"/>
+
+    <Switch
+        android:id="@+id/admin_enabled"
+        android:layout_weight="20"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        />
+
 </LinearLayout>

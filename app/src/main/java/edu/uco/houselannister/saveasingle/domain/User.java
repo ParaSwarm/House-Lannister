@@ -31,6 +31,8 @@ public class User  implements Serializable {
 
     private Boolean isAdmin;
 
+    private Boolean enabled;
+
     public String getName() {
         return name;
     }
@@ -138,4 +140,13 @@ public class User  implements Serializable {
     public void setAdmin(Boolean admin) {
         isAdmin = admin;
     }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
 }
