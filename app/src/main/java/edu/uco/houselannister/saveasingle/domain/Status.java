@@ -1,6 +1,8 @@
 package edu.uco.houselannister.saveasingle.domain;
 
-public enum Status {
+import java.io.Serializable;
+
+public enum Status implements Serializable {
     SINGLE,
     MARRIED,
     DATING,

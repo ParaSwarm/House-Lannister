@@ -1,6 +1,8 @@
 package edu.uco.houselannister.saveasingle.domain;
 
-public enum Relationship {
+import java.io.Serializable;
+
+public enum Relationship  implements Serializable {
     EXCLUSIVE,
     LONGTERM,
     SHORTTERM,

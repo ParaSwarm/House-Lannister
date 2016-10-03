@@ -1,6 +1,8 @@
 package edu.uco.houselannister.saveasingle.domain;
 
-public enum GiftType {
+import java.io.Serializable;
+
+public enum GiftType implements Serializable {
     BOXOFCHOCOLATES(10),
     FLOWER(20),
     STUFFEDANIMAL(30),

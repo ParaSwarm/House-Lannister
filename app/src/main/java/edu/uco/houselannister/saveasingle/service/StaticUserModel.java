@@ -1,5 +1,12 @@
 package edu.uco.houselannister.saveasingle.service;
 
+import java.io.FileDescriptor;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -11,6 +18,10 @@ public class StaticUserModel {
     private static Questionnaire questionnaire = null;
     private static ArrayList<User> users = null;
     private static ArrayList<ZipCode> zipCodes = null;
+
+    private static String mFilename;
+
+
     //endregion Private Fields
 
     //region Top Level Objects (Users and Questionnaires)
@@ -36,10 +47,11 @@ public class StaticUserModel {
             users.add(CreateUser("Jackson", false, "password", "jackson@uco.edu"));
             users.add(CreateUser("Sierra", false, "password", "sierra@uco.edu"));
             users.add(CreateUser("Goliath", true, "password", "goliath@gmail.com"));
+
+            // Interactions must be set after all users are created
+            CreateUserInteractions();
         }
 
-        // Interactions must be set after all users are created
-        CreateUserInteractions();
 
         return users;
     }
@@ -366,7 +378,6 @@ public class StaticUserModel {
     //endregion Create Sample Interactions
 
 
-
     //region Helper helpers ...
     private static ArrayList<ZipCode> CreateZipCodes() {
         if (zipCodes != null)
@@ -393,5 +404,40 @@ public class StaticUserModel {
         return message;
     }
     //endregion Helper helpers ...
+
+    public static void setObjectStreams(String filename) {
+        mFilename = filename;
+    }
+
+
+    public static void WriteModel(ServiceProxy appService) throws IOException {
+
+        FileOutputStream fileOutputStream = new FileOutputStream(mFilename);
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+        objectOutputStream.writeObject(appService);
+        objectOutputStream.close();
+        fileOutputStream.close();
+    }
+
+    public static AppService ReadModel() {
+        AppService appService = null;
+
+
+        try {
+            FileInputStream inputStream = new FileInputStream(mFilename);
+            ObjectInputStream objectInputStream =  objectInputStream = new ObjectInputStream(inputStream);
+            appService = (AppService) objectInputStream.readObject();
+            objectInputStream.close();
+            inputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+
+        return appService;
+    }
+
 
 }
