@@ -426,7 +426,7 @@ public class StaticUserModel {
 
         try {
             FileInputStream inputStream = new FileInputStream(mFilename);
-            ObjectInputStream objectInputStream =  objectInputStream = new ObjectInputStream(inputStream);
+            ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
             appService = (AppService) objectInputStream.readObject();
             objectInputStream.close();
             inputStream.close();
