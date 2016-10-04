@@ -412,7 +412,7 @@ public class StaticUserModel {
 
 
     public static void WriteModel(ServiceProxy appService) throws IOException {
-
+        if (mFilename == null) return;
         FileOutputStream fileOutputStream = new FileOutputStream(mFilename);
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
         objectOutputStream.writeObject(appService);
@@ -421,6 +421,8 @@ public class StaticUserModel {
     }
 
     public static AppService ReadModel() {
+        if (mFilename == null) return null;
+
         AppService appService = null;
 
 
