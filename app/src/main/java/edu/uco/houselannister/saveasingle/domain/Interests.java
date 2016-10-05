@@ -1,6 +1,8 @@
 package edu.uco.houselannister.saveasingle.domain;
 
-public enum Interests {
+import java.io.Serializable;
+
+public enum Interests implements Serializable{
     SPORTS("Sports"),
     CYCLING("Cycling"),
     NATURE("Nature"),
