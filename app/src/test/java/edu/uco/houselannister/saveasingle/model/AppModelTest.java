@@ -172,23 +172,83 @@ public class AppModelTest {
     }
 
     @Test
-    public void testGetAppModelInstance1() throws Exception {
-        assertFalse("Test Method Not Implemented", true);
-    }
-
-    @Test
     public void testGetCurrentUser() throws Exception {
-        assertFalse("Test Method Not Implemented", true);
+        // Baseline
+        appModel.Authenticate("goliath@gmail.com", "password");
+        User au = appModel.getAuthenticatedUser();
+        User cu = appModel.getCurrentUser();
+        User mu = appModel.getUser("Jackson");
+        assertEquals("Authenticated user and Impersonated user should be same.", au, cu );
+        assertNotEquals("Model user and CurrentImpersonated user should not be the same.", mu, cu );
+
+        // Impersonate Jackson
+        appModel.setCurrentUserImpersonation(mu);
+        cu = appModel.getCurrentUser();
+        assertEquals("Model user and CurrentImpersonated user should be same.", mu, cu );
+        assertNotEquals("Authenticated user and CurrentImpersonated user should not be same.", au, cu );
+
+        // Go back to baseline
+        appModel.resetCurrentUserImpersonation();
+        cu = appModel.getCurrentUser();
+        assertEquals("Authenticated user and CurrentImpersonated user should be same.", au, cu );
+        assertNotEquals("Model user and CurrentImpersonated user should not be the same.", mu, cu );
     }
 
     @Test
     public void testSetCurrentUserImpersonation() throws Exception {
-        assertFalse("Test Method Not Implemented", true);
+
+        /*
+        * Authenticated user is the currently logged in user.
+        * The impersonated user is the user interacting with the application.
+        * Most of the time, the authenticated user and the impersonated user
+        * are the same.
+        *
+        * In Administrative cases, the admin can impersonate a user and use
+        * the application as the user.  This is for modifications and corrections
+        * that the admins may need to do to fix problems.
+        * */
+
+        // Baseline
+        appModel.Authenticate("goliath@gmail.com", "password");
+        User au = appModel.getAuthenticatedUser();
+        User cu = appModel.getCurrentUser();
+        User mu = appModel.getUser("Jackson");
+        assertEquals("Authenticated user and Impersonated user should be same.", au, cu );
+        assertNotEquals("Model user and CurrentImpersonated user should not be the same.", mu, cu );
+
+        // Impersonate Jackson
+        appModel.setCurrentUserImpersonation(mu);
+        cu = appModel.getCurrentUser();
+        assertEquals("Model user and CurrentImpersonated user should be same.", mu, cu );
+        assertNotEquals("Authenticated user and CurrentImpersonated user should not be same.", au, cu );
+
+        // Go back to baseline
+        appModel.resetCurrentUserImpersonation();
+        cu = appModel.getCurrentUser();
+        assertEquals("Authenticated user and CurrentImpersonated user should be same.", au, cu );
+        assertNotEquals("Model user and CurrentImpersonated user should not be the same.", mu, cu );
     }
 
     @Test
     public void testResetCurrentUserImpersonation() throws Exception {
-        assertFalse("Test Method Not Implemented", true);
+        appModel.Authenticate("goliath@gmail.com", "password");
+        User au = appModel.getAuthenticatedUser();
+        User cu = appModel.getCurrentUser();
+        User mu = appModel.getUser("Jackson");
+        assertEquals("Authenticated user and Impersonated user should be same.", au, cu );
+        assertNotEquals("Model user and CurrentImpersonated user should not be the same.", mu, cu );
+
+        // Impersonate Jackson
+        appModel.setCurrentUserImpersonation(mu);
+        cu = appModel.getCurrentUser();
+        assertEquals("Model user and CurrentImpersonated user should be same.", mu, cu );
+        assertNotEquals("Authenticated user and CurrentImpersonated user should not be same.", au, cu );
+
+        // Go back to baseline
+        appModel.resetCurrentUserImpersonation();
+        cu = appModel.getCurrentUser();
+        assertEquals("Authenticated user and CurrentImpersonated user should be same.", au, cu );
+        assertNotEquals("Model user and CurrentImpersonated user should not be the same.", mu, cu );
     }
 
     @Test
