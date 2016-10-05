@@ -11,6 +11,7 @@ import edu.uco.houselannister.saveasingle.R;
 
 public class RegistrationActivity extends AppCompatActivity {
 
+
     /*EditText firstNameReg = (EditText) findViewById(R.id.regFirstName);
     EditText lastNameReg = (EditText) findViewById(R.id.regLastName);
     EditText emailReg = (EditText) findViewById(R.id.regEmail);
