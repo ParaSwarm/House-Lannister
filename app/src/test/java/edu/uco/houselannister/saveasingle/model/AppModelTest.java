@@ -6,6 +6,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import edu.uco.houselannister.saveasingle.domain.Interests;
 import edu.uco.houselannister.saveasingle.domain.Model;
@@ -123,17 +124,30 @@ public class AppModelTest {
 
     @Test
     public void testGetUser() throws Exception {
-        assertFalse("Test Method Not Implemented", true);
+        User u = appModel.getUser("Goliath");
+        assertEquals("User email retreived", "goliath@gmail.com", u.getEmailAddress());
     }
 
     @Test
     public void testSaveCurrentUser() throws Exception {
-        assertFalse("Test Method Not Implemented", true);
+        User u = appModel.getUser("Goliath");
+        String reset = u.getEmailAddress();
+        u.setEmailAddress("shonuff");
+        appModel.saveUser(u);
+
+        u = null;
+        u = appModel.getUser("Goliath");
+        assertEquals("Email should be shonuff", "shonuff", u.getEmailAddress());
+
+        u.setEmailAddress(reset);
+        appModel.saveUser(u);
+        assertEquals("Email should be reset", "goliath@gmail.com", u.getEmailAddress());
+
     }
 
     @Test
     public void testGetUsers() throws Exception {
-        assertFalse("Test Method Not Implemented", true);
+        assertEquals("Should be 3 users", 3, appModel.getUsers().size());
     }
 
     @Test
@@ -143,7 +157,18 @@ public class AppModelTest {
 
     @Test
     public void testGetUsernameMap() throws Exception {
-        assertFalse("Test Method Not Implemented", true);
+
+        String testString = null;
+        appModel.getUsers();
+        ArrayList<HashMap<String, String>> testUnit = appModel.getUsernameMap();
+        for (HashMap<String, String> h : testUnit) {
+            testString = h.get("Jackson");
+            if (testString != null) {
+                assertEquals("User should be found and the email should match.", "jackson@uco.edu", testString);
+                break;
+            }
+        }
+        assertNotNull("String should not be null", testString);
     }
 
     @Test
@@ -199,11 +224,11 @@ public class AppModelTest {
 
     public void testSaveUser_Deeper() throws Exception {
 
-        Personality i = testUserJoe.getUserDemographics().getPersonalityTags().get(testUserJoe.getUserDemographics().getPersonalityTags().size()-1);
+        Personality i = testUserJoe.getUserDemographics().getPersonalityTags().get(testUserJoe.getUserDemographics().getPersonalityTags().size() - 1);
         assertEquals(Personality.THOUGHTFUL, i);
-        testUserJoe.getUserDemographics().getPersonalityTags().set(testUserJoe.getUserDemographics().getPersonalityTags().size()-1, Personality.EXTROVERT);
+        testUserJoe.getUserDemographics().getPersonalityTags().set(testUserJoe.getUserDemographics().getPersonalityTags().size() - 1, Personality.EXTROVERT);
         appModel.saveUser(testUserJoe);
-        i = testUserJoe.getUserDemographics().getPersonalityTags().get(testUserJoe.getUserDemographics().getPersonalityTags().size()-1);
+        i = testUserJoe.getUserDemographics().getPersonalityTags().get(testUserJoe.getUserDemographics().getPersonalityTags().size() - 1);
         assertEquals(Personality.EXTROVERT, i);
 
         assertEquals(4, appModel.getUsers().size());
