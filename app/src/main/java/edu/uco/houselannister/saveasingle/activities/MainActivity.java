@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity implements AdminUsersFragmen
         ButterKnife.bind(this);
         appModel = AppModel.getAppModelInstance(AppService.getAppServiceInstance());
 
+
         //navigation drawer
         mActivityTitle = getTitle().toString();
 

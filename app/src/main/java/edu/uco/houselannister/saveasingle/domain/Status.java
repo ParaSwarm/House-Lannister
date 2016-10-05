@@ -5,6 +5,11 @@ import java.io.Serializable;
 public enum Status implements Serializable {
     SINGLE,
     MARRIED,
-    DATING,
-    COMPLICATED
+    COMPLICATED,
+    WIDOWED,
+    SEPARATED,
+    DIVORCED,
+    OPENRELATIONSHIP,
+    CIVILUNION,
+    DOMESTICPARTNERSHIP,
 }

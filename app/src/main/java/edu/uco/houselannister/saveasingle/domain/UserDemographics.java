@@ -27,6 +27,8 @@ public class UserDemographics implements Serializable {
 
     private Status myStatus;
 
+    private Language myLanguage;
+
     public SalaryRange getMySalaryRange() {
         return mySalaryRange;
     }
@@ -114,4 +116,8 @@ public class UserDemographics implements Serializable {
     public void setMyStatus(Status myStatus) {
         this.myStatus = myStatus;
     }
+
+    public Language getMyLanguage() {return myLanguage;}
+
+    public void setMyLanguage(Language myLanguage) {this.myLanguage = myLanguage;}
 }

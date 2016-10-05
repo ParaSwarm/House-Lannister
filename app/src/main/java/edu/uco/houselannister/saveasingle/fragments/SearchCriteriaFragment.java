@@ -7,16 +7,36 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.MultiAutoCompleteTextView;
 import android.widget.Spinner;
+import android.widget.Switch;
+
+import java.util.ArrayList;
 
 import edu.uco.houselannister.saveasingle.R;
+import edu.uco.houselannister.saveasingle.domain.Ages;
+import edu.uco.houselannister.saveasingle.domain.Interests;
 import edu.uco.houselannister.saveasingle.domain.Language;
+import edu.uco.houselannister.saveasingle.domain.Model;
 import edu.uco.houselannister.saveasingle.domain.Religion;
+import edu.uco.houselannister.saveasingle.domain.SearchDistances;
+import edu.uco.houselannister.saveasingle.domain.Status;
+import edu.uco.houselannister.saveasingle.domain.User;
+import edu.uco.houselannister.saveasingle.model.AppModel;
+import edu.uco.houselannister.saveasingle.service.AppService;
 
 /**
  * Created by ryan on 9/27/2016.
  */
 public class SearchCriteriaFragment extends Fragment {
+    private Model appModel;
+    private Switch singleSwitch;
+    private Switch polySwitch;
+    private Button searchButton;
+    private CheckBox hasCats, hasDogs, hasNone, wantsKids, mightWantKids, doesNotWantKids, hasKids, doesNotHaveKids,
+    highschool, associates, bachelors, masters;
 
     public SearchCriteriaFragment() {
 
@@ -30,6 +50,7 @@ public class SearchCriteriaFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        appModel = AppModel.getAppModelInstance(AppService.getAppServiceInstance());
     }
 
     @Override
@@ -42,7 +63,7 @@ public class SearchCriteriaFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Spinner languageSpinner = (Spinner) view.findViewById(R.id.language_spinner);
+        final Spinner languageSpinner = (Spinner) view.findViewById(R.id.language_spinner);
 
 
         ArrayAdapter<CharSequence> languageAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_dropdown_item, Language.GetNames());
@@ -51,7 +72,7 @@ public class SearchCriteriaFragment extends Fragment {
         languageSpinner.setAdapter(languageAdapter);
 
         //region reglion spinner
-        Spinner religionSpinner = (Spinner) view.findViewById(R.id.religion_spinner);
+        final Spinner religionSpinner = (Spinner) view.findViewById(R.id.religion_spinner);
         ArrayAdapter<CharSequence> religionAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_dropdown_item, Religion.GetIsm());
         //ArrayAdapter<CharSequence> religionAdapter = ArrayAdapter.createFromResource(this.getContext(), R.array.religion_spinner_text, android.R.layout.simple_spinner_dropdown_item);
         religionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -60,18 +81,63 @@ public class SearchCriteriaFragment extends Fragment {
 
         //age spinner
         Spinner minAgeSpinner = (Spinner) view.findViewById(R.id.min_age_spinner);
-        Integer[] ages = new Integer[]{18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
-                31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51,
-                52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63,64,65,66,67,68,69,70,71,72,73,74,75,
-                76,77,78,79,80};
-        ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(this.getContext(), android.R.layout.simple_spinner_dropdown_item, ages);
+        ArrayAdapter<CharSequence> adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_dropdown_item, Ages.GetAges());
         minAgeSpinner.setAdapter(adapter);
         Spinner maxAgeSpinner = (Spinner) view.findViewById(R.id.max_age_spinner);
         maxAgeSpinner.setAdapter(adapter);
         //distance spinner
         Spinner distanceSpinner = (Spinner) view.findViewById(R.id.distance_to_search_spinner);
-        ArrayAdapter<CharSequence> distanceAdapter = ArrayAdapter.createFromResource(this.getContext(), R.array.distances_to_search, android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> distanceAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_dropdown_item, SearchDistances.GetDistances());
         distanceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         distanceSpinner.setAdapter(distanceAdapter);
+
+        singleSwitch = (Switch) view.findViewById(R.id.single_switch);
+        polySwitch = (Switch)view.findViewById(R.id.switch_monogamous);
+        hasCats = (CheckBox)view.findViewById(R.id.hasCatsCheckbox);
+        hasDogs = (CheckBox)view.findViewById(R.id.hasDogsCheckbox);
+        hasNone = (CheckBox)view.findViewById(R.id.hasNoPetsCheckbox);
+        wantsKids = (CheckBox)view.findViewById(R.id.wantsKidsCheckbox);
+        mightWantKids= (CheckBox)view.findViewById(R.id.mightWantKidsCheckbox);
+        doesNotWantKids = (CheckBox)view.findViewById(R.id.doesNotWantKidsCheckbox);
+        hasKids = (CheckBox)view.findViewById(R.id.hasKidsCheckbox);
+        doesNotHaveKids = (CheckBox)view.findViewById(R.id.doesNotHaveKidsCheckbox);
+
+        if(appModel.getCurrentUser().getUserPreferences().preferencesSet()) {
+            languageSpinner.setSelection(Language.valueOf(appModel.getCurrentUser().getUserDemographics().getMyLanguage().toString()).ordinal());
+            religionSpinner.setSelection(Religion.valueOf(appModel.getCurrentUser().getUserDemographics().getMyReligion().toString()).ordinal());
+            if (appModel.getCurrentUser().getUserPreferences().getAgeLow() < 18) {
+                appModel.getCurrentUser().getUserPreferences().setAgeLow(18);
+            }
+            if (appModel.getCurrentUser().getUserPreferences().getAgeHigh() > 80) {
+                appModel.getCurrentUser().getUserPreferences().setAgeHigh(80);
+            }
+            minAgeSpinner.setSelection(Ages.valueOf(appModel.getCurrentUser().getUserPreferences().getAgeLow().toString()).ordinal());
+            maxAgeSpinner.setSelection(Ages.valueOf(appModel.getCurrentUser().getUserPreferences().getAgeHigh().toString()).ordinal());
+            singleSwitch.setChecked(appModel.getCurrentUser().getUserPreferences().getPrefersPhotos());
+            polySwitch.setChecked(appModel.getCurrentUser().getUserPreferences().getOpenToPoly());
+        }
+        ArrayAdapter<CharSequence> tokenAdapter = new ArrayAdapter<CharSequence>(getActivity(), android.R.layout.simple_dropdown_item_1line, Interests.GetInterests());
+        MultiAutoCompleteTextView multiAutoCompleteTextView = (MultiAutoCompleteTextView) view.findViewById(R.id.interests_multitoken);
+        multiAutoCompleteTextView.setAdapter(tokenAdapter);
+        multiAutoCompleteTextView.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
+        searchButton = (Button) view.findViewById(R.id.searchButton);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //get the selected options from the view and apply them to the user's preferences
+                appModel.getCurrentUser().getUserPreferences().setLanguagePreference(languageSpinner.getSelectedItem().toString());
+//                appModel.getCurrentUser().getUserPreferences().setReligions(religionSpinner.getSelectedItem().toString());
+                appModel.getCurrentUser().getUserPreferences().setOpenToPoly(polySwitch.isChecked());
+                ArrayList<Status> statuses = new ArrayList<Status>();
+                if(singleSwitch.isChecked()) {
+                    statuses.add(Status.SINGLE);
+                }
+                else {
+                    statuses.add(Status.COMPLICATED);
+                }
+                appModel.getCurrentUser().getUserPreferences().setStatus(statuses);
+
+            }
+        });
     }
 }
