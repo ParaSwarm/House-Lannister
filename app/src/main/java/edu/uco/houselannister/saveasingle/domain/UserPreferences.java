@@ -17,7 +17,7 @@ public class UserPreferences {
     private Integer ageLow;
 
     private Integer ageHigh;
-
+    //TODO: Do many people worship in multiple religions?
     private ArrayList<Religion> religions;
 
     private ArrayList<Personality> personalityTags;
@@ -27,6 +27,14 @@ public class UserPreferences {
     private ArrayList<Interests> interestTags;
 
     private ArrayList<Status> status;
+
+    private boolean preferencesSet;
+
+    private boolean prefersPhotos;
+
+    private boolean openToPoly;
+
+    private String languagePreference;
 
     public ArrayList<SalaryRange> getSalaryRanges() {
         return salaryRanges;
@@ -123,4 +131,20 @@ public class UserPreferences {
     public void setStatus(ArrayList<Status> status) {
         this.status = status;
     }
+
+    public boolean preferencesSet() {return preferencesSet;}
+
+    public void preferencesApplied(boolean set) {this.preferencesSet = set;}
+
+    public boolean getPrefersPhotos() {return prefersPhotos;}
+
+    public void setPrefersPhotos(boolean preference) {this.prefersPhotos = preference;}
+
+    public boolean getOpenToPoly(){return openToPoly;}
+
+    public void setOpenToPoly(boolean openToPoly) {this.openToPoly = openToPoly;}
+
+    public String getLanguagePreference() {return languagePreference;}
+
+    public void setLanguagePreference(String languagePreference) {this.languagePreference = languagePreference;}
 }

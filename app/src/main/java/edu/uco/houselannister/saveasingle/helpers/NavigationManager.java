@@ -2,6 +2,8 @@ package edu.uco.houselannister.saveasingle.helpers;
 
 import android.os.Bundle;
 
+import edu.uco.houselannister.saveasingle.domain.User;
+
 /**
  * Created by ryan on 9/21/2016.
  */

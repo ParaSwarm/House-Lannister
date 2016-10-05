@@ -3,6 +3,11 @@ package edu.uco.houselannister.saveasingle.domain;
 public enum Status {
     SINGLE,
     MARRIED,
-    DATING,
-    COMPLICATED
+    COMPLICATED,
+    WIDOWED,
+    SEPARATED,
+    DIVORCED,
+    OPENRELATIONSHIP,
+    CIVILUNION,
+    DOMESTICPARTNERSHIP,
 }

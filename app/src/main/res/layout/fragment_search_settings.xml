@@ -89,7 +89,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Single"
-                    android:id="@+id/switch3" />
+                    android:id="@+id/single_switch" />
             </LinearLayout>
 
             <LinearLayout
@@ -101,7 +101,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Monogamous"
-                    android:id="@+id/switch4" />
+                    android:id="@+id/switch_monogamous" />
             </LinearLayout>
         </LinearLayout>
 
@@ -131,19 +131,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Has Cat(s)"
-                    android:id="@+id/checkBox13" />
+                    android:id="@+id/hasCatsCheckbox" />
 
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Has Dog(s)"
-                    android:id="@+id/checkBox14" />
+                    android:id="@+id/hasDogsCheckbox" />
 
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="None"
-                    android:id="@+id/checkBox15" />
+                    android:id="@+id/hasNoPetsCheckbox" />
             </LinearLayout>
         </LinearLayout>
 
@@ -176,19 +176,19 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Wants kids"
-                            android:id="@+id/checkBox" />
+                            android:id="@+id/wantsKidsCheckbox" />
 
                         <CheckBox
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Might want Kids"
-                            android:id="@+id/checkBox2" />
+                            android:id="@+id/mightWantKidsCheckbox" />
 
                         <CheckBox
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Doesn&apos;t want kids"
-                            android:id="@+id/checkBox3" />
+                            android:id="@+id/doesNotWantKidsCheckbox" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -200,13 +200,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Has kid(s)"
-                            android:id="@+id/checkBox16" />
+                            android:id="@+id/hasKidsCheckbox" />
 
                         <CheckBox
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Doesn&apos;t have kid(s)"
-                            android:id="@+id/checkBox17" />
+                            android:id="@+id/doesNotHaveKidsCheckbox" />
                     </LinearLayout>
                 </LinearLayout>
             </RelativeLayout>
@@ -239,19 +239,19 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="High School"
-                            android:id="@+id/checkBox4" />
+                            android:id="@+id/highSchoolCheckbox" />
 
                         <CheckBox
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="2-year college"
-                            android:id="@+id/checkBox5" />
+                            android:id="@+id/associatesCheckbox" />
 
                         <CheckBox
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="4-year college"
-                            android:id="@+id/checkBox6" />
+                            android:id="@+id/bachelorsCheckbox" />
                     </TableRow>
 
                     <TableRow
@@ -262,7 +262,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Post grad"
-                            android:id="@+id/checkBox7" />
+                            android:id="@+id/mastersCheckbox" />
                     </TableRow>
                 </TableLayout>
             </RelativeLayout>
@@ -330,13 +330,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Search by interest"
-            android:id="@+id/multiAutoCompleteTextView" />
+            android:id="@+id/interests_multitoken" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Search near me"
-            android:id="@+id/button" />
+            android:id="@+id/searchButton" />
 
     </LinearLayout>
 
