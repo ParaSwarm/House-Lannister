@@ -7,7 +7,9 @@ package edu.uco.houselannister.saveasingle.domain;
  */
 public interface UserProfile {
 
-    User GetUser(String username );
+    User getUser(String username );
 
-    void saveCurrentUser();
+    void saveUser(User user);
+
+    void deleteUser(User user);
 }

@@ -1,96 +1,119 @@
 package edu.uco.houselannister.saveasingle.model;
 
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.Objects;
+import java.util.HashMap;
 
-import edu.uco.houselannister.saveasingle.domain.Authentication;
-import edu.uco.houselannister.saveasingle.domain.Model;
-import edu.uco.houselannister.saveasingle.domain.Preferences;
-import edu.uco.houselannister.saveasingle.domain.ServiceProxy;
-import edu.uco.houselannister.saveasingle.domain.UserProfile;
-import edu.uco.houselannister.saveasingle.domain.Question;
-import edu.uco.houselannister.saveasingle.domain.Questionnaire;
-import edu.uco.houselannister.saveasingle.domain.Response;
-import edu.uco.houselannister.saveasingle.domain.User;
+import edu.uco.houselannister.saveasingle.domain.*;
 
 public class AppModel implements Model {
 
+    //region Implementation of Singleton Pattern for Model
+    private static Model appModelInstance;
+
     private ServiceProxy proxy;
 
-    private User currentUser;
-
-    private Boolean isAuthenticated;
-
-    private Questionnaire questionnaire;
-
-    //region Implementation of Singleton Pattern for Model
     private AppModel(ServiceProxy proxy) {
         this.proxy = proxy;
     }
 
-    public static AppModel createAppModel(ServiceProxy proxy) {
-        return new AppModel(proxy);
+    public static Model getAppModelInstance(ServiceProxy proxy) {
+        if (appModelInstance == null) {
+            appModelInstance = new AppModel(proxy);
+        }
+        return appModelInstance;
     }
     //endregion Implementation of Singleton Pattern for Model
 
-    //region Implementation if Authentication
+    //region Implementation of Authentication
     @Override
-    public void Authenticate(String username, String password) {
-        User u = proxy.GetUser(username);
-        this.isAuthenticated = Objects.equals(u.getPassword(), password);
+    public void Authenticate(String email, String password) {
+        AuthenticationModel.getAuthenticationInstance(proxy).Authenticate(email, password);
     }
 
     @Override
     public Boolean isUser() {
-        if (getCurrentUser() != null) {
-            return this.isAuthenticated;
-        }
-        return false;
+        return AuthenticationModel.getAuthenticationInstance(proxy).isUser();
     }
 
     @Override
     public Boolean isAdmin() {
-        if (getCurrentUser() != null) {
-            return getCurrentUser().getAdmin();
-        }
-        return false;
+        return AuthenticationModel.getAuthenticationInstance(proxy).isAdmin();
     }
-    //endregion Implementation if Authentication
+
+    @Override
+    public User getAuthenticatedUser() {
+        return AuthenticationModel.getAuthenticationInstance(proxy).getAuthenticatedUser();
+    }
+
+    @Override
+    public User getCurrentUser() {
+        return AuthenticationModel.getAuthenticationInstance(proxy).getCurrentUser();
+    }
+
+    @Override
+    public void setCurrentUserImpersonation(User user) {
+        AuthenticationModel.getAuthenticationInstance(proxy).setCurrentUserImpersonation(user);
+    }
+
+    @Override
+    public void resetCurrentUserImpersonation() {
+        AuthenticationModel.getAuthenticationInstance(proxy).resetCurrentUserImpersonation();
+    }
+
+    //endregion Implementation of Authentication
 
     //region Implementation of Preferences
     @Override
-    public Questionnaire getQuestionnaire(String username) {
-        this.questionnaire = proxy.GetQuestionnaire();
-        return this.questionnaire;
+    public Questionnaire getQuestionnaire() {
+        return PreferenceModel.getPreferencesInstance(proxy).getQuestionnaire();
     }
 
     @Override
     public ArrayList<Response> getUserResponses(String username) {
-        return this.proxy.GetUserResponses(username);
+        return PreferenceModel.getPreferencesInstance(proxy).getUserResponses(username);
     }
 
     @Override
     public Response getUserResponse(String username, Question question) {
-        return this.proxy.GetUserResponse(username, question);
+        return PreferenceModel.getPreferencesInstance(proxy).getUserResponse(username, question);
     }
     //endregion Implementation of Preferences
 
     //region Implementation of User Profile Interface.
     @Override
-    public User GetUser(String username) {
-        return proxy.GetUser(username);
+    public User getUser(String username) {
+        return UserProfileModel.getUserProfileInstance(proxy).getUser(username);
     }
 
     @Override
-    public void saveCurrentUser() {
-        this.proxy.SaveUser(currentUser);
+    public void saveUser(User user) {
+        UserProfileModel.getUserProfileInstance(proxy).saveUser(user);
+    }
+
+    @Override
+    public  void deleteUser(User user){
+        UserProfileModel.getUserProfileInstance(proxy).deleteUser(user);
     }
     //endregion Implementation of User Profile Interface.
 
-    //region Implementation of Model
+    //region Implementation of Model Specialized methods
+
     @Override
-    public User getCurrentUser() {
-        return currentUser;
+    public ArrayList<User> getUsers() {
+        return proxy.getUsers();
     }
-    //endregion
+
+    @Override
+    public ArrayList<String> getUsernameArray() {
+        return proxy.getUsernameArray();
+    }
+
+    @Override
+    public ArrayList<HashMap<String, String>> getUsernameMap() {
+        return proxy.getUsernameMap();
+    }
+
+    //endregion Implementation of Model Specialized methods
 }

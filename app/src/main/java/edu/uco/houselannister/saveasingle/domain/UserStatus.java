@@ -1,8 +1,9 @@
 package edu.uco.houselannister.saveasingle.domain;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class UserStatus {
+public class UserStatus  implements Serializable {
 
     private Integer AccountBalance;
 

@@ -1,8 +1,9 @@
 package edu.uco.houselannister.saveasingle.domain;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class User {
+public class User  implements Serializable {
 
     private String name;
 
@@ -30,6 +31,8 @@ public class User {
 
     private Boolean isAdmin;
 
+    private Boolean enabled;
+
     public String getName() {
         return name;
     }
@@ -55,6 +58,8 @@ public class User {
     }
 
     public UserDemographics getUserDemographics() {
+        if (userDemographics == null)
+            userDemographics = new UserDemographics();
         return userDemographics;
     }
 
@@ -103,6 +108,8 @@ public class User {
     }
 
     public UserInteractions getInteractions() {
+        if (interactions == null)
+            interactions = new UserInteractions();
         return interactions;
     }
 
@@ -133,4 +140,13 @@ public class User {
     public void setAdmin(Boolean admin) {
         isAdmin = admin;
     }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
 }
