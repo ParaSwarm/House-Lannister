@@ -316,6 +316,7 @@ public class StaticUserModel {
     private static void CreateUserInteractions() {
         //Messsages
         CreateUserInteractionMessages();
+        CreateUserFavorites();
 
 //        userInteractions.setBlocked();
 //        userInteractions.setFavorites();
@@ -378,6 +379,19 @@ public class StaticUserModel {
     }
     //endregion Create Sample Interactions
 
+    private static void CreateUserFavorites() {
+        ArrayList<User> favorite0 = new ArrayList<>();
+        ArrayList<User> favorite1 = new ArrayList<>();
+        ArrayList<User> favorite2 = new ArrayList<>();
+
+        favorite0.add(users.get(1));
+        users.get(0).getInteractions().setFavorites(favorite0);
+        users.get(1).getInteractions().setFavorites(favorite1);
+        favorite2.add(users.get(0));
+        favorite2.add(users.get(1));
+        users.get(2).getInteractions().setFavorites(favorite2);
+
+    }
 
     //region Helper helpers ...
     private static ArrayList<ZipCode> CreateZipCodes() {

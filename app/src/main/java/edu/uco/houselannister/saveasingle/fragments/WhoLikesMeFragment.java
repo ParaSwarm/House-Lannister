@@ -2,7 +2,6 @@ package edu.uco.houselannister.saveasingle.fragments;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-
 import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
 import android.support.v7.app.AlertDialog;
@@ -10,14 +9,17 @@ import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import edu.uco.houselannister.saveasingle.R;
 import edu.uco.houselannister.saveasingle.domain.Model;
+import edu.uco.houselannister.saveasingle.domain.User;
+import edu.uco.houselannister.saveasingle.domain.UserInteractions;
 import edu.uco.houselannister.saveasingle.model.AppModel;
 import edu.uco.houselannister.saveasingle.service.AppService;
 
@@ -32,6 +34,10 @@ public class WhoLikesMeFragment extends ListFragment implements OnItemClickListe
     ActionMode.Callback mCallback;
     CharSequence[] array = {"Add to My Likes", "Share My Private Album", "Block"};
     private int pos;
+    ArrayList<User> FavoritesArrayList;
+    ArrayList<User> BlockArrayList;
+    ArrayList<String> StringFavoritesArrayList = new ArrayList<String>();
+    private String test;
 
     public WhoLikesMeFragment() {
         // Required empty public constructor
@@ -45,6 +51,17 @@ public class WhoLikesMeFragment extends ListFragment implements OnItemClickListe
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         appModel = AppModel.getAppModelInstance(AppService.getAppServiceInstance());
+        for (User u : appModel.getCurrentUser().getInteractions().getFavorites()) {
+            StringFavoritesArrayList.add(u.getName() + " - " + u.getEmailAddress());
+        }
+        if (appModel.getCurrentUser().getInteractions().getFavorites().size() == 0)
+            FavoritesArrayList = new ArrayList<User>();
+        else
+            FavoritesArrayList = new ArrayList<User>(appModel.getCurrentUser().getInteractions().getFavorites());
+        if (appModel.getCurrentUser().getInteractions().getBlocked() == null)
+            BlockArrayList = new ArrayList<User>();
+        else
+            BlockArrayList = new ArrayList<User>(appModel.getCurrentUser().getInteractions().getBlocked());
     }
 
     @Override
@@ -73,7 +90,21 @@ public class WhoLikesMeFragment extends ListFragment implements OnItemClickListe
                             public void onClick(DialogInterface dialog, int which) {
                                 switch (which) {
                                     case 0:
-                                        Toast.makeText(getActivity(), appModel.getUsers().get(pos).getName() + " is added to My Likes.", Toast.LENGTH_SHORT).show();
+                                        boolean found = false;
+                                        for (User u : appModel.getCurrentUser().getInteractions().getFavorites()) {
+                                            if (appModel.getUsers().get(pos).getEmailAddress().equals(u.getEmailAddress())) {
+                                                Toast.makeText(getActivity(), appModel.getUsers().get(pos).getName() + " is already on the favorite list", Toast.LENGTH_SHORT).show();
+                                                found = true;
+                                                break;
+                                            } else {
+                                                found = false;
+                                            }
+                                        }
+                                        if (!found) {
+                                            Toast.makeText(getActivity(), appModel.getUsers().get(pos).getName() + " is added to the favorite list", Toast.LENGTH_SHORT).show();
+                                            FavoritesArrayList.add(appModel.getUsers().get(pos));
+                                            appModel.getCurrentUser().getInteractions().setFavorites(FavoritesArrayList);
+                                        }
                                         break;
                                     case 1:
                                         new AlertDialog.Builder(getActivity())
@@ -95,7 +126,21 @@ public class WhoLikesMeFragment extends ListFragment implements OnItemClickListe
                                                 .setTitle("Do you want to block " + appModel.getUsers().get(pos).getName() + "?")
                                                 .setNegativeButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                                     public void onClick(DialogInterface dialog, int which) {
-                                                        // do nothing
+//                                                        boolean found = false;
+//                                                        for (User u : BlockArrayList) {
+//                                                            if (appModel.getUsers().get(pos).getEmailAddress().equals(u.getEmailAddress())) {
+//                                                                Toast.makeText(getActivity(), appModel.getUsers().get(pos).getName() + " is already on blocked list", Toast.LENGTH_SHORT).show();
+//                                                                found = true;
+//                                                                break;
+//                                                            } else {
+//                                                                found = false;
+//                                                            }
+//                                                        }
+//                                                        if (!found) {
+//                                                            Toast.makeText(getActivity(), appModel.getUsers().get(pos).getName() + " is added to blocked list", Toast.LENGTH_SHORT).show();
+//                                                            BlockArrayList.add(appModel.getUsers().get(pos));
+//                                                            appModel.getCurrentUser().getInteractions().setBlocked(BlockArrayList);
+//                                                        }
                                                     }
                                                 })
                                                 .setPositiveButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -121,7 +166,7 @@ public class WhoLikesMeFragment extends ListFragment implements OnItemClickListe
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(getActivity(), "User: " + appModel.getUsers().get(position).getName(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getActivity(), "User: " + appModel.getUsers().get(position).getName(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
