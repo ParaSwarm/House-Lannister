@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 import edu.uco.houselannister.saveasingle.R;
 import edu.uco.houselannister.saveasingle.domain.Ages;
+import edu.uco.houselannister.saveasingle.domain.EducationLevel;
 import edu.uco.houselannister.saveasingle.domain.Interests;
 import edu.uco.houselannister.saveasingle.domain.Language;
 import edu.uco.houselannister.saveasingle.domain.Model;
@@ -24,6 +25,12 @@ import edu.uco.houselannister.saveasingle.domain.Religion;
 import edu.uco.houselannister.saveasingle.domain.SearchDistances;
 import edu.uco.houselannister.saveasingle.domain.Status;
 import edu.uco.houselannister.saveasingle.domain.User;
+import edu.uco.houselannister.saveasingle.helpers.SearchCriteria;
+import edu.uco.houselannister.saveasingle.helpers.SearchCriteriaAge;
+import edu.uco.houselannister.saveasingle.helpers.SearchCriteriaAnd;
+import edu.uco.houselannister.saveasingle.helpers.SearchCriteriaLanguage;
+import edu.uco.houselannister.saveasingle.helpers.SearchCriteriaRelationhip;
+import edu.uco.houselannister.saveasingle.helpers.SearchCriteriaReligion;
 import edu.uco.houselannister.saveasingle.model.AppModel;
 import edu.uco.houselannister.saveasingle.service.AppService;
 
@@ -80,13 +87,13 @@ public class SearchCriteriaFragment extends Fragment {
         //endregion reglion spinner
 
         //age spinner
-        Spinner minAgeSpinner = (Spinner) view.findViewById(R.id.min_age_spinner);
+        final Spinner minAgeSpinner = (Spinner) view.findViewById(R.id.min_age_spinner);
         ArrayAdapter<CharSequence> adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_dropdown_item, Ages.GetAges());
         minAgeSpinner.setAdapter(adapter);
-        Spinner maxAgeSpinner = (Spinner) view.findViewById(R.id.max_age_spinner);
+        final Spinner maxAgeSpinner = (Spinner) view.findViewById(R.id.max_age_spinner);
         maxAgeSpinner.setAdapter(adapter);
         //distance spinner
-        Spinner distanceSpinner = (Spinner) view.findViewById(R.id.distance_to_search_spinner);
+        final Spinner distanceSpinner = (Spinner) view.findViewById(R.id.distance_to_search_spinner);
         ArrayAdapter<CharSequence> distanceAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_dropdown_item, SearchDistances.GetDistances());
         distanceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         distanceSpinner.setAdapter(distanceAdapter);
@@ -101,6 +108,7 @@ public class SearchCriteriaFragment extends Fragment {
         doesNotWantKids = (CheckBox)view.findViewById(R.id.doesNotWantKidsCheckbox);
         hasKids = (CheckBox)view.findViewById(R.id.hasKidsCheckbox);
         doesNotHaveKids = (CheckBox)view.findViewById(R.id.doesNotHaveKidsCheckbox);
+        final Switch photosSwitch = (Switch)view.findViewById(R.id.hasPhotosSwitch);
 
         if(appModel.getCurrentUser().getUserPreferences().preferencesSet()) {
             languageSpinner.setSelection(Language.valueOf(appModel.getCurrentUser().getUserDemographics().getMyLanguage().toString()).ordinal());
@@ -117,7 +125,7 @@ public class SearchCriteriaFragment extends Fragment {
             polySwitch.setChecked(appModel.getCurrentUser().getUserPreferences().getOpenToPoly());
         }
         ArrayAdapter<CharSequence> tokenAdapter = new ArrayAdapter<CharSequence>(getActivity(), android.R.layout.simple_dropdown_item_1line, Interests.GetInterests());
-        MultiAutoCompleteTextView multiAutoCompleteTextView = (MultiAutoCompleteTextView) view.findViewById(R.id.interests_multitoken);
+        final MultiAutoCompleteTextView multiAutoCompleteTextView = (MultiAutoCompleteTextView) view.findViewById(R.id.interests_multitoken);
         multiAutoCompleteTextView.setAdapter(tokenAdapter);
         multiAutoCompleteTextView.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
         searchButton = (Button) view.findViewById(R.id.searchButton);
@@ -135,8 +143,51 @@ public class SearchCriteriaFragment extends Fragment {
                 else {
                     statuses.add(Status.COMPLICATED);
                 }
+                if(polySwitch.isChecked()) {
+                   statuses.add(Status.OPENRELATIONSHIP);
+                }
                 appModel.getCurrentUser().getUserPreferences().setStatus(statuses);
+                ArrayList<User> userList = appModel.getUsers();
+                ArrayList<User> matchingUsers = new ArrayList<User>();
 
+                //filter
+                //typically people want these to be exclusive and don't want to have outside their selection
+                SearchCriteria criteriaAge = new SearchCriteriaAge(Integer.valueOf(minAgeSpinner.getSelectedItem().toString()), Integer.valueOf(maxAgeSpinner.getSelectedItem().toString()));
+                SearchCriteria religionCriteria = new SearchCriteriaReligion();
+                SearchCriteria languageCriteria = new SearchCriteriaLanguage();
+                SearchCriteria statusCriteria = new SearchCriteriaRelationhip(appModel.getCurrentUser().getUserPreferences().getStatus());
+                appModel.getCurrentUser().getUserPreferences().setHasCats(hasCats.isChecked());
+                appModel.getCurrentUser().getUserPreferences().setHasDogs(hasDogs.isChecked());
+                appModel.getCurrentUser().getUserPreferences().setHasNoPets(hasNone.isChecked());
+                appModel.getCurrentUser().getUserPreferences().setWantsKids(wantsKids.isChecked());
+                appModel.getCurrentUser().getUserPreferences().setMightWantKids(mightWantKids.isChecked());
+                appModel.getCurrentUser().getUserPreferences().setDoesNotWantKids(doesNotWantKids.isChecked());
+                appModel.getCurrentUser().getUserPreferences().setCurrentlyHasKids(hasKids.isChecked());
+                appModel.getCurrentUser().getUserPreferences().setDoesNotCurrentlyHaveKids(doesNotHaveKids.isChecked());
+                //criteria for the different combos of kids and pets
+
+                ArrayList<EducationLevel> educationLevels = new ArrayList<EducationLevel>();
+                if(highschool.isChecked()) {
+                    educationLevels.add(EducationLevel.HSDIPLOMA);
+                }
+                if(associates.isChecked()) {
+                    educationLevels.add(EducationLevel.SOMECOLLEGE);
+                }
+                if(bachelors.isChecked()) {
+                    educationLevels.add(EducationLevel.BACHELORS);
+                }
+                if(masters.isChecked()) {
+                    educationLevels.add(EducationLevel.MASTERS);
+                }
+                appModel.getCurrentUser().getUserPreferences().setEduLevels(educationLevels);
+                //criteria for education
+                appModel.getCurrentUser().getUserPreferences().setSearchDistances(SearchDistances.valueOf(distanceSpinner.getSelectedItem().toString()));
+                //criteria for distance
+                if(photosSwitch.isChecked()) {
+                    //add search criteria that has photos
+                }
+                String tokensEntered = multiAutoCompleteTextView.getText().toString();
+                //check tokens entered match with enum values, currently throw out others that aren't existent
             }
         });
     }
