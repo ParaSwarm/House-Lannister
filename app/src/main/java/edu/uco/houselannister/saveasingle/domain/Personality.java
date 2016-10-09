@@ -1,6 +1,8 @@
 package edu.uco.houselannister.saveasingle.domain;
 
-public enum Personality {
+import java.io.Serializable;
+
+public enum Personality implements Serializable {
     INTROVERT,
     EXTROVERT,
     SENSUAL,

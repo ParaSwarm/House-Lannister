@@ -1,8 +1,9 @@
 package edu.uco.houselannister.saveasingle.domain;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class UserDemographics {
+public class UserDemographics implements Serializable {
 
     private SalaryRange mySalaryRange;
 
@@ -25,6 +26,8 @@ public class UserDemographics {
     private ArrayList<Interests> interestTags;
 
     private Status myStatus;
+
+    private Language myLanguage;
 
     public SalaryRange getMySalaryRange() {
         return mySalaryRange;
@@ -113,4 +116,8 @@ public class UserDemographics {
     public void setMyStatus(Status myStatus) {
         this.myStatus = myStatus;
     }
+
+    public Language getMyLanguage() {return myLanguage;}
+
+    public void setMyLanguage(Language myLanguage) {this.myLanguage = myLanguage;}
 }

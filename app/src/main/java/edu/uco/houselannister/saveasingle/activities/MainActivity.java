@@ -3,6 +3,7 @@ package edu.uco.houselannister.saveasingle.activities;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
@@ -19,6 +20,12 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -73,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements AdminUsersFragmen
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         appModel = AppModel.getAppModelInstance(AppService.getAppServiceInstance());
+
 
         //navigation drawer
         mActivityTitle = getTitle().toString();
@@ -256,7 +264,7 @@ public class MainActivity extends AppCompatActivity implements AdminUsersFragmen
     }
 
     @Override
-    public void onUserAdminListFragmentInteraction(User userItem) {
+    public void onUserAdminListFragmentInteraction(final User userItem) {
         appModel.setCurrentUserImpersonation(userItem);
         Toast.makeText(MainActivity.this, "Now Impersonating " + userItem.getName(), Toast.LENGTH_SHORT).show();
     }

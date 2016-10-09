@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import edu.uco.houselannister.saveasingle.BuildConfig;
 import edu.uco.houselannister.saveasingle.R;
 import edu.uco.houselannister.saveasingle.activities.MainActivity;
+import edu.uco.houselannister.saveasingle.domain.User;
 import edu.uco.houselannister.saveasingle.fragments.AdminUsersFragment;
 import edu.uco.houselannister.saveasingle.fragments.FavoriteListFragment;
 import edu.uco.houselannister.saveasingle.fragments.InboxFragment;
@@ -98,7 +99,7 @@ public class FragmentNavigationManager implements NavigationManager {
 
 
 
-//        ft.addToBackStack(null);
+        ft.addToBackStack(null);
 
         if (allowStateLoss || !BuildConfig.DEBUG) {
             ft.commitAllowingStateLoss();

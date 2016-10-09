@@ -1,6 +1,8 @@
 package edu.uco.houselannister.saveasingle.domain;
 
-public enum Religion {
+import java.io.Serializable;
+
+public enum Religion implements Serializable {
     BAHAI("Baha'i", "Baha'ism"),
     BUDDHIST("Buddhist", "Buddhism"),
     CHINESETRAD("Chinese Traditional", "Chinese Traditional"),

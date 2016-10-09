@@ -1,6 +1,8 @@
 package edu.uco.houselannister.saveasingle.domain;
 
-public class UserNotificationPreferences {
+import java.io.Serializable;
+
+public class UserNotificationPreferences  implements Serializable {
 
     private Boolean messages;
 
