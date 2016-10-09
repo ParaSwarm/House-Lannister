@@ -26,6 +26,7 @@ import edu.uco.houselannister.saveasingle.domain.SearchDistances;
 import edu.uco.houselannister.saveasingle.domain.Status;
 import edu.uco.houselannister.saveasingle.domain.User;
 import edu.uco.houselannister.saveasingle.helpers.DummyUserCreator;
+import edu.uco.houselannister.saveasingle.helpers.FragmentNavigationManager;
 import edu.uco.houselannister.saveasingle.helpers.SearchCriteria;
 import edu.uco.houselannister.saveasingle.helpers.SearchCriteriaAge;
 import edu.uco.houselannister.saveasingle.helpers.SearchCriteriaAnd;
@@ -113,6 +114,10 @@ public class SearchCriteriaFragment extends Fragment {
         doesNotWantKids = (CheckBox)view.findViewById(R.id.doesNotWantKidsCheckbox);
         hasKids = (CheckBox)view.findViewById(R.id.hasKidsCheckbox);
         doesNotHaveKids = (CheckBox)view.findViewById(R.id.doesNotHaveKidsCheckbox);
+        highschool = (CheckBox)view.findViewById(R.id.highSchoolCheckbox);
+        associates = (CheckBox)view.findViewById(R.id.associatesCheckbox);
+        bachelors = (CheckBox)view.findViewById(R.id.bachelorsCheckbox);
+        masters = (CheckBox)view.findViewById(R.id.mastersCheckbox);
         final Switch photosSwitch = (Switch)view.findViewById(R.id.hasPhotosSwitch);
 
         if(appModel.getCurrentUser().getUserPreferences().preferencesSet()) {
@@ -138,7 +143,7 @@ public class SearchCriteriaFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //get the selected options from the view and apply them to the user's preferences
-                appModel.getCurrentUser().getUserPreferences().setLanguagePreference(Language.valueOf(languageSpinner.getSelectedItem().toString()));
+                appModel.getCurrentUser().getUserPreferences().setLanguagePreference(Language.valueOf(languageSpinner.getSelectedItem().toString().toUpperCase()));
 //                appModel.getCurrentUser().getUserPreferences().setReligions(religionSpinner.getSelectedItem().toString());
                 appModel.getCurrentUser().getUserPreferences().setOpenToPoly(polySwitch.isChecked());
                 ArrayList<Status> statuses = new ArrayList<Status>();
@@ -207,13 +212,15 @@ public class SearchCriteriaFragment extends Fragment {
                 }
                 appModel.getCurrentUser().getUserPreferences().setEduLevels(educationLevels);
                 //criteria for education
-                appModel.getCurrentUser().getUserPreferences().setSearchDistances(SearchDistances.valueOf(distanceSpinner.getSelectedItem().toString()));
+//                appModel.getCurrentUser().getUserPreferences().setSearchDistances(SearchDistances.valueOf(distanceSpinner.getSelectedItem().toString().toUpperCase()));
                 //criteria for distance
                 if(photosSwitch.isChecked()) {
                     //add search criteria that has photos
                 }
                 String tokensEntered = multiAutoCompleteTextView.getText().toString();
                 //check tokens entered match with enum values, currently throw out others that aren't existent
+                FragmentNavigationManager manager = FragmentNavigationManager.getsInstance();
+                manager.showFragmentMap();
             }
         });
     }
