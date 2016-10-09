@@ -25,9 +25,12 @@ import edu.uco.houselannister.saveasingle.domain.Religion;
 import edu.uco.houselannister.saveasingle.domain.SearchDistances;
 import edu.uco.houselannister.saveasingle.domain.Status;
 import edu.uco.houselannister.saveasingle.domain.User;
+import edu.uco.houselannister.saveasingle.helpers.DummyUserCreator;
 import edu.uco.houselannister.saveasingle.helpers.SearchCriteria;
 import edu.uco.houselannister.saveasingle.helpers.SearchCriteriaAge;
 import edu.uco.houselannister.saveasingle.helpers.SearchCriteriaAnd;
+import edu.uco.houselannister.saveasingle.helpers.SearchCriteriaHasCats;
+import edu.uco.houselannister.saveasingle.helpers.SearchCriteriaHasDogs;
 import edu.uco.houselannister.saveasingle.helpers.SearchCriteriaLanguage;
 import edu.uco.houselannister.saveasingle.helpers.SearchCriteriaRelationhip;
 import edu.uco.houselannister.saveasingle.helpers.SearchCriteriaReligion;
@@ -71,6 +74,8 @@ public class SearchCriteriaFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         final Spinner languageSpinner = (Spinner) view.findViewById(R.id.language_spinner);
+        DummyUserCreator creator = new DummyUserCreator();
+
 
 
         ArrayAdapter<CharSequence> languageAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_dropdown_item, Language.GetNames());
@@ -133,7 +138,7 @@ public class SearchCriteriaFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //get the selected options from the view and apply them to the user's preferences
-                appModel.getCurrentUser().getUserPreferences().setLanguagePreference(languageSpinner.getSelectedItem().toString());
+                appModel.getCurrentUser().getUserPreferences().setLanguagePreference(Language.valueOf(languageSpinner.getSelectedItem().toString()));
 //                appModel.getCurrentUser().getUserPreferences().setReligions(religionSpinner.getSelectedItem().toString());
                 appModel.getCurrentUser().getUserPreferences().setOpenToPoly(polySwitch.isChecked());
                 ArrayList<Status> statuses = new ArrayList<Status>();
@@ -153,12 +158,33 @@ public class SearchCriteriaFragment extends Fragment {
                 //filter
                 //typically people want these to be exclusive and don't want to have outside their selection
                 SearchCriteria criteriaAge = new SearchCriteriaAge(Integer.valueOf(minAgeSpinner.getSelectedItem().toString()), Integer.valueOf(maxAgeSpinner.getSelectedItem().toString()));
+                matchingUsers.addAll(criteriaAge.meetsSearchCriteria(userList));
+
                 SearchCriteria religionCriteria = new SearchCriteriaReligion();
+                matchingUsers.addAll(religionCriteria.meetsSearchCriteria(userList));
+
                 SearchCriteria languageCriteria = new SearchCriteriaLanguage();
+                matchingUsers.addAll(languageCriteria.meetsSearchCriteria(userList));
+
                 SearchCriteria statusCriteria = new SearchCriteriaRelationhip(appModel.getCurrentUser().getUserPreferences().getStatus());
+                matchingUsers.addAll(statusCriteria.meetsSearchCriteria(userList));
+
                 appModel.getCurrentUser().getUserPreferences().setHasCats(hasCats.isChecked());
+                SearchCriteriaHasCats hasCatsCriteria = new SearchCriteriaHasCats(appModel.getCurrentUser().getUserPreferences().isHasCats());
+                matchingUsers.addAll(hasCatsCriteria.meetsSearchCriteria(userList));
+
                 appModel.getCurrentUser().getUserPreferences().setHasDogs(hasDogs.isChecked());
+                SearchCriteriaHasDogs hasDogsCriteria = new SearchCriteriaHasDogs(appModel.getCurrentUser().getUserPreferences().isHasDogs());
+                matchingUsers.addAll(hasDogsCriteria.meetsSearchCriteria(userList));
+
                 appModel.getCurrentUser().getUserPreferences().setHasNoPets(hasNone.isChecked());
+                if(appModel.getCurrentUser().getUserPreferences().isHasNoPets()){
+                    //only want people that have no pets
+                }
+                else {
+                    //don't care if they don't have pets
+
+                }
                 appModel.getCurrentUser().getUserPreferences().setWantsKids(wantsKids.isChecked());
                 appModel.getCurrentUser().getUserPreferences().setMightWantKids(mightWantKids.isChecked());
                 appModel.getCurrentUser().getUserPreferences().setDoesNotWantKids(doesNotWantKids.isChecked());

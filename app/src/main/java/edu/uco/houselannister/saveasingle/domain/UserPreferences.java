@@ -35,7 +35,7 @@ public class UserPreferences implements Serializable {
 
     private boolean openToPoly;
 
-    private String languagePreference;
+    private Language languagePreference;
 
     private boolean hasCats;
 
@@ -159,9 +159,9 @@ public class UserPreferences implements Serializable {
 
     public void setOpenToPoly(boolean openToPoly) {this.openToPoly = openToPoly;}
 
-    public String getLanguagePreference() {return languagePreference;}
+    public Language getLanguagePreference() {return languagePreference;}
 
-    public void setLanguagePreference(String languagePreference) {this.languagePreference = languagePreference;}
+    public void setLanguagePreference(Language languagePreference) {this.languagePreference = languagePreference;}
 
     public boolean isHasCats() {
         return hasCats;

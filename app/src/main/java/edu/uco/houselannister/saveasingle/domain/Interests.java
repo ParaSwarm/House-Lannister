@@ -1,6 +1,8 @@
 package edu.uco.houselannister.saveasingle.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Random;
 
 public enum Interests implements Serializable{
     SPORTS("Sports"),
@@ -34,6 +36,19 @@ public enum Interests implements Serializable{
             interestList[l.ordinal()] = l.text;
         }
         return interestList;
+    }
+
+    public static Interests getRandomPersonality() {
+        Random r = new Random();
+        return values()[r.nextInt(values().length)];
+    }
+
+    public static ArrayList<Interests> getRandomInterests(int numberOfPersonalities) {
+        ArrayList<Interests> list = new ArrayList<>();
+        for(int i = 0; i <= numberOfPersonalities; i++){
+            list.add(Interests.getRandomPersonality());
+        }
+        return list;
     }
 
 }
