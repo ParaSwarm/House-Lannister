@@ -19,7 +19,10 @@ import java.util.Locale;
 import edu.uco.houselannister.saveasingle.R;
 import edu.uco.houselannister.saveasingle.domain.Message;
 import edu.uco.houselannister.saveasingle.domain.Model;
+import edu.uco.houselannister.saveasingle.domain.ServiceProxy;
 import edu.uco.houselannister.saveasingle.domain.User;
+import edu.uco.houselannister.saveasingle.model.AppModel;
+import edu.uco.houselannister.saveasingle.service.AppService;
 
 public class RegistrationActivity extends AppCompatActivity {
 
@@ -45,6 +48,7 @@ public class RegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
+        appModel = AppModel.getAppModelInstance(AppService.getAppServiceInstance());
         regFirstName = (EditText) findViewById(R.id.editText_FirstName);
         //regLastName = (EditText) findViewById(R.id.editText_LastName);
         regEmail = (EditText) findViewById(R.id.editText_Email);

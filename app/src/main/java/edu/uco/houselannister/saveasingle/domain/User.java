@@ -3,7 +3,7 @@ package edu.uco.houselannister.saveasingle.domain;
 import java.io.Serializable;
 import java.util.*;
 
-public class User  implements Serializable {
+public class User implements Serializable {
 
     private String name;
 
@@ -50,6 +50,8 @@ public class User  implements Serializable {
     }
 
     public UserNotificationPreferences getUserNotificationPreferences() {
+        if (this.userNotificationPreferences == null)
+            this.userNotificationPreferences = new UserNotificationPreferences();
         return userNotificationPreferences;
     }
 
@@ -68,6 +70,8 @@ public class User  implements Serializable {
     }
 
     public UserPreferences getUserPreferences() {
+        if (this.userPreferences == null)
+            this.userPreferences = new UserPreferences();
         return userPreferences;
     }
 
@@ -76,6 +80,8 @@ public class User  implements Serializable {
     }
 
     public UserPreferences getUserExcludes() {
+        if (this.userExcludes == null)
+            this.userExcludes = new UserPreferences();
         return userExcludes;
     }
 
@@ -92,6 +98,14 @@ public class User  implements Serializable {
     }
 
     public Bio getBio() {
+        if (this.bio == null)
+            this.bio = new Bio() {
+                {
+                    setAboutMe("");
+                    setAboutYou("");
+                    setWhyMessageMe("");
+                }
+            };
         return bio;
     }
 
@@ -134,6 +148,8 @@ public class User  implements Serializable {
     }
 
     public Boolean getAdmin() {
+        if (this.isAdmin == null)
+            this.isAdmin = false;
         return isAdmin;
     }
 
@@ -142,6 +158,8 @@ public class User  implements Serializable {
     }
 
     public Boolean getEnabled() {
+        if (this.enabled == null)
+            this.enabled = true;
         return enabled;
     }
 
