@@ -15,8 +15,8 @@ import edu.uco.houselannister.saveasingle.domain.*;
 
 public class AppService implements ServiceProxy, Serializable {
 
-    private User currentUser;
-    private User impersonatedUser;
+    private User currentUser; //authenticated
+    private User impersonatedUser; //impersonated
     private Questionnaire questionnaire;
     private ArrayList<User> users;
 
