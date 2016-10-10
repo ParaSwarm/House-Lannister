@@ -4,12 +4,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
 import edu.uco.houselannister.saveasingle.R;
+import edu.uco.houselannister.saveasingle.domain.Model;
 import edu.uco.houselannister.saveasingle.domain.User;
 import edu.uco.houselannister.saveasingle.fragments.AdminUsersFragment.OnUserAdminListFragmentInteractionListener;
+import edu.uco.houselannister.saveasingle.model.AppModel;
+import edu.uco.houselannister.saveasingle.service.AppService;
+
 import java.util.List;
 
 public class MyUserAdminRecyclerViewAdapter extends RecyclerView.Adapter<MyUserAdminRecyclerViewAdapter.ViewHolder> {
@@ -66,6 +71,13 @@ public class MyUserAdminRecyclerViewAdapter extends RecyclerView.Adapter<MyUserA
             mUsername = (TextView) view.findViewById(R.id.admin_username);
             mEmail = (TextView) view.findViewById(R.id.admin_email);
             mEnabled = (Switch) view.findViewById(R.id.admin_enabled);
+            mEnabled.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    mItem.setEnabled(isChecked);
+                    AppModel.getAppModelInstance(AppService.getAppServiceInstance()).saveUser(mItem);
+                }
+            });
         }
 
         @Override

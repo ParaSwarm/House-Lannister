@@ -61,7 +61,9 @@ public class AppService implements ServiceProxy, Serializable {
         this.currentUser = null;
         this.impersonatedUser = null;
         for (User u : getUsers()) {
-            isAuthenticated = email.toLowerCase().equals(u.getEmailAddress().toLowerCase()) && password.toLowerCase().equals(u.getPassword().toLowerCase());
+            isAuthenticated = email.toLowerCase().equals(u.getEmailAddress().toLowerCase())
+                    && password.toLowerCase().equals(u.getPassword().toLowerCase())
+                    && u.getEnabled();
             if (isAuthenticated) {
                 this.currentUser = u;
                 this.impersonatedUser = u;
