@@ -1,12 +1,14 @@
 package edu.uco.houselannister.saveasingle.fragments;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -15,7 +17,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import edu.uco.houselannister.saveasingle.R;
-import edu.uco.houselannister.saveasingle.helpers.FragmentNavigationManager;
 
 public class MapsActivity extends Fragment implements OnMapReadyCallback {
 
@@ -25,8 +26,12 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
 
     }
 
-    public static MapsActivity newInstance() {
+    public static MapsActivity newInstance(LatLng latLng) {
         MapsActivity fragment = new MapsActivity();
+        Bundle args = new Bundle();
+        args.putParcelable("userLocation", latLng);
+
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -38,6 +43,16 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
         View view = inflater.inflate(R.layout.activity_maps, null, false);
         SupportMapFragment mapFragment = (SupportMapFragment) this.getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        if (ContextCompat.checkSelfPermission(this.getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            mMap.setMyLocationEnabled(true);
+        } else {
+//            Toast.makeText(MapsActivity.this, "You have to accept to enjoy all app's services!", Toast.LENGTH_LONG).show();
+            if (ContextCompat.checkSelfPermission(this.getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED) {
+                mMap.setMyLocationEnabled(true);
+            }
+        }
         return view;
     }
 
@@ -56,8 +71,13 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+//        LatLng sydney = new LatLng(-34, 151);
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+        mMap.getUiSettings().setZoomGesturesEnabled(true);
+        mMap.getUiSettings().setCompassEnabled(true);
+        LatLng userLocation = getArguments().getParcelable("userLocation");
+        mMap.addMarker(new MarkerOptions().position(userLocation).title("Marker"));
+        CameraUpdate location= CameraUpdateFactory.newLatLngZoom(userLocation, 15);
+        mMap.animateCamera(location);
     }
 }

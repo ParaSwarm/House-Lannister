@@ -1,9 +1,12 @@
 package edu.uco.houselannister.saveasingle.domain;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 import java.util.*;
 
-public class User implements Serializable {
+public class User  implements Serializable, Parcelable {
 
     private String name;
 
@@ -167,4 +170,60 @@ public class User implements Serializable {
         this.enabled = enabled;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.name);
+        dest.writeString(this.password);
+        dest.writeString(this.emailAddress);
+        dest.writeSerializable(this.userNotificationPreferences);
+        dest.writeSerializable(this.userDemographics);
+        dest.writeSerializable(this.userPreferences);
+        dest.writeSerializable(this.userExcludes);
+        dest.writeList(this.photos);
+        dest.writeSerializable(this.bio);
+        dest.writeList(this.questionResponses);
+        dest.writeSerializable(this.interactions);
+        dest.writeSerializable(this.profilePhoto);
+        dest.writeValue(this.isAdmin);
+        dest.writeValue(this.enabled);
+    }
+
+    public User() {
+    }
+
+    protected User(Parcel in) {
+        this.name = in.readString();
+        this.password = in.readString();
+        this.emailAddress = in.readString();
+        this.userNotificationPreferences = (UserNotificationPreferences) in.readSerializable();
+        this.userDemographics = (UserDemographics) in.readSerializable();
+        this.userPreferences = (UserPreferences) in.readSerializable();
+        this.userExcludes = (UserPreferences) in.readSerializable();
+        this.photos = new ArrayList<Photo>();
+        in.readList(this.photos, Photo.class.getClassLoader());
+        this.bio = (Bio) in.readSerializable();
+        this.questionResponses = new ArrayList<Response>();
+        in.readList(this.questionResponses, Response.class.getClassLoader());
+        this.interactions = (UserInteractions) in.readSerializable();
+        this.profilePhoto = (Photo) in.readSerializable();
+        this.isAdmin = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.enabled = (Boolean) in.readValue(Boolean.class.getClassLoader());
+    }
+
+    public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel source) {
+            return new User(source);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 }

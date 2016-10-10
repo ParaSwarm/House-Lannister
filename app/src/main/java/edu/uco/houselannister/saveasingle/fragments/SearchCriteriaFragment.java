@@ -13,6 +13,8 @@ import android.widget.MultiAutoCompleteTextView;
 import android.widget.Spinner;
 import android.widget.Switch;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.ArrayList;
 
 import edu.uco.houselannister.saveasingle.R;
@@ -220,7 +222,8 @@ public class SearchCriteriaFragment extends Fragment {
                 String tokensEntered = multiAutoCompleteTextView.getText().toString();
                 //check tokens entered match with enum values, currently throw out others that aren't existent
                 FragmentNavigationManager manager = FragmentNavigationManager.getsInstance();
-                manager.showFragmentMap();
+                LatLng latLng = new LatLng(35.4676, -97.5164);
+                manager.showFragmentMap(latLng);
             }
         });
     }

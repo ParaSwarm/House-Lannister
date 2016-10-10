@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import edu.uco.houselannister.saveasingle.BuildConfig;
 import edu.uco.houselannister.saveasingle.R;
 import edu.uco.houselannister.saveasingle.activities.MainActivity;
@@ -93,7 +95,7 @@ public class FragmentNavigationManager implements NavigationManager {
     }
 
     @Override
-    public void showFragmentMap() {showFragment(MapsActivity.newInstance(), false);}
+    public void showFragmentMap(LatLng latLng) {showFragment(MapsActivity.newInstance(latLng), false);}
 
     @Override
     public void showFragmentViewMessage(Bundle data) {
