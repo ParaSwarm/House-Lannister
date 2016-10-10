@@ -1,6 +1,8 @@
 package edu.uco.houselannister.saveasingle.domain;
 
-public class Bio {
+import java.io.Serializable;
+
+public class Bio implements Serializable {
 
     private String aboutMe;
 

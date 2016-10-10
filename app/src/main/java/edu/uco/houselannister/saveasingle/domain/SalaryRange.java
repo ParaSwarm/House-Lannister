@@ -1,6 +1,8 @@
 package edu.uco.houselannister.saveasingle.domain;
 
-public enum SalaryRange {
+import java.io.Serializable;
+
+public enum SalaryRange implements Serializable {
     POORSLOB,
     STARVINGARTIST,
     GETTINGBY,

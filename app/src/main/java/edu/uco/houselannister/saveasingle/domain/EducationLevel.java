@@ -1,6 +1,8 @@
 package edu.uco.houselannister.saveasingle.domain;
 
-public enum EducationLevel {
+import java.io.Serializable;
+
+public enum EducationLevel implements Serializable {
     NONE,
     ELEMENTARY,
     HSDIPLOMA,

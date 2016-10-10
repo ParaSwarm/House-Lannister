@@ -1,5 +1,7 @@
 package edu.uco.houselannister.saveasingle.model;
 
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -112,7 +114,6 @@ public class AppModel implements Model {
     public ArrayList<HashMap<String, String>> getUsernameMap() {
         return proxy.getUsernameMap();
     }
-
 
     //endregion Implementation of Model Specialized methods
 }
