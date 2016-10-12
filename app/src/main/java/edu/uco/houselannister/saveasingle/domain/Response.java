@@ -1,8 +1,9 @@
 package edu.uco.houselannister.saveasingle.domain;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Response {
+public class Response implements Serializable {
 
     private Question question;
 

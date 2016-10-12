@@ -1,18 +1,24 @@
 package edu.uco.houselannister.saveasingle.service;
 
+import java.io.FileDescriptor;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import edu.uco.houselannister.saveasingle.domain.*;
 
 
-public class AppService implements ServiceProxy {
+public class AppService implements ServiceProxy, Serializable {
 
-    private User currentUser;
-    private User impersonatedUser;
+    private User currentUser; //authenticated
+    private User impersonatedUser; //impersonated
     private Questionnaire questionnaire;
     private ArrayList<User> users;
-    private ArrayList<Message> messages;
 
     //region Implementation of Singleton Pattern for Creation
     private static ServiceProxy appServiceInstance = null;
@@ -27,6 +33,25 @@ public class AppService implements ServiceProxy {
         return appServiceInstance;
     }
 
+    public static ServiceProxy getAppServiceInstance(String filename) {
+        StaticUserModel.setObjectStreams(filename);
+        if (appServiceInstance == null) {
+            appServiceInstance = StaticUserModel.ReadModel();
+            if (appServiceInstance == null) {
+                appServiceInstance = new AppService();
+
+                try {
+                    StaticUserModel.WriteModel(appServiceInstance);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
+        return appServiceInstance;
+    }
+
+
     //endregion Implementation of Singleton Pattern for Creation
 
     //region Implementation of Service Authentication Methods
@@ -36,7 +61,9 @@ public class AppService implements ServiceProxy {
         this.currentUser = null;
         this.impersonatedUser = null;
         for (User u : getUsers()) {
-            isAuthenticated = email.toLowerCase().equals(u.getEmailAddress().toLowerCase()) && password.toLowerCase().equals(u.getPassword().toLowerCase());
+            isAuthenticated = email.toLowerCase().equals(u.getEmailAddress().toLowerCase())
+                    && password.toLowerCase().equals(u.getPassword().toLowerCase())
+                    && u.getEnabled();
             if (isAuthenticated) {
                 this.currentUser = u;
                 this.impersonatedUser = u;
@@ -113,30 +140,44 @@ public class AppService implements ServiceProxy {
     @Override
     public void saveUser(User user) {
         int i = 0;
-        for (; i < StaticUserModel.getUsers().size(); ++i) {
-            if (StaticUserModel.getUsers().get(i).getName().toLowerCase().equals(user.getName().toLowerCase())) {
+        users = getUsers();
+        for (; i < users.size(); ++i) {
+            if (getUsers().get(i).getName().toLowerCase().equals(user.getName().toLowerCase())) {
                 break;
             }
         }
 
-        if (StaticUserModel.getUsers().size() > i) {
-            StaticUserModel.getUsers().remove(i);
-            StaticUserModel.getUsers().add(i, user);
+        if (users.size() > i) {
+            users.remove(i);
+            users.add(i, user);
         } else {
-            StaticUserModel.getUsers().add(user);
+            users.add(user);
+        }
+
+        try {
+            StaticUserModel.WriteModel(this);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
+    @Override
     public void deleteUser(User user) {
         int i = 0;
-        for (; i < StaticUserModel.getUsers().size(); ++i) {
-            if (StaticUserModel.getUsers().get(i).getName().toLowerCase().equals(user.getName().toLowerCase())) {
+        for (; i < getUsers().size(); ++i) {
+            if (getUsers().get(i).getName().toLowerCase().equals(user.getName().toLowerCase())) {
                 break;
             }
         }
 
-        if (StaticUserModel.getUsers().size() > i) {
-            StaticUserModel.getUsers().remove(i);
+        if (getUsers().size() > i) {
+            getUsers().remove(i);
+        }
+
+        try {
+            StaticUserModel.WriteModel(this);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
     //endregion Implementation of UserProfile Interface
@@ -171,5 +212,8 @@ public class AppService implements ServiceProxy {
         return ret;
     }
 
+
     //endregion Implementation of Service Model Interface
+
+
 }

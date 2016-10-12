@@ -1,6 +1,8 @@
 package edu.uco.houselannister.saveasingle.domain;
 
-public class ZipCode {
+import java.io.Serializable;
+
+public class ZipCode implements Serializable {
 
     private final String zip;
     private final Double lat;

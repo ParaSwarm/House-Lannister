@@ -2,6 +2,10 @@ package edu.uco.houselannister.saveasingle.helpers;
 
 import android.os.Bundle;
 
+import com.google.android.gms.maps.model.LatLng;
+
+import edu.uco.houselannister.saveasingle.domain.User;
+
 /**
  * Created by ryan on 9/21/2016.
  */
@@ -16,4 +20,5 @@ public interface NavigationManager {
     void showFragmentSearchCriteria();
     void showFragmentUserProfile();
     void showFragmentAdminUsers();
+    void showFragmentMap(LatLng latLng);
 }

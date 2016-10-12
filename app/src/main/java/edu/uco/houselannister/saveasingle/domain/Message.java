@@ -1,9 +1,8 @@
 package edu.uco.houselannister.saveasingle.domain;
 
-/**
- *
- */
-public class Message {
+import java.io.Serializable;
+
+public class Message implements Serializable {
 
     private User to;
 
