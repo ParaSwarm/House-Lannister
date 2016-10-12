@@ -1,5 +1,6 @@
 package edu.uco.houselannister.saveasingle.helpers;
 
+import android.location.Location;
 import android.os.Bundle;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -20,5 +21,5 @@ public interface NavigationManager {
     void showFragmentSearchCriteria();
     void showFragmentUserProfile();
     void showFragmentAdminUsers();
-    void showFragmentMap(LatLng latLng);
+    void showFragmentMap(Location location);
 }

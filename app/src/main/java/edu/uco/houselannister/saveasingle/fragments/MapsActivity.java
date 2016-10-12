@@ -1,6 +1,7 @@
 package edu.uco.houselannister.saveasingle.fragments;
 
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -26,11 +27,10 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
 
     }
 
-    public static MapsActivity newInstance(LatLng latLng) {
+    public static MapsActivity newInstance(Location location) {
         MapsActivity fragment = new MapsActivity();
         Bundle args = new Bundle();
-        args.putParcelable("userLocation", latLng);
-
+        args.putParcelable("Location", location);
         fragment.setArguments(args);
         return fragment;
     }
@@ -43,16 +43,6 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
         View view = inflater.inflate(R.layout.activity_maps, null, false);
         SupportMapFragment mapFragment = (SupportMapFragment) this.getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        if (ContextCompat.checkSelfPermission(this.getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
-            mMap.setMyLocationEnabled(true);
-        } else {
-//            Toast.makeText(MapsActivity.this, "You have to accept to enjoy all app's services!", Toast.LENGTH_LONG).show();
-            if (ContextCompat.checkSelfPermission(this.getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION)
-                    == PackageManager.PERMISSION_GRANTED) {
-                mMap.setMyLocationEnabled(true);
-            }
-        }
         return view;
     }
 
@@ -75,9 +65,10 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
         mMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.getUiSettings().setZoomGesturesEnabled(true);
         mMap.getUiSettings().setCompassEnabled(true);
-        LatLng userLocation = getArguments().getParcelable("userLocation");
-        mMap.addMarker(new MarkerOptions().position(userLocation).title("Marker"));
-        CameraUpdate location= CameraUpdateFactory.newLatLngZoom(userLocation, 15);
+        Location userLocation = getArguments().getParcelable("Location");
+        LatLng userLatLang = new LatLng(userLocation.getLatitude(), userLocation.getLongitude());
+        mMap.addMarker(new MarkerOptions().position(userLatLang).title("Marker"));
+        CameraUpdate location= CameraUpdateFactory.newLatLngZoom(userLatLang, 15);
         mMap.animateCamera(location);
     }
 }
