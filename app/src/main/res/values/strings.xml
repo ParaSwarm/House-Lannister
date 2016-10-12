@@ -19,7 +19,7 @@
 
     <string-array name="people_titles">
         <item>My Favorites</item>
-        <item>Who Favorited Me?</item>
+        <item>Who Likes Me</item>
         <item>Search</item>
     </string-array>
 
