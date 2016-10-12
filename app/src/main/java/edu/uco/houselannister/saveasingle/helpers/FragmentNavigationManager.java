@@ -13,11 +13,11 @@ import edu.uco.houselannister.saveasingle.fragments.AdminUsersFragment;
 import edu.uco.houselannister.saveasingle.fragments.FavoriteListFragment;
 import edu.uco.houselannister.saveasingle.fragments.InboxFragment;
 import edu.uco.houselannister.saveasingle.fragments.MainFragment;
-import edu.uco.houselannister.saveasingle.fragments.WhoLikesMeFragment;
 import edu.uco.houselannister.saveasingle.fragments.SearchCriteriaFragment;
 import edu.uco.houselannister.saveasingle.fragments.SearchFragment;
-import edu.uco.houselannister.saveasingle.fragments.ViewMessageFragment;
 import edu.uco.houselannister.saveasingle.fragments.UserProfile_Fragment;
+import edu.uco.houselannister.saveasingle.fragments.ViewMessageFragment;
+import edu.uco.houselannister.saveasingle.fragments.WhoLikesMeFragment;
 
 public class FragmentNavigationManager implements NavigationManager {
 
