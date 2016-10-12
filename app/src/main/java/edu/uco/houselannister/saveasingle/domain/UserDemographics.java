@@ -27,6 +27,19 @@ public class UserDemographics implements Serializable {
 
     private Status myStatus;
 
+    private Language myLanguage;
+
+    private boolean hasCats;
+
+    private boolean hasDogs;
+
+    private boolean hasNoPets;
+    private boolean wantsKids;
+    private boolean mightWantKids;
+    private boolean doesNotWantKids;
+    private boolean currentlyHasKids;
+    private boolean doesNotCurrentlyHaveKids;
+
     public SalaryRange getMySalaryRange() {
         return mySalaryRange;
     }
@@ -113,5 +126,73 @@ public class UserDemographics implements Serializable {
 
     public void setMyStatus(Status myStatus) {
         this.myStatus = myStatus;
+    }
+
+    public Language getMyLanguage() {return myLanguage;}
+
+    public void setMyLanguage(Language myLanguage) {this.myLanguage = myLanguage;}
+
+    public boolean isHasCats() {
+        return hasCats;
+    }
+
+    public void setHasCats(boolean hasCats) {
+        this.hasCats = hasCats;
+    }
+
+    public boolean isHasDogs() {
+        return hasDogs;
+    }
+
+    public void setHasDogs(boolean hasDogs) {
+        this.hasDogs = hasDogs;
+    }
+
+    public boolean isHasNoPets() {
+        return hasNoPets;
+    }
+
+    public void setHasNoPets(boolean hasNoPets) {
+        this.hasNoPets = hasNoPets;
+    }
+
+    public boolean isWantsKids() {
+        return wantsKids;
+    }
+
+    public void setWantsKids(boolean wantsKids) {
+        this.wantsKids = wantsKids;
+    }
+
+    public boolean isMightWantKids() {
+        return mightWantKids;
+    }
+
+    public void setMightWantKids(boolean mightWantKids) {
+        this.mightWantKids = mightWantKids;
+    }
+
+    public boolean isDoesNotWantKids() {
+        return doesNotWantKids;
+    }
+
+    public void setDoesNotWantKids(boolean doesNotWantKids) {
+        this.doesNotWantKids = doesNotWantKids;
+    }
+
+    public boolean isCurrentlyHasKids() {
+        return currentlyHasKids;
+    }
+
+    public void setCurrentlyHasKids(boolean currentlyHasKids) {
+        this.currentlyHasKids = currentlyHasKids;
+    }
+
+    public boolean isDoesNotCurrentlyHaveKids() {
+        return doesNotCurrentlyHaveKids;
+    }
+
+    public void setDoesNotCurrentlyHaveKids(boolean doesNotCurrentlyHaveKids) {
+        this.doesNotCurrentlyHaveKids = doesNotCurrentlyHaveKids;
     }
 }

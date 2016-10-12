@@ -1,6 +1,8 @@
 package edu.uco.houselannister.saveasingle.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Random;
 
 public enum Religion implements Serializable {
     BAHAI("Baha'i", "Baha'ism"),
@@ -40,6 +42,19 @@ public enum Religion implements Serializable {
             nameList[l.ordinal()] = l.ism;
         }
         return nameList;
+    }
+
+    public static Religion getRandom() {
+        Random r = new Random();
+        return values()[r.nextInt(values().length)];
+    }
+
+    public static ArrayList<Religion> getRandoms(int number) {
+        ArrayList<Religion> list = new ArrayList<>();
+        for(int i = 0; i <= number; i++){
+            list.add(Religion.getRandom());
+        }
+        return list;
     }
 
 }

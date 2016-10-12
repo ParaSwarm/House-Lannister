@@ -18,7 +18,7 @@ public class UserPreferences implements Serializable {
     private Integer ageLow;
 
     private Integer ageHigh;
-
+    //TODO: Do many people worship in multiple religions?
     private ArrayList<Religion> religions;
 
     private ArrayList<Personality> personalityTags;
@@ -28,6 +28,28 @@ public class UserPreferences implements Serializable {
     private ArrayList<Interests> interestTags;
 
     private ArrayList<Status> status;
+
+    private boolean preferencesSet;
+
+    private boolean prefersPhotos;
+
+    private boolean openToPoly;
+
+    private Language languagePreference;
+
+    private boolean hasCats;
+
+    private boolean hasDogs;
+
+    private boolean hasNoPets;
+
+    private boolean wantsKids;
+    private boolean mightWantKids;
+    private boolean doesNotWantKids;
+    private boolean currentlyHasKids;
+    private boolean doesNotCurrentlyHaveKids;
+
+    private SearchDistances searchDistances;
 
     public ArrayList<SalaryRange> getSalaryRanges() {
         return salaryRanges;
@@ -123,5 +145,93 @@ public class UserPreferences implements Serializable {
 
     public void setStatus(ArrayList<Status> status) {
         this.status = status;
+    }
+
+    public boolean preferencesSet() {return preferencesSet;}
+
+    public void preferencesApplied(boolean set) {this.preferencesSet = set;}
+
+    public boolean getPrefersPhotos() {return prefersPhotos;}
+
+    public void setPrefersPhotos(boolean preference) {this.prefersPhotos = preference;}
+
+    public boolean getOpenToPoly(){return openToPoly;}
+
+    public void setOpenToPoly(boolean openToPoly) {this.openToPoly = openToPoly;}
+
+    public Language getLanguagePreference() {return languagePreference;}
+
+    public void setLanguagePreference(Language languagePreference) {this.languagePreference = languagePreference;}
+
+    public boolean isHasCats() {
+        return hasCats;
+    }
+
+    public void setHasCats(boolean hasCats) {
+        this.hasCats = hasCats;
+    }
+
+    public boolean isHasDogs() {
+        return hasDogs;
+    }
+
+    public void setHasDogs(boolean hasDogs) {
+        this.hasDogs = hasDogs;
+    }
+
+    public boolean isHasNoPets() {
+        return hasNoPets;
+    }
+
+    public void setHasNoPets(boolean hasNoPets) {
+        this.hasNoPets = hasNoPets;
+    }
+
+    public boolean isWantsKids() {
+        return wantsKids;
+    }
+
+    public void setWantsKids(boolean wantsKids) {
+        this.wantsKids = wantsKids;
+    }
+
+    public boolean isMightWantKids() {
+        return mightWantKids;
+    }
+
+    public void setMightWantKids(boolean mightWantKids) {
+        this.mightWantKids = mightWantKids;
+    }
+
+    public boolean isDoesNotWantKids() {
+        return doesNotWantKids;
+    }
+
+    public void setDoesNotWantKids(boolean doesNotWantKids) {
+        this.doesNotWantKids = doesNotWantKids;
+    }
+
+    public boolean isCurrentlyHasKids() {
+        return currentlyHasKids;
+    }
+
+    public void setCurrentlyHasKids(boolean currentlyHasKids) {
+        this.currentlyHasKids = currentlyHasKids;
+    }
+
+    public boolean isDoesNotCurrentlyHaveKids() {
+        return doesNotCurrentlyHaveKids;
+    }
+
+    public void setDoesNotCurrentlyHaveKids(boolean doesNotCurrentlyHaveKids) {
+        this.doesNotCurrentlyHaveKids = doesNotCurrentlyHaveKids;
+    }
+
+    public SearchDistances getSearchDistances() {
+        return searchDistances;
+    }
+
+    public void setSearchDistances(SearchDistances searchDistances) {
+        this.searchDistances = searchDistances;
     }
 }

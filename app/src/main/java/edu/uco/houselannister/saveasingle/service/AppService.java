@@ -15,8 +15,8 @@ import edu.uco.houselannister.saveasingle.domain.*;
 
 public class AppService implements ServiceProxy, Serializable {
 
-    private User currentUser;
-    private User impersonatedUser;
+    private User currentUser; //authenticated
+    private User impersonatedUser; //impersonated
     private Questionnaire questionnaire;
     private ArrayList<User> users;
 
@@ -61,7 +61,9 @@ public class AppService implements ServiceProxy, Serializable {
         this.currentUser = null;
         this.impersonatedUser = null;
         for (User u : getUsers()) {
-            isAuthenticated = email.toLowerCase().equals(u.getEmailAddress().toLowerCase()) && password.toLowerCase().equals(u.getPassword().toLowerCase());
+            isAuthenticated = email.toLowerCase().equals(u.getEmailAddress().toLowerCase())
+                    && password.toLowerCase().equals(u.getPassword().toLowerCase())
+                    && u.getEnabled();
             if (isAuthenticated) {
                 this.currentUser = u;
                 this.impersonatedUser = u;

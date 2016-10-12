@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
@@ -81,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements AdminUsersFragmen
         ButterKnife.bind(this);
         appModel = AppModel.getAppModelInstance(AppService.getAppServiceInstance());
 
+
         //navigation drawer
         mActivityTitle = getTitle().toString();
 
@@ -139,7 +141,12 @@ public class MainActivity extends AppCompatActivity implements AdminUsersFragmen
                     mNavigationManager.showFragmentUserProfile();
                 } else if (settingsNavigationTitles[1].compareTo(selectedItem) == 0) {
                     mNavigationManager.showFragmentMain();
-                } else if (settingsNavigationTitles[2].compareTo(selectedItem) == 0) {
+                } else if (settingsNavigationTitles[2].compareTo(selectedItem) == 0) { // logout
+                    appModel = null;
+                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else if (settingsNavigationTitles[3].compareTo(selectedItem) == 0) {
                     mNavigationManager.showFragmentSettings(selectedItem);
                 } else if (peopleNavigationTitles[0].compareTo(selectedItem) == 0) {
                     mNavigationManager.showFragmentList();
