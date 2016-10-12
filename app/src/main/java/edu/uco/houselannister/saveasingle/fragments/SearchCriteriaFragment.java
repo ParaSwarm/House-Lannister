@@ -1,8 +1,14 @@
 package edu.uco.houselannister.saveasingle.fragments;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +18,13 @@ import android.widget.CheckBox;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
@@ -43,13 +55,21 @@ import edu.uco.houselannister.saveasingle.service.AppService;
 /**
  * Created by ryan on 9/27/2016.
  */
-public class SearchCriteriaFragment extends Fragment {
+public class SearchCriteriaFragment extends Fragment implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
+        LocationListener{
     private Model appModel;
     private Switch singleSwitch;
     private Switch polySwitch;
     private Button searchButton;
     private CheckBox hasCats, hasDogs, hasNone, wantsKids, mightWantKids, doesNotWantKids, hasKids, doesNotHaveKids,
-    highschool, associates, bachelors, masters;
+            highschool, associates, bachelors, masters;
+    private GoogleApiClient apiClient;
+    private Location mLastLocation;
+    private LocationRequest locationRequest;
+    private final long UPDATE_INTERVAL = 10 * 1000;
+    private final long FASTEST_INTERVAL = 2000;
+    private static final int REQUEST_CODE = 1;
+
 
     public SearchCriteriaFragment() {
 
@@ -64,6 +84,14 @@ public class SearchCriteriaFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         appModel = AppModel.getAppModelInstance(AppService.getAppServiceInstance());
+        if (apiClient == null) {
+            apiClient = new GoogleApiClient.Builder(this.getContext())
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .addApi(LocationServices.API)
+                    .build();
+            apiClient.connect();
+        }
     }
 
     @Override
@@ -78,7 +106,6 @@ public class SearchCriteriaFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         final Spinner languageSpinner = (Spinner) view.findViewById(R.id.language_spinner);
         DummyUserCreator creator = new DummyUserCreator();
-
 
 
         ArrayAdapter<CharSequence> languageAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_dropdown_item, Language.GetNames());
@@ -107,22 +134,22 @@ public class SearchCriteriaFragment extends Fragment {
         distanceSpinner.setAdapter(distanceAdapter);
 
         singleSwitch = (Switch) view.findViewById(R.id.single_switch);
-        polySwitch = (Switch)view.findViewById(R.id.switch_monogamous);
-        hasCats = (CheckBox)view.findViewById(R.id.hasCatsCheckbox);
-        hasDogs = (CheckBox)view.findViewById(R.id.hasDogsCheckbox);
-        hasNone = (CheckBox)view.findViewById(R.id.hasNoPetsCheckbox);
-        wantsKids = (CheckBox)view.findViewById(R.id.wantsKidsCheckbox);
-        mightWantKids= (CheckBox)view.findViewById(R.id.mightWantKidsCheckbox);
-        doesNotWantKids = (CheckBox)view.findViewById(R.id.doesNotWantKidsCheckbox);
-        hasKids = (CheckBox)view.findViewById(R.id.hasKidsCheckbox);
-        doesNotHaveKids = (CheckBox)view.findViewById(R.id.doesNotHaveKidsCheckbox);
-        highschool = (CheckBox)view.findViewById(R.id.highSchoolCheckbox);
-        associates = (CheckBox)view.findViewById(R.id.associatesCheckbox);
-        bachelors = (CheckBox)view.findViewById(R.id.bachelorsCheckbox);
-        masters = (CheckBox)view.findViewById(R.id.mastersCheckbox);
-        final Switch photosSwitch = (Switch)view.findViewById(R.id.hasPhotosSwitch);
+        polySwitch = (Switch) view.findViewById(R.id.switch_monogamous);
+        hasCats = (CheckBox) view.findViewById(R.id.hasCatsCheckbox);
+        hasDogs = (CheckBox) view.findViewById(R.id.hasDogsCheckbox);
+        hasNone = (CheckBox) view.findViewById(R.id.hasNoPetsCheckbox);
+        wantsKids = (CheckBox) view.findViewById(R.id.wantsKidsCheckbox);
+        mightWantKids = (CheckBox) view.findViewById(R.id.mightWantKidsCheckbox);
+        doesNotWantKids = (CheckBox) view.findViewById(R.id.doesNotWantKidsCheckbox);
+        hasKids = (CheckBox) view.findViewById(R.id.hasKidsCheckbox);
+        doesNotHaveKids = (CheckBox) view.findViewById(R.id.doesNotHaveKidsCheckbox);
+        highschool = (CheckBox) view.findViewById(R.id.highSchoolCheckbox);
+        associates = (CheckBox) view.findViewById(R.id.associatesCheckbox);
+        bachelors = (CheckBox) view.findViewById(R.id.bachelorsCheckbox);
+        masters = (CheckBox) view.findViewById(R.id.mastersCheckbox);
+        final Switch photosSwitch = (Switch) view.findViewById(R.id.hasPhotosSwitch);
 
-        if(appModel.getCurrentUser().getUserPreferences().preferencesSet()) {
+        if (appModel.getCurrentUser().getUserPreferences().preferencesSet()) {
             languageSpinner.setSelection(Language.valueOf(appModel.getCurrentUser().getUserDemographics().getMyLanguage().toString()).ordinal());
             religionSpinner.setSelection(Religion.valueOf(appModel.getCurrentUser().getUserDemographics().getMyReligion().toString()).ordinal());
             if (appModel.getCurrentUser().getUserPreferences().getAgeLow() < 18) {
@@ -149,14 +176,13 @@ public class SearchCriteriaFragment extends Fragment {
 //                appModel.getCurrentUser().getUserPreferences().setReligions(religionSpinner.getSelectedItem().toString());
                 appModel.getCurrentUser().getUserPreferences().setOpenToPoly(polySwitch.isChecked());
                 ArrayList<Status> statuses = new ArrayList<Status>();
-                if(singleSwitch.isChecked()) {
+                if (singleSwitch.isChecked()) {
                     statuses.add(Status.SINGLE);
-                }
-                else {
+                } else {
                     statuses.add(Status.COMPLICATED);
                 }
-                if(polySwitch.isChecked()) {
-                   statuses.add(Status.OPENRELATIONSHIP);
+                if (polySwitch.isChecked()) {
+                    statuses.add(Status.OPENRELATIONSHIP);
                 }
                 appModel.getCurrentUser().getUserPreferences().setStatus(statuses);
                 ArrayList<User> userList = appModel.getUsers();
@@ -185,10 +211,9 @@ public class SearchCriteriaFragment extends Fragment {
                 matchingUsers.addAll(hasDogsCriteria.meetsSearchCriteria(userList));
 
                 appModel.getCurrentUser().getUserPreferences().setHasNoPets(hasNone.isChecked());
-                if(appModel.getCurrentUser().getUserPreferences().isHasNoPets()){
+                if (appModel.getCurrentUser().getUserPreferences().isHasNoPets()) {
                     //only want people that have no pets
-                }
-                else {
+                } else {
                     //don't care if they don't have pets
 
                 }
@@ -200,31 +225,120 @@ public class SearchCriteriaFragment extends Fragment {
                 //criteria for the different combos of kids and pets
 
                 ArrayList<EducationLevel> educationLevels = new ArrayList<EducationLevel>();
-                if(highschool.isChecked()) {
+                if (highschool.isChecked()) {
                     educationLevels.add(EducationLevel.HSDIPLOMA);
                 }
-                if(associates.isChecked()) {
+                if (associates.isChecked()) {
                     educationLevels.add(EducationLevel.SOMECOLLEGE);
                 }
-                if(bachelors.isChecked()) {
+                if (bachelors.isChecked()) {
                     educationLevels.add(EducationLevel.BACHELORS);
                 }
-                if(masters.isChecked()) {
+                if (masters.isChecked()) {
                     educationLevels.add(EducationLevel.MASTERS);
                 }
                 appModel.getCurrentUser().getUserPreferences().setEduLevels(educationLevels);
                 //criteria for education
 //                appModel.getCurrentUser().getUserPreferences().setSearchDistances(SearchDistances.valueOf(distanceSpinner.getSelectedItem().toString().toUpperCase()));
                 //criteria for distance
-                if(photosSwitch.isChecked()) {
+                if (photosSwitch.isChecked()) {
                     //add search criteria that has photos
                 }
                 String tokensEntered = multiAutoCompleteTextView.getText().toString();
                 //check tokens entered match with enum values, currently throw out others that aren't existent
                 FragmentNavigationManager manager = FragmentNavigationManager.getsInstance();
-                LatLng latLng = new LatLng(35.4676, -97.5164);
-                manager.showFragmentMap(latLng);
+//                LatLng latLng = new LatLng(35.4676, -97.5164);
+                manager.showFragmentMap(mLastLocation);
             }
         });
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        if (ActivityCompat.checkSelfPermission(this.getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this.getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            mLastLocation = LocationServices.FusedLocationApi.getLastLocation(apiClient);
+            if (mLastLocation != null) {
+//                mLatitudeText.setText(String.valueOf(mLastLocation.getLatitude()));
+                double lastLatitude = mLastLocation.getLatitude();
+//                mLongitudeText.setText(String.valueOf(mLastLocation.getLongitude()));
+                double lastLongitude = mLastLocation.getLongitude();
+            }
+            else {
+            }
+            startLocationUpdates();
+            }
+            mLastLocation = LocationServices.FusedLocationApi.getLastLocation(apiClient);
+            return;
+
+
+    }
+
+    private void startLocationUpdates() {
+        locationRequest = LocationRequest.create().setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY).setInterval(UPDATE_INTERVAL).setFastestInterval(FASTEST_INTERVAL);
+        if (ContextCompat.checkSelfPermission(this.getContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(this.getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
+
+            // MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION is an
+            // app-defined int constant. The callback method gets the
+            // result of the request.
+            LocationServices.FusedLocationApi.requestLocationUpdates(apiClient, locationRequest, this);
+        }
+
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+    String result = connectionResult.toString();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+//        apiClient.connect();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        apiClient.disconnect();
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+            // New location has now been determined
+            String msg = "Updated Location: " +
+                    Double.toString(location.getLatitude()) + "," +
+                    Double.toString(location.getLongitude());
+            Toast.makeText(this.getContext(), msg, Toast.LENGTH_SHORT).show();
+            // You can now create a LatLng Object for use with maps
+            LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_CODE: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the task you need to do.
+
+                } else {
+
+                    // permission denied, boo! Disable the functionality that depends on this permission.
+                }
+                return;
+            }
+        }
     }
 }

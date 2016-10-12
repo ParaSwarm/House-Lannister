@@ -1,5 +1,7 @@
 package edu.uco.houselannister.saveasingle.domain;
 
+import android.location.Geocoder;
+import android.location.Location;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -35,6 +37,8 @@ public class User  implements Serializable, Parcelable {
     private Boolean isAdmin;
 
     private Boolean enabled;
+
+    private Location location;
 
     public String getName() {
         return name;
@@ -226,4 +230,12 @@ public class User  implements Serializable, Parcelable {
             return new User[size];
         }
     };
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
 }
