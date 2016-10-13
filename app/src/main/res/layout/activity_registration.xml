@@ -75,7 +75,7 @@
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
         android:ems="10"
-        android:hint="Email"
+        android:hint="Email@example.com"
         android:id="@+id/editText_Email"
         android:layout_below="@+id/editText_FirstName"
         android:layout_alignParentStart="true" />
@@ -90,7 +90,7 @@
         android:layout_below="@+id/editText_Email"
         android:layout_alignParentStart="true" />
 
-   <!-- <EditText
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
@@ -98,14 +98,18 @@
         android:hint="Confirm Password"
         android:id="@+id/editText_ConfirmPassword"
         android:layout_below="@+id/editText_Password"
-        android:layout_alignParentStart="true" /> -->
+        android:layout_alignParentStart="true" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        style="?android:textAppearanceSmall"
         android:text="Register"
         android:id="@+id/button_Register"
-        android:layout_below="@+id/editText_Password"
+        android:layout_below="@+id/editText_ConfirmPassword"
+        android:textStyle="bold"
+        android:background="@drawable/stylebutton"
+        android:drawableLeft="@mipmap/register_ic_launcher"
         android:layout_alignEnd="@+id/editText_Password" />
 
 
