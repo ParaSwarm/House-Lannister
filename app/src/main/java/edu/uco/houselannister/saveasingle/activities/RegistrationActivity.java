@@ -1,7 +1,11 @@
 package edu.uco.houselannister.saveasingle.activities;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +13,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -53,7 +58,7 @@ public class RegistrationActivity extends AppCompatActivity {
         //regLastName = (EditText) findViewById(R.id.editText_LastName);
         regEmail = (EditText) findViewById(R.id.editText_Email);
         regPassword = (EditText) findViewById(R.id.editText_Password);
-        //regConfirmPassword = (EditText) findViewById(R.id.editText_ConfirmPassword);
+        regConfirmPassword = (EditText) findViewById(R.id.editText_ConfirmPassword);
 
         /*String firstNameRegistration = regFirstName.getText().toString();
         String lastNameRegistration = regLastName.getText().toString();
@@ -66,7 +71,23 @@ public class RegistrationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                User u  = new User();
+                if (!regPassword.equals(regConfirmPassword)) {
+                    Context context = getApplicationContext();
+                    CharSequence text = "Password doesn't match";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                }
+
+                /*Context context = getApplicationContext();
+                CharSequence text = "Password match";
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();*/
+
+                User u = new User();
                 u.setName(regFirstName.getText().toString());
                 u.setPassword(regPassword.getText().toString());
                 u.setEmailAddress(regEmail.getText().toString());
@@ -74,6 +95,25 @@ public class RegistrationActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
                 startActivity(intent);
+
+
+                    /*AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getApplicationContext());
+                    final EditText et = new EditText(getApplicationContext());
+                    // set prompts.xml to alertdialog builder
+                    alertDialogBuilder.setView(et);
+                    // set dialog message
+                    alertDialogBuilder.setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                        }
+                    });
+                    // create alert dialog
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    // show it
+                    alertDialog.show();*/
+
+
+                //Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
+                //startActivity(intent);
             }
         });
     }
