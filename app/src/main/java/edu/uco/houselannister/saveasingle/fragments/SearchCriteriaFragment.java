@@ -28,10 +28,13 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import edu.uco.houselannister.saveasingle.R;
 import edu.uco.houselannister.saveasingle.domain.Ages;
 import edu.uco.houselannister.saveasingle.domain.EducationLevel;
+import edu.uco.houselannister.saveasingle.domain.Gender;
 import edu.uco.houselannister.saveasingle.domain.Interests;
 import edu.uco.houselannister.saveasingle.domain.Language;
 import edu.uco.houselannister.saveasingle.domain.Model;
@@ -44,6 +47,7 @@ import edu.uco.houselannister.saveasingle.helpers.FragmentNavigationManager;
 import edu.uco.houselannister.saveasingle.helpers.SearchCriteria;
 import edu.uco.houselannister.saveasingle.helpers.SearchCriteriaAge;
 import edu.uco.houselannister.saveasingle.helpers.SearchCriteriaAnd;
+import edu.uco.houselannister.saveasingle.helpers.SearchCriteriaGenger;
 import edu.uco.houselannister.saveasingle.helpers.SearchCriteriaHasCats;
 import edu.uco.houselannister.saveasingle.helpers.SearchCriteriaHasDogs;
 import edu.uco.houselannister.saveasingle.helpers.SearchCriteriaLanguage;
@@ -133,6 +137,11 @@ public class SearchCriteriaFragment extends Fragment implements GoogleApiClient.
         distanceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         distanceSpinner.setAdapter(distanceAdapter);
 
+        final Spinner genderSpinner = (Spinner)view.findViewById(R.id.genderSpinner);
+        ArrayAdapter<CharSequence> genderAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_dropdown_item, Gender.GetGenders());
+        genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        genderSpinner.setAdapter(genderAdapter);
+
         singleSwitch = (Switch) view.findViewById(R.id.single_switch);
         polySwitch = (Switch) view.findViewById(R.id.switch_monogamous);
         hasCats = (CheckBox) view.findViewById(R.id.hasCatsCheckbox);
@@ -171,8 +180,60 @@ public class SearchCriteriaFragment extends Fragment implements GoogleApiClient.
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ArrayList<User> userList = appModel.getUsers();
+                ArrayList<User> matchingUsers = new ArrayList<User>();
+                userList.get(0).setLocation(mLastLocation);
+                Location location = new Location(mLastLocation);
+                location.setLatitude(65.9669);
+                location.setLongitude(-18.5333);
+                Location location2 = new Location(mLastLocation);
+                location2.setLatitude(65.94752127);
+                location2.setLongitude(-18.51041794);
+                userList.get(0).setLocation(location2);
+                userList.get(1).setLocation(location);
+                Location location1 = new Location(mLastLocation);
+                location1.setLatitude(65.96297876);
+                location1.setLongitude(-18.50715637);
+                userList.get(0).getUserDemographics().setMyGender(Gender.MALE);
+                userList.get(1).getUserDemographics().setMyGender(Gender.FEMALE);
+                userList.get(2).setLocation(location1);
+                userList.get(2).getUserDemographics().setMyGender(Gender.OTHER);
                 //get the selected options from the view and apply them to the user's preferences
                 appModel.getCurrentUser().getUserPreferences().setLanguagePreference(Language.valueOf(languageSpinner.getSelectedItem().toString().toUpperCase()));
+                ArrayList<Gender> genders = new ArrayList<Gender>();
+                genders.add(Gender.valueOf(genderSpinner.getSelectedItem().toString().toUpperCase()));
+                appModel.getCurrentUser().getUserPreferences().setGenders(genders);
+                SearchCriteria genderCriteria = new SearchCriteriaGenger(genders);
+                matchingUsers.addAll(genderCriteria.meetsSearchCriteria(userList));
+
+                //gets distances and checks matches are in that range
+                SearchDistances distances = SearchDistances.ONEMILE;
+                String temp = distanceSpinner.getSelectedItem().toString();
+                switch (temp) {
+                    case "1 Mile": distances = SearchDistances.ONEMILE; break;
+                    case "5 Miles": distances = SearchDistances.FIVEMILES; break;
+                    case "10 Miles": distances = SearchDistances.TENMILES; break;
+                    case "15 Miles": distances = SearchDistances.FIFTEENMILES; break;
+                    case "25 Miles": distances = SearchDistances.TWENTYFIVEMILES; break;
+                    case "50 Miles": distances = SearchDistances.FIFTYMILES; break;
+                }
+                float distanceRange = 0;
+                switch (distances) {
+                    case ONEMILE: distanceRange = 1609; break;
+                    case FIVEMILES: distanceRange = 8046; break;
+                    case TENMILES: distanceRange = 16093; break;
+                    case FIFTEENMILES: distanceRange = 24140; break;
+                    case TWENTYFIVEMILES: distanceRange = 40233; break;
+                    case FIFTYMILES: distanceRange = 80467; break;
+                }
+                for(int i = 0; i < userList.size(); i++) {
+                    float distanceToMatch = mLastLocation.distanceTo(userList.get(i).getLocation());
+                    if(distanceToMatch <= distanceRange){
+                        matchingUsers.add(userList.get(i));
+                    }
+                }
+
+
 //                appModel.getCurrentUser().getUserPreferences().setReligions(religionSpinner.getSelectedItem().toString());
                 appModel.getCurrentUser().getUserPreferences().setOpenToPoly(polySwitch.isChecked());
                 ArrayList<Status> statuses = new ArrayList<Status>();
@@ -185,30 +246,29 @@ public class SearchCriteriaFragment extends Fragment implements GoogleApiClient.
                     statuses.add(Status.OPENRELATIONSHIP);
                 }
                 appModel.getCurrentUser().getUserPreferences().setStatus(statuses);
-                ArrayList<User> userList = appModel.getUsers();
-                ArrayList<User> matchingUsers = new ArrayList<User>();
+
 
                 //filter
                 //typically people want these to be exclusive and don't want to have outside their selection
                 SearchCriteria criteriaAge = new SearchCriteriaAge(Integer.valueOf(minAgeSpinner.getSelectedItem().toString()), Integer.valueOf(maxAgeSpinner.getSelectedItem().toString()));
-                matchingUsers.addAll(criteriaAge.meetsSearchCriteria(userList));
+//                matchingUsers.addAll(criteriaAge.meetsSearchCriteria(userList));
 
                 SearchCriteria religionCriteria = new SearchCriteriaReligion();
-                matchingUsers.addAll(religionCriteria.meetsSearchCriteria(userList));
+//                matchingUsers.addAll(religionCriteria.meetsSearchCriteria(userList));
 
                 SearchCriteria languageCriteria = new SearchCriteriaLanguage();
-                matchingUsers.addAll(languageCriteria.meetsSearchCriteria(userList));
+//                matchingUsers.addAll(languageCriteria.meetsSearchCriteria(userList));
 
                 SearchCriteria statusCriteria = new SearchCriteriaRelationhip(appModel.getCurrentUser().getUserPreferences().getStatus());
-                matchingUsers.addAll(statusCriteria.meetsSearchCriteria(userList));
+//                matchingUsers.addAll(statusCriteria.meetsSearchCriteria(userList));
 
                 appModel.getCurrentUser().getUserPreferences().setHasCats(hasCats.isChecked());
                 SearchCriteriaHasCats hasCatsCriteria = new SearchCriteriaHasCats(appModel.getCurrentUser().getUserPreferences().isHasCats());
-                matchingUsers.addAll(hasCatsCriteria.meetsSearchCriteria(userList));
+//                matchingUsers.addAll(hasCatsCriteria.meetsSearchCriteria(userList));
 
                 appModel.getCurrentUser().getUserPreferences().setHasDogs(hasDogs.isChecked());
                 SearchCriteriaHasDogs hasDogsCriteria = new SearchCriteriaHasDogs(appModel.getCurrentUser().getUserPreferences().isHasDogs());
-                matchingUsers.addAll(hasDogsCriteria.meetsSearchCriteria(userList));
+//                matchingUsers.addAll(hasDogsCriteria.meetsSearchCriteria(userList));
 
                 appModel.getCurrentUser().getUserPreferences().setHasNoPets(hasNone.isChecked());
                 if (appModel.getCurrentUser().getUserPreferences().isHasNoPets()) {
@@ -248,7 +308,12 @@ public class SearchCriteriaFragment extends Fragment implements GoogleApiClient.
                 //check tokens entered match with enum values, currently throw out others that aren't existent
                 FragmentNavigationManager manager = FragmentNavigationManager.getsInstance();
 //                LatLng latLng = new LatLng(35.4676, -97.5164);
-                manager.showFragmentMap(mLastLocation);
+
+                Set<User> hastSet = new HashSet<User>();
+                hastSet.addAll(matchingUsers);
+                matchingUsers.clear();
+                matchingUsers.addAll(hastSet);
+                manager.showFragmentMap(mLastLocation, matchingUsers);
             }
         });
     }
