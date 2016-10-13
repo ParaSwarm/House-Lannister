@@ -15,22 +15,28 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import edu.uco.houselannister.saveasingle.R;
+import java.util.ArrayList;
 
-public class MapsActivity extends Fragment implements OnMapReadyCallback {
+import edu.uco.houselannister.saveasingle.R;
+import edu.uco.houselannister.saveasingle.domain.User;
+
+public class MapsActivity extends Fragment implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private GoogleMap mMap;
+    private ArrayList<User> matchingUsers;
 
     public MapsActivity() {
 
     }
 
-    public static MapsActivity newInstance(Location location) {
+    public static MapsActivity newInstance(Location location, ArrayList<User> matchingUsers) {
         MapsActivity fragment = new MapsActivity();
         Bundle args = new Bundle();
         args.putParcelable("Location", location);
+        args.putParcelableArrayList("matches", matchingUsers);
         fragment.setArguments(args);
         return fragment;
     }
@@ -66,9 +72,24 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
         mMap.getUiSettings().setZoomGesturesEnabled(true);
         mMap.getUiSettings().setCompassEnabled(true);
         Location userLocation = getArguments().getParcelable("Location");
+        matchingUsers = getArguments().getParcelableArrayList("matches");
         LatLng userLatLang = new LatLng(userLocation.getLatitude(), userLocation.getLongitude());
-        mMap.addMarker(new MarkerOptions().position(userLatLang).title("Marker"));
+        mMap.addMarker(new MarkerOptions().position(userLatLang).title("Me"));
+        for(int i = 0; i < matchingUsers.size(); i++) {
+            mMap.addMarker(new MarkerOptions().position(new LatLng(matchingUsers.get(i).getLocation().getLatitude(), matchingUsers.get(i).getLocation().getLongitude())).title(matchingUsers.get(i).getName()));
+        }
         CameraUpdate location= CameraUpdateFactory.newLatLngZoom(userLatLang, 15);
         mMap.animateCamera(location);
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        for(int i = 0; i < matchingUsers.size(); i++) {
+            if(marker.getTitle().compareTo(matchingUsers.get(i).getName()) == 0) {
+                //clicked on someone that matches, load their profile
+
+            }
+        }
+        return false;
     }
 }
