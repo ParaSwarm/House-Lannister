@@ -1,6 +1,8 @@
 package edu.uco.houselannister.saveasingle.domain;
 
-public class Recommendation {
+import java.io.Serializable;
+
+public class Recommendation  implements Serializable {
 
     private User friend;
 

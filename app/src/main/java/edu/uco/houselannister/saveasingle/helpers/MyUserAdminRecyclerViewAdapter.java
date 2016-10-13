@@ -4,11 +4,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import edu.uco.houselannister.saveasingle.R;
+import edu.uco.houselannister.saveasingle.domain.Model;
 import edu.uco.houselannister.saveasingle.domain.User;
 import edu.uco.houselannister.saveasingle.fragments.AdminUsersFragment.OnUserAdminListFragmentInteractionListener;
+import edu.uco.houselannister.saveasingle.model.AppModel;
+import edu.uco.houselannister.saveasingle.service.AppService;
+
 import java.util.List;
 
 public class MyUserAdminRecyclerViewAdapter extends RecyclerView.Adapter<MyUserAdminRecyclerViewAdapter.ViewHolder> {
@@ -31,8 +37,9 @@ public class MyUserAdminRecyclerViewAdapter extends RecyclerView.Adapter<MyUserA
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).getName());
-        holder.mContentView.setText(mValues.get(position).getEmailAddress());
+        holder.mUsername.setText(mValues.get(position).getName());
+        holder.mEmail.setText(mValues.get(position).getEmailAddress());
+        holder.mEnabled.setChecked(mValues.get(position).getEnabled());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,20 +60,29 @@ public class MyUserAdminRecyclerViewAdapter extends RecyclerView.Adapter<MyUserA
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
+        public final TextView mUsername;
+        public final TextView mEmail;
+        public final Switch mEnabled;
         public User mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mUsername = (TextView) view.findViewById(R.id.admin_username);
+            mEmail = (TextView) view.findViewById(R.id.admin_email);
+            mEnabled = (Switch) view.findViewById(R.id.admin_enabled);
+            mEnabled.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    mItem.setEnabled(isChecked);
+                    AppModel.getAppModelInstance(AppService.getAppServiceInstance()).saveUser(mItem);
+                }
+            });
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + mEmail.getText() + "'";
         }
     }
 }

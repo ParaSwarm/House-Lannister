@@ -3,7 +3,9 @@ package edu.uco.houselannister.saveasingle.domain;
 import android.media.Image;
 import android.net.Uri;
 
-public class Photo {
+import java.io.Serializable;
+
+public class Photo implements Serializable {
 
     private Boolean isPrivate;
 
