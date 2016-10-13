@@ -1,5 +1,8 @@
 package edu.uco.houselannister.saveasingle.domain;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 /**
  * Created by ryan on 10/4/2016.
  */
@@ -21,5 +24,18 @@ public enum SearchDistances {
             distanceList[l.ordinal()] = l.text;
         }
         return distanceList;
+    }
+
+    public static SearchDistances getRandom() {
+        Random r = new Random();
+        return values()[r.nextInt(values().length)];
+    }
+
+    public static ArrayList<SearchDistances> getRandoms(int number) {
+        ArrayList<SearchDistances> list = new ArrayList<>();
+        for(int i = 0; i <= number; i++){
+            list.add(SearchDistances.getRandom());
+        }
+        return list;
     }
 }

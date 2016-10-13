@@ -13,10 +13,13 @@ import android.widget.MultiAutoCompleteTextView;
 import android.widget.Spinner;
 import android.widget.Switch;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.ArrayList;
 
 import edu.uco.houselannister.saveasingle.R;
 import edu.uco.houselannister.saveasingle.domain.Ages;
+import edu.uco.houselannister.saveasingle.domain.EducationLevel;
 import edu.uco.houselannister.saveasingle.domain.Interests;
 import edu.uco.houselannister.saveasingle.domain.Language;
 import edu.uco.houselannister.saveasingle.domain.Model;
@@ -24,6 +27,16 @@ import edu.uco.houselannister.saveasingle.domain.Religion;
 import edu.uco.houselannister.saveasingle.domain.SearchDistances;
 import edu.uco.houselannister.saveasingle.domain.Status;
 import edu.uco.houselannister.saveasingle.domain.User;
+import edu.uco.houselannister.saveasingle.helpers.DummyUserCreator;
+import edu.uco.houselannister.saveasingle.helpers.FragmentNavigationManager;
+import edu.uco.houselannister.saveasingle.helpers.SearchCriteria;
+import edu.uco.houselannister.saveasingle.helpers.SearchCriteriaAge;
+import edu.uco.houselannister.saveasingle.helpers.SearchCriteriaAnd;
+import edu.uco.houselannister.saveasingle.helpers.SearchCriteriaHasCats;
+import edu.uco.houselannister.saveasingle.helpers.SearchCriteriaHasDogs;
+import edu.uco.houselannister.saveasingle.helpers.SearchCriteriaLanguage;
+import edu.uco.houselannister.saveasingle.helpers.SearchCriteriaRelationhip;
+import edu.uco.houselannister.saveasingle.helpers.SearchCriteriaReligion;
 import edu.uco.houselannister.saveasingle.model.AppModel;
 import edu.uco.houselannister.saveasingle.service.AppService;
 
@@ -64,6 +77,8 @@ public class SearchCriteriaFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         final Spinner languageSpinner = (Spinner) view.findViewById(R.id.language_spinner);
+        DummyUserCreator creator = new DummyUserCreator();
+
 
 
         ArrayAdapter<CharSequence> languageAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_dropdown_item, Language.GetNames());
@@ -80,13 +95,13 @@ public class SearchCriteriaFragment extends Fragment {
         //endregion reglion spinner
 
         //age spinner
-        Spinner minAgeSpinner = (Spinner) view.findViewById(R.id.min_age_spinner);
+        final Spinner minAgeSpinner = (Spinner) view.findViewById(R.id.min_age_spinner);
         ArrayAdapter<CharSequence> adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_dropdown_item, Ages.GetAges());
         minAgeSpinner.setAdapter(adapter);
-        Spinner maxAgeSpinner = (Spinner) view.findViewById(R.id.max_age_spinner);
+        final Spinner maxAgeSpinner = (Spinner) view.findViewById(R.id.max_age_spinner);
         maxAgeSpinner.setAdapter(adapter);
         //distance spinner
-        Spinner distanceSpinner = (Spinner) view.findViewById(R.id.distance_to_search_spinner);
+        final Spinner distanceSpinner = (Spinner) view.findViewById(R.id.distance_to_search_spinner);
         ArrayAdapter<CharSequence> distanceAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_dropdown_item, SearchDistances.GetDistances());
         distanceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         distanceSpinner.setAdapter(distanceAdapter);
@@ -101,6 +116,11 @@ public class SearchCriteriaFragment extends Fragment {
         doesNotWantKids = (CheckBox)view.findViewById(R.id.doesNotWantKidsCheckbox);
         hasKids = (CheckBox)view.findViewById(R.id.hasKidsCheckbox);
         doesNotHaveKids = (CheckBox)view.findViewById(R.id.doesNotHaveKidsCheckbox);
+        highschool = (CheckBox)view.findViewById(R.id.highSchoolCheckbox);
+        associates = (CheckBox)view.findViewById(R.id.associatesCheckbox);
+        bachelors = (CheckBox)view.findViewById(R.id.bachelorsCheckbox);
+        masters = (CheckBox)view.findViewById(R.id.mastersCheckbox);
+        final Switch photosSwitch = (Switch)view.findViewById(R.id.hasPhotosSwitch);
 
         if(appModel.getCurrentUser().getUserPreferences().preferencesSet()) {
             languageSpinner.setSelection(Language.valueOf(appModel.getCurrentUser().getUserDemographics().getMyLanguage().toString()).ordinal());
@@ -117,7 +137,7 @@ public class SearchCriteriaFragment extends Fragment {
             polySwitch.setChecked(appModel.getCurrentUser().getUserPreferences().getOpenToPoly());
         }
         ArrayAdapter<CharSequence> tokenAdapter = new ArrayAdapter<CharSequence>(getActivity(), android.R.layout.simple_dropdown_item_1line, Interests.GetInterests());
-        MultiAutoCompleteTextView multiAutoCompleteTextView = (MultiAutoCompleteTextView) view.findViewById(R.id.interests_multitoken);
+        final MultiAutoCompleteTextView multiAutoCompleteTextView = (MultiAutoCompleteTextView) view.findViewById(R.id.interests_multitoken);
         multiAutoCompleteTextView.setAdapter(tokenAdapter);
         multiAutoCompleteTextView.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
         searchButton = (Button) view.findViewById(R.id.searchButton);
@@ -125,7 +145,7 @@ public class SearchCriteriaFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //get the selected options from the view and apply them to the user's preferences
-                appModel.getCurrentUser().getUserPreferences().setLanguagePreference(languageSpinner.getSelectedItem().toString());
+                appModel.getCurrentUser().getUserPreferences().setLanguagePreference(Language.valueOf(languageSpinner.getSelectedItem().toString().toUpperCase()));
 //                appModel.getCurrentUser().getUserPreferences().setReligions(religionSpinner.getSelectedItem().toString());
                 appModel.getCurrentUser().getUserPreferences().setOpenToPoly(polySwitch.isChecked());
                 ArrayList<Status> statuses = new ArrayList<Status>();
@@ -135,8 +155,75 @@ public class SearchCriteriaFragment extends Fragment {
                 else {
                     statuses.add(Status.COMPLICATED);
                 }
+                if(polySwitch.isChecked()) {
+                   statuses.add(Status.OPENRELATIONSHIP);
+                }
                 appModel.getCurrentUser().getUserPreferences().setStatus(statuses);
+                ArrayList<User> userList = appModel.getUsers();
+                ArrayList<User> matchingUsers = new ArrayList<User>();
 
+                //filter
+                //typically people want these to be exclusive and don't want to have outside their selection
+                SearchCriteria criteriaAge = new SearchCriteriaAge(Integer.valueOf(minAgeSpinner.getSelectedItem().toString()), Integer.valueOf(maxAgeSpinner.getSelectedItem().toString()));
+                matchingUsers.addAll(criteriaAge.meetsSearchCriteria(userList));
+
+                SearchCriteria religionCriteria = new SearchCriteriaReligion();
+                matchingUsers.addAll(religionCriteria.meetsSearchCriteria(userList));
+
+                SearchCriteria languageCriteria = new SearchCriteriaLanguage();
+                matchingUsers.addAll(languageCriteria.meetsSearchCriteria(userList));
+
+                SearchCriteria statusCriteria = new SearchCriteriaRelationhip(appModel.getCurrentUser().getUserPreferences().getStatus());
+                matchingUsers.addAll(statusCriteria.meetsSearchCriteria(userList));
+
+                appModel.getCurrentUser().getUserPreferences().setHasCats(hasCats.isChecked());
+                SearchCriteriaHasCats hasCatsCriteria = new SearchCriteriaHasCats(appModel.getCurrentUser().getUserPreferences().isHasCats());
+                matchingUsers.addAll(hasCatsCriteria.meetsSearchCriteria(userList));
+
+                appModel.getCurrentUser().getUserPreferences().setHasDogs(hasDogs.isChecked());
+                SearchCriteriaHasDogs hasDogsCriteria = new SearchCriteriaHasDogs(appModel.getCurrentUser().getUserPreferences().isHasDogs());
+                matchingUsers.addAll(hasDogsCriteria.meetsSearchCriteria(userList));
+
+                appModel.getCurrentUser().getUserPreferences().setHasNoPets(hasNone.isChecked());
+                if(appModel.getCurrentUser().getUserPreferences().isHasNoPets()){
+                    //only want people that have no pets
+                }
+                else {
+                    //don't care if they don't have pets
+
+                }
+                appModel.getCurrentUser().getUserPreferences().setWantsKids(wantsKids.isChecked());
+                appModel.getCurrentUser().getUserPreferences().setMightWantKids(mightWantKids.isChecked());
+                appModel.getCurrentUser().getUserPreferences().setDoesNotWantKids(doesNotWantKids.isChecked());
+                appModel.getCurrentUser().getUserPreferences().setCurrentlyHasKids(hasKids.isChecked());
+                appModel.getCurrentUser().getUserPreferences().setDoesNotCurrentlyHaveKids(doesNotHaveKids.isChecked());
+                //criteria for the different combos of kids and pets
+
+                ArrayList<EducationLevel> educationLevels = new ArrayList<EducationLevel>();
+                if(highschool.isChecked()) {
+                    educationLevels.add(EducationLevel.HSDIPLOMA);
+                }
+                if(associates.isChecked()) {
+                    educationLevels.add(EducationLevel.SOMECOLLEGE);
+                }
+                if(bachelors.isChecked()) {
+                    educationLevels.add(EducationLevel.BACHELORS);
+                }
+                if(masters.isChecked()) {
+                    educationLevels.add(EducationLevel.MASTERS);
+                }
+                appModel.getCurrentUser().getUserPreferences().setEduLevels(educationLevels);
+                //criteria for education
+//                appModel.getCurrentUser().getUserPreferences().setSearchDistances(SearchDistances.valueOf(distanceSpinner.getSelectedItem().toString().toUpperCase()));
+                //criteria for distance
+                if(photosSwitch.isChecked()) {
+                    //add search criteria that has photos
+                }
+                String tokensEntered = multiAutoCompleteTextView.getText().toString();
+                //check tokens entered match with enum values, currently throw out others that aren't existent
+                FragmentNavigationManager manager = FragmentNavigationManager.getsInstance();
+                LatLng latLng = new LatLng(35.4676, -97.5164);
+                manager.showFragmentMap(latLng);
             }
         });
     }

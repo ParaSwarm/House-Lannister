@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import edu.uco.houselannister.saveasingle.BuildConfig;
 import edu.uco.houselannister.saveasingle.R;
 import edu.uco.houselannister.saveasingle.activities.MainActivity;
@@ -14,6 +16,7 @@ import edu.uco.houselannister.saveasingle.fragments.AdminUsersFragment;
 import edu.uco.houselannister.saveasingle.fragments.FavoriteListFragment;
 import edu.uco.houselannister.saveasingle.fragments.InboxFragment;
 import edu.uco.houselannister.saveasingle.fragments.MainFragment;
+import edu.uco.houselannister.saveasingle.fragments.MapsActivity;
 import edu.uco.houselannister.saveasingle.fragments.WhoLikesMeFragment;
 import edu.uco.houselannister.saveasingle.fragments.SearchCriteriaFragment;
 import edu.uco.houselannister.saveasingle.fragments.SearchFragment;
@@ -35,6 +38,14 @@ public class FragmentNavigationManager implements NavigationManager {
         }
         sInstance.configure(activity);
         return sInstance;
+    }
+
+    public static FragmentNavigationManager getsInstance() {
+        return sInstance;
+    }
+
+    public FragmentManager getmFragmentManager() {
+        return mFragmentManager;
     }
 
     private void configure(MainActivity activity) {
@@ -82,6 +93,9 @@ public class FragmentNavigationManager implements NavigationManager {
     public void showFragmentInbox() {
         showFragment(InboxFragment.newInstance(), false);
     }
+
+    @Override
+    public void showFragmentMap(LatLng latLng) {showFragment(MapsActivity.newInstance(latLng), false);}
 
     @Override
     public void showFragmentViewMessage(Bundle data) {
