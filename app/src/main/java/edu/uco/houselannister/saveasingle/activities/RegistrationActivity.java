@@ -1,15 +1,43 @@
 package edu.uco.houselannister.saveasingle.activities;
 
+<<<<<<< HEAD
+=======
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
+>>>>>>> master
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+<<<<<<< HEAD
+import android.widget.EditText;
+import android.widget.RadioButton;
+
+import edu.uco.houselannister.saveasingle.R;
+
+public class RegistrationActivity extends AppCompatActivity {
+
+
+    /*EditText firstNameReg = (EditText) findViewById(R.id.regFirstName);
+    EditText lastNameReg = (EditText) findViewById(R.id.regLastName);
+    EditText emailReg = (EditText) findViewById(R.id.regEmail);
+    EditText passwordReg = (EditText) findViewById(R.id.regPassword);
+    EditText confirmPasswordReg = (EditText) findViewById(R.id.regConfirmPassword);
+
+    //Convert Data into string
+
+    String strFirstName = firstNameReg.getText().toString();
+    String strLastName = lastNameReg.getText().toString();
+    String strEmail = emailReg.getText().toString();
+    String strPassword = passwordReg.getText().toString();
+    String strConfirmPassword = confirmPasswordReg.getText().toString();
+
+    Button registerButton = (Button) findViewById(R.id.btnRegister);*/
+=======
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -47,12 +75,37 @@ public class RegistrationActivity extends AppCompatActivity {
     String datePickerRegistration = datePicker.getDayOfMonth();*/
 
    // ArrayList<User> user;
+>>>>>>> master
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
+<<<<<<< HEAD
+        /*registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // back to login activity
+            }
+        });*/
+    }
+
+    /*public void onRadioButtonChecked(View view){
+        boolean checked = ((RadioButton) view).isChecked();
+        switch(view.getId()) {
+            case R.id.maleRdoButton:
+                if (checked)
+                    // Save Gender
+                    break;
+            case R.id.femaleRdoButton:
+                if (checked)
+                    // Save Gender
+                    break;
+        }
+    }*/
+}
+=======
         appModel = AppModel.getAppModelInstance(AppService.getAppServiceInstance());
         regFirstName = (EditText) findViewById(R.id.editText_FirstName);
         //regLastName = (EditText) findViewById(R.id.editText_LastName);
@@ -169,3 +222,4 @@ public class RegistrationActivity extends AppCompatActivity {
             regDateOfBirth.setText(sdf.format(myCalendar.getTime()));
         }*/
     }
+>>>>>>> master
