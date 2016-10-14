@@ -97,6 +97,7 @@ public class UserInteractions implements Serializable {
     }
 
     public ArrayList<Message> getInBox(boolean getBlockedMessages) {
+
         if(getBlockedMessages) {
             return inBox;
         }
