@@ -91,8 +91,25 @@ public class UserInteractions implements Serializable {
         this.privatePhotoAccess = privatePhotoAccess;
     }
 
+
     public ArrayList<Message> getInBox() {
-        return inBox;
+        return this.getInBox(true);
+    }
+
+    public ArrayList<Message> getInBox(boolean getBlockedMessages) {
+        if(getBlockedMessages) {
+            return inBox;
+        }
+
+        ArrayList<Message> unblockedMessages = new ArrayList<>();
+
+        for(Message message : inBox) {
+            if(!this.getBlocked().contains(message.getFrom())){
+                unblockedMessages.add(message);
+            }
+        }
+
+        return unblockedMessages;
     }
 
     public void setInBox(ArrayList<Message> inBox) {
@@ -116,11 +133,20 @@ public class UserInteractions implements Serializable {
     }
 
     public ArrayList<User> getBlocked() {
+        if(blocked == null) {
+            blocked = new ArrayList<>();
+        }
         return blocked;
     }
 
     public void setBlocked(ArrayList<User> blocked) {
         this.blocked = blocked;
+    }
+
+    public void blockUser(User userToBlock) {
+        if(!this.getBlocked().contains(userToBlock)) {
+            this.blocked.add(userToBlock);
+        }
     }
 
     public ArrayList<User> getLikes() {
