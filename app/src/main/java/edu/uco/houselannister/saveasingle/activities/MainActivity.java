@@ -3,6 +3,8 @@ package edu.uco.houselannister.saveasingle.activities;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
@@ -19,6 +21,12 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -131,8 +139,13 @@ public class MainActivity extends AppCompatActivity implements AdminUsersFragmen
                 } else if (settingsNavigationTitles[0].compareTo(selectedItem) == 0) {
                     mNavigationManager.showFragmentUserProfile();
                 } else if (settingsNavigationTitles[1].compareTo(selectedItem) == 0) {
-                    mNavigationManager.showFragmentGallery();
-                } else if (settingsNavigationTitles[2].compareTo(selectedItem) == 0) {
+                    mNavigationManager.showFragmentMain();
+                } else if (settingsNavigationTitles[2].compareTo(selectedItem) == 0) { // logout
+                    appModel = null;
+                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else if (settingsNavigationTitles[3].compareTo(selectedItem) == 0) {
                     mNavigationManager.showFragmentSettings(selectedItem);
                 } else if (peopleNavigationTitles[0].compareTo(selectedItem) == 0) {
                     mNavigationManager.showFragmentList();

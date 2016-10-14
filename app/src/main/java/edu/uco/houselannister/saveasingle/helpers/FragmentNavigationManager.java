@@ -1,24 +1,32 @@
 package edu.uco.houselannister.saveasingle.helpers;
 
 import android.annotation.SuppressLint;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
+import com.google.android.gms.maps.model.LatLng;
+
+import java.util.ArrayList;
+
 import edu.uco.houselannister.saveasingle.BuildConfig;
 import edu.uco.houselannister.saveasingle.R;
 import edu.uco.houselannister.saveasingle.activities.MainActivity;
+import edu.uco.houselannister.saveasingle.domain.User;
 import edu.uco.houselannister.saveasingle.fragments.AdminUsersFragment;
+import edu.uco.houselannister.saveasingle.fragments.ComposeMessageFragment;
 import edu.uco.houselannister.saveasingle.fragments.FavoriteListFragment;
 import edu.uco.houselannister.saveasingle.fragments.Fragment_gallery;
 import edu.uco.houselannister.saveasingle.fragments.InboxFragment;
 import edu.uco.houselannister.saveasingle.fragments.MainFragment;
+import edu.uco.houselannister.saveasingle.fragments.MapsActivity;
+import edu.uco.houselannister.saveasingle.fragments.WhoLikesMeFragment;
 import edu.uco.houselannister.saveasingle.fragments.SearchCriteriaFragment;
 import edu.uco.houselannister.saveasingle.fragments.SearchFragment;
-import edu.uco.houselannister.saveasingle.fragments.UserProfile_Fragment;
 import edu.uco.houselannister.saveasingle.fragments.ViewMessageFragment;
-import edu.uco.houselannister.saveasingle.fragments.WhoLikesMeFragment;
+import edu.uco.houselannister.saveasingle.fragments.UserProfile_Fragment;
 
 public class FragmentNavigationManager implements NavigationManager {
 
@@ -35,6 +43,14 @@ public class FragmentNavigationManager implements NavigationManager {
         }
         sInstance.configure(activity);
         return sInstance;
+    }
+
+    public static FragmentNavigationManager getsInstance() {
+        return sInstance;
+    }
+
+    public FragmentManager getmFragmentManager() {
+        return mFragmentManager;
     }
 
     private void configure(MainActivity activity) {
@@ -89,10 +105,20 @@ public class FragmentNavigationManager implements NavigationManager {
     }
 
     @Override
+    public void showFragmentMap(Location location, ArrayList<User> matchingUsers) {showFragment(MapsActivity.newInstance(location, matchingUsers), false);}
+
+    @Override
     public void showFragmentViewMessage(Bundle data) {
         ViewMessageFragment viewMessageFragment = new ViewMessageFragment();
         viewMessageFragment.setArguments(data);
         showFragment(viewMessageFragment, false);
+    }
+
+    @Override
+    public void showFragmentComposeMessage(Bundle data) {
+        ComposeMessageFragment composeMessageFragment = new ComposeMessageFragment();
+        composeMessageFragment.setArguments(data);
+        showFragment(composeMessageFragment, false);
     }
 
     private void showFragment(Fragment fragment, boolean allowStateLoss) {
@@ -104,7 +130,7 @@ public class FragmentNavigationManager implements NavigationManager {
 
 
 
-//        ft.addToBackStack(null);
+        ft.addToBackStack(null);
 
         if (allowStateLoss || !BuildConfig.DEBUG) {
             ft.commitAllowingStateLoss();
