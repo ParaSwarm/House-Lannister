@@ -1,6 +1,8 @@
 package edu.uco.houselannister.saveasingle.domain;
 
-public class Gift {
+import java.io.Serializable;
+
+public class Gift implements Serializable {
 
     private GiftType giftType;
 

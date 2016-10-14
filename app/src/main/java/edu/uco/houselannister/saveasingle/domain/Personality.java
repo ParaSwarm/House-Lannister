@@ -1,6 +1,12 @@
 package edu.uco.houselannister.saveasingle.domain;
 
-public enum Personality {
+import com.google.android.gms.plus.model.people.Person;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Random;
+
+public enum Personality implements Serializable {
     INTROVERT,
     EXTROVERT,
     SENSUAL,
@@ -8,5 +14,18 @@ public enum Personality {
     THOUGHTFUL,
     INSIGHTFUL,
     JUDGMENTAL,
-    PERCEPTIVE
+    PERCEPTIVE;;
+
+    public static Personality getRandomPersonality() {
+        Random r = new Random();
+        return values()[r.nextInt(values().length)];
+    }
+
+    public static ArrayList<Personality> getRandomPersonalities(int numberOfPersonalities) {
+        ArrayList<Personality> list = new ArrayList<>();
+        for(int i = 0; i <= numberOfPersonalities; i++){
+            list.add(Personality.getRandomPersonality());
+        }
+        return list;
+    }
 }

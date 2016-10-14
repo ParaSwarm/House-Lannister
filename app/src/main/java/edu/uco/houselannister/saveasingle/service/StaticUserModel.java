@@ -1,5 +1,12 @@
 package edu.uco.houselannister.saveasingle.service;
 
+import java.io.FileDescriptor;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -11,6 +18,10 @@ public class StaticUserModel {
     private static Questionnaire questionnaire = null;
     private static ArrayList<User> users = null;
     private static ArrayList<ZipCode> zipCodes = null;
+
+    private static String mFilename;
+
+
     //endregion Private Fields
 
     //region Top Level Objects (Users and Questionnaires)
@@ -33,13 +44,14 @@ public class StaticUserModel {
     public static ArrayList<User> getUsers() {
         if (users == null) {
             users = new ArrayList<>();
-            users.add(CreateUser("Jackson", false, "password", "jackson@uco.edu"));
-            users.add(CreateUser("Sierra", false, "password", "sierra@uco.edu"));
-            users.add(CreateUser("Goliath", true, "password", "goliath@gmail.com"));
+            users.add(CreateUser("Jackson", false, "password", "jackson@uco.edu", true));
+            users.add(CreateUser("Sierra", false, "password", "sierra@uco.edu", false));
+            users.add(CreateUser("Goliath", true, "password", "goliath@gmail.com", true));
+
+            // Interactions must be set after all users are created
+            CreateUserInteractions();
         }
 
-        // Interactions must be set after all users are created
-        CreateUserInteractions();
 
         return users;
     }
@@ -102,7 +114,7 @@ public class StaticUserModel {
     //endregion Generate Sample Questionnaire
 
     //region Create User Main Method
-    private static User CreateUser(String username, Boolean isAdmin, String userPassword, String userEmail) {
+    private static User CreateUser(String username, Boolean isAdmin, String userPassword, String userEmail, Boolean enabled) {
 
         User ret = new User();
 
@@ -110,6 +122,7 @@ public class StaticUserModel {
         ret.setAdmin(isAdmin);
         ret.setEmailAddress(userEmail);
         ret.setPassword(userPassword);
+        ret.setEnabled(enabled);
 
         ret.setBio(CreateBio());
 
@@ -301,8 +314,9 @@ public class StaticUserModel {
 
     //region Create Sample Interactions
     private static void CreateUserInteractions() {
-        //Messsages
+        //Messages
         CreateUserInteractionMessages();
+        CreateUserFavorites();
 
 //        userInteractions.setBlocked();
 //        userInteractions.setFavorites();
@@ -320,52 +334,66 @@ public class StaticUserModel {
     }
 
     private static void CreateUserInteractionMessages() {
-        //Messsages
+        //Messages
 
-        ArrayList<Message> in0 = new ArrayList<>();
-        ArrayList<Message> out0 = new ArrayList<>();
-        ArrayList<Message> in1 = new ArrayList<>();
-        ArrayList<Message> out1 = new ArrayList<>();
-        ArrayList<Message> in2 = new ArrayList<>();
-        ArrayList<Message> out2 = new ArrayList<>();
+        ArrayList<Message> inbox0 = new ArrayList<>();
+        ArrayList<Message> outbox0 = new ArrayList<>();
+        ArrayList<Message> inbox1 = new ArrayList<>();
+        ArrayList<Message> outbox1 = new ArrayList<>();
+        ArrayList<Message> inbox2 = new ArrayList<>();
+        ArrayList<Message> outbox2 = new ArrayList<>();
 
-        Message m1 = CreateMessage(users.get(1), users.get(0), "I have no personality! Want to date?", "How are ya, sweetie?", false, null);
-        Message m2 = CreateMessage(users.get(0), users.get(1), "I have no personality! Want to date?", "Get a personality, we'll talk", false, m1);
-        Message m3 = CreateMessage(users.get(0), users.get(1), "I can't believe you're single, Gordon! You're so hot!", "OMG, are you single?!", false, null);
-        Message m4 = CreateMessage(users.get(1), users.get(0), "I can't believe you're single, Gordon! You're so hot!", "Go fish!", false, m3);
-        Message m5 = CreateMessage(users.get(2), users.get(0), "I've had enough of your tomfoolery. Purchase me dinner!", "Buy me dinner or you will be sorry.", false, null);
-        Message m6 = CreateMessage(users.get(0), users.get(2), "I've had enough of your tomfoolery. Purchase me dinner!", "You're on!", false, m5);
+        Message message1 = CreateMessage(users.get(1), users.get(0), "I have no personality! Want to date?", "How are ya, sweetie?", false, null);
+        Message message2 = CreateMessage(users.get(0), users.get(1), "I have no personality! Want to date?", "Get a personality, we'll talk", false, message1);
+        Message message3 = CreateMessage(users.get(0), users.get(1), "I can't believe you're single! You're so hot!", "OMG, are you single?!", false, null);
+        Message message4 = CreateMessage(users.get(1), users.get(0), "I can't believe you're single! You're so hot!", "Go fish!", false, message3);
+        Message message5 = CreateMessage(users.get(2), users.get(0), "I've had enough of your tomfoolery. Purchase me dinner!", "Buy me dinner or you will be sorry.", false, null);
+        Message message6 = CreateMessage(users.get(0), users.get(2), "I've had enough of your tomfoolery. Purchase me dinner!", "You're on!", false, message5);
+        Message message7 = CreateMessage(users.get(2), users.get(1), "You're scaring me!", "Please stop asking me about my cat.", false, null);
 
-        out0.add(m1);
-        in1.add(m1);
+        outbox0.add(message1);
+        inbox1.add(message1);
 
-        out1.add(m2);
-        in0.add(m2);
+        outbox1.add(message2);
+        inbox0.add(message2);
 
-        out1.add(m3);
-        in0.add(m3);
+        outbox1.add(message3);
+        inbox0.add(message3);
 
-        out0.add(m4);
-        in1.add(m4);
+        outbox0.add(message4);
+        inbox1.add(message4);
 
-        out0.add(m5);
-        in2.add(m5);
+        outbox0.add(message5);
+        inbox2.add(message5);
+        inbox2.add(message7);
 
-        out2.add(m6);
-        in0.add(m6);
+        outbox2.add(message6);
+        inbox0.add(message6);
 
-        users.get(0).getInteractions().setInBox(in0);
-        users.get(0).getInteractions().setOutBox(out0);
+        users.get(0).getInteractions().setInBox(inbox0);
+        users.get(0).getInteractions().setOutBox(outbox0);
 
-        users.get(1).getInteractions().setInBox(in1);
-        users.get(1).getInteractions().setOutBox(out1);
+        users.get(1).getInteractions().setInBox(inbox1);
+        users.get(1).getInteractions().setOutBox(outbox1);
 
-        users.get(2).getInteractions().setInBox(in2);
-        users.get(2).getInteractions().setOutBox(out2);
+        users.get(2).getInteractions().setInBox(inbox2);
+        users.get(2).getInteractions().setOutBox(outbox2);
     }
     //endregion Create Sample Interactions
 
+    private static void CreateUserFavorites() {
+        ArrayList<User> favorite0 = new ArrayList<>();
+        ArrayList<User> favorite1 = new ArrayList<>();
+        ArrayList<User> favorite2 = new ArrayList<>();
 
+        favorite0.add(users.get(1));
+        users.get(0).getInteractions().setFavorites(favorite0);
+        users.get(1).getInteractions().setFavorites(favorite1);
+        favorite2.add(users.get(0));
+        favorite2.add(users.get(1));
+        users.get(2).getInteractions().setFavorites(favorite2);
+
+    }
 
     //region Helper helpers ...
     private static ArrayList<ZipCode> CreateZipCodes() {
@@ -393,5 +421,42 @@ public class StaticUserModel {
         return message;
     }
     //endregion Helper helpers ...
+
+    public static void setObjectStreams(String filename) {
+        mFilename = filename;
+    }
+
+
+    public static void WriteModel(ServiceProxy appService) throws IOException {
+        if (mFilename == null) return;
+        FileOutputStream fileOutputStream = new FileOutputStream(mFilename);
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+        objectOutputStream.writeObject(appService);
+        objectOutputStream.close();
+        fileOutputStream.close();
+    }
+
+    public static AppService ReadModel() {
+        if (mFilename == null) return null;
+
+        AppService appService = null;
+
+
+        try {
+            FileInputStream inputStream = new FileInputStream(mFilename);
+            ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
+            appService = (AppService) objectInputStream.readObject();
+            objectInputStream.close();
+            inputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+
+        return appService;
+    }
+
 
 }

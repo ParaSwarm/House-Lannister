@@ -46,7 +46,7 @@ public class InboxFragment extends ListFragment implements OnItemClickListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         appModel = AppModel.getAppModelInstance(AppService.getAppServiceInstance());
-        messages =  appModel.getCurrentUser().getInteractions().getInBox();
+        messages =  appModel.getCurrentUser().getInteractions().getInBox(false);
     }
 
     @Override
@@ -115,9 +115,7 @@ public class InboxFragment extends ListFragment implements OnItemClickListener {
         Message selectedMessage = this.messages.get(position);
 
         Bundle data = new Bundle();
-        data.putString("From", selectedMessage.getFrom().getName());
-        data.putString("Subject", selectedMessage.getSubject());
-        data.putString("Message", selectedMessage.getMessage());
+        data.putSerializable("Message", selectedMessage);
 
         FragmentNavigationManager navManager = FragmentNavigationManager.obtain((MainActivity) getActivity());
         navManager.showFragmentViewMessage(data);

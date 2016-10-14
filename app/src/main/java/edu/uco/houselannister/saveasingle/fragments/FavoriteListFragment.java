@@ -16,8 +16,11 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import edu.uco.houselannister.saveasingle.R;
 import edu.uco.houselannister.saveasingle.domain.Model;
+import edu.uco.houselannister.saveasingle.domain.User;
 import edu.uco.houselannister.saveasingle.model.AppModel;
 import edu.uco.houselannister.saveasingle.service.AppService;
 
@@ -34,6 +37,8 @@ public class FavoriteListFragment extends ListFragment implements AdapterView.On
     int place;
     String name;
     ActionMode check;
+    ArrayList<String> StringFavoritesArrayList = new ArrayList<String>();
+
 
     public FavoriteListFragment() {
         // Required empty public constructor
@@ -47,6 +52,10 @@ public class FavoriteListFragment extends ListFragment implements AdapterView.On
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         appModel = AppModel.getAppModelInstance(AppService.getAppServiceInstance());
+
+        for(User u: appModel.getCurrentUser().getInteractions().getFavorites()){
+            StringFavoritesArrayList.add(u.getName()+ " - " + u.getEmailAddress());
+        }
     }
 
     @Override
@@ -60,7 +69,7 @@ public class FavoriteListFragment extends ListFragment implements AdapterView.On
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_expandable_list_item_1, appModel.getUsernameArray());
+        ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_expandable_list_item_1, StringFavoritesArrayList);
         //ArrayAdapter adapter = ArrayAdapter.createFromResource(getActivity(), R.array.user_list, android.R.layout.simple_list_item_1);
         setListAdapter(adapter);
         getListView().setOnItemClickListener(this);
