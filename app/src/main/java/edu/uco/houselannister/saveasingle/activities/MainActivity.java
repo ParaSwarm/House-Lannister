@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements AdminUsersFragmen
                 } else if (settingsNavigationTitles[0].compareTo(selectedItem) == 0) {
                     mNavigationManager.showFragmentUserProfile();
                 } else if (settingsNavigationTitles[1].compareTo(selectedItem) == 0) {
-                    mNavigationManager.showFragmentMain();
+                    mNavigationManager.showFragmentGallery();
                 } else if (settingsNavigationTitles[2].compareTo(selectedItem) == 0) { // logout
                     appModel = null;
                     Intent intent = new Intent(MainActivity.this, LoginActivity.class);
