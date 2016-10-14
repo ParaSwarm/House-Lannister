@@ -105,6 +105,14 @@ public class ComposeMessageFragment extends Fragment {
     }
 
     private void sendMessage() {
+        String subject = subjectText.getText().toString();
+        String message = messageText.getText().toString();
+
+        if(subject.isEmpty() || message.isEmpty()){
+            Toast.makeText(getActivity(), "You must enter a subject and message.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         builder.setTitle("Send message?")
@@ -112,8 +120,13 @@ public class ComposeMessageFragment extends Fragment {
                             public void onClick(DialogInterface dialog, int id) {
                                 Message message = new Message();
                                 message.setTo(toUser);
+                                message.setFrom(appModel.getCurrentUser());
                                 message.setSubject(subjectText.getText().toString());
                                 message.setMessage(messageText.getText().toString());
+
+                                if(messageBeingRepliedTo != null) {
+                                    message.setReplyToMessage(messageBeingRepliedTo);
+                                }
 
                                 appModel.getCurrentUser().getInteractions().getOutBox().add(message);
                                 appModel.getUser(toUser.getName()).getInteractions().getInBox().add(message);
