@@ -11,6 +11,7 @@ import edu.uco.houselannister.saveasingle.R;
 import edu.uco.houselannister.saveasingle.activities.MainActivity;
 import edu.uco.houselannister.saveasingle.fragments.AdminUsersFragment;
 import edu.uco.houselannister.saveasingle.fragments.FavoriteListFragment;
+import edu.uco.houselannister.saveasingle.fragments.Fragment_gallery;
 import edu.uco.houselannister.saveasingle.fragments.InboxFragment;
 import edu.uco.houselannister.saveasingle.fragments.MainFragment;
 import edu.uco.houselannister.saveasingle.fragments.SearchCriteriaFragment;
@@ -60,6 +61,11 @@ public class FragmentNavigationManager implements NavigationManager {
     @Override
     public void showFragmentUserProfile() {
         showFragment(UserProfile_Fragment.newInstance(), false);
+    }
+
+
+    public void showFragmentGallery(){
+        showFragment(Fragment_gallery.newInstance(), false);
     }
 
     @Override

@@ -16,4 +16,6 @@ public interface NavigationManager {
     void showFragmentSearchCriteria();
     void showFragmentUserProfile();
     void showFragmentAdminUsers();
+    void showFragmentGallery();
 }
+
