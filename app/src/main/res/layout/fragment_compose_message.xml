@@ -9,109 +9,103 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
 
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="50dp"
-    android:orientation="horizontal">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/reply_button"
-        style="?android:textAppearanceSmall"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:text="Reply"
-        android:textStyle="bold" />
+        <Button
+            android:id="@+id/cancel_button_compose"
+            style="?android:textAppearanceSmall"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/delete_button"
-        style="?android:textAppearanceSmall"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:text="Delete"
-        android:textStyle="bold" />
+        <Button
+            android:id="@+id/send_button_compose"
+            style="?android:textAppearanceSmall"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:text="Send"
+            android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/block_button"
-        style="?android:textAppearanceSmall"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:text="Block"
-        android:textStyle="bold" />
-
-</LinearLayout>
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <RelativeLayout
+            android:id="@+id/email_login_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/from_label"
+                android:id="@+id/to_label_compose"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="From: "
                 android:gravity="left"
                 android:padding="@dimen/layout_padding_default"
+                android:text="To: "
                 android:textAppearance="?android:textAppearanceLarge"
                 android:textColor="@color/black" />
 
             <TextView
-                android:id="@+id/from"
-                android:layout_toRightOf="@+id/from_label"
+                android:id="@+id/to_compose"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="From"
+                android:layout_toRightOf="@+id/to_label_compose"
                 android:gravity="right"
                 android:padding="@dimen/layout_padding_default"
+                android:text="To"
                 android:textAppearance="?android:textAppearanceLarge" />
 
             <TextView
-                android:id="@+id/subject_label"
-                android:layout_below="@+id/from_label"
+                android:id="@+id/subject_label_compose"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/to_label_compose"
+                android:gravity="left"
+                android:padding="@dimen/layout_padding_default"
                 android:text="Subject: "
-                android:gravity="left"
-                android:padding="@dimen/layout_padding_default"
                 android:textAppearance="?android:textAppearanceLarge"
                 android:textColor="@color/black" />
 
-            <TextView
-                android:id="@+id/subject"
-                android:layout_below="@+id/from"
-                android:layout_toRightOf="@+id/subject_label"
+            <EditText
+                android:id="@+id/subject_compose"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Subject"
+                android:layout_below="@+id/to_compose"
+                android:layout_toRightOf="@+id/subject_label_compose"
                 android:gravity="right"
                 android:padding="@dimen/layout_padding_default"
                 android:textAppearance="?android:textAppearanceLarge" />
 
             <TextView
-                android:id="@+id/message_label"
-                android:layout_below="@+id/subject"
+                android:id="@+id/message_label_compose"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Message: "
+                android:layout_below="@+id/subject_compose"
                 android:gravity="left"
                 android:padding="@dimen/layout_padding_default"
+                android:text="Message: "
                 android:textAppearance="?android:textAppearanceLarge"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black" />
 
-            <TextView
-                android:id="@+id/message"
-                android:layout_below="@+id/message_label"
+            <EditText
+                android:id="@+id/message_compose"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Message"
+                android:layout_below="@+id/message_label_compose"
                 android:gravity="center"
+                android:inputType="textMultiLine"
                 android:padding="@dimen/layout_padding_default"
                 android:textAppearance="?android:textAppearanceLarge" />
 
         </RelativeLayout>
+
     </ScrollView>
+
 </LinearLayout>
