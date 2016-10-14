@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import edu.uco.houselannister.saveasingle.R;
+import edu.uco.houselannister.saveasingle.activities.MainActivity;
+import edu.uco.houselannister.saveasingle.helpers.FragmentNavigationManager;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,6 +26,7 @@ public class UserProfileEdit_Fragment extends Fragment implements View.OnClickLi
 
     View v;
     private static final String ARG_PARAM1 = "";
+    String First_Name;
 
     public UserProfileEdit_Fragment() {
         // Required empty public constructor
@@ -43,34 +46,28 @@ public class UserProfileEdit_Fragment extends Fragment implements View.OnClickLi
         Button b = (Button) v.findViewById(R.id.UserProfileSave_Button);
         b.setOnClickListener(this);
 
+        First_Name = getArguments().getString("first_name");
+        EditText fstName = (EditText) v.findViewById(R.id.Firstname_userprofile_edittext);
+        fstName.setText(First_Name);
+
+
         return v;
     }
 
     @Override
     public void onClick(View v) {
 
+        //Bundle data = new Bundle();
+        //data.putString("FirstName", First_Name);
+        //data.putString("Subject", selectedMessage.getSubject());
+        //data.putString("Message", selectedMessage.getMessage());
+
+        //FragmentNavigationManager navManager = FragmentNavigationManager.obtain((MainActivity) getActivity());
+        //navManager.showFragmentUserEditProfile(data);
         // Create new fragment and transaction
         Fragment newFragment = new UserProfile_Fragment();
-        /*
-        Bundle args = new Bundle();
-        EditText firstName = (EditText) v.findViewById(R.id.Firstname_userprofile_edittext);
-        String first_Name = firstName.getText().toString();
-        args.putString("First Name",first_Name);
-        newFragment.setArguments(args);*/
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
-// Replace whatever is in the fragment_container view with this fragment,
-// and add the transaction to the back stack
-/*
-        Bundle bundle = new Bundle();
-        bundle.putString("AAA", "T");
-        Fragment UserProfile_Fragment = new UserProfile_Fragment();
-        UserProfile_Fragment.setArguments(bundle);
-        getFragmentManager()
-                .beginTransaction()
-                .replace(R.id.FirstName_UserProfile_TextView, UserProfile_Fragment, "t")
-                .addToBackStack("t").commit();
-*/
         transaction.replace(R.id.container, newFragment);
         transaction.addToBackStack(null);
 
