@@ -314,7 +314,7 @@ public class StaticUserModel {
 
     //region Create Sample Interactions
     private static void CreateUserInteractions() {
-        //Messsages
+        //Messages
         CreateUserInteractionMessages();
         CreateUserFavorites();
 
@@ -334,48 +334,50 @@ public class StaticUserModel {
     }
 
     private static void CreateUserInteractionMessages() {
-        //Messsages
+        //Messages
 
-        ArrayList<Message> in0 = new ArrayList<>();
-        ArrayList<Message> out0 = new ArrayList<>();
-        ArrayList<Message> in1 = new ArrayList<>();
-        ArrayList<Message> out1 = new ArrayList<>();
-        ArrayList<Message> in2 = new ArrayList<>();
-        ArrayList<Message> out2 = new ArrayList<>();
+        ArrayList<Message> inbox0 = new ArrayList<>();
+        ArrayList<Message> outbox0 = new ArrayList<>();
+        ArrayList<Message> inbox1 = new ArrayList<>();
+        ArrayList<Message> outbox1 = new ArrayList<>();
+        ArrayList<Message> inbox2 = new ArrayList<>();
+        ArrayList<Message> outbox2 = new ArrayList<>();
 
-        Message m1 = CreateMessage(users.get(1), users.get(0), "I have no personality! Want to date?", "How are ya, sweetie?", false, null);
-        Message m2 = CreateMessage(users.get(0), users.get(1), "I have no personality! Want to date?", "Get a personality, we'll talk", false, m1);
-        Message m3 = CreateMessage(users.get(0), users.get(1), "I can't believe you're single! You're so hot!", "OMG, are you single?!", false, null);
-        Message m4 = CreateMessage(users.get(1), users.get(0), "I can't believe you're single! You're so hot!", "Go fish!", false, m3);
-        Message m5 = CreateMessage(users.get(2), users.get(0), "I've had enough of your tomfoolery. Purchase me dinner!", "Buy me dinner or you will be sorry.", false, null);
-        Message m6 = CreateMessage(users.get(0), users.get(2), "I've had enough of your tomfoolery. Purchase me dinner!", "You're on!", false, m5);
+        Message message1 = CreateMessage(users.get(1), users.get(0), "I have no personality! Want to date?", "How are ya, sweetie?", false, null);
+        Message message2 = CreateMessage(users.get(0), users.get(1), "I have no personality! Want to date?", "Get a personality, we'll talk", false, message1);
+        Message message3 = CreateMessage(users.get(0), users.get(1), "I can't believe you're single! You're so hot!", "OMG, are you single?!", false, null);
+        Message message4 = CreateMessage(users.get(1), users.get(0), "I can't believe you're single! You're so hot!", "Go fish!", false, message3);
+        Message message5 = CreateMessage(users.get(2), users.get(0), "I've had enough of your tomfoolery. Purchase me dinner!", "Buy me dinner or you will be sorry.", false, null);
+        Message message6 = CreateMessage(users.get(0), users.get(2), "I've had enough of your tomfoolery. Purchase me dinner!", "You're on!", false, message5);
+        Message message7 = CreateMessage(users.get(2), users.get(1), "You're scaring me!", "Please stop asking me about my cat.", false, null);
 
-        out0.add(m1);
-        in1.add(m1);
+        outbox0.add(message1);
+        inbox1.add(message1);
 
-        out1.add(m2);
-        in0.add(m2);
+        outbox1.add(message2);
+        inbox0.add(message2);
 
-        out1.add(m3);
-        in0.add(m3);
+        outbox1.add(message3);
+        inbox0.add(message3);
 
-        out0.add(m4);
-        in1.add(m4);
+        outbox0.add(message4);
+        inbox1.add(message4);
 
-        out0.add(m5);
-        in2.add(m5);
+        outbox0.add(message5);
+        inbox2.add(message5);
+        inbox2.add(message7);
 
-        out2.add(m6);
-        in0.add(m6);
+        outbox2.add(message6);
+        inbox0.add(message6);
 
-        users.get(0).getInteractions().setInBox(in0);
-        users.get(0).getInteractions().setOutBox(out0);
+        users.get(0).getInteractions().setInBox(inbox0);
+        users.get(0).getInteractions().setOutBox(outbox0);
 
-        users.get(1).getInteractions().setInBox(in1);
-        users.get(1).getInteractions().setOutBox(out1);
+        users.get(1).getInteractions().setInBox(inbox1);
+        users.get(1).getInteractions().setOutBox(outbox1);
 
-        users.get(2).getInteractions().setInBox(in2);
-        users.get(2).getInteractions().setOutBox(out2);
+        users.get(2).getInteractions().setInBox(inbox2);
+        users.get(2).getInteractions().setOutBox(outbox2);
     }
     //endregion Create Sample Interactions
 
