@@ -24,30 +24,28 @@ import edu.uco.houselannister.saveasingle.helpers.FragmentNavigationManager;
 import edu.uco.houselannister.saveasingle.model.AppModel;
 import edu.uco.houselannister.saveasingle.service.AppService;
 
-public class ViewMessageFragment extends Fragment {
-    public ViewMessageFragment() {
+public class ComposeMessageFragment extends Fragment {
+    public ComposeMessageFragment() {
     }
 
     private Model appModel;
-    Message message;
+    User toUser;
+    Message messageBeingRepliedTo;
 
-    @BindView(R.id.from)
-    TextView fromTextView;
+    @BindView(R.id.to_compose)
+    TextView toText;
 
-    @BindView(R.id.subject)
-    TextView subjectTextView;
+    @BindView(R.id.subject_compose)
+    TextView subjectText;
 
-    @BindView(R.id.message)
-    TextView messageTextView;
+    @BindView(R.id.message_compose)
+    TextView messageText;
 
-    @BindView(R.id.delete_button)
-    Button deleteButton;
+    @BindView(R.id.cancel_button_compose)
+    Button cancelButton;
 
-    @BindView(R.id.block_button)
-    Button blockButton;
-
-    @BindView(R.id.reply_button)
-    Button replyButton;
+    @BindView(R.id.send_button_compose)
+    Button sendButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,72 +55,47 @@ public class ViewMessageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_view_message, container, false);
+        View view = inflater.inflate(R.layout.fragment_compose_message, container, false);
         ButterKnife.bind(this, view);
 
         appModel = AppModel.getAppModelInstance(AppService.getAppServiceInstance());
 
         Bundle data = getArguments();
 
-        message = (Message) data.getSerializable("Message");
+        toUser = (User) data.getSerializable("User");
+        messageBeingRepliedTo = (Message) data.getSerializable("Message");
 
-        fromTextView.setText(message.getFrom().getName());
-        subjectTextView.setText(message.getSubject());
-        messageTextView.setText(message.getMessage());
+        toText.setText(toUser.getName());
+        subjectText.setText(messageBeingRepliedTo.getSubject());
 
-        replyButton.setOnClickListener(new View.OnClickListener() {
+        cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                composeMessage();
+                cancelMessage();
             }
         });
 
-        deleteButton.setOnClickListener(new View.OnClickListener() {
+        sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                confirmDeleteMessage();
+                sendMessage();
             }
         });
-
-        blockButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                confirmBlockUser();
-            }
-        });
-
-        message.setRead(true);
 
         return view;
     }
-
-    private void composeMessage() {
-
-        Bundle data = new Bundle();
-        data.putSerializable("User", message.getFrom());
-        data.putSerializable("Message", message);
-
-        FragmentNavigationManager navManager = FragmentNavigationManager.obtain((MainActivity) getActivity());
-        navManager.showFragmentComposeMessage(data);
-    }
-
-    private void confirmDeleteMessage() {
+    private void cancelMessage() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        builder.setTitle("Delete Message?")
-                .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+        builder.setTitle("Are you sure you want to discard this message?")
+                .setPositiveButton("Discard", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                appModel.getCurrentUser().getInteractions().getInBox().remove(message);
-                                Toast.makeText(getActivity(), "Message deleted.", Toast.LENGTH_SHORT).show();
-                                getFragmentManager().popBackStack();
-                                getFragmentManager().popBackStack();
-                                FragmentNavigationManager navManager = FragmentNavigationManager.obtain((MainActivity) getActivity());
-                                navManager.showFragmentInbox();
+                                getFragmentManager().popBackStackImmediate();
                             }
                         }
                 )
                 .setNegativeButton(
-                        "Cancel",
+                        "Not yet",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.dismiss();
@@ -131,14 +104,21 @@ public class ViewMessageFragment extends Fragment {
                 ).show();
     }
 
-    private void confirmBlockUser() {
+    private void sendMessage() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        builder.setTitle("Block User?")
-                .setPositiveButton("Block", new DialogInterface.OnClickListener() {
+        builder.setTitle("Send message?")
+                .setPositiveButton("Send", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                appModel.getCurrentUser().getInteractions().blockUser(message.getFrom());
-                                Toast.makeText(getActivity(), String.format("User %s blocked.", message.getFrom().getName()), Toast.LENGTH_SHORT).show();
+                                Message message = new Message();
+                                message.setTo(toUser);
+                                message.setSubject(subjectText.getText().toString());
+                                message.setMessage(messageText.getText().toString());
+
+                                appModel.getCurrentUser().getInteractions().getOutBox().add(message);
+                                appModel.getUser(toUser.getName()).getInteractions().getInBox().add(message);
+
+                                Toast.makeText(getActivity(), String.format("Message sent to %s.", toUser.getName()), Toast.LENGTH_SHORT).show();
                                 getFragmentManager().popBackStack();
                                 getFragmentManager().popBackStack();
                                 FragmentNavigationManager navManager = FragmentNavigationManager.obtain((MainActivity) getActivity());
@@ -147,7 +127,7 @@ public class ViewMessageFragment extends Fragment {
                         }
                 )
                 .setNegativeButton(
-                        "Cancel",
+                        "Not yet",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.dismiss();

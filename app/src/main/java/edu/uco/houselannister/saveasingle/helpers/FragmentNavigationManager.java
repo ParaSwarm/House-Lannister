@@ -13,6 +13,7 @@ import edu.uco.houselannister.saveasingle.R;
 import edu.uco.houselannister.saveasingle.activities.MainActivity;
 import edu.uco.houselannister.saveasingle.domain.User;
 import edu.uco.houselannister.saveasingle.fragments.AdminUsersFragment;
+import edu.uco.houselannister.saveasingle.fragments.ComposeMessageFragment;
 import edu.uco.houselannister.saveasingle.fragments.FavoriteListFragment;
 import edu.uco.houselannister.saveasingle.fragments.InboxFragment;
 import edu.uco.houselannister.saveasingle.fragments.MainFragment;
@@ -102,6 +103,13 @@ public class FragmentNavigationManager implements NavigationManager {
         ViewMessageFragment viewMessageFragment = new ViewMessageFragment();
         viewMessageFragment.setArguments(data);
         showFragment(viewMessageFragment, false);
+    }
+
+    @Override
+    public void showFragmentComposeMessage(Bundle data) {
+        ComposeMessageFragment composeMessageFragment = new ComposeMessageFragment();
+        composeMessageFragment.setArguments(data);
+        showFragment(composeMessageFragment, false);
     }
 
     private void showFragment(Fragment fragment, boolean allowStateLoss) {
