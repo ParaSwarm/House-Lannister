@@ -21,6 +21,12 @@ public class SearchFragment extends Fragment {
         // Required empty public constructor
     }
 
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment.
+     *
+     * @return A new instance of fragment FragmentAction.
+     */
     public static SearchFragment newInstance(String movieTitle) {
         SearchFragment fragmentSearch = new SearchFragment();
         Bundle args = new Bundle();

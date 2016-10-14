@@ -1,6 +1,8 @@
 package edu.uco.houselannister.saveasingle.domain;
 
-public enum QuestionCategory {
+import java.io.Serializable;
+
+public enum QuestionCategory implements Serializable {
     POLITICS,
     RELIGION,
     SEX,

@@ -2,7 +2,6 @@ package edu.uco.houselannister.saveasingle.fragments;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-
 import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
 import android.support.v7.app.AlertDialog;
@@ -12,22 +11,23 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import edu.uco.houselannister.saveasingle.R;
 import edu.uco.houselannister.saveasingle.domain.Model;
+import edu.uco.houselannister.saveasingle.domain.User;
 import edu.uco.houselannister.saveasingle.model.AppModel;
 import edu.uco.houselannister.saveasingle.service.AppService;
 
 /**
- * Created by Samuel Song on 9/22/2016.
+ * Created by ThinkPad on 9/28/2016.
  */
-public class FavoriteListFragment extends ListFragment implements OnItemClickListener {
+public class FavoriteListFragment extends ListFragment implements AdapterView.OnItemClickListener {
     private Model appModel;
 
 
@@ -37,6 +37,7 @@ public class FavoriteListFragment extends ListFragment implements OnItemClickLis
     int place;
     String name;
     ActionMode check;
+    ArrayList<String> StringFavoritesArrayList = new ArrayList<String>();
 
 
     public FavoriteListFragment() {
@@ -51,6 +52,10 @@ public class FavoriteListFragment extends ListFragment implements OnItemClickLis
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         appModel = AppModel.getAppModelInstance(AppService.getAppServiceInstance());
+
+        for(User u: appModel.getCurrentUser().getInteractions().getFavorites()){
+            StringFavoritesArrayList.add(u.getName()+ " - " + u.getEmailAddress());
+        }
     }
 
     @Override
@@ -64,7 +69,7 @@ public class FavoriteListFragment extends ListFragment implements OnItemClickLis
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_expandable_list_item_1, appModel.getUsernameArray());
+        ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_expandable_list_item_1, StringFavoritesArrayList);
         //ArrayAdapter adapter = ArrayAdapter.createFromResource(getActivity(), R.array.user_list, android.R.layout.simple_list_item_1);
         setListAdapter(adapter);
         getListView().setOnItemClickListener(this);
@@ -73,7 +78,8 @@ public class FavoriteListFragment extends ListFragment implements OnItemClickLis
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 mMode = null;
                 place = position;
-                name = getResources().getStringArray(R.array.user_list)[position];
+                //name = getResources().getStringArray(R.array.user_list)[position];
+                name = appModel.getUsers().get(position).getName();
                 mMode = getActivity().startActionMode(mCallback);
 
                 return true;
@@ -109,7 +115,7 @@ public class FavoriteListFragment extends ListFragment implements OnItemClickLis
                     case R.id.item1:
                         EditText input = new EditText(getActivity());
                         new AlertDialog.Builder(getActivity())
-                                .setTitle("Send a message to " + getResources().getStringArray(R.array.user_list)[place])
+                                .setTitle("Send a message to " + appModel.getUsers().get(place).getName())
                                 .setView(input)
                                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
@@ -129,7 +135,7 @@ public class FavoriteListFragment extends ListFragment implements OnItemClickLis
                     case R.id.item2:
                         new AlertDialog.Builder(getActivity())
                                 .setTitle("Block entry")
-                                .setMessage("Are you sure you want to block" + getResources().getStringArray(R.array.user_list)[place])
+                                .setMessage("Are you sure you want to block" + appModel.getUsers().get(place).getName())
                                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
                                         // continue with delete
@@ -153,13 +159,11 @@ public class FavoriteListFragment extends ListFragment implements OnItemClickLis
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(getActivity(), "User: " + getResources().getStringArray(R.array.user_list)[position], Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "User: " + appModel.getUsers().get(position).getName(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
-
-
 }

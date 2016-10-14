@@ -1,5 +1,10 @@
 package edu.uco.houselannister.saveasingle.activities;
 
+import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
@@ -10,28 +15,55 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.ExpandableListView;
+import android.widget.RadioButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.BindArray;
+import butterknife.BindString;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.uco.houselannister.saveasingle.R;
 import edu.uco.houselannister.saveasingle.domain.Model;
-import edu.uco.houselannister.saveasingle.domain.ServiceProxy;
+import edu.uco.houselannister.saveasingle.domain.User;
+import edu.uco.houselannister.saveasingle.fragments.AdminUsersFragment;
 import edu.uco.houselannister.saveasingle.helpers.CustomExpandableListAdapter;
 import edu.uco.houselannister.saveasingle.helpers.ExpandableListDataSource;
 import edu.uco.houselannister.saveasingle.helpers.FragmentNavigationManager;
 import edu.uco.houselannister.saveasingle.helpers.NavigationManager;
 import edu.uco.houselannister.saveasingle.model.AppModel;
+import edu.uco.houselannister.saveasingle.service.AppService;
 
-public class MainActivity extends AppCompatActivity {
-    private String[] settingsNavigationTitles;
-    private String[] homeNavigationTitles;
-    private String[] listNavigationTitles;
-    private DrawerLayout mDrawerLayout;
-    private ExpandableListView navigationDrawerListView;
+
+public class MainActivity extends AppCompatActivity implements AdminUsersFragment.OnUserAdminListFragmentInteractionListener {
+
+    @BindArray(R.array.user_profile_titles)
+    public String[] settingsNavigationTitles;
+    @BindArray(R.array.home_menu_titles)
+    public String[] homeNavigationTitles;
+    @BindArray(R.array.admin_titles)
+    public String[] adminNavigationTitles;
+    @BindArray(R.array.people_titles)
+    public String[] peopleNavigationTitles;
+    @BindView(R.id.navList)
+    ExpandableListView navigationDrawerListView;
+    @BindView(R.id.drawer_layout)
+    DrawerLayout mDrawerLayout;
+    @BindString(R.string.admin_key)
+    String mAdminKey;
+
     private ActionBarDrawerToggle mDrawerToggle;
     private NavigationManager mNavigationManager;
     private Map<String, List<String>> mExpandableListData;
@@ -39,51 +71,41 @@ public class MainActivity extends AppCompatActivity {
     private CustomExpandableListAdapter mExpandableListAdapter;
     private String mActivityTitle;
     private Model appModel;
+    private int year, month, day;
+    String radioButton = "";
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        appModel = AppModel.getAppModelInstance(new ServiceProxy()) {
-//        });
-
-
         ButterKnife.bind(this);
+        appModel = AppModel.getAppModelInstance(AppService.getAppServiceInstance());
 
         //navigation drawer
         mActivityTitle = getTitle().toString();
-        settingsNavigationTitles = getResources().getStringArray(R.array.user_profile_titles);
-        homeNavigationTitles = getResources().getStringArray(R.array.home_menu_titles);
-        listNavigationTitles = getResources().getStringArray(R.array.friends_list_titles);    ///////////////////// home titles
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        navigationDrawerListView = (ExpandableListView) findViewById(R.id.navList);
-
 
         mNavigationManager = FragmentNavigationManager.obtain(this);
         LayoutInflater inflater = getLayoutInflater();
+        @SuppressLint("InflateParams")
         View listHeaderView = inflater.inflate(R.layout.nav_header, null, false);
         navigationDrawerListView.addHeaderView(listHeaderView);
         mExpandableListData = ExpandableListDataSource.getData(this);
-        mExpandableListTitle = new ArrayList(mExpandableListData.keySet());
+        if (!appModel.getAuthenticatedUser().getAdmin()) {
+            mExpandableListData.remove(mAdminKey);
+        }
+        mExpandableListTitle = mExpandableListTitle == null ? new ArrayList(mExpandableListData.keySet()) : mExpandableListTitle;
         addDrawerItems();
         setupDrawer();
         if (savedInstanceState == null) {
             selectFirstItemAsDefault();
         }
-
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setHomeButtonEnabled(true);
-
     }
 
     private void selectFirstItemAsDefault() {
         //starts the main fragment first to use as the starting point for the app
         if (mNavigationManager != null) {
-//            String firstSettings = getResources().getStringArray(R.array.settings_sub_menus)[0];
-            String firstSettings = "Search";
             mNavigationManager.showFragmentMain();
-//            getSupportActionBar().setTitle(firstSettings);
         }
     }
 
@@ -93,14 +115,12 @@ public class MainActivity extends AppCompatActivity {
         navigationDrawerListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             @Override
             public void onGroupExpand(int groupPosition) {
-//                getSupportActionBar().setTitle(mExpandableListTitle.get(groupPosition).toString());
             }
         });
 
         navigationDrawerListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
             @Override
             public void onGroupCollapse(int groupPosition) {
-//                getSupportActionBar().setTitle(R.string.app_title);
             }
         });
 
@@ -109,14 +129,36 @@ public class MainActivity extends AppCompatActivity {
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                 String selectedItem = ((List) (mExpandableListData.get(mExpandableListTitle.get(groupPosition)))).get(childPosition).toString();
 //                getSupportActionBar().setTitle(selectedItem);
+
                 //checks which menu you are clicking on, home navigation is first, settings navigation is the second list
                 //probably can be changed to a switch statement later
-                if (homeNavigationTitles[0].equals(mExpandableListTitle.get(groupPosition))) {
+                if (homeNavigationTitles[0].compareTo(selectedItem) == 0) { // Home
                     mNavigationManager.showFragmentMain();
-                } else if (settingsNavigationTitles[1].compareTo(selectedItem) == 0) { //checking that selectedItem == "Settings"
+                } else if (homeNavigationTitles[1].compareTo(selectedItem) == 0) {
+                    mNavigationManager.showFragmentInbox();
+                } else if (settingsNavigationTitles[0].compareTo(selectedItem) == 0) {
+                    mNavigationManager.showFragmentUserProfile();
+                } else if (settingsNavigationTitles[1].compareTo(selectedItem) == 0) {
+                    mNavigationManager.showFragmentGallery();
+                } else if (settingsNavigationTitles[2].compareTo(selectedItem) == 0) { // logout
+                    appModel = null;
+                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else if (settingsNavigationTitles[3].compareTo(selectedItem) == 0) {
                     mNavigationManager.showFragmentSettings(selectedItem);
-                } else if (listNavigationTitles[0].compareTo(selectedItem) == 0) { //checking that selectedItem == Favorite List
+                } else if (peopleNavigationTitles[0].compareTo(selectedItem) == 0) {
                     mNavigationManager.showFragmentList();
+                } else if (peopleNavigationTitles[1].compareTo(selectedItem) == 0) {
+                    mNavigationManager.showFragmentWhoLikesMe();
+                } else if (selectedItem.compareTo("Search") == 0) {
+                    mNavigationManager.showFragmentSearchCriteria();
+                } else if (adminNavigationTitles[0].compareTo(selectedItem) == 0) {
+                    mNavigationManager.showFragmentAdminUsers();
+                } else if (adminNavigationTitles[1].compareTo(selectedItem) == 0) {
+                    mNavigationManager.showFragmentMain();
+                } else if (adminNavigationTitles[2].compareTo(selectedItem) == 0) {
+                    mNavigationManager.showFragmentMain();
                 } else {
                     throw new IllegalArgumentException("Not supported fragment type");
                 }
@@ -131,20 +173,65 @@ public class MainActivity extends AppCompatActivity {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_closed) {
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-//                getSupportActionBar().setTitle(R.string.app_title);
                 invalidateOptionsMenu();
             }
 
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
-//                getSupportActionBar().setTitle(mActivityTitle);
                 invalidateOptionsMenu();
             }
         };
 
         mDrawerToggle.setDrawerIndicatorEnabled(true);
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        mDrawerLayout.addDrawerListener(mDrawerToggle);
     }
+
+    public void onRadioButtonChecked(View v) {
+        boolean checked = ((RadioButton) v).isChecked();
+        switch (v.getId()) {
+            case R.id.maleRadioButton:
+                if (checked)
+                    break;
+
+            case R.id.femaleRadiobutton:
+                if (checked)
+                    break;
+        }
+    }
+
+
+    //region For date of birth in User Profile Fragment
+
+    @Override
+    @SuppressWarnings("deprecation")
+    protected Dialog onCreateDialog(int id) {
+
+        if (id == 999) {
+            return new DatePickerDialog(this, myDateListener, year, month, day);
+        }
+        return null;
+    }
+
+
+    @SuppressWarnings("deprecation")
+    public void setDate(View view) {
+        showDialog(999);
+    }
+
+    private DatePickerDialog.OnDateSetListener myDateListener = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
+            onDateClick(arg1, arg2 + 1, arg3);
+        }
+    };
+
+    private void onDateClick(int year, int month, int day) {
+        TextView txt = (TextView) findViewById(R.id.DOB_TextView);
+        txt.setText("Date of Birth : " + new StringBuilder().append(day).append("/")
+                .append(month).append("/").append(year));
+    }
+
+    //endregion For date of birth in User Profile Fragment
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -179,5 +266,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onUserAdminListFragmentInteraction(final User userItem) {
+        appModel.setCurrentUserImpersonation(userItem);
+        Toast.makeText(MainActivity.this, "Now Impersonating " + userItem.getName(), Toast.LENGTH_SHORT).show();
     }
 }

@@ -77,8 +77,13 @@
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+<<<<<<< HEAD
                 android:layout_marginTop="32dp"
                 android:text="@string/action_registration"
+=======
+                android:layout_marginTop="5dp"
+                android:text="@string/registration"
+>>>>>>> master
                 android:textStyle="bold" />
 
         </LinearLayout>

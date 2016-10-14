@@ -1,6 +1,8 @@
 package edu.uco.houselannister.saveasingle.domain;
 
-public enum ActivityType {
+import java.io.Serializable;
+
+public enum ActivityType implements Serializable {
     MADEFRIEND(true),
     MADEMATCH(true),
     NEWUSER(true),

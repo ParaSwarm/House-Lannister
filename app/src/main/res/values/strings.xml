@@ -1,34 +1,55 @@
 <resources>
     <string name="app_name">SaveASingle</string>
     <string name="app_title">Save a Single</string>
+
     <string-array name="navigation_titles">
         <item>Home</item>
         <item>User Profile</item>
-        <item>List</item>
+        <item>People</item>
+        <item>Admin</item>
     </string-array>
+
+    <string name="admin_key">Admin</string>
+
+
     <string-array name="home_menu_titles">
         <item>Home</item>
+        <item>Inbox</item>
     </string-array>
+
+    <string-array name="people_titles">
+        <item>My Favorites</item>
+        <item>Who Likes Me</item>
+        <item>Search</item>
+    </string-array>
+
     <string-array name="user_profile_titles">
         <item>Basic Profile</item>
-        <item>Settings</item>
         <item>Photo Album</item>
+        <item>Logout</item>
+        <item>Settings</item>
     </string-array>
+
     <string-array name="friends_list_titles">
-        <item>Favorite List</item>
-        <item>Forked Me List</item>
+        <item>My Likes</item>
+        <item>Who Likes Me</item>
+        <item>Search</item>
     </string-array>
+
+    <string-array name="admin_titles">
+        <item>List Users</item>
+        <item>List Questions</item>
+        <item>List Zip Codes</item>
+    </string-array>
+
+
     <string-array name="settings_sub_menus">
         <item>Search</item>
     </string-array>
+
     <string name="drawer_open">Open Navigation</string>
     <string name="drawer_closed">Close Navigation</string>
 
-    <string-array name="user_list">
-        <item>Jackson</item>
-        <item>Sierra</item>
-        <item>Goliath</item>
-    </string-array>
     <string name="title_activity_login">SaveASingle</string>
 
     <!-- Strings related to registration -->
@@ -43,9 +64,14 @@
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
+    <string name="registration">Registration</string>
     <string name="prompt_password">Password (optional)</string>
+<<<<<<< HEAD
     <string name="action_sign_in">Sign in</string>
     <string name="action_registration">Registration</string>
+=======
+    <string name="action_sign_in">Sign in or Register</string>
+>>>>>>> master
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
@@ -54,5 +80,9 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="title_activity_maps">Map</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

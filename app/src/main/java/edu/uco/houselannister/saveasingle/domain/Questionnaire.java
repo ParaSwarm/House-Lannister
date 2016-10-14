@@ -1,8 +1,9 @@
 package edu.uco.houselannister.saveasingle.domain;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Questionnaire {
+public class Questionnaire implements Serializable {
 
     private ArrayList<Question> questions;
 
