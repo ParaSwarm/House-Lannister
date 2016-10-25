@@ -92,9 +92,9 @@
     <string name="search_kids">Kids</string>
     <string name="search_wants_kids">Wants kids</string>
     <string name="search_might_want_kids">Might want Kids</string>
-    <string name="search_doesnt_want_kids">Doesn&apos;t want kids</string>
+    <string name="search_doesnt_want_kids">Doesn\'t want kids</string>
     <string name="search_has_kids">Has kid(s)</string>
-    <string name="search_doesnt_have_kids">Doesn&apos;t have kid(s)</string>
+    <string name="search_doesnt_have_kids">Does\'t have kid(s)</string>
     <string name="search_education">Education</string>
     <string name="search_highschool">High School</string>
     <string name="search_associates">2-year college</string>
