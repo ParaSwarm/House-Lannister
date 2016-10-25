@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SaveASingle</string>
+    <string name="app_name" translatable="false">SaveASingle</string>
     <string name="app_title">Save a Single</string>
 
     <string-array name="navigation_titles">
@@ -50,7 +50,7 @@
     <string name="drawer_open">Open Navigation</string>
     <string name="drawer_closed">Close Navigation</string>
 
-    <string name="title_activity_login">SaveASingle</string>
+    <string name="title_activity_login" translatable="false">SaveASingle</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -62,10 +62,78 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
     <string name="title_activity_maps">Map</string>
+    <string name="registration_name_hint">First Name</string>
+    <string name="registration_email_hint" translatable="false">Email@example.com</string>
+    <string name="registration_password_hint">Password</string>
+    <string name="registration_confirm_hint">Confirm Password</string>
+    <string name="registration_button">Register</string>
+    <string name="favorites">My Favorites</string>
+    <string name="compose_cancel_button">Cancel</string>
+    <string name="compose_send_button">Send</string>
+    <string name="compose_to_field">To: </string>
+    <string name="compose_to">To</string>
+    <string name="compose_subject_field">Subject: </string>
+    <string name="compose_message_field">Message: </string>
+    <string name="gallery_add_image_button">Add Image from Gallery</string>
+    <string name="inbox_text">Inbox</string>
+    <string name="main_fragment_text">I am starting fragment</string>
+    <string name="main_fragment_starting_text">starting fragment</string>
+    <string name="search_language">Language</string>
+    <string name="search_religion">Religion</string>
+    <string name="search_looking_for">Looking for</string>
+    <string name="search_single">Single</string>
+    <string name="search_monogomous">Monogamous</string>
+    <string name="search_pets">Pets</string>
+    <string name="search_has_cats">Has Cat(s)</string>
+    <string name="search_has_dogs">Has Dog(s)</string>
+    <string name="search_no_pets">None</string>
+    <string name="search_kids">Kids</string>
+    <string name="search_wants_kids">Wants kids</string>
+    <string name="search_might_want_kids">Might want Kids</string>
+    <string name="search_doesnt_want_kids">Doesn&apos;t want kids</string>
+    <string name="search_has_kids">Has kid(s)</string>
+    <string name="search_doesnt_have_kids">Doesn&apos;t have kid(s)</string>
+    <string name="search_education">Education</string>
+    <string name="search_highschool">High School</string>
+    <string name="search_associates">2-year college</string>
+    <string name="search_bachelors">4-year college</string>
+    <string name="search_graduate">Post grad</string>
+    <string name="search_age">Age</string>
+    <string name="dash" translatable="false">-</string>
+    <string name="search_distance_from_me">Distance from me</string>
+    <string name="search_has_photos">Has photos</string>
+    <string name="search_by_interest">Search by interest</string>
+    <string name="search_button">Search near me</string>
+    <string name="profile_first_name">First Name</string>
+    <string name="profile_last_name">Last Name</string>
+    <string name="profile_display_name">Display Name</string>
+    <string name="profile_gender">Gender</string>
+    <string name="profile_age">Age </string>
+    <string name="profile_your_story">Your Story</string>
+    <string name="profile_perfect_match">Perfect Match</string>
+    <string name="profile_edi">Edit</string>
+    <string name="profile_dob">Date Of Birth</string>
+    <string name="profile_save">Save</string>
+    <string name="profile_male">Male</string>
+    <string name="profile_female">Female</string>
+    <string name="admin_first">First</string>
+    <string name="admin_second">Second</string>
+    <string name="message_reply_button">Reply</string>
+    <string name="message_delete_button">Delete</string>
+    <string name="message_block_button">Block</string>
+    <string name="message_from_field">From: </string>
+    <string name="message_from">From</string>
+    <string name="message_subject">Subject</string>
+    <string name="message_message_field">Message: </string>
+    <string name="message_message">Message</string>
+    <string name="likes_me_who">Who Likes Me?</string>
+    <string name="logout">Logout</string>
+    <string name="message">Message</string>
+    <string name="block">Block</string>
+    <string name="inbox">Inbox</string>
+    <string name="sent">Sent</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

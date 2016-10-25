@@ -13,7 +13,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="@dimen/layout_padding_default"
-                android:text="My Favorites"
+                android:text="@string/favorites"
                 android:textAppearance="?android:textAppearanceLarge" />
 
         </FrameLayout>

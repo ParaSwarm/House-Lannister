@@ -14,7 +14,7 @@
         <Button
             android:layout_width="100dp"
             android:layout_height="80dp"
-            android:text="Add Image from Gallery"
+            android:text="@string/gallery_add_image_button"
             android:onClick="Addimage"
             android:id="@+id/loadFromGallery"
             android:layout_alignTop="@+id/loadCamera"

@@ -10,7 +10,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="@dimen/layout_padding_default"
-            android:text="Who Likes Me?"
+            android:text="@string/likes_me_who"
             android:textAppearance="?android:textAppearanceLarge" />
 
     </FrameLayout>
