@@ -73,6 +73,11 @@ public class MainActivity extends AppCompatActivity implements AdminUsersFragmen
     private Model appModel;
     private int year, month, day;
     String radioButton = "";
+    private static MainActivity mainInstance;
+
+    public static MainActivity getMainInstance() {
+        return mainInstance;
+    }
 
 
     @Override
@@ -80,6 +85,7 @@ public class MainActivity extends AppCompatActivity implements AdminUsersFragmen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        mainInstance = this;
         appModel = AppModel.getAppModelInstance(AppService.getAppServiceInstance());
 
         //navigation drawer

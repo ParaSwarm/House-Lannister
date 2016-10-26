@@ -84,4 +84,9 @@
     <string name="search_single">وحيد</string>
     <string name="search_wants_kids">يريد أطفال</string>
     <string name="sent">أرسلت</string>
+    <string name="arabic">العربية</string>
+    <string name="chinese">الصينية</string>
+    <string name="english">الإنجليزية</string>
+    <string name="hindi">الهندية</string>
+    <string name="spanish">الأسبانية</string>
 </resources>
