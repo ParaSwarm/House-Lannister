@@ -7,8 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
-import com.google.android.gms.maps.model.LatLng;
-
 import java.util.ArrayList;
 
 import edu.uco.houselannister.saveasingle.BuildConfig;
@@ -24,7 +22,7 @@ import edu.uco.houselannister.saveasingle.fragments.MainFragment;
 import edu.uco.houselannister.saveasingle.fragments.MapsActivity;
 import edu.uco.houselannister.saveasingle.fragments.WhoLikesMeFragment;
 import edu.uco.houselannister.saveasingle.fragments.SearchCriteriaFragment;
-import edu.uco.houselannister.saveasingle.fragments.SearchFragment;
+import edu.uco.houselannister.saveasingle.fragments.SettingsFragment;
 import edu.uco.houselannister.saveasingle.fragments.ViewMessageFragment;
 import edu.uco.houselannister.saveasingle.fragments.UserProfile_Fragment;
 
@@ -61,7 +59,7 @@ public class FragmentNavigationManager implements NavigationManager {
 
     @Override
     public void showFragmentSettings(String title) {
-        showFragment(SearchFragment.newInstance(title), false);
+        showFragment(SettingsFragment.newInstance(title), false);
     }
 
     @Override
