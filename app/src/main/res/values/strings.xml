@@ -66,6 +66,8 @@
         completions."
     </string>
     <string name="title_activity_maps">Map</string>
+    <string name="Delete_Account">Delete Account</string>
+    <string name="btn_delete_account">Delete</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
