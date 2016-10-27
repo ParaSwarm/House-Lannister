@@ -11,7 +11,6 @@
 
     <string name="admin_key">Admin</string>
 
-
     <string-array name="home_menu_titles">
         <item>Home</item>
         <item>Inbox</item>
@@ -20,6 +19,7 @@
     <string-array name="people_titles">
         <item>My Favorites</item>
         <item>Who Likes Me</item>
+        <item>My Sharing</item>
         <item>Search</item>
     </string-array>
 
@@ -33,6 +33,7 @@
     <string-array name="friends_list_titles">
         <item>My Likes</item>
         <item>Who Likes Me</item>
+        <item>My Sharing</item>
         <item>Search</item>
     </string-array>
 
@@ -129,6 +130,12 @@
     <string name="message_message_field">Message: </string>
     <string name="message_message">Message</string>
     <string name="likes_me_who">Who Likes Me?</string>
+    <string name="my_sharing">People I share my private album</string>
+    <string name="ask_start_sharing">Do you want to start sharing the private album with </string>
+    <string name="ask_stop_sharing">Do you want to stop sharing the private album with </string>
+    <string name="stopped_sharing">Stopped sharing my private album.</string>
+    <string name="started_sharing">Started sharing my private album.</string>
+    <string name="stop_sharing">Stop sharing my private album.</string>
     <string name="logout">Logout</string>
     <string name="message">Message</string>
     <string name="block">Block</string>

@@ -15,7 +15,6 @@
             android:padding="@dimen/layout_padding_default"
             android:text="search fragment"
             android:textAppearance="?android:textAppearanceLarge" />
-
     </FrameLayout>
 
     <TextView

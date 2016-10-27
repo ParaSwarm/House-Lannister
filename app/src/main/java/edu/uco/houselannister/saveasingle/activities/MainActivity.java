@@ -151,6 +151,8 @@ public class MainActivity extends AppCompatActivity implements AdminUsersFragmen
                     mNavigationManager.showFragmentList();
                 } else if (peopleNavigationTitles[1].compareTo(selectedItem) == 0) {
                     mNavigationManager.showFragmentWhoLikesMe();
+                } else if (peopleNavigationTitles[2].compareTo(selectedItem) == 0) {
+                    mNavigationManager.showFragmentMySharing();
                 } else if (selectedItem.compareTo("Search") == 0) {
                     mNavigationManager.showFragmentSearchCriteria();
                 } else if (adminNavigationTitles[0].compareTo(selectedItem) == 0) {
