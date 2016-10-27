@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements AdminUsersFragmen
                     mNavigationManager.showFragmentList();
                 } else if (peopleNavigationTitles[1].compareTo(selectedItem) == 0) {
                     mNavigationManager.showFragmentWhoLikesMe();
-                } else if (selectedItem.compareTo("Search") == 0) {
+                } else if (peopleNavigationTitles[2].compareTo(selectedItem) == 0) {
                     mNavigationManager.showFragmentSearchCriteria();
                 } else if (adminNavigationTitles[0].compareTo(selectedItem) == 0) {
                     mNavigationManager.showFragmentAdminUsers();
@@ -233,7 +233,7 @@ public class MainActivity extends AppCompatActivity implements AdminUsersFragmen
 
     private void onDateClick(int year, int month, int day) {
         TextView txt = (TextView) findViewById(R.id.DOB_TextView);
-        txt.setText("Date of Birth : " + new StringBuilder().append(day).append("/")
+        txt.setText(getResources().getString(R.string.profile_dob) + new StringBuilder().append(day).append("/")
                 .append(month).append("/").append(year));
     }
 

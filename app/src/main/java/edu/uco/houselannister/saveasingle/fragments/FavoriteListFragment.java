@@ -115,7 +115,7 @@ public class FavoriteListFragment extends ListFragment implements AdapterView.On
                     case R.id.item1:
                         EditText input = new EditText(getActivity());
                         new AlertDialog.Builder(getActivity())
-                                .setTitle("Send a message to " + appModel.getUsers().get(place).getName())
+                                .setTitle(getResources().getString(R.string.favorite_send_message_to) + appModel.getUsers().get(place).getName())
                                 .setView(input)
                                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
@@ -134,8 +134,8 @@ public class FavoriteListFragment extends ListFragment implements AdapterView.On
                         break;
                     case R.id.item2:
                         new AlertDialog.Builder(getActivity())
-                                .setTitle("Block entry")
-                                .setMessage("Are you sure you want to block" + appModel.getUsers().get(place).getName())
+                                .setTitle(getResources().getString(R.string.favorite_block_entry))
+                                .setMessage(getResources().getString(R.string.favorite_block_confirmation) + appModel.getUsers().get(place).getName())
                                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
                                         // continue with delete
@@ -159,7 +159,7 @@ public class FavoriteListFragment extends ListFragment implements AdapterView.On
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(getActivity(), "User: " + appModel.getUsers().get(position).getName(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), getResources().getString(R.string.favorite_user) + appModel.getUsers().get(position).getName(), Toast.LENGTH_SHORT).show();
     }
 
     @Override

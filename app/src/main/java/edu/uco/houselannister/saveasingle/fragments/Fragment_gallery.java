@@ -102,7 +102,7 @@ public class Fragment_gallery extends Fragment implements View.OnClickListener {
         User_login = "6689";
 
         progressDialog.show();
-        progressDialog.setMessage("Processing...");
+        progressDialog.setMessage(getResources().getString(R.string.gallery_processing_message));
 
 
         BTN_loadFromGallery = (Button) v.findViewById(R.id.loadFromGallery);
@@ -176,7 +176,7 @@ public class Fragment_gallery extends Fragment implements View.OnClickListener {
 
     public void RefreshList() throws FileNotFoundException {
         progressDialog.show();
-        progressDialog.setMessage("Processing...");
+        progressDialog.setMessage(getResources().getString(R.string.gallery_processing_message));
         imageIDs = new ArrayList<>();
         loadImages();
         gallery.setAdapter(new ImageAdapter(this.getContext()));

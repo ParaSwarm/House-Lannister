@@ -73,7 +73,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
                 if (!regPassword.equals(regConfirmPassword)) {
                     Context context = getApplicationContext();
-                    CharSequence text = "Password doesn't match";
+                    CharSequence text = getResources().getString(R.string.registration_password_no_match);
                     int duration = Toast.LENGTH_SHORT;
 
                     Toast toast = Toast.makeText(context, text, duration);

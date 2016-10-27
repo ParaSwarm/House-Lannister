@@ -99,10 +99,10 @@ public class InboxFragment extends ListFragment implements OnItemClickListener {
             public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.inboxLink:
-                        Toast.makeText(getActivity(), "Navigating to Sent Items.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), getResources().getString(R.string.inbox_navigating), Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.sentLink:
-                        Toast.makeText(getActivity(), "Navigating to Sent Items.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), getResources().getString(R.string.inbox_navigating), Toast.LENGTH_SHORT).show();
                         break;
                 }
                 return false;

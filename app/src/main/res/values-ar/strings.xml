@@ -1,5 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string-array name="navigation_titles">
+        <item>الصفحة الرئيسية</item>
+        <item>ملف تعريفي للمستخدم</item>
+        <item>الناس</item>
+        <item>مشرف</item>
+    </string-array>
+    <string-array name="home_menu_titles">
+        <item>الصفحة الرئيسية</item>
+        <item>صندوق الوارد</item>
+    </string-array>
+    <string-array name="people_titles">
+        <item>مفضلتي</item>
+        <item>الذي يحب عني</item>
+        <item>بحث</item>
+    </string-array>
+    <string-array name="user_profile_titles">
+        <item>الملف الأساسي</item>
+        <item>ألبوم صور</item>
+        <item>خروج</item>
+        <item>إعدادات</item>
+    </string-array>
+    <string-array name="friends_list_titles">
+        <item>اعجاباتي</item>
+        <item>الذي يحب عني</item>
+        <item>بحث</item>
+    </string-array>
+    <string-array name="admin_titles">
+        <item>قائمة الأعضاء</item>
+        <item>قائمة الأسئلة</item>
+        <item>رموز القائمة البريدي</item>
+    </string-array>
+    <string-array name="settings_sub_menus">
+        <item>بحث</item>
+    </string-array>
     <string name="title_activity_maps">رسم خريطة</string>
     <string name="registration">التسجيل</string>
     <string name="prompt_password">كلمة السر (اختياري)</string>
@@ -89,4 +123,20 @@
     <string name="english">الإنجليزية</string>
     <string name="hindi">الهندية</string>
     <string name="spanish">الأسبانية</string>
+    <string name="who_likes_me_stop_sharing">هل تريد إيقاف مشاركة ألبوم خاص مع</string>
+    <string name="view_message_deleted">الرسالة مسحت.</string>
+    <string name="view_message_delete">حذف الرسائل؟</string>
+    <string name="view_message_block_user">مستخدم محضور؟</string>
+    <string name="registration_password_no_match">لا تطابق كلمة المرور</string>
+    <string name="inbox_navigating">الانتقال إلى العناصر المرسلة.</string>
+    <string name="gallery_processing_message">معالجة...</string>
+    <string name="favorite_user">مستخدم:</string>
+    <string name="favorite_send_message_to">ارسل رسالة الى</string>
+    <string name="favorite_block_entry">دخول كتلة</string>
+    <string name="favorite_block_confirmation">هل أنت متأكد أنك تريد منع</string>
+    <string name="compose_send_message">إرسال رسالة؟</string>
+    <string name="compose_not_yet">ليس بعد</string>
+    <string name="compose_must_enter_message">يجب عليك إدخال الموضوع والرسالة.</string>
+    <string name="compose_discard">نبذ</string>
+    <string name="compose_builder_title">هل أنت متأكد أنك تريد تجاهل هذه الرسالة؟</string>
 </resources>
