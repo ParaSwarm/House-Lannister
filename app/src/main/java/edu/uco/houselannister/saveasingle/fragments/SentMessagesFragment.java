@@ -27,7 +27,7 @@ import edu.uco.houselannister.saveasingle.helpers.FragmentNavigationManager;
 import edu.uco.houselannister.saveasingle.model.AppModel;
 import edu.uco.houselannister.saveasingle.service.AppService;
 
-public class InboxFragment extends ListFragment implements OnItemClickListener {
+public class SentMessagesFragment extends ListFragment implements OnItemClickListener {
 
     private Model appModel;
     ActionMode mMode;
@@ -38,34 +38,34 @@ public class InboxFragment extends ListFragment implements OnItemClickListener {
 
     ArrayList<Message> messages;
 
-    @BindView(R.id.goto_sent_messages)
-    Button sentMessagesButton;
+    @BindView(R.id.goto_inbox)
+    Button inboxButton;
 
-    public InboxFragment() {
+    public SentMessagesFragment() {
     }
 
-    public static InboxFragment newInstance() {
-        return new InboxFragment();
+    public static SentMessagesFragment newInstance() {
+        return new SentMessagesFragment();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         appModel = AppModel.getAppModelInstance(AppService.getAppServiceInstance());
-        messages =  appModel.getCurrentUser().getInteractions().getInBox(false);
+        messages =  appModel.getCurrentUser().getInteractions().getOutBox();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_inbox, container, false);
+        View view = inflater.inflate(R.layout.fragment_sent_messages, container, false);
         ButterKnife.bind(this, view);
 
-        sentMessagesButton.setOnClickListener(new View.OnClickListener() {
+        inboxButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                goToSentMessages();
+                goToInbox();
             }
         });
 
@@ -143,8 +143,8 @@ public class InboxFragment extends ListFragment implements OnItemClickListener {
         super.onViewCreated(view, savedInstanceState);
     }
 
-    public void goToSentMessages(){
+    private void goToInbox(){
         FragmentNavigationManager navManager = FragmentNavigationManager.obtain((MainActivity) getActivity());
-        navManager.showFragmentSentMessages();
+        navManager.showFragmentInbox();
     }
 }

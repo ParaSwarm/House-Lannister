@@ -15,7 +15,13 @@
                 android:padding="@dimen/layout_padding_default"
                 android:text="Inbox"
                 android:textAppearance="?android:textAppearanceLarge" />
-
+            <Button
+                android:id="@+id/goto_sent_messages"
+                android:layout_width="123dp"
+                android:layout_height="wrap_content"
+                android:text="Sent Messages"
+                android:textStyle="bold"
+                android:layout_gravity="right" />
         </FrameLayout>
 
         <ListView

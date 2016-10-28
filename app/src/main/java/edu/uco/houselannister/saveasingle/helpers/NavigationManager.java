@@ -18,6 +18,7 @@ public interface NavigationManager {
     void showFragmentMain();
     void showFragmentList();
     void showFragmentInbox();
+    void showFragmentSentMessages();
     void showFragmentViewMessage(Bundle data);
     void showFragmentComposeMessage(Bundle data);
     void showFragmentWhoLikesMe();
