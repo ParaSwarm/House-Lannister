@@ -89,12 +89,6 @@ public class InboxFragment extends ListFragment implements OnItemClickListener {
         navManager.showFragmentViewMessage(data);
     }
 
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-    }
-
     public void goToSentMessages(){
         FragmentNavigationManager navManager = FragmentNavigationManager.obtain((MainActivity) getActivity());
         navManager.showFragmentSentMessages();
