@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_sign_in"> 请登录或注册</string>
+    <string name="action_sign_in_short"> 签到</string>
+    <string name="admin_key">联系</string>
+    <string name="app_title"> 保存一个</string>
+    <string name="drawer_closed"> 关闭导航</string>
+    <string name="drawer_open">打开导航</string>
+    <string name="error_field_required">这是必填栏</string>
+    <string name="error_incorrect_password">这个密码不正确</string>
+    <string name="error_invalid_email">此电子邮件地址无效</string>
+    <string name="error_invalid_password"> 该密码太短</string>
+    <string name="hello_blank_fragment"> 你好空白片段</string>
+    <string name="permission_rationale"> “需要联系的权限提供电子邮件的完成。”</string>
+    <string name="prompt_email"> 电子邮件</string>
+    <string name="prompt_password"> 密码（可选）</string>
+    <string name="registration">注册</string>
+    <string name="title_activity_maps">地图</string>
+</resources>

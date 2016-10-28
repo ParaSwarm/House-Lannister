@@ -22,6 +22,7 @@ public interface NavigationManager {
     void showFragmentViewMessage(Bundle data);
     void showFragmentComposeMessage(Bundle data);
     void showFragmentWhoLikesMe();
+    void showFragmentMySharing();
     void showFragmentSearchCriteria();
     void showFragmentUserProfile();
     void showFragmentAdminUsers();

@@ -3,10 +3,10 @@
     <item
         android:icon="@android:drawable/ic_dialog_email"
         android:id="@+id/item1"
-        android:title="Message" />
+        android:title="@string/message" />
 
     <item
         android:id="@+id/item2"
-        android:text="Block"
-        android:title="Block" />
+        android:text="@string/block"
+        android:title="@string/block" />
 </menu>

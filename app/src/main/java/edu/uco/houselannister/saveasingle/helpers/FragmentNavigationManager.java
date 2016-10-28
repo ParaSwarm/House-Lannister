@@ -21,6 +21,7 @@ import edu.uco.houselannister.saveasingle.fragments.InboxFragment;
 import edu.uco.houselannister.saveasingle.fragments.MainFragment;
 import edu.uco.houselannister.saveasingle.fragments.MapsActivity;
 import edu.uco.houselannister.saveasingle.fragments.SentMessagesFragment;
+import edu.uco.houselannister.saveasingle.fragments.MySharingFragment;
 import edu.uco.houselannister.saveasingle.fragments.WhoLikesMeFragment;
 import edu.uco.houselannister.saveasingle.fragments.SearchCriteriaFragment;
 import edu.uco.houselannister.saveasingle.fragments.UserProfile_Fragment;
@@ -91,6 +92,11 @@ public class FragmentNavigationManager implements NavigationManager {
     @Override
     public void showFragmentWhoLikesMe() {
         showFragment(WhoLikesMeFragment.newInstance(), false);
+    }
+
+    @Override
+    public void showFragmentMySharing() {
+        showFragment(MySharingFragment.newInstance(), false);
     }
 
     @Override

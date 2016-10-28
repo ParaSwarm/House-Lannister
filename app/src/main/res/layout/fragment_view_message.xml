@@ -19,7 +19,7 @@
         style="?android:textAppearanceSmall"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:text="Reply"
+        android:text="@string/message_reply_button"
         android:textStyle="bold" />
 
     <Button
@@ -27,7 +27,7 @@
         style="?android:textAppearanceSmall"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:text="Delete"
+        android:text="@string/message_delete_button"
         android:textStyle="bold" />
 
     <Button
@@ -35,7 +35,7 @@
         style="?android:textAppearanceSmall"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:text="Block"
+        android:text="@string/message_block_button"
         android:textStyle="bold" />
 
 </LinearLayout>
@@ -53,7 +53,7 @@
                 android:id="@+id/from_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="From: "
+                android:text="@string/message_from_field"
                 android:gravity="left"
                 android:padding="@dimen/layout_padding_default"
                 android:textAppearance="?android:textAppearanceLarge"
@@ -64,7 +64,7 @@
                 android:layout_toRightOf="@+id/from_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="From"
+                android:text="@string/message_from"
                 android:gravity="right"
                 android:padding="@dimen/layout_padding_default"
                 android:textAppearance="?android:textAppearanceLarge" />
@@ -74,7 +74,7 @@
                 android:layout_below="@+id/from_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Subject: "
+                android:text="@string/compose_subject_field"
                 android:gravity="left"
                 android:padding="@dimen/layout_padding_default"
                 android:textAppearance="?android:textAppearanceLarge"
@@ -86,7 +86,7 @@
                 android:layout_toRightOf="@+id/subject_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Subject"
+                android:text="@string/message_subject"
                 android:gravity="right"
                 android:padding="@dimen/layout_padding_default"
                 android:textAppearance="?android:textAppearanceLarge" />
@@ -96,7 +96,7 @@
                 android:layout_below="@+id/subject"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Message: "
+                android:text="@string/message_message_field"
                 android:gravity="left"
                 android:padding="@dimen/layout_padding_default"
                 android:textAppearance="?android:textAppearanceLarge"
@@ -107,7 +107,7 @@
                 android:layout_below="@+id/message_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Message"
+                android:text="@string/message_message"
                 android:gravity="center"
                 android:padding="@dimen/layout_padding_default"
                 android:textAppearance="?android:textAppearanceLarge" />

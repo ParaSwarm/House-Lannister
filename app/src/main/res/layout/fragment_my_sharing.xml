@@ -10,7 +10,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="@dimen/layout_padding_default"
-            android:text="@string/likes_me_who"
+            android:text="@string/my_sharing"
             android:textAppearance="?android:textAppearanceLarge" />
 
     </FrameLayout>
