@@ -1,9 +1,6 @@
 package edu.uco.houselannister.saveasingle.activities;
 
 import android.annotation.SuppressLint;
-import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -15,18 +12,9 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.DatePicker;
 import android.widget.ExpandableListView;
-import android.widget.RadioButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -142,6 +130,8 @@ public class MainActivity extends AppCompatActivity implements AdminUsersFragmen
                     mNavigationManager.showFragmentMain();
                 } else if (homeNavigationTitles[1].compareTo(selectedItem) == 0) {
                     mNavigationManager.showFragmentInbox();
+                } else if (homeNavigationTitles[2].compareTo(selectedItem) == 0) {
+                    mNavigationManager.showFragmentSentMessages();
                 } else if (settingsNavigationTitles[0].compareTo(selectedItem) == 0) {
                     mNavigationManager.showFragmentUserProfile();
                 } else if (settingsNavigationTitles[1].compareTo(selectedItem) == 0) {
@@ -157,6 +147,8 @@ public class MainActivity extends AppCompatActivity implements AdminUsersFragmen
                     mNavigationManager.showFragmentList();
                 } else if (peopleNavigationTitles[1].compareTo(selectedItem) == 0) {
                     mNavigationManager.showFragmentWhoLikesMe();
+                } else if (peopleNavigationTitles[2].compareTo(selectedItem) == 0) {
+                    mNavigationManager.showFragmentMySharing();
                 } else if (peopleNavigationTitles[2].compareTo(selectedItem) == 0) {
                     mNavigationManager.showFragmentSearchCriteria();
                 } else if (adminNavigationTitles[0].compareTo(selectedItem) == 0) {
@@ -191,22 +183,6 @@ public class MainActivity extends AppCompatActivity implements AdminUsersFragmen
         mDrawerToggle.setDrawerIndicatorEnabled(true);
         mDrawerLayout.addDrawerListener(mDrawerToggle);
     }
-
-    public void onRadioButtonChecked(View v) {
-        boolean checked = ((RadioButton) v).isChecked();
-        switch (v.getId()) {
-            case R.id.maleRadioButton:
-                if (checked)
-                    break;
-
-            case R.id.femaleRadiobutton:
-                if (checked)
-                    break;
-        }
-    }
-
-
-    //region For date of birth in User Profile Fragment
 
     @Override
     @SuppressWarnings("deprecation")

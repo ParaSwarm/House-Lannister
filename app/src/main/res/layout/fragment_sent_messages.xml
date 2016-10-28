@@ -4,25 +4,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="edu.uco.houselannister.saveasingle.fragments.InboxFragment">
+    tools:context="edu.uco.houselannister.saveasingle.fragments.SentMessagesFragment">
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="50dp">
 
         <TextView
-                android:text="@string/inbox_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
             android:padding="@dimen/layout_padding_default"
-            android:text="Inbox"
+            android:text="Sent Messages"
             android:textAppearance="?android:textAppearanceLarge" />
 
         <Button
-            android:id="@+id/goto_sent_messages"
-            android:layout_width="123dp"
-            android:layout_height="60dp"
-            android:text="Sent Messages"
+            android:id="@+id/goto_inbox"
+            android:layout_width="99dp"
+            android:layout_height="wrap_content"
+            android:text="Inbox"
             android:textStyle="bold"
             android:layout_gravity="right" />
     </FrameLayout>

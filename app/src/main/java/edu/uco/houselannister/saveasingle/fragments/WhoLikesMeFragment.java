@@ -132,11 +132,13 @@ public class WhoLikesMeFragment extends ListFragment implements OnItemClickListe
                                                 .setNegativeButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                                     public void onClick(DialogInterface dialog, int which) {
                                                         if (array[1].toString().equalsIgnoreCase("Stop sharing my private album.")) {
+                                                            Toast.makeText(getActivity(), "Stopped sharing your private album with " + appModel.getUsers().get(pos).getName(), Toast.LENGTH_SHORT).show();
                                                             AccessPrivatePhotoList.remove(AccessPrivatePhotoList.indexOf(appModel.getUsers().get(pos)));
-                                                            appModel.getCurrentUser().getInteractions().setFavorites(AccessPrivatePhotoList);
+                                                            appModel.getCurrentUser().getInteractions().setPrivatePhotoAccess(AccessPrivatePhotoList);
                                                         } else {
+                                                            Toast.makeText(getActivity(), "Started sharing your private album with " + appModel.getUsers().get(pos).getName(), Toast.LENGTH_SHORT).show();
                                                             AccessPrivatePhotoList.add(appModel.getUsers().get(pos));
-                                                            appModel.getCurrentUser().getInteractions().setFavorites(AccessPrivatePhotoList);
+                                                            appModel.getCurrentUser().getInteractions().setPrivatePhotoAccess(AccessPrivatePhotoList);
                                                         }
                                                     }
                                                 })
