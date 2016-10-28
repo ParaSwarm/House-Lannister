@@ -19,7 +19,7 @@
             style="?android:textAppearanceSmall"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
-            android:text="Cancel"
+            android:text="@string/compose_cancel_button"
             android:textStyle="bold" />
 
         <Button
@@ -27,7 +27,7 @@
             style="?android:textAppearanceSmall"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
-            android:text="Send"
+            android:text="@string/compose_send_button"
             android:textStyle="bold" />
 
     </LinearLayout>
@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:padding="@dimen/layout_padding_default"
-                android:text="To: "
+                android:text="@string/compose_to_field"
                 android:textAppearance="?android:textAppearanceLarge"
                 android:textColor="@color/black" />
 
@@ -59,7 +59,7 @@
                 android:layout_toRightOf="@+id/to_label_compose"
                 android:gravity="right"
                 android:padding="@dimen/layout_padding_default"
-                android:text="To"
+                android:text="@string/compose_to"
                 android:textAppearance="?android:textAppearanceLarge" />
 
             <TextView
@@ -69,7 +69,7 @@
                 android:layout_below="@+id/to_label_compose"
                 android:gravity="left"
                 android:padding="@dimen/layout_padding_default"
-                android:text="Subject: "
+                android:text="@string/compose_subject_field"
                 android:textAppearance="?android:textAppearanceLarge"
                 android:textColor="@color/black" />
 
@@ -90,7 +90,7 @@
                 android:layout_below="@+id/subject_compose"
                 android:gravity="left"
                 android:padding="@dimen/layout_padding_default"
-                android:text="Message: "
+                android:text="@string/compose_message_field"
                 android:textAppearance="?android:textAppearanceLarge"
                 android:textColor="@color/black" />
 

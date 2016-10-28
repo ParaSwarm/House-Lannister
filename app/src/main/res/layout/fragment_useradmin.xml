@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
         android:textAppearance="?attr/textAppearanceListItem"
-        android:hint="First"/>
+        android:hint="@string/admin_first"/>
 
     <TextView
         android:id="@+id/admin_email"
@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
         android:textAppearance="?attr/textAppearanceListItem"
-        android:hint="Second"/>
+        android:hint="@string/admin_second"/>
 
     <Switch
         android:id="@+id/admin_enabled"

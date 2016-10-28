@@ -87,15 +87,15 @@ public class ComposeMessageFragment extends Fragment {
     private void cancelMessage() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        builder.setTitle("Are you sure you want to discard this message?")
-                .setPositiveButton("Discard", new DialogInterface.OnClickListener() {
+        builder.setTitle(getResources().getString(R.string.compose_builder_title))
+                .setPositiveButton(getResources().getString(R.string.compose_discard), new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 getFragmentManager().popBackStackImmediate();
                             }
                         }
                 )
                 .setNegativeButton(
-                        "Not yet",
+                        getResources().getString(R.string.compose_not_yet),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.dismiss();
@@ -109,14 +109,14 @@ public class ComposeMessageFragment extends Fragment {
         String message = messageText.getText().toString();
 
         if(subject.isEmpty() || message.isEmpty()){
-            Toast.makeText(getActivity(), "You must enter a subject and message.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), getResources().getString(R.string.compose_must_enter_message), Toast.LENGTH_SHORT).show();
             return;
         }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        builder.setTitle("Send message?")
-                .setPositiveButton("Send", new DialogInterface.OnClickListener() {
+        builder.setTitle(getResources().getString(R.string.compose_send_message))
+                .setPositiveButton(getResources().getString(R.string.compose_send_button), new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 Message message = new Message();
                                 message.setTo(toUser);
@@ -140,7 +140,7 @@ public class ComposeMessageFragment extends Fragment {
                         }
                 )
                 .setNegativeButton(
-                        "Not yet",
+                        getResources().getString(R.string.compose_not_yet),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.dismiss();
