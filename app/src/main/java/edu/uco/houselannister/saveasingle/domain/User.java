@@ -1,12 +1,11 @@
 package edu.uco.houselannister.saveasingle.domain;
 
-import android.location.Geocoder;
 import android.location.Location;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
 
 public class User  implements Serializable, Parcelable {
 
@@ -24,6 +23,8 @@ public class User  implements Serializable, Parcelable {
 
     private UserPreferences userExcludes;
 
+    private UserStatus status;
+
     private ArrayList<Photo> photos;
 
     private Bio bio;
@@ -37,8 +38,31 @@ public class User  implements Serializable, Parcelable {
     private Boolean isAdmin;
 
     private Boolean enabled;
-
     private Location location;
+
+    private String fullname;
+    private int age;
+    private String position;
+    private String education;
+    private double height;
+    private String religion;
+    private String ethnicity;
+    private int smoking;
+    private int bodyType;
+    private String work;
+    private double income;
+    private int marriedStatus;
+    private int children;
+    private String story;
+    private String perfectMatch;
+    private int gender;
+    private boolean galleryPrivate;
+    private boolean profilePrivate;
+
+    public static final String[] GenderValues = new String[] {"Male", "Female"};
+    public static final String[] SmokingValues = new String[] {"Never", "Socially Only", "Sometimes", "about 10 per day", "more than 20 per day"};
+    public static final String[] BodyTypeValues = new String[] {"Slim", "Average", "Fat"};
+    public static final String[] MarriedStatusValues = new String[] {"Not Married", "Married", "Divorced"};
 
     public String getName() {
         return name;
@@ -197,7 +221,29 @@ public class User  implements Serializable, Parcelable {
         dest.writeValue(this.enabled);
     }
 
+    public UserStatus getStatus() {
+        if(status == null){
+            status = new UserStatus();
+        }
+
+        return status;
+    }
+
+    public void setStatus(UserStatus status) {
+        this.status = status;
+    }
+
     public User() {
+        fullname = "";
+        position = "";
+        education = "";
+        religion = "";
+        ethnicity = "";
+        work = "";
+        story = "";
+        perfectMatch = "";
+        photos = new ArrayList<Photo>();
+        profilePhoto = new Photo();
     }
 
     protected User(Parcel in) {
@@ -217,6 +263,14 @@ public class User  implements Serializable, Parcelable {
         this.profilePhoto = (Photo) in.readSerializable();
         this.isAdmin = (Boolean) in.readValue(Boolean.class.getClassLoader());
         this.enabled = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        fullname = "";
+        position = "";
+        education = "";
+        religion = "";
+        ethnicity = "";
+        work = "";
+        story = "";
+        perfectMatch = "";
     }
 
     public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
@@ -238,4 +292,149 @@ public class User  implements Serializable, Parcelable {
     public void setLocation(Location location) {
         this.location = location;
     }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public String getFullName() {
+        return fullname;
+    }
+
+    public void setFullName(String fullname) {
+        this.fullname = fullname;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getEducation() {
+        return education;
+    }
+
+    public void setEducation(String education) {
+        this.education = education;
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
+    }
+
+    public String getReligion() {
+        return religion;
+    }
+
+    public void setReligion(String religion) {
+        this.religion = religion;
+    }
+
+    public String getEthnicity() {
+        return ethnicity;
+    }
+
+    public void setEthnicity(String ethnicity) {
+        this.ethnicity = ethnicity;
+    }
+
+    public int getSmoking() {
+        return smoking;
+    }
+
+    public void setSmoking(int smoking) {
+        this.smoking = smoking;
+    }
+
+    public int getBodyType() {
+        return bodyType;
+    }
+
+    public void setBodyType(int bodyType) {
+        this.bodyType = bodyType;
+    }
+
+    public String getWork() {
+        return work;
+    }
+
+    public void setWork(String work) {
+        this.work = work;
+    }
+
+    public double getIncome() {
+        return income;
+    }
+
+    public void setIncome(double income) {
+        this.income = income;
+    }
+
+    public int getMarriedStatus() {
+        return marriedStatus;
+    }
+
+    public void setMarriedStatus(int marriedStatus) {
+        this.marriedStatus = marriedStatus;
+    }
+
+    public int getChildren() {
+        return children;
+    }
+
+    public void setChildren(int children) {
+        this.children = children;
+    }
+
+    public String getStory() {
+        return story;
+    }
+
+    public void setStory(String story) {
+        this.story = story;
+    }
+
+    public String getPerfectMatch() {
+        return perfectMatch;
+    }
+
+    public void setPerfectMatch(String perfectMatch) {
+        this.perfectMatch = perfectMatch;
+    }
+
+    public int getGender() {
+        return gender;
+    }
+
+    public void setGender(int gender) {
+        this.gender = gender;
+    }
+
+    public boolean getGalleryPrivate() {
+        return galleryPrivate;
+    }
+
+    public void setGalleryPrivate(boolean galleryPrivate) {
+        this.galleryPrivate = galleryPrivate;
+    }
+
+    public boolean getProfilePrivate() {
+        return profilePrivate;
+    }
+
+    public void setProfilePrivate(boolean profilePrivate) {
+        this.profilePrivate = profilePrivate;
+    }
+
 }

@@ -126,6 +126,9 @@ public class UserInteractions implements Serializable {
     }
 
     public ArrayList<User> getFavorites() {
+        if(favorites == null) {
+            favorites = new ArrayList<>();
+        }
         return favorites;
     }
 
@@ -138,6 +141,12 @@ public class UserInteractions implements Serializable {
             blocked = new ArrayList<>();
         }
         return blocked;
+    }
+
+    public void deleteFromFavorites(User userToRemove) {
+        if(this.getFavorites().contains(userToRemove)) {
+            this.favorites.remove(userToRemove);
+        }
     }
 
     public void setBlocked(ArrayList<User> blocked) {
