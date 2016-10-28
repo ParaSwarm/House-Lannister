@@ -1,6 +1,6 @@
 package edu.uco.houselannister.saveasingle.domain;
 
-import android.media.Image;
+import android.graphics.Bitmap;
 import android.net.Uri;
 
 import java.io.Serializable;
@@ -11,7 +11,7 @@ public class Photo implements Serializable {
 
     private Uri locationUri;
 
-    private Image photo;
+    private Bitmap photo;
 
     public Boolean getPrivate() {
         return isPrivate;
@@ -29,11 +29,11 @@ public class Photo implements Serializable {
         this.locationUri = locationUri;
     }
 
-    public Image getPhoto() {
+    public Bitmap getPhoto() {
         return photo;
     }
 
-    public void setPhoto(Image photo) {
+    public void setPhoto(Bitmap photo) {
         this.photo = photo;
     }
 }
