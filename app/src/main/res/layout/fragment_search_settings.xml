@@ -29,7 +29,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Language"
+                    android:text="@string/search_language"
                     android:id="@+id/textView6" />
             </LinearLayout>
 
@@ -59,7 +59,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Religion"
+                    android:text="@string/search_religion"
                     android:id="@+id/textView" />
             </LinearLayout>
 
@@ -88,7 +88,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Looking for"
+                    android:text="@string/search_looking_for"
                     android:id="@+id/textView11" />
             </LinearLayout>
 
@@ -117,7 +117,7 @@
                 <Switch
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Single"
+                    android:text="@string/search_single"
                     android:id="@+id/single_switch" />
             </LinearLayout>
 
@@ -129,7 +129,7 @@
                 <Switch
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Monogamous"
+                    android:text="@string/search_monogomous"
                     android:id="@+id/switch_monogamous" />
             </LinearLayout>
         </LinearLayout>
@@ -147,7 +147,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Pets"
+                    android:text="@string/search_pets"
                     android:id="@+id/textView2" />
             </LinearLayout>
 
@@ -159,19 +159,19 @@
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Has Cat(s)"
+                    android:text="@string/search_has_cats"
                     android:id="@+id/hasCatsCheckbox" />
 
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Has Dog(s)"
+                    android:text="@string/search_has_dogs"
                     android:id="@+id/hasDogsCheckbox" />
 
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="None"
+                    android:text="@string/search_no_pets"
                     android:id="@+id/hasNoPetsCheckbox" />
             </LinearLayout>
         </LinearLayout>
@@ -184,7 +184,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Kids"
+                android:text="@string/search_kids"
                 android:id="@+id/textView4" />
 
             <RelativeLayout
@@ -204,19 +204,19 @@
                         <CheckBox
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Wants kids"
+                            android:text="@string/search_wants_kids"
                             android:id="@+id/wantsKidsCheckbox" />
 
                         <CheckBox
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Might want Kids"
+                            android:text="@string/search_might_want_kids"
                             android:id="@+id/mightWantKidsCheckbox" />
 
                         <CheckBox
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Doesn&apos;t want kids"
+                            android:text="@string/search_doesnt_want_kids"
                             android:id="@+id/doesNotWantKidsCheckbox" />
                     </LinearLayout>
 
@@ -228,13 +228,13 @@
                         <CheckBox
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Has kid(s)"
+                            android:text="@string/search_has_kids"
                             android:id="@+id/hasKidsCheckbox" />
 
                         <CheckBox
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Doesn&apos;t have kid(s)"
+                            android:text="@string/search_doesnt_have_kids"
                             android:id="@+id/doesNotHaveKidsCheckbox" />
                     </LinearLayout>
                 </LinearLayout>
@@ -249,7 +249,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Education"
+                android:text="@string/search_education"
                 android:id="@+id/textView3" />
 
             <RelativeLayout
@@ -267,19 +267,19 @@
                         <CheckBox
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="High School"
+                            android:text="@string/search_highschool"
                             android:id="@+id/highSchoolCheckbox" />
 
                         <CheckBox
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="2-year college"
+                            android:text="@string/search_associates"
                             android:id="@+id/associatesCheckbox" />
 
                         <CheckBox
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="4-year college"
+                            android:text="@string/search_bachelors"
                             android:id="@+id/bachelorsCheckbox" />
                     </TableRow>
 
@@ -290,7 +290,7 @@
                         <CheckBox
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Post grad"
+                            android:text="@string/search_graduate"
                             android:id="@+id/mastersCheckbox" />
                     </TableRow>
                 </TableLayout>
@@ -305,7 +305,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Age"
+                android:text="@string/search_age"
                 android:id="@+id/textView5" />
 
             <Spinner
@@ -316,7 +316,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="-"
+                android:text="@string/dash"
                 android:id="@+id/textView7" />
 
             <Spinner
@@ -334,7 +334,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Distance from me"
+                android:text="@string/search_distance_from_me"
                 android:id="@+id/textView8" />
 
             <Spinner
@@ -351,20 +351,20 @@
             <Switch
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Has photos"
+                android:text="@string/search_has_photos"
                 android:id="@+id/hasPhotosSwitch" />
         </LinearLayout>
 
         <MultiAutoCompleteTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Search by interest"
+            android:text="@string/search_by_interest"
             android:id="@+id/interests_multitoken" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Search near me"
+            android:text="@string/search_button"
             android:id="@+id/searchButton" />
 
     </LinearLayout>

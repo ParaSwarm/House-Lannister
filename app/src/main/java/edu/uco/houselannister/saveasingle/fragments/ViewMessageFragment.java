@@ -109,11 +109,11 @@ public class ViewMessageFragment extends Fragment {
     private void confirmDeleteMessage() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        builder.setTitle("Delete Message?")
-                .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+        builder.setTitle(getResources().getString(R.string.view_message_delete))
+                .setPositiveButton(getResources().getString(R.string.message_delete_button), new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 appModel.getCurrentUser().getInteractions().getInBox().remove(message);
-                                Toast.makeText(getActivity(), "Message deleted.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), getResources().getString(R.string.view_message_deleted), Toast.LENGTH_SHORT).show();
                                 getFragmentManager().popBackStack();
                                 getFragmentManager().popBackStack();
                                 FragmentNavigationManager navManager = FragmentNavigationManager.obtain((MainActivity) getActivity());
@@ -122,7 +122,7 @@ public class ViewMessageFragment extends Fragment {
                         }
                 )
                 .setNegativeButton(
-                        "Cancel",
+                        getResources().getString(R.string.compose_cancel_button),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.dismiss();
@@ -134,8 +134,8 @@ public class ViewMessageFragment extends Fragment {
     private void confirmBlockUser() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        builder.setTitle("Block User?")
-                .setPositiveButton("Block", new DialogInterface.OnClickListener() {
+        builder.setTitle(getResources().getString(R.string.view_message_block_user))
+                .setPositiveButton(getResources().getString(R.string.block), new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 appModel.getCurrentUser().getInteractions().blockUser(message.getFrom());
                                 Toast.makeText(getActivity(), String.format("User %s blocked.", message.getFrom().getName()), Toast.LENGTH_SHORT).show();
@@ -147,7 +147,7 @@ public class ViewMessageFragment extends Fragment {
                         }
                 )
                 .setNegativeButton(
-                        "Cancel",
+                        getResources().getString(R.string.compose_cancel_button),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.dismiss();

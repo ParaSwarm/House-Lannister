@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="navigation_titles">
+        <item>家</item>
+        <item>用户资料</item>
+        <item>人</item>
+        <item>联系</item>
+    </string-array>
+    <string-array name="home_menu_titles">
+        <item>家</item>
+        <item>收件箱</item>
+        <item>发送</item>
+    </string-array>
+    <string-array name="people_titles">
+        <item>我最喜欢的</item>
+        <item>谁喜欢我</item>
+        <item>搜索</item>
+    </string-array>
+    <string-array name="user_profile_titles">
+        <item>基本概况</item>
+        <item>影集</item>
+        <item>登出</item>
+        <item>设置</item>
+    </string-array>
+    <string-array name="friends_list_titles">
+        <item>我的喜好</item>
+        <item>谁喜欢我</item>
+        <item>搜索</item>
+    </string-array>
+    <string-array name="admin_titles">
+        <item>用户列表</item>
+        <item>问题列表</item>
+        <item>清单邮政编码</item>
+    </string-array>
+    <string-array name="settings_sub_menus">
+        <item>搜索</item>
+    </string-array>
+    <string name="action_sign_in"> 请登录或注册</string>
+    <string name="action_sign_in_short"> 签到</string>
+    <string name="admin_key">联系</string>
+    <string name="app_title"> 保存一个</string>
+    <string name="drawer_closed"> 关闭导航</string>
+    <string name="drawer_open">打开导航</string>
+    <string name="error_field_required">这是必填栏</string>
+    <string name="error_incorrect_password">这个密码不正确</string>
+    <string name="error_invalid_email">此电子邮件地址无效</string>
+    <string name="error_invalid_password"> 该密码太短</string>
+    <string name="hello_blank_fragment"> 你好空白片段</string>
+    <string name="permission_rationale"> “需要联系的权限提供电子邮件的完成。”</string>
+    <string name="prompt_email"> 电子邮件</string>
+    <string name="prompt_password"> 密码（可选）</string>
+    <string name="registration">注册</string>
+    <string name="title_activity_maps">地图</string>
+    <string name="arabic">阿拉伯</string>
+    <string name="admin_first">प्रथम</string>
+    <string name="admin_second">第二</string>
+    <string name="block">块</string>
+    <string name="chinese">中文</string>
+    <string name="compose_cancel_button"> 取消</string>
+    <string name="compose_message_field">信息：</string>
+    <string name="compose_send_button">发送</string>
+    <string name="compose_subject_field">学科：</string>
+    <string name="compose_to">至</string>
+    <string name="compose_to_field">至:</string>
+    <string name="english">英语</string>
+    <string name="favorites"> 我最喜欢的</string>
+    <string name="gallery_add_image_button">从画廊添加图像</string>
+    <string name="hindi">印地语</string>
+    <string name="inbox">收件箱</string>
+    <string name="inbox_text">收件箱</string>
+    <string name="likes_me_who"> 谁喜欢我？</string>
+    <string name="logout">登出</string>
+    <string name="main_fragment_starting_text">启动片段</string>
+    <string name="main_fragment_text">我开始片段</string>
+    <string name="message">信息</string>
+    <string name="message_block_button"> 块</string>
+    <string name="message_delete_button">删除</string>
+    <string name="message_from">从</string>
+    <string name="message_from_field">从：</string>
+    <string name="message_message">信息</string>
+    <string name="message_message_field">信息:</string>
+    <string name="message_reply_button">回复</string>
+    <string name="message_subject"> 学科</string>
+    <string name="profile_age">年龄</string>
+    <string name="profile_display_name">显示名称</string>
+    <string name="profile_dob">出生日期</string>
+    <string name="profile_edi">编辑</string>
+    <string name="profile_female"> 女</string>
+    <string name="profile_first_name">名字</string>
+    <string name="profile_gender"> 性别</string>
+    <string name="profile_last_name">姓</string>
+    <string name="profile_male">男</string>
+    <string name="profile_perfect_match">完美搭配</string>
+    <string name="profile_save">保存</string>
+    <string name="profile_your_story">你的故事</string>
+    <string name="registration_button">寄存器</string>
+    <string name="registration_confirm_hint"> 确认密码</string>
+    <string name="registration_name_hint">名字</string>
+    <string name="registration_password_hint">密码</string>
+    <string name="search_age">年龄</string>
+    <string name="search_associates">2年的大学</string>
+    <string name="search_bachelors"> 4年的大学</string>
+    <string name="search_button"> 靠近我搜索</string>
+    <string name="search_by_interest"> 按兴趣搜索</string>
+    <string name="search_distance_from_me"> 从我的距离</string>
+    <string name="search_doesnt_have_kids"> 简化版，有孩子（S）</string>
+    <string name="search_doesnt_want_kids"> 不想要孩子</string>
+    <string name="search_education">教育</string>
+    <string name="search_graduate">毕业后</string>
+    <string name="search_has_cats">有猫（S）</string>
+    <string name="search_has_dogs"> 具有犬（多个）</string>
+    <string name="search_has_kids"> 有孩子（S）</string>
+    <string name="search_has_photos">有照片</string>
+    <string name="search_highschool">中学</string>
+    <string name="search_kids">童装</string>
+    <string name="search_language"> 语言</string>
+    <string name="search_looking_for">寻找</string>
+    <string name="search_might_want_kids"> 可能想要孩子</string>
+    <string name="search_monogomous">一夫一妻制</string>
+    <string name="search_no_pets">没有</string>
+    <string name="search_pets">宠物</string>
+    <string name="search_religion">宗教</string>
+    <string name="search_single">单</string>
+    <string name="search_wants_kids"> 想要孩子</string>
+    <string name="sent">发送</string>
+    <string name="spanish">西班牙语</string>
+    <string name="compose_builder_title">你确定要放弃这个消息？</string>
+    <string name="compose_discard">丢弃</string>
+    <string name="compose_must_enter_message"> 您必须输入一个主题和消息。</string>
+    <string name="compose_not_yet">还没</string>
+    <string name="compose_send_message">发信息？</string>
+    <string name="favorite_block_confirmation">你确定要阻止</string>
+    <string name="favorite_block_entry">进入座</string>
+    <string name="favorite_send_message_to">将消息发送到</string>
+    <string name="favorite_user">用户：</string>
+    <string name="gallery_processing_message">处理...</string>
+    <string name="inbox_navigating">导航到已发送邮件。</string>
+    <string name="registration_password_no_match">密码不匹配</string>
+    <string name="view_message_block_user"> 阻止用户？</string>
+    <string name="view_message_delete"> 删除消息？</string>
+    <string name="view_message_deleted"> 消息删除。</string>
+    <string name="who_likes_me_stop_sharing"> 你想停止与共享私人相册</string>
+</resources>

@@ -14,7 +14,7 @@
         <Button
             android:layout_width="100dp"
             android:layout_height="80dp"
-            android:text="Add Image from Gallery"
+            android:text="@string/gallery_add_image_button"
             android:onClick="Addimage"
             android:id="@+id/loadFromGallery"
             android:layout_alignTop="@+id/loadCamera"
@@ -43,24 +43,39 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_centerVertical="true"
-            android:id="@+id/linearLayout">
+            android:id="@+id/linearLayout"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_above="@+id/loadFromGallery"
+            android:layout_alignParentEnd="true"
+            android:weightSum="1">
 
             <ImageView
 
                 android:id="@+id/imageView"
-                android:layout_width="215dp"
-                android:layout_height="315dp"
-                android:layout_gravity="center_horizontal"
+                android:layout_width="380dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:adjustViewBounds="true"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:background="@android:color/transparent"
-                />
+                android:layout_weight="0.68" />
 
         </LinearLayout>
+
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="80dp"
+            android:text="@string/Upload_Image_Gallery"
+            android:onClick="Addimage"
+            android:id="@+id/loadFromGallery"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="69dp"
+            android:textColor="#582727" />
 
 
         <Button
@@ -70,8 +85,24 @@
             android:id="@+id/loadCamera"
             android:onClick="onOpenCamera"
             android:layout_alignParentBottom="true"
-            android:layout_alignEnd="@+id/linearLayout" />
+            android:layout_toEndOf="@+id/loadFromGallery"
+            android:layout_marginStart="51dp" />
 
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/svGalleryScroll"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_above="@+id/loadFromGallery" >
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/llGallery"></LinearLayout>
+        </ScrollView>
 
 
     </RelativeLayout>

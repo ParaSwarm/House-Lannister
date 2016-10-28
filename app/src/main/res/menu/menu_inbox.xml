@@ -3,12 +3,12 @@
     <item
         android:icon="@android:drawable/ic_dialog_email"
         android:id="@+id/inboxLink"
-        android:text="Inbox"
-        android:title="Inbox" />
+        android:text="@string/inbox"
+        android:title="@string/inbox" />
 
     <item
         android:icon="@android:drawable/ic_dialog_email"
         android:id="@+id/sentLink"
-        android:text="Sent"
-        android:title="Sent" />
+        android:text="@string/sent"
+        android:title="@string/sent" />
 </menu>

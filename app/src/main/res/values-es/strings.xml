@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="navigation_titles">
+        <item>Casa</item>
+        <item>Perfil del usuario</item>
+        <item>Gente</item>
+        <item>Administración</item>
+    </string-array>
+    <string-array name="home_menu_titles">
+        <item>Casa</item>
+        <item>Bandeja de entrada</item>
+        <item>Expedido</item>
+    </string-array>
+    <string-array name="people_titles">
+        <item>Mis favoritos</item>
+        <item>A quien le gusto</item>
+        <item>Buscar</item>
+    </string-array>
+    <string-array name="user_profile_titles">
+        <item>Perfil básico</item>
+        <item>álbum de fotos</item>
+        <item>Cerrar sesión</item>
+        <item>Ajustes</item>
+    </string-array>
+    <string-array name="friends_list_titles">
+        <item>Mis gustos</item>
+        <item>A quien le gusto</item>
+        <item>Buscar</item>
+    </string-array>
+    <string-array name="admin_titles">
+        <item>Lista de Usuarios</item>
+        <item>Lista de Preguntas</item>
+        <item>Los códigos postales de la lista</item>
+    </string-array>
+    <string-array name="settings_sub_menus">
+        <item>Buscar</item>
+    </string-array>
+    <string name="action_sign_in"> Ingresa o Registro</string>
+    <string name="action_sign_in_short"> Registrarse</string>
+    <string name="admin_key">Administración</string>
+    <string name="app_title"> Guardar una sola</string>
+    <string name="drawer_closed"> Cerca de navegación</string>
+    <string name="drawer_open"> Navegación abierto</string>
+    <string name="error_field_required">este campo es requerido</string>
+    <string name="error_incorrect_password">Esta contraseña es incorrecta</string>
+    <string name="error_invalid_email">Esta dirección de correo electrónico no es válido</string>
+    <string name="error_invalid_password">Esta contraseña es demasiado corta</string>
+    <string name="hello_blank_fragment">Hola fragmento en blanco</string>
+    <string name="permission_rationale">"Se necesitan permisos Contactos para proporcionar terminaciones de correo electrónico."</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password"> Contraseña (opcional)</string>
+    <string name="registration">Registro</string>
+    <string name="title_activity_maps"> Mapa</string>
+    <string name="admin_first">primero</string>
+    <string name="admin_second">Segundo</string>
+    <string name="block">Bloquear</string>
+    <string name="compose_cancel_button">Cancelar</string>
+    <string name="compose_message_field">Mensaje:</string>
+    <string name="compose_send_button">Enviar</string>
+    <string name="compose_subject_field">Tema:</string>
+    <string name="compose_to"> A</string>
+    <string name="compose_to_field">A:</string>
+    <string name="favorites"> Mis favoritos</string>
+    <string name="gallery_add_image_button">Añadir imagen de la galería</string>
+    <string name="inbox">Bandeja de entrada</string>
+    <string name="inbox_text">Bandeja de entrada</string>
+    <string name="likes_me_who">¿A quien le gusto?</string>
+    <string name="logout">Cerrar sesión</string>
+    <string name="main_fragment_starting_text">fragmento de partida</string>
+    <string name="main_fragment_text">Estoy empezando fragmento</string>
+    <string name="message">Mensaje</string>
+    <string name="message_block_button"> Bloquear</string>
+    <string name="message_delete_button">Borrar</string>
+    <string name="message_from">De</string>
+    <string name="message_from_field">De:</string>
+    <string name="message_message">Mensaje</string>
+    <string name="message_message_field">Mensaje:</string>
+    <string name="message_reply_button">Respuesta</string>
+    <string name="message_subject">Tema</string>
+    <string name="profile_age">Años</string>
+    <string name="profile_display_name"> Mostrar nombre</string>
+    <string name="profile_dob">Fecha de nacimiento</string>
+    <string name="profile_edi">Editar</string>
+    <string name="profile_female"> Hembra</string>
+    <string name="profile_first_name">Nombre de pila</string>
+    <string name="profile_gender">Género</string>
+    <string name="profile_last_name"> Apellido</string>
+    <string name="profile_male">Masculino</string>
+    <string name="profile_perfect_match">Combinación perfecta</string>
+    <string name="profile_save"> Salvar</string>
+    <string name="profile_your_story"> Tu historia</string>
+    <string name="registration_button"> Registro</string>
+    <string name="registration_confirm_hint"> Confirmar contraseña</string>
+    <string name="registration_name_hint">Nombre de pila</string>
+    <string name="registration_password_hint">Contraseña</string>
+    <string name="search_age">Años</string>
+    <string name="search_associates">colegio de 2 años</string>
+    <string name="search_bachelors"> universidad de 4 años</string>
+    <string name="search_button"> Buscar cerca de mí</string>
+    <string name="search_by_interest">Búsqueda por interés</string>
+    <string name="search_distance_from_me"> Distancia de mí</string>
+    <string name="search_doesnt_have_kids">No tiene niño (s)</string>
+    <string name="search_doesnt_want_kids"> No quiere niño (s)</string>
+    <string name="search_education">Educación</string>
+    <string name="search_graduate"> Postgrado</string>
+    <string name="search_has_cats">Tiene Gato (s)</string>
+    <string name="search_has_dogs">Tiene Perro (s)</string>
+    <string name="search_has_kids">Tiene niño (s)</string>
+    <string name="search_has_photos">tiene fotos</string>
+    <string name="search_highschool">Escuela secundaria</string>
+    <string name="search_kids">niños</string>
+    <string name="search_language">Idioma</string>
+    <string name="search_looking_for"> Buscando</string>
+    <string name="search_might_want_kids">Puede que desee Niños</string>
+    <string name="search_monogomous"> Monógamo</string>
+    <string name="search_no_pets">Ninguna</string>
+    <string name="search_pets"> Mascotas</string>
+    <string name="search_religion"> Religión</string>
+    <string name="search_single"> Soltero</string>
+    <string name="search_wants_kids">Quiere niños</string>
+    <string name="sent"> Expedido</string>
+    <string name="arabic">Arábica</string>
+    <string name="chinese">Chino</string>
+    <string name="english">Inglés</string>
+    <string name="hindi">Hindi</string>
+    <string name="spanish">Español</string>
+    <string name="compose_builder_title"> ¿Está seguro de que desea descartar este mensaje?</string>
+    <string name="compose_discard">Descarte</string>
+    <string name="compose_must_enter_message">Debe introducir un asunto y mensaje.</string>
+    <string name="compose_not_yet">Aún no</string>
+    <string name="compose_send_message"> ¿Enviar mensaje?</string>
+    <string name="favorite_block_confirmation"> ¿Seguro que desea bloquear?</string>
+    <string name="favorite_block_entry"> bloquear la entrada</string>
+    <string name="favorite_send_message_to"> Enviar un mensaje a</string>
+    <string name="favorite_user">Usuario:</string>
+    <string name="gallery_processing_message">Tratamiento...</string>
+    <string name="inbox_navigating"> Navegación a Elementos enviados.</string>
+    <string name="registration_password_no_match"> La contraseña no coincide</string>
+    <string name="view_message_block_user"> ¿Bloquear usuario?</string>
+    <string name="view_message_delete"> ¿Borrar mensaje?</string>
+    <string name="view_message_deleted"> Mensaje borrado.</string>
+    <string name="who_likes_me_stop_sharing">¿Quieres dejar de compartir el álbum privado con</string>
+</resources>

@@ -8,7 +8,11 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import edu.uco.houselannister.saveasingle.domain.*;
 
@@ -47,6 +51,7 @@ public class StaticUserModel {
             users.add(CreateUser("Jackson", false, "password", "jackson@uco.edu", true));
             users.add(CreateUser("Sierra", false, "password", "sierra@uco.edu", false));
             users.add(CreateUser("Goliath", true, "password", "goliath@gmail.com", true));
+            users.add(CreateUser("Qaiser", false, "password", "qaiser@uco.edu", true));
 
             // Interactions must be set after all users are created
             CreateUserInteractions();
@@ -116,34 +121,35 @@ public class StaticUserModel {
     //region Create User Main Method
     private static User CreateUser(String username, Boolean isAdmin, String userPassword, String userEmail, Boolean enabled) {
 
-        User ret = new User();
+        User user = new User();
 
-        ret.setName(username);
-        ret.setAdmin(isAdmin);
-        ret.setEmailAddress(userEmail);
-        ret.setPassword(userPassword);
-        ret.setEnabled(enabled);
+        user.setName(username);
+        user.setAdmin(isAdmin);
+        user.setEmailAddress(userEmail);
+        user.setPassword(userPassword);
+        user.setEnabled(enabled);
 
-        ret.setBio(CreateBio());
+        user.setBio(CreateBio());
+        user.setStatus(CreateStatus());
 
         ArrayList<Response> responses = new ArrayList<>();
         responses.add(CreateResponse(0, "I like my teeth", 0, 0, 1));
         responses.add(CreateResponse(1, "People should vote", 0, 0, 1, 2));
-        ret.setQuestionResponses(responses);
+        user.setQuestionResponses(responses);
 
         ArrayList<Photo> photos = new ArrayList<>();
         photos.add(CreatePhoto(false));
         photos.add(CreatePhoto(true));
-        ret.setPhotos(photos);
-        ret.setProfilePhoto(photos.get(0));
+        user.setPhotos(photos);
+        user.setProfilePhoto(photos.get(0));
 
-        ret.setUserDemographics(CreateUserDemographics());
-        ret.setUserPreferences(CreateUserPreferences());
-        ret.setUserExcludes(CreateUserExcludes());
+        user.setUserDemographics(CreateUserDemographics());
+        user.setUserPreferences(CreateUserPreferences());
+        user.setUserExcludes(CreateUserExcludes());
 
-        ret.setUserNotificationPreferences(CreateUserNotificationPreferences());
+        user.setUserNotificationPreferences(CreateUserNotificationPreferences());
 
-        return ret;
+        return user;
     }
     //endregion Create User Main Method
 
@@ -154,6 +160,18 @@ public class StaticUserModel {
         bio.setAboutYou("This is stuff about you.");
         bio.setWhyMessageMe("This is why you should message me.");
         return bio;
+    }
+
+    private static UserStatus CreateStatus() {
+        UserStatus status = new UserStatus();
+
+        // Set last online time randomly in the last 3 days
+        int random = new Random().nextInt(259200) + 1;
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.SECOND, -random);
+        status.setLastOnlineDate(calendar.getTime());
+
+        return status;
     }
 
     private static Response CreateResponse(Integer questionIndex, String explanation, Integer myResponse, Integer... acceptableResponseParams) {

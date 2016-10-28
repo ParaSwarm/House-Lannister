@@ -11,6 +11,8 @@ import android.support.v7.app.AlertDialog;
 >>>>>>> master
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 <<<<<<< HEAD
@@ -41,6 +43,7 @@ public class RegistrationActivity extends AppCompatActivity {
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -66,7 +69,10 @@ public class RegistrationActivity extends AppCompatActivity {
 
     EditText regFirstName, regLastName, regEmail, regPassword, regConfirmPassword, regDateOfBirth;
     Button btnRegister;
+    TextView tv;
+    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
+<<<<<<< HEAD
     //EditText regDateOfBirth = (EditText) findViewById(R.id.editText_DateOfBirth);
     /*EditText regDateOfBirth = (EditText) findViewById(R.id.editText_DateOfBirth);
 
@@ -76,6 +82,8 @@ public class RegistrationActivity extends AppCompatActivity {
 
    // ArrayList<User> user;
 >>>>>>> master
+=======
+>>>>>>> dev
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,113 +121,59 @@ public class RegistrationActivity extends AppCompatActivity {
         regPassword = (EditText) findViewById(R.id.editText_Password);
         regConfirmPassword = (EditText) findViewById(R.id.editText_ConfirmPassword);
 
-        /*String firstNameRegistration = regFirstName.getText().toString();
-        String lastNameRegistration = regLastName.getText().toString();
-        String emailRegistration = regEmail.getText().toString();
-        String passwordRegistration = regPassword.getText().toString();
-        String confirmPasswordRegistration = regConfirmPassword.getText().toString();*/
-
         btnRegister = (Button) findViewById(R.id.button_Register);
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (!regPassword.equals(regConfirmPassword)) {
-                    Context context = getApplicationContext();
-                    CharSequence text = "Password doesn't match";
-                    int duration = Toast.LENGTH_SHORT;
-
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.show();
+                if (regPassword.getText().toString().equals(regConfirmPassword.getText().toString())) {
+                    User u = new User();
+                    u.setName(regFirstName.getText().toString());
+                    u.setPassword(regPassword.getText().toString());
+                    u.setEmailAddress(regEmail.getText().toString());
+                    if (regEmail.getText().toString().equals("sierra@uco.edu")) {
+                        Toast.makeText(getApplicationContext(), "Email Already exist", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        appModel.saveUser(u);
+                        Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                    }
                 }
 
-                /*Context context = getApplicationContext();
-                CharSequence text = "Password match";
-                int duration = Toast.LENGTH_SHORT;
+                else {
+                    Toast.makeText(getApplicationContext(), R.string.registration_password_no_match, Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(RegistrationActivity.this, RegistrationActivity.class);
+                    startActivity(intent);
+                }
 
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();*/
+                regEmail.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-                User u = new User();
-                u.setName(regFirstName.getText().toString());
-                u.setPassword(regPassword.getText().toString());
-                u.setEmailAddress(regEmail.getText().toString());
-                appModel.saveUser(u);
+                    }
 
-                Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
-                startActivity(intent);
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
 
+                    }
 
-                    /*AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getApplicationContext());
-                    final EditText et = new EditText(getApplicationContext());
-                    // set prompts.xml to alertdialog builder
-                    alertDialogBuilder.setView(et);
-                    // set dialog message
-                    alertDialogBuilder.setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        String email = regEmail.getText().toString().trim();
+                        if (email.matches(emailPattern) && s.length() > 0){
+                            Toast.makeText(getApplicationContext(),"Valid Email", Toast.LENGTH_SHORT).show();
                         }
-                    });
-                    // create alert dialog
-                    AlertDialog alertDialog = alertDialogBuilder.create();
-                    // show it
-                    alertDialog.show();*/
 
+                        else {
+                            Toast.makeText(getApplicationContext(),"inValid Email", Toast.LENGTH_SHORT).show();
+                        }
 
-                //Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
-                //startActivity(intent);
+                    }
+                });
+
             }
         });
     }
 
-
-
-   /* public void onRadioButtonChecked(View view) {
-        // Is the button now checked?
-        boolean checked = ((RadioButton) view).isChecked();
-
-        // Check which radio button was clicked
-        switch(view.getId()) {
-            case R.id.maleRadioButton:
-                if (checked)
-                    break;
-            case R.id.femaleRadiobutton:
-                if (checked)
-                    break;
-        }
-    }
-
-    public void setDate (View view) {
-        //final Calendar myCalendar = Calendar.getInstance();
-
-        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
-
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                  int dayOfMonth) {
-                // TODO Auto-generated method stub
-                myCalendar.set(Calendar.YEAR, year);
-                myCalendar.set(Calendar.MONTH, monthOfYear);
-                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                updateLabel();
-            }
-        };
-
-        regDateOfBirth.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new DatePickerDialog(RegistrationActivity.this, date, myCalendar
-                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-            }
-        });
-    }
-
-        private void updateLabel(){
-
-            String myFormat = "MM/dd/yy"; //In which you need put here
-            SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-
-            regDateOfBirth.setText(sdf.format(myCalendar.getTime()));
-        }*/
     }
 >>>>>>> master

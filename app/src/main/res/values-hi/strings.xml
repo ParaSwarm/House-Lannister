@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="navigation_titles">
+        <item>घर</item>
+        <item>उपयोगकर्ता प्रोफ़ाइल</item>
+        <item>लोग</item>
+        <item>व्यवस्थापक</item>
+    </string-array>
+    <string-array name="home_menu_titles">
+        <item>घर</item>
+        <item>इनबॉक्स</item>
+        <item>भेज दिया</item>
+    </string-array>
+    <string-array name="people_titles">
+        <item>मेरे पसंदीदा</item>
+        <item>जो मुझे पसंद करती है</item>
+        <item>खोज</item>
+    </string-array>
+    <string-array name="user_profile_titles">
+        <item>बेसिक प्रोफाइल</item>
+        <item>फोटो एलबम</item>
+        <item>लोग आउट</item>
+        <item>Settings</item>
+    </string-array>
+    <string-array name="friends_list_titles">
+        <item>मेरी पसन्द</item>
+        <item>जो मुझे पसंद करती है</item>
+        <item>खोज</item>
+    </string-array>
+    <string-array name="admin_titles">
+        <item>सूची उपयोगकर्ता</item>
+        <item>सूची सवाल</item>
+        <item>सूची जिप संहिताओं</item>
+    </string-array>
+    <string-array name="settings_sub_menus">
+        <item>खोज</item>
+    </string-array>
+    <string name="action_sign_in">साइन इन करें या रजिस्टर</string>
+    <string name="action_sign_in_short">साइन इन करें</string>
+    <string name="admin_key"> व्यवस्थापक</string>
+    <string name="app_title">सहेजें एक एकल</string>
+    <string name="drawer_closed">बंद नेविगेशन</string>
+    <string name="drawer_open">ओपन नेविगेशन</string>
+    <string name="error_field_required">यह फ़ील्ड आवश्यक है</string>
+    <string name="error_incorrect_password">यह पासवर्ड गलत है</string>
+    <string name="error_invalid_email"> यह ईमेल पता अमान्य है</string>
+    <string name="error_invalid_password">यह पासवर्ड बहुत छोटा है</string>
+    <string name="hello_blank_fragment"> हैलो खाली टुकड़ा</string>
+    <string name="permission_rationale"> "संपर्क अनुमतियों को ईमेल प्राप्तियां उपलब्ध कराने के लिए आवश्यक हैं।"</string>
+    <string name="prompt_email"> ईमेल</string>
+    <string name="prompt_password">पासवर्ड (वैकल्पिक)</string>
+    <string name="registration">पंजीकरण</string>
+    <string name="title_activity_maps">नक्शा</string>
+    <string name="arabic">अरबी</string>
+    <string name="admin_first">प्रथम</string>
+    <string name="admin_second">दूसरा</string>
+    <string name="block"> खंड</string>
+    <string name="chinese">चीनी</string>
+    <string name="compose_cancel_button"> रद्द करना</string>
+    <string name="compose_message_field">संदेश:</string>
+    <string name="compose_send_button">भेजना</string>
+    <string name="compose_subject_field">विषय:</string>
+    <string name="compose_to"> सेवा मेरे</string>
+    <string name="compose_to_field"> सेवा मेरे:</string>
+    <string name="favorites">मेरे पसंदीदा</string>
+    <string name="gallery_add_image_button">गैलरी से छवि जोड़ें</string>
+    <string name="hindi"> हिंदी</string>
+    <string name="inbox"> इनबॉक्स</string>
+    <string name="inbox_text"> इनबॉक्स</string>
+    <string name="likes_me_who">जो मुझे पसंद करती है?</string>
+    <string name="logout">लोग आउट</string>
+    <string name="main_fragment_starting_text">शुरू टुकड़ा</string>
+    <string name="main_fragment_text"> मैं टुकड़ा शुरू कर रहा हूँ</string>
+    <string name="message">संदेश</string>
+    <string name="message_block_button"> खंड</string>
+    <string name="message_delete_button"> मिटाना</string>
+    <string name="message_from"> से</string>
+    <string name="message_from_field"> से:</string>
+    <string name="message_message"> संदेश</string>
+    <string name="message_message_field"> संदेश:</string>
+    <string name="message_reply_button"> जवाब दें</string>
+    <string name="message_subject">विषय</string>
+    <string name="profile_age"> आयु</string>
+    <string name="profile_display_name">प्रदर्शित होने वाला नाम</string>
+    <string name="profile_dob">जन्म की तारीख</string>
+    <string name="profile_edi"> संपादित करें</string>
+    <string name="profile_female">महिला</string>
+    <string name="profile_first_name"> पहला नाम</string>
+    <string name="profile_gender"> लिंग</string>
+    <string name="profile_last_name">अंतिम नाम</string>
+    <string name="profile_male"> नर</string>
+    <string name="profile_perfect_match">बहतरीन मैच</string>
+    <string name="profile_save">बचाना</string>
+    <string name="profile_your_story">आपकी कहानी</string>
+    <string name="registration_button">रजिस्टर</string>
+    <string name="registration_confirm_hint"> पासवर्ड की पुष्टि कीजिये</string>
+    <string name="registration_name_hint">पहला नाम</string>
+    <string name="registration_password_hint">पासवर्ड</string>
+    <string name="search_age">आयु</string>
+    <string name="search_associates">2 साल कॉलेज</string>
+    <string name="search_bachelors"> 4 साल कॉलेज</string>
+    <string name="search_button">मेरे पास खोजें</string>
+    <string name="search_by_interest">ब्याज के आधार पर खोजें</string>
+    <string name="search_distance_from_me">मुझ से दूरी</string>
+    <string name="search_doesnt_have_kids"> Does\'t बच्चा है (s)</string>
+    <string name="search_doesnt_want_kids"> बच्चों को नहीं चाहता है</string>
+    <string name="search_education"> शिक्षा</string>
+    <string name="search_graduate">पोस्ट स्नातक</string>
+    <string name="search_has_cats">बिल्ली है (s)</string>
+    <string name="search_has_dogs">कुत्ता है (s)</string>
+    <string name="search_has_kids">बच्चा है (s)</string>
+    <string name="search_has_photos"> तस्वीरें है</string>
+    <string name="search_highschool"> उच्च विद्यालय</string>
+    <string name="search_kids">बच्चे</string>
+    <string name="search_language">भाषा</string>
+    <string name="search_looking_for"> के लिए खोज रहे</string>
+    <string name="search_might_want_kids">हो सकता है बच्चे चाहते हैं</string>
+    <string name="search_monogomous"> एक पत्नीक</string>
+    <string name="search_no_pets">कोई नहीं</string>
+    <string name="search_pets">पालतू जानवर</string>
+    <string name="search_religion"> धर्म</string>
+    <string name="search_single">एक</string>
+    <string name="search_wants_kids">बच्चे चाहते हैं</string>
+    <string name="sent"> भेज दिया</string>
+    <string name="spanish"> स्पेनिश</string>
+    <string name="who_likes_me_stop_sharing">आप के साथ प्राइवेट एल्बम साझा करना बंद करना चाहते हैं</string>
+    <string name="view_message_deleted">संदेश हटाये।</string>
+    <string name="view_message_delete"> संदेश को हटाएं?</string>
+    <string name="view_message_block_user"> उपयोगकर्ता को रोक देना, ब्लॉक यूजर?</string>
+    <string name="registration_password_no_match">पासवर्ड मेल नहीं खाता</string>
+    <string name="inbox_navigating">भेजे गए आइटम के लिए नेविगेट।</string>
+    <string name="gallery_processing_message"> प्रसंस्करण ...</string>
+    <string name="favorite_user"> उपयोगकर्ता:</string>
+    <string name="favorite_send_message_to">के लिए एक संदेश भेजें</string>
+    <string name="favorite_block_entry">ब्लॉक प्रविष्टि</string>
+    <string name="favorite_block_confirmation">क्या आप वाकई को ब्लॉक करना चाहते हैं</string>
+    <string name="english">अंग्रेज़ी</string>
+    <string name="compose_send_message">मेसेज भेजें?</string>
+    <string name="compose_not_yet"> अभी नहीं</string>
+    <string name="compose_must_enter_message"> आप एक विषय और संदेश दर्ज करना होगा।</string>
+    <string name="compose_discard"> छोड़ना</string>
+    <string name="compose_builder_title">आप इस संदेश को त्यागना चाहते तुम्हें यकीन है?</string>
+</resources>
