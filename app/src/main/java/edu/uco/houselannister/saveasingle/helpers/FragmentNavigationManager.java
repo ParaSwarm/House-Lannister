@@ -23,11 +23,9 @@ import edu.uco.houselannister.saveasingle.fragments.MapsActivity;
 import edu.uco.houselannister.saveasingle.fragments.SentMessagesFragment;
 import edu.uco.houselannister.saveasingle.fragments.WhoLikesMeFragment;
 import edu.uco.houselannister.saveasingle.fragments.SearchCriteriaFragment;
-import edu.uco.houselannister.saveasingle.fragments.SearchFragment;
 import edu.uco.houselannister.saveasingle.fragments.UserProfile_Fragment;
 import edu.uco.houselannister.saveasingle.fragments.SettingsFragment;
 import edu.uco.houselannister.saveasingle.fragments.ViewMessageFragment;
-import edu.uco.houselannister.saveasingle.fragments.WhoLikesMeFragment;
 
 public class FragmentNavigationManager implements NavigationManager {
 
