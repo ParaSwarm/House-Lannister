@@ -124,6 +124,8 @@ public class MainActivity extends AppCompatActivity implements AdminUsersFragmen
                     mNavigationManager.showFragmentMain();
                 } else if (homeNavigationTitles[1].compareTo(selectedItem) == 0) {
                     mNavigationManager.showFragmentInbox();
+                } else if (homeNavigationTitles[2].compareTo(selectedItem) == 0) {
+                    mNavigationManager.showFragmentSentMessages();
                 } else if (settingsNavigationTitles[0].compareTo(selectedItem) == 0) {
                     mNavigationManager.showFragmentUserProfile();
                 } else if (settingsNavigationTitles[1].compareTo(selectedItem) == 0) {

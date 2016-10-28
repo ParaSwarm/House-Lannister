@@ -23,6 +23,8 @@ public class User  implements Serializable, Parcelable {
 
     private UserPreferences userExcludes;
 
+    private UserStatus status;
+
     private ArrayList<Photo> photos;
 
     private Bio bio;
@@ -217,6 +219,18 @@ public class User  implements Serializable, Parcelable {
         dest.writeSerializable(this.profilePhoto);
         dest.writeValue(this.isAdmin);
         dest.writeValue(this.enabled);
+    }
+
+    public UserStatus getStatus() {
+        if(status == null){
+            status = new UserStatus();
+        }
+
+        return status;
+    }
+
+    public void setStatus(UserStatus status) {
+        this.status = status;
     }
 
     public User() {
