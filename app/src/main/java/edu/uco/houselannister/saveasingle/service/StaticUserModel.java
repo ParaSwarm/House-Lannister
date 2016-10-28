@@ -51,6 +51,7 @@ public class StaticUserModel {
             users.add(CreateUser("Jackson", false, "password", "jackson@uco.edu", true));
             users.add(CreateUser("Sierra", false, "password", "sierra@uco.edu", false));
             users.add(CreateUser("Goliath", true, "password", "goliath@gmail.com", true));
+            users.add(CreateUser("Qaiser", false, "password", "qaiser@uco.edu", true));
 
             // Interactions must be set after all users are created
             CreateUserInteractions();
