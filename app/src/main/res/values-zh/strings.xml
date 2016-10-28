@@ -9,6 +9,7 @@
     <string-array name="home_menu_titles">
         <item>家</item>
         <item>收件箱</item>
+        <item>发送</item>
     </string-array>
     <string-array name="people_titles">
         <item>我最喜欢的</item>

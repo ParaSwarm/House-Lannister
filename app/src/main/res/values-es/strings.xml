@@ -9,6 +9,7 @@
     <string-array name="home_menu_titles">
         <item>Casa</item>
         <item>Bandeja de entrada</item>
+        <item>Expedido</item>
     </string-array>
     <string-array name="people_titles">
         <item>Mis favoritos</item>

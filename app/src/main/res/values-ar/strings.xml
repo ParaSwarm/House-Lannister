@@ -9,6 +9,7 @@
     <string-array name="home_menu_titles">
         <item>الصفحة الرئيسية</item>
         <item>صندوق الوارد</item>
+        <item>أرسلت</item>
     </string-array>
     <string-array name="people_titles">
         <item>مفضلتي</item>
