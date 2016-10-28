@@ -20,11 +20,14 @@ import edu.uco.houselannister.saveasingle.fragments.Fragment_gallery;
 import edu.uco.houselannister.saveasingle.fragments.InboxFragment;
 import edu.uco.houselannister.saveasingle.fragments.MainFragment;
 import edu.uco.houselannister.saveasingle.fragments.MapsActivity;
+import edu.uco.houselannister.saveasingle.fragments.SentMessagesFragment;
 import edu.uco.houselannister.saveasingle.fragments.WhoLikesMeFragment;
 import edu.uco.houselannister.saveasingle.fragments.SearchCriteriaFragment;
+import edu.uco.houselannister.saveasingle.fragments.SearchFragment;
+import edu.uco.houselannister.saveasingle.fragments.UserProfile_Fragment;
 import edu.uco.houselannister.saveasingle.fragments.SettingsFragment;
 import edu.uco.houselannister.saveasingle.fragments.ViewMessageFragment;
-import edu.uco.houselannister.saveasingle.fragments.UserProfile_Fragment;
+import edu.uco.houselannister.saveasingle.fragments.WhoLikesMeFragment;
 
 public class FragmentNavigationManager implements NavigationManager {
 
@@ -100,6 +103,11 @@ public class FragmentNavigationManager implements NavigationManager {
     @Override
     public void showFragmentInbox() {
         showFragment(InboxFragment.newInstance(), false);
+    }
+
+    @Override
+    public void showFragmentSentMessages() {
+        showFragment(SentMessagesFragment.newInstance(), false);
     }
 
     @Override

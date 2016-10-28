@@ -15,6 +15,7 @@
     <string-array name="home_menu_titles">
         <item>Home</item>
         <item>Inbox</item>
+        <item>Sent</item>
     </string-array>
 
     <string-array name="people_titles">
@@ -71,5 +72,13 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Strings for Photo Album Fragment Layout-->
+
+    <string name="Upload_Image_Gallery"> Upload from Gallery</string>
+    <string name="Delete_Image">Delete Image</string>
+    <string name="Choosefrom_gallery">Choose Image from Gallery</string>
+    <string name="Take_photo">Take a Photo</string>
+
 
 </resources>
