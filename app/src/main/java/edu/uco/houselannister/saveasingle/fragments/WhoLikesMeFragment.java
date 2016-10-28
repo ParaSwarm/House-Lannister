@@ -91,7 +91,7 @@ public class WhoLikesMeFragment extends ListFragment implements OnItemClickListe
                 }
                 if (favoriteCheck) {
                     array[0] = "Remove from my favorites.";
-                    photoMessage = "Do you want to stop sharing the private album with ";
+                    photoMessage = getResources().getString(R.string.who_likes_me_stop_sharing);
                 } else {
                     array[0] = "Add to my favorites.";
                 }
@@ -103,10 +103,10 @@ public class WhoLikesMeFragment extends ListFragment implements OnItemClickListe
                 }
                 if (photoCheck) {
                     array[1] = "Stop sharing my private album.";
-                    photoMessage = "Do you want to stop sharing the private album with ";
+                    photoMessage = getResources().getString(R.string.who_likes_me_stop_sharing);;
                 } else {
                     array[1] = "Share my private album.";
-                    photoMessage = "Do you want to share the private album with ";
+                    photoMessage = getResources().getString(R.string.who_likes_me_stop_sharing);
                 }
 
 

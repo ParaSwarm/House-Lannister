@@ -1,6 +1,8 @@
 package edu.uco.houselannister.saveasingle.activities;
 
 import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -12,7 +14,9 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -59,8 +63,11 @@ public class MainActivity extends AppCompatActivity implements AdminUsersFragmen
     private CustomExpandableListAdapter mExpandableListAdapter;
     private String mActivityTitle;
     private Model appModel;
-    private int year, month, day;
-    String radioButton = "";
+    private static MainActivity mainInstance;
+
+    public static MainActivity getMainInstance() {
+        return mainInstance;
+    }
 
 
     @Override
@@ -68,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements AdminUsersFragmen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        mainInstance = this;
         appModel = AppModel.getAppModelInstance(AppService.getAppServiceInstance());
 
         //navigation drawer
@@ -143,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements AdminUsersFragmen
                     mNavigationManager.showFragmentWhoLikesMe();
                 } else if (peopleNavigationTitles[2].compareTo(selectedItem) == 0) {
                     mNavigationManager.showFragmentMySharing();
-                } else if (selectedItem.compareTo("Search") == 0) {
+                } else if (peopleNavigationTitles[3].compareTo(selectedItem) == 0) {
                     mNavigationManager.showFragmentSearchCriteria();
                 } else if (adminNavigationTitles[0].compareTo(selectedItem) == 0) {
                     mNavigationManager.showFragmentAdminUsers();
