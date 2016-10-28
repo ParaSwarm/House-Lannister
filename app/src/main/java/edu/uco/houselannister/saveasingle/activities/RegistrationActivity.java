@@ -61,21 +61,6 @@ public class RegistrationActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (regPassword.getText().toString().equals(regConfirmPassword.getText().toString())) {
-                    User u = new User();
-                    u.setName(regFirstName.getText().toString());
-                    u.setPassword(regPassword.getText().toString());
-                    u.setEmailAddress(regEmail.getText().toString());
-                    if (regEmail.getText().toString().equals("sierra@uco.edu")) {
-                        Toast.makeText(getApplicationContext(), "Email Already exist", Toast.LENGTH_SHORT).show();
-                    }
-                    else {
-                        appModel.saveUser(u);
-                        Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
-                        startActivity(intent);
-                    }
-                }
-
                 if (!regPassword.equals(regConfirmPassword)) {
                     Context context = getApplicationContext();
                     CharSequence text = getResources().getString(R.string.registration_password_no_match);
@@ -83,11 +68,12 @@ public class RegistrationActivity extends AppCompatActivity {
 
                     Toast toast = Toast.makeText(context, text, duration);
                     toast.show();
-                else {
+                } else {
                     Toast.makeText(getApplicationContext(), "Password Doesn't match", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(RegistrationActivity.this, RegistrationActivity.class);
                     startActivity(intent);
                 }
+
                 regEmail.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {

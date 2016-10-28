@@ -41,7 +41,6 @@
     <string-array name="settings_sub_menus">
         <item>Search</item>
     </string-array>
-    <string name="admin_key">Admin</string>
     <string name="drawer_open">Open Navigation</string>
     <string name="drawer_closed">Close Navigation</string>
     <string name="title_activity_login" translatable="false">SaveASingle</string>
