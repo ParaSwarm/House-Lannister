@@ -8,6 +8,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="50dp">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -15,6 +16,7 @@
             android:padding="@dimen/layout_padding_default"
             android:text="Sent Messages"
             android:textAppearance="?android:textAppearanceLarge" />
+
         <Button
             android:id="@+id/goto_inbox"
             android:layout_width="99dp"

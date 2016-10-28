@@ -21,6 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.uco.houselannister.saveasingle.R;
 import edu.uco.houselannister.saveasingle.activities.MainActivity;
+import edu.uco.houselannister.saveasingle.adapters.MessageItemAdapter;
 import edu.uco.houselannister.saveasingle.domain.Message;
 import edu.uco.houselannister.saveasingle.domain.Model;
 import edu.uco.houselannister.saveasingle.helpers.FragmentNavigationManager;
@@ -30,11 +31,6 @@ import edu.uco.houselannister.saveasingle.service.AppService;
 public class InboxFragment extends ListFragment implements OnItemClickListener {
 
     private Model appModel;
-    ActionMode mMode;
-    ActionMode.Callback mCallback;
-    int place;
-    String name;
-    ActionMode check;
 
     ArrayList<Message> messages;
 
@@ -76,54 +72,10 @@ public class InboxFragment extends ListFragment implements OnItemClickListener {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_expandable_list_item_1, messages);
-
+        MessageItemAdapter adapter = new MessageItemAdapter(this.getContext(), R.layout.listview_inbox_item_row, messages.toArray(new Message[0]));
         setListAdapter(adapter);
+
         getListView().setOnItemClickListener(this);
-        getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                mMode = null;
-                place = position;
-                name = appModel.getUsers().get(position).getName();
-                mMode = getActivity().startActionMode(mCallback);
-
-                return true;
-            }
-        });
-
-        mCallback = new ActionMode.Callback() {
-            @Override
-            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-                check = mode;
-                mode.setTitle(name);
-                return false;
-            }
-
-            @Override
-            public void onDestroyActionMode(ActionMode mode) {
-                mMode = null;
-            }
-
-            @Override
-            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-                getActivity().getMenuInflater().inflate(R.menu.menu_inbox, menu);
-                return true;
-            }
-
-            @Override
-            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.inboxLink:
-                        Toast.makeText(getActivity(), "Navigating to Sent Items.", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.sentLink:
-                        Toast.makeText(getActivity(), "Navigating to Sent Items.", Toast.LENGTH_SHORT).show();
-                        break;
-                }
-                return false;
-            }
-        };
     }
 
     @Override
