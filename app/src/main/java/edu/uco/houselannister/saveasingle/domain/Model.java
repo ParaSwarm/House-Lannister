@@ -22,4 +22,5 @@ public interface Model extends Authentication, Preferences, UserProfile {
     ArrayList<User> getUsers();
     ArrayList<String> getUsernameArray();
     ArrayList<HashMap<String, String>> getUsernameMap();
+    void saveQuestion(Question question);
 }

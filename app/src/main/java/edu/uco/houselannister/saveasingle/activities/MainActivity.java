@@ -1,8 +1,6 @@
 package edu.uco.houselannister.saveasingle.activities;
 
 import android.annotation.SuppressLint;
-import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -14,9 +12,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.DatePicker;
 import android.widget.ExpandableListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -29,8 +25,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.uco.houselannister.saveasingle.R;
 import edu.uco.houselannister.saveasingle.domain.Model;
+import edu.uco.houselannister.saveasingle.domain.Question;
 import edu.uco.houselannister.saveasingle.domain.User;
 import edu.uco.houselannister.saveasingle.fragments.AdminUsersFragment;
+import edu.uco.houselannister.saveasingle.fragments.QuestionFragment;
 import edu.uco.houselannister.saveasingle.helpers.CustomExpandableListAdapter;
 import edu.uco.houselannister.saveasingle.helpers.ExpandableListDataSource;
 import edu.uco.houselannister.saveasingle.helpers.FragmentNavigationManager;
@@ -39,7 +37,10 @@ import edu.uco.houselannister.saveasingle.model.AppModel;
 import edu.uco.houselannister.saveasingle.service.AppService;
 
 
-public class MainActivity extends AppCompatActivity implements AdminUsersFragment.OnUserAdminListFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity
+        implements AdminUsersFragment.OnUserAdminListFragmentInteractionListener
+    , QuestionFragment.OnListFragmentInteractionListener
+{
 
     @BindArray(R.array.user_profile_titles)
     public String[] settingsNavigationTitles;
@@ -156,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements AdminUsersFragmen
                 } else if (adminNavigationTitles[0].compareTo(selectedItem) == 0) {
                     mNavigationManager.showFragmentAdminUsers();
                 } else if (adminNavigationTitles[1].compareTo(selectedItem) == 0) {
-                    mNavigationManager.showFragmentMain();
+                    mNavigationManager.showFragmentQuestions();
                 } else if (adminNavigationTitles[2].compareTo(selectedItem) == 0) {
                     mNavigationManager.showFragmentMain();
                 } else {
@@ -225,5 +226,10 @@ public class MainActivity extends AppCompatActivity implements AdminUsersFragmen
     public void onUserAdminListFragmentInteraction(final User userItem) {
         appModel.setCurrentUserImpersonation(userItem);
         Toast.makeText(MainActivity.this, "Now Impersonating " + userItem.getName(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onListFragmentInteraction(Question item) {
+        Toast.makeText(MainActivity.this, "Now Impersonating " + item.getCategory().name(), Toast.LENGTH_SHORT).show();
     }
 }

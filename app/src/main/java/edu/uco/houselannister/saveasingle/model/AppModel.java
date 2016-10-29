@@ -115,5 +115,10 @@ public class AppModel implements Model {
         return proxy.getUsernameMap();
     }
 
+    @Override
+    public void saveQuestion(Question question) {
+        proxy.saveQuestion(question);
+    }
+
     //endregion Implementation of Model Specialized methods
 }
