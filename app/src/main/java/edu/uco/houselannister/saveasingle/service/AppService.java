@@ -19,6 +19,7 @@ public class AppService implements ServiceProxy, Serializable {
     private User impersonatedUser; //impersonated
     private Questionnaire questionnaire;
     private ArrayList<User> users;
+    private ArrayList<Question> questions;
 
     //region Implementation of Singleton Pattern for Creation
     private static ServiceProxy appServiceInstance = null;
@@ -212,7 +213,33 @@ public class AppService implements ServiceProxy, Serializable {
         return ret;
     }
 
+    @Override
+    public void saveQuestion(Question question) {
+        int i = 0;
+        questions = getQuestionnaire().getQuestions();
 
+        for (; i < questions.size(); ++i) {
+            if (questions.get(i).getQuestion().toLowerCase().equals(question.getQuestion().toLowerCase())) {
+                break;
+            }
+        }
+
+        if (questions.size() > i) {
+            questions.remove(i);
+            questions.add(i, question);
+        } else {
+            questions.add(question);
+        }
+
+        this.questionnaire.setQuestions(questions);
+
+        try {
+            StaticUserModel.WriteModel(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
     //endregion Implementation of Service Model Interface
 
 

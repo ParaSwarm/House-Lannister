@@ -1,4 +1,4 @@
-package edu.uco.houselannister.saveasingle.helpers;
+package edu.uco.houselannister.saveasingle.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,7 +9,6 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import edu.uco.houselannister.saveasingle.R;
-import edu.uco.houselannister.saveasingle.domain.Model;
 import edu.uco.houselannister.saveasingle.domain.User;
 import edu.uco.houselannister.saveasingle.fragments.AdminUsersFragment.OnUserAdminListFragmentInteractionListener;
 import edu.uco.houselannister.saveasingle.model.AppModel;
@@ -17,12 +16,12 @@ import edu.uco.houselannister.saveasingle.service.AppService;
 
 import java.util.List;
 
-public class MyUserAdminRecyclerViewAdapter extends RecyclerView.Adapter<MyUserAdminRecyclerViewAdapter.ViewHolder> {
+public class UserAdminAdapter extends RecyclerView.Adapter<UserAdminAdapter.ViewHolder> {
 
     private final List<User> mValues;
     private final OnUserAdminListFragmentInteractionListener mListener;
 
-    public MyUserAdminRecyclerViewAdapter(List<User> items, OnUserAdminListFragmentInteractionListener listener) {
+    public UserAdminAdapter(List<User> items, OnUserAdminListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
