@@ -21,11 +21,7 @@
 
     <application
         android:allowBackup="true"
-<<<<<<< HEAD
-        android:icon="@mipmap/heart_ic_launcher"
-=======
         android:icon="@mipmap/heart1_ic_launcher"
->>>>>>> master
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -35,13 +31,10 @@
             android:label="@string/title_activity_login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".activities.RegistrationActivity"></activity>
-<<<<<<< HEAD
-=======
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -54,10 +47,9 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity
+       <!-- <activity
             android:name=".fragments.MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
->>>>>>> master
+            android:label="@string/title_activity_maps"></activity>-->
     </application>
 
 </manifest>
