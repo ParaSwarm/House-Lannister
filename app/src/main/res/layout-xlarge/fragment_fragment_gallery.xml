@@ -1,0 +1,113 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/fagment_C"
+    tools:context="edu.uco.houselannister.saveasingle.fragments.Fragment_gallery">
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="80dp"
+            android:text="@string/gallery_add_image_button"
+            android:onClick="Addimage"
+            android:id="@+id/loadFromGallery"
+            android:layout_alignTop="@+id/loadCamera"
+            android:layout_alignStart="@+id/linearLayout" />
+        <!--<Button-->
+        <!--style="?android:attr/buttonStyleSmall"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Refresh"-->
+        <!--android:id="@+id/Refresh"-->
+        <!--android:layout_below="@+id/loadFromGallery"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_alignRight="@+id/loadFromGallery"-->
+        <!--android:layout_alignEnd="@+id/loadFromGallery"-->
+        <!--android:onClick="RefreshList"/>-->
+
+        <Gallery
+            android:id="@+id/gallery1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@+id/loadCamera"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/linearLayout"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_above="@+id/loadFromGallery"
+            android:layout_alignParentEnd="true"
+            android:weightSum="1">
+
+            <ImageView
+
+                android:id="@+id/imageView"
+                android:layout_width="380dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:adjustViewBounds="true"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:background="@android:color/transparent"
+                android:layout_weight="0.68" />
+
+        </LinearLayout>
+
+        <!--<Button
+            android:layout_width="100dp"
+            android:layout_height="80dp"
+            android:text="@string/Upload_Image_Gallery"
+            android:onClick="Addimage"
+            android:id="@+id/loadFromGallery"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="69dp"
+            android:textColor="#582727" /> -->
+
+
+        <Button
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@mipmap/ic_camera"
+            android:id="@+id/loadCamera"
+            android:onClick="onOpenCamera"
+            android:layout_alignParentBottom="true"
+            android:layout_toEndOf="@+id/loadFromGallery"
+            android:layout_marginStart="51dp" />
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/svGalleryScroll"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_above="@+id/loadFromGallery" >
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/llGallery"></LinearLayout>
+        </ScrollView>
+
+
+    </RelativeLayout>
+
+
+
+
+</FrameLayout>
