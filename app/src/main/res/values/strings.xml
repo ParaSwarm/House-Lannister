@@ -124,14 +124,16 @@
     <string name="message_message">Message</string>
     <string name="likes_me_who">Who Likes Me?</string>
     <string name="my_sharing">People I share my private album</string>
-    <string name="ask_start_sharing">Do you want to start sharing the private album with </string>
-    <string name="ask_stop_sharing">Do you want to stop sharing the private album with </string>
-    <string name="stopped_sharing">Stopped sharing my private album.</string>
-    <string name="started_sharing">Started sharing my private album.</string>
-    <string name="stop_sharing">Stop sharing my private album.</string>
+    <string name="ask_start_sharing">Do you want to start sharing the private album with\u0020</string>
+    <string name="ask_stop_sharing">Do you want to stop sharing the private album with\u0020</string>
+    <string name="is_added_to_my_fav">\u0020is added to the favorite list</string>
+    <string name="is_removed_from_my_fav">\u0020is removed from the favorite list</string>
+    <string name="stopped_sharing">Stopped sharing my private album with\u0020</string>
+    <string name="started_sharing">Started sharing my private album with\u0020</string>
     <string name="logout">Logout</string>
     <string name="message">Message</string>
     <string name="block">Block</string>
+    <string name="unblock">Unlock</string>
     <string name="inbox">Inbox</string>
     <string name="sent">Sent</string>
     <string name="spanish">Spanish</string>
@@ -154,8 +156,11 @@
     <string name="view_message_delete">Delete Message?</string>
     <string name="view_message_deleted">Message deleted.</string>
     <string name="view_message_block_user">Block User?</string>
-    <string name="who_likes_me_stop_sharing">Do you want to stop sharing the private album with </string>
-
+    <string name="add_to_my_fav">Add to my favorites</string>
+    <string name="remove_from_my_fav">Remove from my favorites</string>
+    <string name="share_my_fav">Share my private album</string>
+    <string name="stop_sharing_my_fav">Stop sharing my private album</string>
+    <string name="with">\u0020with\u0020</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
@@ -168,3 +173,4 @@
 
 
 </resources>
+
