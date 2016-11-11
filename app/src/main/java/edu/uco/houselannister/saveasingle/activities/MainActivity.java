@@ -1,6 +1,7 @@
 package edu.uco.houselannister.saveasingle.activities;
 
 import android.annotation.SuppressLint;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +26,7 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.uco.houselannister.saveasingle.R;
+import edu.uco.houselannister.saveasingle.domain.Message;
 import edu.uco.houselannister.saveasingle.domain.Model;
 import edu.uco.houselannister.saveasingle.domain.Question;
 import edu.uco.houselannister.saveasingle.domain.User;
@@ -70,10 +73,23 @@ public class MainActivity extends AppCompatActivity
         return mainInstance;
     }
 
+    @Override
+    public void onNewIntent(Intent intent) {
+        Bundle extras = intent.getExtras();
+        if(extras != null){
+            if(extras.containsKey("Message"))
+            {
+                Message message = (Message)extras.getSerializable("Message");
+                mNavigationManager.showFragmentViewMessage(message);
+            }
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mNavigationManager = FragmentNavigationManager.obtain(this);
+
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         mainInstance = this;
@@ -82,7 +98,6 @@ public class MainActivity extends AppCompatActivity
         //navigation drawer
         mActivityTitle = getTitle().toString();
 
-        mNavigationManager = FragmentNavigationManager.obtain(this);
         LayoutInflater inflater = getLayoutInflater();
         @SuppressLint("InflateParams")
         View listHeaderView = inflater.inflate(R.layout.nav_header, null, false);
@@ -91,12 +106,15 @@ public class MainActivity extends AppCompatActivity
         if (!appModel.getAuthenticatedUser().getAdmin()) {
             mExpandableListData.remove(mAdminKey);
         }
+
         mExpandableListTitle = mExpandableListTitle == null ? new ArrayList(mExpandableListData.keySet()) : mExpandableListTitle;
         addDrawerItems();
         setupDrawer();
         if (savedInstanceState == null) {
             selectFirstItemAsDefault();
         }
+
+        onNewIntent(getIntent());
     }
 
     private void selectFirstItemAsDefault() {
@@ -231,5 +249,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onListFragmentInteraction(Question item) {
         Toast.makeText(MainActivity.this, "Now Impersonating " + item.getCategory().name(), Toast.LENGTH_SHORT).show();
+    }
+    public NotificationManager getNotificationManager() {
+        return (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
     }
 }

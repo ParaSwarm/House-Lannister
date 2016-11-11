@@ -1,5 +1,7 @@
 package edu.uco.houselannister.saveasingle.domain;
 
+import android.app.Notification;
+
 import java.io.Serializable;
 import java.util.*;
 
