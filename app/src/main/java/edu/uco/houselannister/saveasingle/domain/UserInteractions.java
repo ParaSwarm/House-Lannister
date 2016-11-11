@@ -98,6 +98,17 @@ public class UserInteractions implements Serializable {
         this.privatePhotoAccess = privatePhotoAccess;
     }
 
+    public void grantPrivatePhotoAccess(User user) {
+        if(!this.getPrivatePhotoAccess().contains(user)) {
+            this.privatePhotoAccess.add(user);
+        }
+    }
+
+    public void revokePrivatePhotoAccess(User user) {
+        if(this.getPrivatePhotoAccess().contains(user)) {
+            this.privatePhotoAccess.remove(user);
+        }
+    }
 
     public ArrayList<Message> getInBox() {
         return this.getInBox(true);
@@ -147,6 +158,18 @@ public class UserInteractions implements Serializable {
 
     public void setFavorites(ArrayList<User> favorites) {
         this.favorites = favorites;
+    }
+
+    public void addToFavorites(User user) {
+        if(!this.getFavorites().contains(user)) {
+            this.favorites.add(user);
+        }
+    }
+
+    public void removeFromFavorites(User user) {
+        if(this.getFavorites().contains(user)) {
+            this.favorites.remove(user);
+        }
     }
 
     public ArrayList<User> getBlocked() {
