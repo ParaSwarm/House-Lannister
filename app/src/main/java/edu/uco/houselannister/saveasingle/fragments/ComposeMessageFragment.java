@@ -64,7 +64,10 @@ public class ComposeMessageFragment extends Fragment {
         messageBeingRepliedTo = (Message) data.getSerializable("Message");
 
         toText.setText(toUser.getName());
-        subjectText.setText(messageBeingRepliedTo.getSubject());
+
+        if(messageBeingRepliedTo != null) {
+            subjectText.setText(messageBeingRepliedTo.getSubject());
+        }
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,11 +129,7 @@ public class ComposeMessageFragment extends Fragment {
                                     message.setReplyToMessage(messageBeingRepliedTo);
                                 }
 
-
                                 message.send(getContext(), ((MainActivity)getActivity()).getNotificationManager());
-//
-//                                appModel.getCurrentUser().getInteractions().getOutBox().add(message);
-//                                appModel.getUser(toUser.getName()).getInteractions().getInBox().add(message);
 
                                 Toast.makeText(getActivity(), String.format("Message sent to %s.", toUser.getName()), Toast.LENGTH_SHORT).show();
                                 getFragmentManager().popBackStack();
