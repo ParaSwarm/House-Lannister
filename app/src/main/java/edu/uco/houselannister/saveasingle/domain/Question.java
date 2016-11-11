@@ -13,6 +13,8 @@ public class Question  implements Serializable {
 
     private Boolean allowMultipleResponses;
 
+    private Boolean enabled;
+
     public String getQuestion() {
         return question;
     }
@@ -43,5 +45,16 @@ public class Question  implements Serializable {
 
     public void setAllowMultipleResponses(Boolean allowMultipleResponses) {
         this.allowMultipleResponses = allowMultipleResponses;
+    }
+
+    public Boolean getEnabled() {
+        if(this.enabled == null){
+            this.enabled = false;
+        }
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 }

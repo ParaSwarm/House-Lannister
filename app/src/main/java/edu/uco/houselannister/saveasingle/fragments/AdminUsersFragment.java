@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import edu.uco.houselannister.saveasingle.R;
 import edu.uco.houselannister.saveasingle.domain.Model;
 import edu.uco.houselannister.saveasingle.domain.User;
-import edu.uco.houselannister.saveasingle.helpers.MyUserAdminRecyclerViewAdapter;
+import edu.uco.houselannister.saveasingle.adapters.UserAdminAdapter;
 import edu.uco.houselannister.saveasingle.model.AppModel;
 import edu.uco.houselannister.saveasingle.service.AppService;
 
@@ -66,7 +66,7 @@ public class AdminUsersFragment extends Fragment{
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyUserAdminRecyclerViewAdapter(appModel.getUsers(), mListener));
+            recyclerView.setAdapter(new UserAdminAdapter(appModel.getUsers(), mListener));
         }
         return view;
     }

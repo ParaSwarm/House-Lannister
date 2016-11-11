@@ -1,8 +1,6 @@
 package edu.uco.houselannister.saveasingle.service;
 
-import java.io.FileDescriptor;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -10,11 +8,31 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
-import edu.uco.houselannister.saveasingle.domain.*;
+import edu.uco.houselannister.saveasingle.domain.Bio;
+import edu.uco.houselannister.saveasingle.domain.EducationLevel;
+import edu.uco.houselannister.saveasingle.domain.Ethnicity;
+import edu.uco.houselannister.saveasingle.domain.Gender;
+import edu.uco.houselannister.saveasingle.domain.Interests;
+import edu.uco.houselannister.saveasingle.domain.Message;
+import edu.uco.houselannister.saveasingle.domain.Personality;
+import edu.uco.houselannister.saveasingle.domain.Photo;
+import edu.uco.houselannister.saveasingle.domain.Question;
+import edu.uco.houselannister.saveasingle.domain.QuestionCategory;
+import edu.uco.houselannister.saveasingle.domain.Questionnaire;
+import edu.uco.houselannister.saveasingle.domain.Relationship;
+import edu.uco.houselannister.saveasingle.domain.Religion;
+import edu.uco.houselannister.saveasingle.domain.Response;
+import edu.uco.houselannister.saveasingle.domain.SalaryRange;
+import edu.uco.houselannister.saveasingle.domain.ServiceProxy;
+import edu.uco.houselannister.saveasingle.domain.Status;
+import edu.uco.houselannister.saveasingle.domain.User;
+import edu.uco.houselannister.saveasingle.domain.UserDemographics;
+import edu.uco.houselannister.saveasingle.domain.UserNotificationPreferences;
+import edu.uco.houselannister.saveasingle.domain.UserPreferences;
+import edu.uco.houselannister.saveasingle.domain.UserStatus;
+import edu.uco.houselannister.saveasingle.domain.ZipCode;
 
 public class StaticUserModel {
 
@@ -48,10 +66,21 @@ public class StaticUserModel {
     public static ArrayList<User> getUsers() {
         if (users == null) {
             users = new ArrayList<>();
-            users.add(CreateUser("Jackson", false, "password", "jackson@uco.edu", true));
-            users.add(CreateUser("Sierra", false, "password", "sierra@uco.edu", false));
-            users.add(CreateUser("Goliath", true, "password", "goliath@gmail.com", true));
-            users.add(CreateUser("Qaiser", false, "password", "qaiser@uco.edu", true));
+            /*  Gender : male = 0, female = 1
+                Education: 0 = null, 1 = WHo cares, 2 = high school, 3= Undergrad , 4 = Masters, 5 = Masters , 6 = Phd
+                Smoking : 0= null, 1 = Never, 2 = 1-5/day, 3 = 6-10, 4 = 10 - 20 , 5 = more than 20
+                Body Type : 0 = null, 1 = Slim , 2 = Average , 3 = Muscular , 4 = Slightly fat
+                Income : 0 = null, 1 = Unemployeed, 2 = < 20 K,3 = < 100 K, 4 = 100 K , 5 = >100 K
+                Married Status : 0 = null, 1 = not married , 2= married , 3 = divorced
+
+
+             */
+            users.add(CreateUser("Jackson", false, "password", "jackson@uco.edu",20, 0,5.9,2,"Christian","Black",5,1,"Cashier",2,1,0,"I am a hansome looking bachlor. I am 20 and love playing playstation 4, eating different types of food, and travelling.","I am looking for a date yo ladies", "Jackson Smith", true));
+            users.add(CreateUser("Sierra", false, "password", "sierra@uco.edu",22, 1,5.4,3,"Christian","White",1,1,"Unemployeed",1,1,0,"Hello everyone, I am Sierra. I am a student.","I am looking for a date yo boys", "Sierra Rose", false));
+            users.add(CreateUser("Goliath", true, "password", "goliath@gmail.com",0,0,0.0,0,"","",0,0,"",0,0,0,"","","", true));
+            users.add(CreateUser("Qaiser", true, "password", "qaiser@uco.edu",19,0,5.7,
+                                    4,"Muslim","Arabic",3,2,"Accountant",4,1,0,
+                                    "I am a Good boy","I need a good girl","Qaiser Ali", true));
 
             // Interactions must be set after all users are created
             CreateUserInteractions();
@@ -119,7 +148,10 @@ public class StaticUserModel {
     //endregion Generate Sample Questionnaire
 
     //region Create User Main Method
-    private static User CreateUser(String username, Boolean isAdmin, String userPassword, String userEmail, Boolean enabled) {
+    private static User CreateUser(String username, Boolean isAdmin, String userPassword, String userEmail, int age, int gender,
+                                   Double height, int education, String religion,
+                                   String Ethnicity, int Smoking, int BodyType, String Work, int Income,
+                                   int MarriedStatus, int numofChildren, String Story, String PerfectMatch,String fullname, Boolean enabled) {
 
         User user = new User();
 
@@ -127,6 +159,23 @@ public class StaticUserModel {
         user.setAdmin(isAdmin);
         user.setEmailAddress(userEmail);
         user.setPassword(userPassword);
+        user.setAge(age);
+        user.setGender(gender);
+        user.setHeight(height);
+        user.setEducation(education);
+        user.setReligion(religion);
+        user.setEthnicity(Ethnicity);
+        user.setSmoking(Smoking);
+        user.setBodyType(BodyType);
+        user.setWork(Work);
+        user.setIncome(Income);
+        user.setMarriedStatus(MarriedStatus);
+        user.setChildren(numofChildren);
+        user.setStory(Story);
+        user.setPerfectMatch(PerfectMatch);
+        user.setFullName(fullname);
+        //user.setProfilePhoto(profilePhoto);
+
         user.setEnabled(enabled);
 
         user.setBio(CreateBio());

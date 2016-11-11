@@ -12,4 +12,6 @@ public interface UserProfile {
     void saveUser(User user);
 
     void deleteUser(User user);
+
+
 }

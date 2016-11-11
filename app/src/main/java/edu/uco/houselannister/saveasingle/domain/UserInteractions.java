@@ -1,5 +1,7 @@
 package edu.uco.houselannister.saveasingle.domain;
 
+import android.app.Notification;
+
 import java.io.Serializable;
 import java.util.*;
 
@@ -15,7 +17,7 @@ public class UserInteractions implements Serializable {
 
     private ArrayList<Recommendation> recommendees;
 
-    private ArrayList<User> myPrivatePhotos;
+    private ArrayList<String> myPrivatePhotos;
 
     private ArrayList<User> privatePhotoAccess;
 
@@ -24,6 +26,8 @@ public class UserInteractions implements Serializable {
     private ArrayList<Message> outBox;
 
     private ArrayList<User> favorites;
+
+    private ArrayList<User> profileUpdated;
 
     private ArrayList<User> blocked;
 
@@ -75,15 +79,18 @@ public class UserInteractions implements Serializable {
         this.recommendees = recommendees;
     }
 
-    public ArrayList<User> getMyPrivatePhotos() {
+    public ArrayList<String> getMyPrivatePhotos() {
         return myPrivatePhotos;
     }
 
-    public void setMyPrivatePhotos(ArrayList<User> myPrivatePhotos) {
+    public void setMyPrivatePhotos(ArrayList<String> myPrivatePhotos) {
         this.myPrivatePhotos = myPrivatePhotos;
     }
 
     public ArrayList<User> getPrivatePhotoAccess() {
+        if(privatePhotoAccess == null) {
+            privatePhotoAccess = new ArrayList<>();
+        }
         return privatePhotoAccess;
     }
 
@@ -91,12 +98,26 @@ public class UserInteractions implements Serializable {
         this.privatePhotoAccess = privatePhotoAccess;
     }
 
+    public void grantPrivatePhotoAccess(User user) {
+        if(!this.getPrivatePhotoAccess().contains(user)) {
+            this.privatePhotoAccess.add(user);
+        }
+    }
+
+    public void revokePrivatePhotoAccess(User user) {
+        if(this.getPrivatePhotoAccess().contains(user)) {
+            this.privatePhotoAccess.remove(user);
+        }
+    }
 
     public ArrayList<Message> getInBox() {
         return this.getInBox(true);
     }
 
     public ArrayList<Message> getInBox(boolean getBlockedMessages) {
+        if(inBox == null) {
+            inBox = new ArrayList<>();
+        }
 
         if(getBlockedMessages) {
             return inBox;
@@ -118,6 +139,9 @@ public class UserInteractions implements Serializable {
     }
 
     public ArrayList<Message> getOutBox() {
+        if(outBox == null) {
+            outBox = new ArrayList<>();
+        }
         return outBox;
     }
 
@@ -134,6 +158,18 @@ public class UserInteractions implements Serializable {
 
     public void setFavorites(ArrayList<User> favorites) {
         this.favorites = favorites;
+    }
+
+    public void addToFavorites(User user) {
+        if(!this.getFavorites().contains(user)) {
+            this.favorites.add(user);
+        }
+    }
+
+    public void removeFromFavorites(User user) {
+        if(this.getFavorites().contains(user)) {
+            this.favorites.remove(user);
+        }
     }
 
     public ArrayList<User> getBlocked() {
@@ -156,6 +192,12 @@ public class UserInteractions implements Serializable {
     public void blockUser(User userToBlock) {
         if(!this.getBlocked().contains(userToBlock)) {
             this.blocked.add(userToBlock);
+        }
+    }
+
+    public void unblockUser(User userToUnblock) {
+        if(this.getBlocked().contains(userToUnblock)) {
+            this.blocked.remove(userToUnblock);
         }
     }
 
@@ -190,4 +232,5 @@ public class UserInteractions implements Serializable {
     public void setReceivedGifts(ArrayList<Gift> receivedGifts) {
         this.receivedGifts = receivedGifts;
     }
+
 }

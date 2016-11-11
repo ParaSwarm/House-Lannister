@@ -1,8 +1,7 @@
 package edu.uco.houselannister.saveasingle.activities;
 
 import android.annotation.SuppressLint;
-import android.app.DatePickerDialog;
-import android.app.Dialog;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -14,11 +13,10 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.DatePicker;
 import android.widget.ExpandableListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -28,9 +26,12 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.uco.houselannister.saveasingle.R;
+import edu.uco.houselannister.saveasingle.domain.Message;
 import edu.uco.houselannister.saveasingle.domain.Model;
+import edu.uco.houselannister.saveasingle.domain.Question;
 import edu.uco.houselannister.saveasingle.domain.User;
 import edu.uco.houselannister.saveasingle.fragments.AdminUsersFragment;
+import edu.uco.houselannister.saveasingle.fragments.QuestionFragment;
 import edu.uco.houselannister.saveasingle.helpers.CustomExpandableListAdapter;
 import edu.uco.houselannister.saveasingle.helpers.ExpandableListDataSource;
 import edu.uco.houselannister.saveasingle.helpers.FragmentNavigationManager;
@@ -39,7 +40,10 @@ import edu.uco.houselannister.saveasingle.model.AppModel;
 import edu.uco.houselannister.saveasingle.service.AppService;
 
 
-public class MainActivity extends AppCompatActivity implements AdminUsersFragment.OnUserAdminListFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity
+        implements AdminUsersFragment.OnUserAdminListFragmentInteractionListener
+    , QuestionFragment.OnListFragmentInteractionListener
+{
 
     @BindArray(R.array.user_profile_titles)
     public String[] settingsNavigationTitles;
@@ -69,10 +73,23 @@ public class MainActivity extends AppCompatActivity implements AdminUsersFragmen
         return mainInstance;
     }
 
+    @Override
+    public void onNewIntent(Intent intent) {
+        Bundle extras = intent.getExtras();
+        if(extras != null){
+            if(extras.containsKey("Message"))
+            {
+                Message message = (Message)extras.getSerializable("Message");
+                mNavigationManager.showFragmentViewMessage(message);
+            }
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mNavigationManager = FragmentNavigationManager.obtain(this);
+
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         mainInstance = this;
@@ -81,7 +98,6 @@ public class MainActivity extends AppCompatActivity implements AdminUsersFragmen
         //navigation drawer
         mActivityTitle = getTitle().toString();
 
-        mNavigationManager = FragmentNavigationManager.obtain(this);
         LayoutInflater inflater = getLayoutInflater();
         @SuppressLint("InflateParams")
         View listHeaderView = inflater.inflate(R.layout.nav_header, null, false);
@@ -90,12 +106,15 @@ public class MainActivity extends AppCompatActivity implements AdminUsersFragmen
         if (!appModel.getAuthenticatedUser().getAdmin()) {
             mExpandableListData.remove(mAdminKey);
         }
+
         mExpandableListTitle = mExpandableListTitle == null ? new ArrayList(mExpandableListData.keySet()) : mExpandableListTitle;
         addDrawerItems();
         setupDrawer();
         if (savedInstanceState == null) {
             selectFirstItemAsDefault();
         }
+
+        onNewIntent(getIntent());
     }
 
     private void selectFirstItemAsDefault() {
@@ -134,6 +153,8 @@ public class MainActivity extends AppCompatActivity implements AdminUsersFragmen
                     mNavigationManager.showFragmentInbox();
                 } else if (homeNavigationTitles[2].compareTo(selectedItem) == 0) {
                     mNavigationManager.showFragmentSentMessages();
+                } else if (homeNavigationTitles[3].compareTo(selectedItem) == 0) {
+                    mNavigationManager.showFragmentMain();
                 } else if (settingsNavigationTitles[0].compareTo(selectedItem) == 0) {
                     mNavigationManager.showFragmentUserProfile();
                 } else if (settingsNavigationTitles[1].compareTo(selectedItem) == 0) {
@@ -156,7 +177,7 @@ public class MainActivity extends AppCompatActivity implements AdminUsersFragmen
                 } else if (adminNavigationTitles[0].compareTo(selectedItem) == 0) {
                     mNavigationManager.showFragmentAdminUsers();
                 } else if (adminNavigationTitles[1].compareTo(selectedItem) == 0) {
-                    mNavigationManager.showFragmentMain();
+                    mNavigationManager.showFragmentQuestions();
                 } else if (adminNavigationTitles[2].compareTo(selectedItem) == 0) {
                     mNavigationManager.showFragmentMain();
                 } else {
@@ -225,5 +246,13 @@ public class MainActivity extends AppCompatActivity implements AdminUsersFragmen
     public void onUserAdminListFragmentInteraction(final User userItem) {
         appModel.setCurrentUserImpersonation(userItem);
         Toast.makeText(MainActivity.this, "Now Impersonating " + userItem.getName(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onListFragmentInteraction(Question item) {
+        Toast.makeText(MainActivity.this, "Now Impersonating " + item.getCategory().name(), Toast.LENGTH_SHORT).show();
+    }
+    public NotificationManager getNotificationManager() {
+        return (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
     }
 }

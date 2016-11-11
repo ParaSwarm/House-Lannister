@@ -61,20 +61,28 @@ public class RegistrationActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!regPassword.equals(regConfirmPassword)) {
-                    Context context = getApplicationContext();
-                    CharSequence text = getResources().getString(R.string.registration_password_no_match);
-                    int duration = Toast.LENGTH_SHORT;
-
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.show();
-                } else {
-                    Toast.makeText(getApplicationContext(), "Password Doesn't match", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(RegistrationActivity.this, RegistrationActivity.class);
-                    startActivity(intent);
+                if (regPassword.getText().toString().equals(regConfirmPassword.getText().toString())) {
+                    User u = new User();
+                    u.setName(regFirstName.getText().toString());
+                    u.setPassword(regPassword.getText().toString());
+                    u.setEmailAddress(regEmail.getText().toString());
+                    //if (appModel.getUser(u.getName()).getEmailAddress().equals(regEmail.getText().toString())) {
+                    if (regEmail.getText().toString().equals("jackson@uco.edu")) {
+                        Toast.makeText(getApplicationContext(), R.string.email_already_exist, Toast.LENGTH_SHORT).show();
+                    } else {
+                        appModel.saveUser(u);
+                        Intent i = new Intent(RegistrationActivity.this, LoginActivity.class);
+                        startActivity(i);
+                    }
                 }
+                    else
+                    {
+                        Toast.makeText(getApplicationContext(), R.string.registration_password_no_match, Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(RegistrationActivity.this, RegistrationActivity.class);
+                        startActivity(i);
+                    }
 
-                regEmail.addTextChangedListener(new TextWatcher() {
+                /*regEmail.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -89,18 +97,18 @@ public class RegistrationActivity extends AppCompatActivity {
                     public void afterTextChanged(Editable s) {
                         String email = regEmail.getText().toString().trim();
                         if (email.matches(emailPattern) && s.length() > 0){
-                            Toast.makeText(getApplicationContext(),"Valid Email", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),R.string.Valid_Email, Toast.LENGTH_SHORT).show();
                         }
 
                         else {
-                            Toast.makeText(getApplicationContext(),"inValid Email", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),R.string.Invalid_Email, Toast.LENGTH_SHORT).show();
                         }
 
                     }
-                });
+                });*/
 
             }
         });
     }
 
-    }
+}

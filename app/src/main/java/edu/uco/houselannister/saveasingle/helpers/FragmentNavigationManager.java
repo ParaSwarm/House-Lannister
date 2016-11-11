@@ -12,14 +12,18 @@ import java.util.ArrayList;
 import edu.uco.houselannister.saveasingle.BuildConfig;
 import edu.uco.houselannister.saveasingle.R;
 import edu.uco.houselannister.saveasingle.activities.MainActivity;
+import edu.uco.houselannister.saveasingle.domain.Message;
 import edu.uco.houselannister.saveasingle.domain.User;
 import edu.uco.houselannister.saveasingle.fragments.AdminUsersFragment;
 import edu.uco.houselannister.saveasingle.fragments.ComposeMessageFragment;
+import edu.uco.houselannister.saveasingle.fragments.DisplayPrivateAlbumFragment;
 import edu.uco.houselannister.saveasingle.fragments.FavoriteListFragment;
 import edu.uco.houselannister.saveasingle.fragments.Fragment_gallery;
 import edu.uco.houselannister.saveasingle.fragments.InboxFragment;
 import edu.uco.houselannister.saveasingle.fragments.MainFragment;
 import edu.uco.houselannister.saveasingle.fragments.MapsActivity;
+import edu.uco.houselannister.saveasingle.fragments.PrivateAlbumFragment;
+import edu.uco.houselannister.saveasingle.fragments.QuestionFragment;
 import edu.uco.houselannister.saveasingle.fragments.SentMessagesFragment;
 import edu.uco.houselannister.saveasingle.fragments.MySharingFragment;
 import edu.uco.houselannister.saveasingle.fragments.WhoLikesMeFragment;
@@ -84,6 +88,19 @@ public class FragmentNavigationManager implements NavigationManager {
         showFragment(Fragment_gallery.newInstance(), false);
     }
 
+    public void showFragmentPrivateAlbum() {
+        showFragment(PrivateAlbumFragment.newInstance(), false);
+    }
+
+    public void showFragmentDisplayPrivateAlbum(User user) {
+        showFragment(DisplayPrivateAlbumFragment.newInstance(user), false);
+    }
+
+    @Override
+    public void showFragmentQuestions() {
+        showFragment(QuestionFragment.newInstance(1), false);
+    }
+
     @Override
     public void showFragmentAdminUsers() {
         showFragment(AdminUsersFragment.newInstance(1), false);
@@ -118,7 +135,10 @@ public class FragmentNavigationManager implements NavigationManager {
     public void showFragmentMap(Location location, ArrayList<User> matchingUsers) {showFragment(MapsActivity.newInstance(location, matchingUsers), false);}
 
     @Override
-    public void showFragmentViewMessage(Bundle data) {
+    public void showFragmentViewMessage(Message message) {
+        Bundle data = new Bundle();
+        data.putSerializable("Message", message);
+
         ViewMessageFragment viewMessageFragment = new ViewMessageFragment();
         viewMessageFragment.setArguments(data);
         showFragment(viewMessageFragment, false);

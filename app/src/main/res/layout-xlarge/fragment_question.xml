@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="55dip"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Switch
+            android:id="@+id/question_enabled"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start" />
+
+        <TextView
+            android:id="@+id/lblListItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="something"
+            android:textAppearance="?attr/textAppearanceListItem" />
+
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray" />
+
+
+</LinearLayout>
+
+
+    <!--<?xml version="1.0" encoding="utf-8"?>--><!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content"--><!--android:orientation="vertical">-->
+
+    <!--<LinearLayout--><!--android:layout_width="match_parent"--><!--android:layout_height="match_parent">-->
+
+    <!--<Switch--><!--android:id="@+id/question_enabled"--><!--android:layout_width="0dp"--><!--android:layout_height="match_parent"--><!--android:layout_gravity="center"--><!--android:layout_weight="20" />-->
+
+    <!--<TextView--><!--android:id="@+id/question_category"--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content"--><!--android:layout_margin="@dimen/text_margin"--><!--android:hint="@string/admin_first"--><!--android:textAppearance="?attr/textAppearanceListItem" />-->
+
+    <!--</LinearLayout>-->
+
+    <!--<TextView--><!--android:id="@+id/question_text"--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content"--><!--android:hint="@string/admin_second"--><!--android:textAppearance="?attr/textAppearanceListItem" />-->
+
+    <!--<View--><!--android:layout_width="match_parent"--><!--android:layout_height="1dp"--><!--android:background="@android:color/darker_gray"/>--><!--</LinearLayout>-->
