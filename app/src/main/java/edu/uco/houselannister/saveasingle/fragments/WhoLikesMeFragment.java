@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.uco.houselannister.saveasingle.R;
+import edu.uco.houselannister.saveasingle.activities.MainActivity;
 import edu.uco.houselannister.saveasingle.adapters.FavoriteUserItemAdapter;
 import edu.uco.houselannister.saveasingle.adapters.MessageItemAdapter;
 import edu.uco.houselannister.saveasingle.domain.Message;
@@ -40,8 +41,8 @@ public class WhoLikesMeFragment extends ListFragment {
     private Model appModel;
 
     ActionMode mMode;
-    CharSequence[] array = new CharSequence[4];
-    CharSequence[] userMenuOptions = {"Add to my favorites", "Share my private album", "Block", "View Profile"};
+    CharSequence[] array = {"Add to my favorites", "Share my private album", "Block", "View Profile"};
+    CharSequence[] userMenuOptions =  new CharSequence[5];
     private int pos;
     ArrayList<User> FavoritesArrayList;
     ArrayList<User> AccessPrivatePhotoList;
@@ -86,9 +87,6 @@ public class WhoLikesMeFragment extends ListFragment {
         FavoriteUserItemAdapter adapter = new FavoriteUserItemAdapter(this.getContext(), R.layout.listview_favorites_item_row, appModel.getUsers().toArray(new User[0]));
         setListAdapter(adapter);
         getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-        getListView().setOnItemClickListener(this);
-        getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 mMode = null;
@@ -103,31 +101,35 @@ public class WhoLikesMeFragment extends ListFragment {
                         favoriteCheck = true;
                         break;
                     }
-                if (favoriteCheck) {
-                    array[0] = getResources().getString(R.string.remove_from_my_fav);
-                } else {
-                    array[0] = getResources().getString(R.string.add_to_my_fav);
                 }
+                userMenuOptions[0] = "View Profile";
+                if (favoriteCheck) {
+                    userMenuOptions[1] = getResources().getString(R.string.remove_from_my_fav);
+                } else {
+                    userMenuOptions[1] = getResources().getString(R.string.add_to_my_fav);
+                }
+
                 for (User u : AccessPrivatePhotoList) {
-                        photoCheck = true;
-                    }
+                    photoCheck = true;
+                }
                 if (photoCheck) {
-                    array[1] = getResources().getString(R.string.stop_sharing_my_fav);
+                    userMenuOptions[2] = getResources().getString(R.string.stop_sharing_my_fav);
                     photoMessage = getResources().getString(R.string.ask_stop_sharing);
                 } else {
                     photoMessage = getResources().getString(R.string.ask_start_sharing);
-                    array[1] = getResources().getString(R.string.share_my_fav);
+                    userMenuOptions[2] = getResources().getString(R.string.share_my_fav);
                 }
-                array[2] = getResources().getString(R.string.block);
-                array[3] = getResources().getString(R.string.see_private_album);
+
+                if (isBlocked) {
+                    userMenuOptions[4] = "Unblock";
+                } else {
+                    userMenuOptions[4] = "Block";
+                }
+
+                userMenuOptions[3] = getResources().getString(R.string.see_private_album);
 
                 isBlocked = appModel.getCurrentUser().getInteractions().getBlocked().contains(selectedUser);
 
-                if (isBlocked) {
-                    userMenuOptions[2] = "Unblock";
-                } else {
-                    userMenuOptions[2] = "Block";
-                }
 
                 final boolean finalIsBlocked = isBlocked;
 
@@ -137,7 +139,23 @@ public class WhoLikesMeFragment extends ListFragment {
                             public void onClick(DialogInterface dialog, int which) {
                                 switch (which) {
                                     case 0:
-                                        if (array[0].toString().equals(getResources().getString(R.string.add_to_my_fav))) {
+                                        // For viewing user profile
+                                        if (selectedUser.getInteractions().getBlocked().contains(appModel.getCurrentUser())) {
+                                            Toast.makeText(getActivity(), "This user has blocked you. You cannot view their profile.", Toast.LENGTH_SHORT).show();
+                                            return;
+                                        }
+
+                                        appModel.getCurrentUser().setUserNameForProfile(selectedUser.getName());
+
+                                        Fragment newFragment = new Display_UserProfile();
+                                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                                        transaction.replace(R.id.container, newFragment);
+                                        transaction.addToBackStack(null);
+                                        transaction.commit();
+                                        break;
+
+                                    case 1:
+                                        if ( userMenuOptions[1].toString().equals(getResources().getString(R.string.add_to_my_fav))) {
                                             Toast.makeText(getActivity(), appModel.getUsers().get(pos).getName() + getResources().getString(R.string.is_added_to_my_fav), Toast.LENGTH_SHORT).show();
                                             FavoritesArrayList.add(appModel.getUsers().get(pos));
                                             appModel.getCurrentUser().getInteractions().setFavorites(FavoritesArrayList);
@@ -147,13 +165,14 @@ public class WhoLikesMeFragment extends ListFragment {
                                             appModel.getCurrentUser().getInteractions().setFavorites(FavoritesArrayList);
                                         }
                                         break;
-                                    case 1:     //Photo Album
+
+                                    case 2:     //Photo Album
                                         new AlertDialog.Builder(getActivity())
                                                 .setTitle(photoMessage + selectedUser.getName() + "?")
                                                 .setNegativeButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                                     public void onClick(DialogInterface dialog, int which) {
-                                                        if (array[1].toString().equalsIgnoreCase(getResources().getString(R.string.stop_sharing_my_fav))) {
-                                                          //  Toast.makeText(getActivity(), getResources().getString(R.string.stopped_sharing) + appModel.getUsers().get(pos).getName(), Toast.LENGTH_SHORT).show();
+                                                        if (userMenuOptions[2].toString().equalsIgnoreCase(getResources().getString(R.string.stop_sharing_my_fav))) {
+                                                            //  Toast.makeText(getActivity(), getResources().getString(R.string.stopped_sharing) + appModel.getUsers().get(pos).getName(), Toast.LENGTH_SHORT).show();
                                                             AccessPrivatePhotoList.remove(AccessPrivatePhotoList.indexOf(appModel.getUsers().get(pos)));
                                                             appModel.getCurrentUser().getInteractions().setPrivatePhotoAccess(AccessPrivatePhotoList);
                                                         } else {
@@ -170,7 +189,11 @@ public class WhoLikesMeFragment extends ListFragment {
                                                 })
                                                 .show();
                                         break;
-                                    case 2:     // Block User
+                                    case 3:
+                                        FragmentNavigationManager navManager = FragmentNavigationManager.obtain((MainActivity) getActivity());
+                                        navManager.showFragmentDisplayPrivateAlbum(appModel.getUsers().get(pos));
+                                        break;
+                                    case 4: // Block User
                                         new AlertDialog.Builder(getActivity())
                                                 .setTitle(finalIsBlocked ? "Unblock user?" : "Do you want to block " + selectedUser.getName() + "?")
                                                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -179,7 +202,7 @@ public class WhoLikesMeFragment extends ListFragment {
                                                 })
                                                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                                     public void onClick(DialogInterface dialog, int which) {
-                                                        if(finalIsBlocked) {
+                                                        if (finalIsBlocked) {
                                                             appModel.getCurrentUser().getInteractions().unblockUser(selectedUser);
                                                             Toast.makeText(getActivity(), String.format("User %s was unblocked.", selectedUser.getName()), Toast.LENGTH_SHORT).show();
                                                             return;
@@ -190,24 +213,6 @@ public class WhoLikesMeFragment extends ListFragment {
                                                     }
                                                 }).show();
                                         break;
-                                    case 3:
-                                        FragmentNavigationManager navManager = FragmentNavigationManager.obtain((MainActivity) getActivity());
-                                        navManager.showFragmentDisplayPrivateAlbum(appModel.getUsers().get(pos));
-                                    case 3:     // For viewing user profile
-                                        if(selectedUser.getInteractions().getBlocked().contains(appModel.getCurrentUser())) {
-                                            Toast.makeText(getActivity(), "This user has blocked you. You cannot view their profile.", Toast.LENGTH_SHORT).show();
-                                            return;
-                                        }
-
-                                        appModel.getCurrentUser().setUserNameForProfile(selectedUser.getName());
-
-                                        Fragment newFragment = new Display_UserProfile();
-                                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                                        transaction.replace(R.id.container, newFragment);
-                                        transaction.addToBackStack(null);
-                                        transaction.commit();
-                                        break;
-
                                 }
                             }
                         })
@@ -219,6 +224,7 @@ public class WhoLikesMeFragment extends ListFragment {
             }
         });
     }
+
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }

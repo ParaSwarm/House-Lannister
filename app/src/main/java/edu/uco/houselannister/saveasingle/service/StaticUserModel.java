@@ -78,7 +78,7 @@ public class StaticUserModel {
             users.add(CreateUser("Jackson", false, "password", "jackson@uco.edu",20, 0,5.9,2,"Christian","Black",5,1,"Cashier",2,1,0,"I am a hansome looking bachlor. I am 20 and love playing playstation 4, eating different types of food, and travelling.","I am looking for a date yo ladies", "Jackson Smith", true));
             users.add(CreateUser("Sierra", false, "password", "sierra@uco.edu",22, 1,5.4,3,"Christian","White",1,1,"Unemployeed",1,1,0,"Hello everyone, I am Sierra. I am a student.","I am looking for a date yo boys", "Sierra Rose", false));
             users.add(CreateUser("Goliath", true, "password", "goliath@gmail.com",0,0,0.0,0,"","",0,0,"",0,0,0,"","","", true));
-            users.add(CreateUser("Qaiser", false, "password", "qaiser@uco.edu",19,0,5.7,
+            users.add(CreateUser("Qaiser", true, "password", "qaiser@uco.edu",19,0,5.7,
                                     4,"Muslim","Arabic",3,2,"Accountant",4,1,0,
                                     "I am a Good boy","I need a good girl","Qaiser Ali", true));
 
