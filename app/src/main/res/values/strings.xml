@@ -167,4 +167,30 @@
     <string name="Take_photo">Take a Photo</string>
 
 
+    <!-- Strings for User Profile-->
+    <string name="Full_Name">Full Name :  </string>
+    <string name="Display_Name">Display Name :  </string>
+    <string name="Age">Age : </string>
+    <string name="Gender">Gender :  </string>
+    <string name="Height">Height :  </string>
+    <string name="Location">Locaton :  </string>
+    <string name="Education">Education :  </string>
+    <string name="Religion">Religion  :  </string>
+    <string name="Ethnicity">Ethnicity :  </string>
+    <string name="Smoking">Smoking :  </string>
+    <string name="Body_Type">Body Type :  </string>
+    <string name="Work">Work :  </string>
+    <string name="Income">Income :  </string>
+    <string name="Married_Status">Married Status :  </string>
+    <string name="Num_of_Children">Number of Children :  </string>
+    <string name="Story">Story</string>
+    <string name="PerfectMatch">Perfect Match</string>
+    <string name="Male">Male</string>
+    <string name="Female">Female</string>
+    <string name="Edit">Edit</string>
+    <string name="Save">Save</string>
+    <string name="Gallery_private">Make Gallery Private</string>
+    <string name="Profile_Private">Make Profile Private</string>
+
+
 </resources>

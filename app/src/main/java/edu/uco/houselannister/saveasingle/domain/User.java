@@ -43,14 +43,14 @@ public class User  implements Serializable, Parcelable {
     private String fullname;
     private int age;
     private String position;
-    private String education;
+    private int education;
     private double height;
     private String religion;
     private String ethnicity;
     private int smoking;
     private int bodyType;
     private String work;
-    private double income;
+    private int income;
     private int marriedStatus;
     private int children;
     private String story;
@@ -58,11 +58,15 @@ public class User  implements Serializable, Parcelable {
     private int gender;
     private boolean galleryPrivate;
     private boolean profilePrivate;
+    private String userNameForProfile;
 
     public static final String[] GenderValues = new String[] {"Male", "Female"};
-    public static final String[] SmokingValues = new String[] {"Never", "Socially Only", "Sometimes", "about 10 per day", "more than 20 per day"};
-    public static final String[] BodyTypeValues = new String[] {"Slim", "Average", "Fat"};
-    public static final String[] MarriedStatusValues = new String[] {"Not Married", "Married", "Divorced"};
+    public static final String[] SmokingValues = new String[] {"","Never", "1-5 per day", "6-10 per day", "10-20 per day", "more than 20 per day"};
+    public static final String[] BodyTypeValues = new String[] {"", "Slim", "Average", "Muscular", "Slightly Fat"};
+    public static final String[] MarriedStatusValues = new String[] {"","Not Married", "Married", "Divorced"};
+    public static final String[] EducationValues = new String[] {"", "Who Cares", "High School", "Undergraduate", "Masters", "Phd"};
+    public static final String[] IncomeValues = new String[] {"", "Unemployed", "less than 20K", "less than 50K", "around 100K", "more than 100K"};
+
 
     public String getName() {
         return name;
@@ -236,7 +240,7 @@ public class User  implements Serializable, Parcelable {
     public User() {
         fullname = "";
         position = "";
-        education = "";
+        //education = "";
         religion = "";
         ethnicity = "";
         work = "";
@@ -265,7 +269,7 @@ public class User  implements Serializable, Parcelable {
         this.enabled = (Boolean) in.readValue(Boolean.class.getClassLoader());
         fullname = "";
         position = "";
-        education = "";
+        //education = "";
         religion = "";
         ethnicity = "";
         work = "";
@@ -317,11 +321,10 @@ public class User  implements Serializable, Parcelable {
         this.age = age;
     }
 
-    public String getEducation() {
+    public int getEducation() {
         return education;
     }
-
-    public void setEducation(String education) {
+    public void setEducation(int education) {
         this.education = education;
     }
 
@@ -373,14 +376,13 @@ public class User  implements Serializable, Parcelable {
         this.work = work;
     }
 
-    public double getIncome() {
+    public int getIncome() {
         return income;
     }
 
-    public void setIncome(double income) {
+    public void setIncome(int income) {
         this.income = income;
     }
-
     public int getMarriedStatus() {
         return marriedStatus;
     }
@@ -435,6 +437,14 @@ public class User  implements Serializable, Parcelable {
 
     public void setProfilePrivate(boolean profilePrivate) {
         this.profilePrivate = profilePrivate;
+    }
+
+    public String getUsernameForProfile() {
+        return userNameForProfile;
+    }
+
+    public void setUserNameForProfile(String userNameForProfile) {
+        this.userNameForProfile = userNameForProfile;
     }
 
 }

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import edu.uco.houselannister.saveasingle.BuildConfig;
 import edu.uco.houselannister.saveasingle.R;
 import edu.uco.houselannister.saveasingle.activities.MainActivity;
+import edu.uco.houselannister.saveasingle.domain.Message;
 import edu.uco.houselannister.saveasingle.domain.User;
 import edu.uco.houselannister.saveasingle.fragments.AdminUsersFragment;
 import edu.uco.houselannister.saveasingle.fragments.ComposeMessageFragment;
@@ -124,7 +125,10 @@ public class FragmentNavigationManager implements NavigationManager {
     public void showFragmentMap(Location location, ArrayList<User> matchingUsers) {showFragment(MapsActivity.newInstance(location, matchingUsers), false);}
 
     @Override
-    public void showFragmentViewMessage(Bundle data) {
+    public void showFragmentViewMessage(Message message) {
+        Bundle data = new Bundle();
+        data.putSerializable("Message", message);
+
         ViewMessageFragment viewMessageFragment = new ViewMessageFragment();
         viewMessageFragment.setArguments(data);
         showFragment(viewMessageFragment, false);

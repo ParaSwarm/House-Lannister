@@ -1,5 +1,7 @@
 package edu.uco.houselannister.saveasingle.domain;
 
+import android.app.Notification;
+
 import java.io.Serializable;
 import java.util.*;
 
@@ -84,6 +86,9 @@ public class UserInteractions implements Serializable {
     }
 
     public ArrayList<User> getPrivatePhotoAccess() {
+        if(privatePhotoAccess == null) {
+            privatePhotoAccess = new ArrayList<>();
+        }
         return privatePhotoAccess;
     }
 
@@ -97,6 +102,9 @@ public class UserInteractions implements Serializable {
     }
 
     public ArrayList<Message> getInBox(boolean getBlockedMessages) {
+        if(inBox == null) {
+            inBox = new ArrayList<>();
+        }
 
         if(getBlockedMessages) {
             return inBox;
@@ -118,6 +126,9 @@ public class UserInteractions implements Serializable {
     }
 
     public ArrayList<Message> getOutBox() {
+        if(outBox == null) {
+            outBox = new ArrayList<>();
+        }
         return outBox;
     }
 
@@ -156,6 +167,12 @@ public class UserInteractions implements Serializable {
     public void blockUser(User userToBlock) {
         if(!this.getBlocked().contains(userToBlock)) {
             this.blocked.add(userToBlock);
+        }
+    }
+
+    public void unblockUser(User userToUnblock) {
+        if(this.getBlocked().contains(userToUnblock)) {
+            this.blocked.remove(userToUnblock);
         }
     }
 
