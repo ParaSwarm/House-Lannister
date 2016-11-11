@@ -153,6 +153,8 @@ public class MainActivity extends AppCompatActivity
                     mNavigationManager.showFragmentInbox();
                 } else if (homeNavigationTitles[2].compareTo(selectedItem) == 0) {
                     mNavigationManager.showFragmentSentMessages();
+                } else if (homeNavigationTitles[3].compareTo(selectedItem) == 0) {
+                    mNavigationManager.showFragmentMain();
                 } else if (settingsNavigationTitles[0].compareTo(selectedItem) == 0) {
                     mNavigationManager.showFragmentUserProfile();
                 } else if (settingsNavigationTitles[1].compareTo(selectedItem) == 0) {

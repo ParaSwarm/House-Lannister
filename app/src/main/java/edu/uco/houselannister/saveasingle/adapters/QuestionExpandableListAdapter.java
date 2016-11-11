@@ -64,15 +64,18 @@ public class QuestionExpandableListAdapter extends BaseExpandableListAdapter {
         txtListChild.setText(childQuestion.getQuestion());
 
 
-            Switch mEnabled = (Switch) convertView.findViewById(R.id.question_enabled);
+        Switch mEnabled = (Switch) convertView.findViewById(R.id.question_enabled);
+        if (mEnabled.isChecked() != childQuestion.getEnabled()) {
             mEnabled.setChecked(childQuestion.getEnabled());
-            mEnabled.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    childQuestion.setEnabled(isChecked);
-                    AppModel.getAppModelInstance(AppService.getAppServiceInstance()).saveQuestion(childQuestion);
-                }
-            });
+        }
+
+        mEnabled.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                childQuestion.setEnabled(isChecked);
+                AppModel.getAppModelInstance(AppService.getAppServiceInstance()).saveQuestion(childQuestion);
+            }
+        });
         return convertView;
     }
 
