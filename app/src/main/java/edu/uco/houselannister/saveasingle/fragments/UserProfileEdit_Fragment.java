@@ -42,24 +42,26 @@ public class UserProfileEdit_Fragment extends Fragment {
     private int smoking = 0;
     private int bodyType = 0;
     private int marriedStatus = 0;
-
+    private int education = 0;
+    private int income = 0;
     private ImageView imgPhoto;
     private TextView fullname;
     private TextView displayName;
     private TextView age;
     private TextView height;
     private TextView location;
-    private TextView education;
+    //private TextView education;
     private TextView religion;
     private TextView ethnicity;
     private TextView work;
-    private TextView income;
+    //private TextView income;
     private TextView children;
     private TextView story;
     private TextView perfectMatch;
     private Fragment instance;
     private Switch swGalleryPrivate;
     private Switch swProfilePrivate;
+    boolean isChecked;
 
     public UserProfileEdit_Fragment() {
         // Required empty public constructor
@@ -89,17 +91,19 @@ public class UserProfileEdit_Fragment extends Fragment {
                 appModel.getCurrentUser().setAge(Integer.parseInt(age.getText().toString()));
                 appModel.getCurrentUser().setHeight(Double.parseDouble(height.getText().toString()));
                 appModel.getCurrentUser().setPosition(location.getText().toString());
-                appModel.getCurrentUser().setEducation(education.getText().toString());
+                //appModel.getCurrentUser().setEducation(education.getText().toString());
                 appModel.getCurrentUser().setReligion(religion.getText().toString());
                 appModel.getCurrentUser().setEthnicity(ethnicity.getText().toString());
                 appModel.getCurrentUser().setWork(work.getText().toString());
-                appModel.getCurrentUser().setIncome(Double.parseDouble(income.getText().toString()));
+                //appModel.getCurrentUser().setIncome(Double.parseDouble(income.getText().toString()));
                 appModel.getCurrentUser().setChildren(Integer.parseInt(children.getText().toString()));
                 appModel.getCurrentUser().setStory(story.getText().toString());
                 appModel.getCurrentUser().setPerfectMatch(perfectMatch.getText().toString());
                 appModel.getCurrentUser().setGender(gender);
                 appModel.getCurrentUser().setSmoking(smoking);
                 appModel.getCurrentUser().setBodyType(bodyType);
+                appModel.getCurrentUser().setEducation(education);
+                appModel.getCurrentUser().setIncome(income);
                 appModel.getCurrentUser().setMarriedStatus(marriedStatus);
                 appModel.getCurrentUser().setGalleryPrivate(swGalleryPrivate.isChecked());
                 appModel.getCurrentUser().setProfilePrivate(swProfilePrivate.isChecked());
@@ -110,6 +114,8 @@ public class UserProfileEdit_Fragment extends Fragment {
                 }
             }
         });
+
+
         Model appModel = AppModel.getAppModelInstance(AppService.getAppServiceInstance());
         imgPhoto = (ImageView)v.findViewById(R.id.imgPhoto);
         if (appModel.getCurrentUser().getProfilePhoto().getPhoto() != null) {
@@ -152,27 +158,41 @@ public class UserProfileEdit_Fragment extends Fragment {
         height.setText(String.valueOf(appModel.getCurrentUser().getHeight()));
         location = (TextView)v.findViewById(R.id.txtLocation);
         location.setText(appModel.getCurrentUser().getPosition());
-        education = (TextView)v.findViewById(R.id.txtEducation);
-        education.setText(appModel.getCurrentUser().getEducation());
+        //education = (TextView)v.findViewById(R.id.txtEducation);
+        //education.setText(appModel.getCurrentUser().getEducation());
         religion = (TextView)v.findViewById(R.id.txtReligion);
         religion.setText(appModel.getCurrentUser().getReligion());
         ethnicity = (TextView)v.findViewById(R.id.txtEthnicity);
         ethnicity.setText(appModel.getCurrentUser().getEthnicity());
         work = (TextView)v.findViewById(R.id.txtWork);
         work.setText(appModel.getCurrentUser().getWork());
-        income = (TextView)v.findViewById(R.id.txtIncome);
-        income.setText(String.valueOf(appModel.getCurrentUser().getIncome()));
+        //income = (TextView)v.findViewById(R.id.txtIncome);
+        //income.setText(String.valueOf(appModel.getCurrentUser().getIncome()));
         children = (TextView)v.findViewById(R.id.txtChildren);
         children.setText(String.valueOf(appModel.getCurrentUser().getChildren()));
         story = (TextView)v.findViewById(R.id.txtStory);
         story.setText(appModel.getCurrentUser().getStory());
         perfectMatch = (TextView)v.findViewById(R.id.txtPerfectMatch);
         perfectMatch.setText(appModel.getCurrentUser().getPerfectMatch());
+
         swGalleryPrivate = (Switch)v.findViewById(R.id.swGalleryPrivate);
         swGalleryPrivate.setChecked(appModel.getCurrentUser().getGalleryPrivate());
+
+
         swProfilePrivate = (Switch)v.findViewById(R.id.swProfilePrivate);
         swProfilePrivate.setChecked(appModel.getCurrentUser().getProfilePrivate());
+/*
+        //set the switch to ON
+        swProfilePrivate.setChecked(false);
 
+                if(isChecked){
+                    //swProfilePrivate.setText("Switch is currently ON");
+                    Toast.makeText(getActivity(),"yes", Toast.LENGTH_LONG).show();
+                }else{
+                    //swProfilePrivate.setText("Switch is currently OFF");
+                    Toast.makeText(getActivity(),"no", Toast.LENGTH_LONG).show();
+                }
+*/
         gender = appModel.getCurrentUser().getGender();
         final RadioButton rbMale = (RadioButton)v.findViewById(R.id.rbMale);
         final RadioButton rbFemale = (RadioButton)v.findViewById(R.id.rbFemale);
@@ -195,6 +215,10 @@ public class UserProfileEdit_Fragment extends Fragment {
                 gender = 1;
             }
         });
+
+
+
+
         smoking = appModel.getCurrentUser().getSmoking();
         Spinner spnSmoking = (Spinner)v.findViewById(R.id.spnSmoking);
         ArrayAdapter<String> adSmoking = new ArrayAdapter<String>(this.getContext(),android.R.layout.simple_spinner_item, User.SmokingValues);
@@ -212,6 +236,42 @@ public class UserProfileEdit_Fragment extends Fragment {
 
             }
         });
+        education = appModel.getCurrentUser().getEducation();
+        Spinner spnEducation = (Spinner)v.findViewById(R.id.spnEducation);
+        ArrayAdapter<String> adEducation = new ArrayAdapter<String>(this.getContext(),android.R.layout.simple_spinner_item, User.EducationValues);
+        adEducation.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnEducation.setAdapter(adEducation);
+        spnEducation.setSelection(education);
+        spnEducation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                education = position;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        income = appModel.getCurrentUser().getIncome();
+        Spinner spnIncome = (Spinner)v.findViewById(R.id.spnIncome);
+        ArrayAdapter<String> adIncome = new ArrayAdapter<String>(this.getContext(),android.R.layout.simple_spinner_item, User.IncomeValues);
+        adIncome.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnIncome.setAdapter(adIncome);
+        spnIncome.setSelection(income);
+        spnIncome.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                income = position;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         bodyType = appModel.getCurrentUser().getBodyType();
         Spinner spnBodyType = (Spinner)v.findViewById(R.id.spnBodyType);
         ArrayAdapter<String> adBodyType = new ArrayAdapter<String>(this.getContext(),android.R.layout.simple_spinner_item, User.BodyTypeValues);
@@ -229,6 +289,8 @@ public class UserProfileEdit_Fragment extends Fragment {
 
             }
         });
+
+
         marriedStatus = appModel.getCurrentUser().getMarriedStatus();
         Spinner spnMarriedStatus = (Spinner)v.findViewById(R.id.spnMarriedStatus);
         ArrayAdapter<String> adMarriedStatus = new ArrayAdapter<String>(this.getContext(),android.R.layout.simple_spinner_item, User.MarriedStatusValues);

@@ -3,6 +3,8 @@ package edu.uco.houselannister.saveasingle.fragments;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.ActionMode;
@@ -19,7 +21,6 @@ import java.util.ArrayList;
 import edu.uco.houselannister.saveasingle.R;
 import edu.uco.houselannister.saveasingle.domain.Model;
 import edu.uco.houselannister.saveasingle.domain.User;
-import edu.uco.houselannister.saveasingle.domain.UserInteractions;
 import edu.uco.houselannister.saveasingle.model.AppModel;
 import edu.uco.houselannister.saveasingle.service.AppService;
 
@@ -31,13 +32,13 @@ public class WhoLikesMeFragment extends ListFragment implements OnItemClickListe
 
     private static final String KEY_MOVIE_TITLE = "key_title";
     ActionMode mMode;
-    CharSequence[] array = {"Add to my favorites", "Share my private album", "Block"};
+    CharSequence[] array = {"Add to my favorites", "Share my private album", "Block", "View Profile"};
     private int pos;
     ArrayList<User> FavoritesArrayList;
     ArrayList<User> BlockArrayList;
     ArrayList<User> AccessPrivatePhotoList;
-    String photoMessage;
 
+    String photoMessage;
     public WhoLikesMeFragment() {
         // Required empty public constructor
     }
@@ -163,6 +164,28 @@ public class WhoLikesMeFragment extends ListFragment implements OnItemClickListe
                                                     }
                                                 }).show();
                                         break;
+                                    case 3: // For viewing user profile
+                                        new AlertDialog.Builder(getActivity())
+                                                .setTitle("Do you want to view " + appModel.getUsers().get(pos).getName() + "'s Profile ?")
+                                                .setNegativeButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        appModel.getCurrentUser().setUserNameForProfile(appModel.getUsers().get(pos).getName());
+
+                                                        Fragment newFragment = new Display_UserProfile();
+                                                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                                                        transaction.replace(R.id.container, newFragment);
+                                                        transaction.addToBackStack(null);
+                                                        transaction.commit();
+
+//
+                                                    }
+                                                })
+                                                .setPositiveButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                    }
+                                                }).show();
+                                        break;
+
                                 }
                             }
                         })
