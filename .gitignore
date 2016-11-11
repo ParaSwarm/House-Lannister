@@ -40,4 +40,4 @@ captures/
 *.jks
 
 # Libraries
-.idea/libraries
+.idea

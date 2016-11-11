@@ -1,6 +1,7 @@
 package edu.uco.houselannister.saveasingle.fragments;
 
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
@@ -17,21 +18,22 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import edu.uco.houselannister.saveasingle.R;
+import edu.uco.houselannister.saveasingle.activities.MainActivity;
 import edu.uco.houselannister.saveasingle.domain.Model;
 import edu.uco.houselannister.saveasingle.domain.User;
 import edu.uco.houselannister.saveasingle.domain.UserInteractions;
+import edu.uco.houselannister.saveasingle.helpers.FragmentNavigationManager;
 import edu.uco.houselannister.saveasingle.model.AppModel;
 import edu.uco.houselannister.saveasingle.service.AppService;
 
 /**
  * Created by Samuel Song on 9/22/2016.
  */
-public class WhoLikesMeFragment extends ListFragment implements OnItemClickListener {
+public class WhoLikesMeFragment extends ListFragment {
     private Model appModel;
 
-    private static final String KEY_MOVIE_TITLE = "key_title";
     ActionMode mMode;
-    CharSequence[] array = {"Add to my favorites", "Share my private album", "Block"};
+    CharSequence[] array = new CharSequence[4];
     private int pos;
     ArrayList<User> FavoritesArrayList;
     ArrayList<User> BlockArrayList;
@@ -60,6 +62,7 @@ public class WhoLikesMeFragment extends ListFragment implements OnItemClickListe
             AccessPrivatePhotoList = new ArrayList<User>();
         else
             AccessPrivatePhotoList = new ArrayList<User>(appModel.getCurrentUser().getInteractions().getPrivatePhotoAccess());
+        System.out.println("I AM WORKING4 " + AccessPrivatePhotoList.size());
     }
 
     @Override
@@ -76,52 +79,46 @@ public class WhoLikesMeFragment extends ListFragment implements OnItemClickListe
         ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_expandable_list_item_1, appModel.getUsernameArray());
         //ArrayAdapter adapter = ArrayAdapter.createFromResource(getActivity(), R.array.user_list, android.R.layout.simple_list_item_1);
         setListAdapter(adapter);
-        getListView().setOnItemClickListener(this);
-        getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 mMode = null;
                 pos = position;
                 boolean favoriteCheck = false;
                 boolean photoCheck = false;
-                for (User u : FavoritesArrayList) {
+                for (User u : FavoritesArrayList)
                     if (u.getEmailAddress().contains(appModel.getUsers().get(pos).getEmailAddress())) {
                         favoriteCheck = true;
                     }
-                }
                 if (favoriteCheck) {
-                    array[0] = "Remove from my favorites.";
-                    photoMessage = getResources().getString(R.string.who_likes_me_stop_sharing);
+                    array[0] = getResources().getString(R.string.remove_from_my_fav);
                 } else {
-                    array[0] = "Add to my favorites.";
+                    array[0] = getResources().getString(R.string.add_to_my_fav);
                 }
-
-                for (User u : AccessPrivatePhotoList) {
-                    if (appModel.getUsers().get(pos).getEmailAddress().equals(u.getEmailAddress())) {
+                for (User u : AccessPrivatePhotoList)
+                    if (appModel.getUsers().get(pos).getEmailAddress().equals(u.getEmailAddress()))
                         photoCheck = true;
-                    }
-                }
                 if (photoCheck) {
-                    array[1] = "Stop sharing my private album.";
-                    photoMessage = getResources().getString(R.string.who_likes_me_stop_sharing);;
+                    array[1] = getResources().getString(R.string.stop_sharing_my_fav);
+                    photoMessage = getResources().getString(R.string.ask_stop_sharing);
                 } else {
-                    array[1] = "Share my private album.";
-                    photoMessage = getResources().getString(R.string.who_likes_me_stop_sharing);
+                    array[1] = getResources().getString(R.string.share_my_fav);
+                    photoMessage = getResources().getString(R.string.ask_start_sharing);
                 }
-
-
+                array[2] = getResources().getString(R.string.block);
+                array[3] = getResources().getString(R.string.see_private_album);
                 new AlertDialog.Builder(getActivity())
                         .setTitle(appModel.getUsers().get(position).getName())
                         .setItems(array, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 switch (which) {
                                     case 0:
-                                        if (array[0].toString().equals("Add to my favorites.")) {
-                                            Toast.makeText(getActivity(), appModel.getUsers().get(pos).getName() + " is added to the favorite list", Toast.LENGTH_SHORT).show();
+                                        if (array[0].toString().equals(getResources().getString(R.string.add_to_my_fav))) {
+                                            Toast.makeText(getActivity(), appModel.getUsers().get(pos).getName() + getResources().getString(R.string.is_added_to_my_fav), Toast.LENGTH_SHORT).show();
                                             FavoritesArrayList.add(appModel.getUsers().get(pos));
                                             appModel.getCurrentUser().getInteractions().setFavorites(FavoritesArrayList);
                                         } else {
-                                            Toast.makeText(getActivity(), appModel.getUsers().get(pos).getName() + " is removed from the favorite list", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getActivity(), appModel.getUsers().get(pos).getName() + getResources().getString(R.string.remove_from_my_fav), Toast.LENGTH_SHORT).show();
                                             FavoritesArrayList.remove(FavoritesArrayList.indexOf(appModel.getUsers().get(pos)));
                                             appModel.getCurrentUser().getInteractions().setFavorites(FavoritesArrayList);
                                         }
@@ -131,15 +128,16 @@ public class WhoLikesMeFragment extends ListFragment implements OnItemClickListe
                                                 .setTitle(photoMessage + appModel.getUsers().get(pos).getName() + "?")
                                                 .setNegativeButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                                     public void onClick(DialogInterface dialog, int which) {
-                                                        if (array[1].toString().equalsIgnoreCase("Stop sharing my private album.")) {
-                                                            Toast.makeText(getActivity(), "Stopped sharing your private album with " + appModel.getUsers().get(pos).getName(), Toast.LENGTH_SHORT).show();
+                                                        if (array[1].toString().equalsIgnoreCase(getResources().getString(R.string.stop_sharing_my_fav))) {
+                                                          //  Toast.makeText(getActivity(), getResources().getString(R.string.stopped_sharing) + appModel.getUsers().get(pos).getName(), Toast.LENGTH_SHORT).show();
                                                             AccessPrivatePhotoList.remove(AccessPrivatePhotoList.indexOf(appModel.getUsers().get(pos)));
                                                             appModel.getCurrentUser().getInteractions().setPrivatePhotoAccess(AccessPrivatePhotoList);
                                                         } else {
-                                                            Toast.makeText(getActivity(), "Started sharing your private album with " + appModel.getUsers().get(pos).getName(), Toast.LENGTH_SHORT).show();
+                                                            Toast.makeText(getActivity(), getResources().getString(R.string.started_sharing) + appModel.getUsers().get(pos).getName(), Toast.LENGTH_SHORT).show();
                                                             AccessPrivatePhotoList.add(appModel.getUsers().get(pos));
                                                             appModel.getCurrentUser().getInteractions().setPrivatePhotoAccess(AccessPrivatePhotoList);
                                                         }
+                                                        appModel.saveUser(appModel.getCurrentUser());
                                                     }
                                                 })
                                                 .setPositiveButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -154,7 +152,6 @@ public class WhoLikesMeFragment extends ListFragment implements OnItemClickListe
                                                 .setTitle("Do you want to block " + appModel.getUsers().get(pos).getName() + "?")
                                                 .setNegativeButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                                     public void onClick(DialogInterface dialog, int which) {
-//
                                                     }
                                                 })
                                                 .setPositiveButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -163,6 +160,9 @@ public class WhoLikesMeFragment extends ListFragment implements OnItemClickListe
                                                     }
                                                 }).show();
                                         break;
+                                    case 3:
+                                        FragmentNavigationManager navManager = FragmentNavigationManager.obtain((MainActivity) getActivity());
+                                        navManager.showFragmentDisplayPrivateAlbum(appModel.getUsers().get(pos));
                                 }
                             }
                         })
@@ -170,21 +170,12 @@ public class WhoLikesMeFragment extends ListFragment implements OnItemClickListe
                             public void onClick(DialogInterface dialog, int which) {
                                 // do nothing
                             }
-                        }).show();
-                return true;
+                        })
+                        .show();
             }
         });
     }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//        Toast.makeText(getActivity(), "User: " + appModel.getUsers().get(position).getName(), Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
-
-
 }

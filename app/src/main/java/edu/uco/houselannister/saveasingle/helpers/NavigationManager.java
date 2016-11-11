@@ -28,5 +28,7 @@ public interface NavigationManager {
     void showFragmentAdminUsers();
     void showFragmentMap(Location location, ArrayList<User> matchingUsers);
     void showFragmentGallery();
+   // void showFragmentPrivateAlbum();
+    void showFragmentDisplayPrivateAlbum(User user);
     void showFragmentQuestions();
 }
