@@ -151,6 +151,11 @@
     <string name="gallery_processing_message">Processing...</string>
     <string name="inbox_navigating">Navigating to Sent Items.</string>
     <string name="registration_password_no_match">Password doesn\'t match</string>
+    <string name="email_already_exist">Email Already Exist</string>
+    <string name="Invalid_Email">Invalid Email</string>
+    <string name="Valid_Email">Valid Email</string>
+    <string name="Deleted">Deleted</string>
+    <string name="Edit">Edit</string>
     <string name="view_message_delete">Delete Message?</string>
     <string name="view_message_deleted">Message deleted.</string>
     <string name="view_message_block_user">Block User?</string>
@@ -165,6 +170,9 @@
     <string name="Delete_Image">Delete Image</string>
     <string name="Choosefrom_gallery">Choose Image from Gallery</string>
     <string name="Take_photo">Take a Photo</string>
+    
+    <string name="User_Name"> User Name</string>
+    <string name="User_Email"> Email</string>
 
 
     <!-- Strings for User Profile-->
