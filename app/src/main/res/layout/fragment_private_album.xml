@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/onePanel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:id="@+id/topLine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/layout_padding_default"
+                android:text="Private Album"
+                android:textAppearance="?android:textAppearanceLarge" />
+
+            <Button
+                android:id="@+id/select_picture"
+                android:layout_width="85dp"
+                android:layout_height="65dp"
+                android:layout_alignParentRight="true"
+                android:text="Select picture"
+                android:textStyle="bold" />
+
+
+            <Button
+                android:id="@+id/add_picture"
+                android:layout_width="53dp"
+                android:layout_height="65dp"
+                android:layout_toLeftOf="@id/select_picture"
+                android:text="Add"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/rotate_picture"
+                android:layout_width="78dp"
+                android:layout_height="65dp"
+                android:layout_toLeftOf="@id/add_picture"
+                android:text="Rotate"
+                android:textStyle="bold" />
+
+
+
+        </RelativeLayout>
+
+
+
+        <ImageView
+            android:id="@+id/imgView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <GridView
+        android:id="@+id/gridview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+       android:numColumns="3"
+        android:stretchMode="columnWidth"
+        android:padding="3dp"
+        android:verticalSpacing="3dp"
+        android:horizontalSpacing="3dp"/>
+
+    </LinearLayout>
+</RelativeLayout>

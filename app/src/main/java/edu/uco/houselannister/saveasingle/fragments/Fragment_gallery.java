@@ -24,6 +24,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -36,8 +37,10 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 
 import edu.uco.houselannister.saveasingle.R;
+import edu.uco.houselannister.saveasingle.activities.MainActivity;
 import edu.uco.houselannister.saveasingle.domain.Model;
 import edu.uco.houselannister.saveasingle.domain.Photo;
+import edu.uco.houselannister.saveasingle.helpers.FragmentNavigationManager;
 import edu.uco.houselannister.saveasingle.model.AppModel;
 import edu.uco.houselannister.saveasingle.service.AppService;
 import edu.uco.houselannister.saveasingle.service.DatabaseHelper;
@@ -47,7 +50,7 @@ public class Fragment_gallery extends Fragment {
     ImageView imageView;
 
     ArrayList<Bitmap> imageIDs;
-    Button BTN_loadFromGallery;
+    Button BTN_loadFromGallery, BTN_goToPrivateAlbum;
 
     ProgressDialog progressDialog;
 
@@ -98,6 +101,13 @@ public class Fragment_gallery extends Fragment {
 
         progressDialog.show();
         progressDialog.setMessage(getResources().getString(R.string.gallery_processing_message));
+
+        BTN_goToPrivateAlbum =(Button) v.findViewById(R.id.goToPrivateAlubm);
+        BTN_goToPrivateAlbum.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                goToPrivateAlbum();
+            }
+        });
 
 
         BTN_loadFromGallery = (Button) v.findViewById(R.id.loadFromGallery);
@@ -347,5 +357,9 @@ public class Fragment_gallery extends Fragment {
             cv.put(nameOFImages, PassOR_Nameofimage);
             theDB.insert(TABLE_ListofImages, LoginID, cv);
         }
+    }
+    public void goToPrivateAlbum(){
+        FragmentNavigationManager navManager = FragmentNavigationManager.obtain((MainActivity) getActivity());
+        navManager.showFragmentPrivateAlbum();
     }
 }

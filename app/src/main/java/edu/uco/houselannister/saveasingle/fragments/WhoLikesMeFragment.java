@@ -1,6 +1,7 @@
 package edu.uco.houselannister.saveasingle.fragments;
 
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
@@ -17,20 +18,22 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import edu.uco.houselannister.saveasingle.R;
+import edu.uco.houselannister.saveasingle.activities.MainActivity;
 import edu.uco.houselannister.saveasingle.domain.Model;
 import edu.uco.houselannister.saveasingle.domain.User;
 import edu.uco.houselannister.saveasingle.domain.UserInteractions;
+import edu.uco.houselannister.saveasingle.helpers.FragmentNavigationManager;
 import edu.uco.houselannister.saveasingle.model.AppModel;
 import edu.uco.houselannister.saveasingle.service.AppService;
 
 /**
  * Created by Samuel Song on 9/22/2016.
  */
-public class WhoLikesMeFragment extends ListFragment implements OnItemClickListener {
+public class WhoLikesMeFragment extends ListFragment {
     private Model appModel;
 
     ActionMode mMode;
-    CharSequence[] array = new CharSequence[3];
+    CharSequence[] array = new CharSequence[4];
     private int pos;
     ArrayList<User> FavoritesArrayList;
     ArrayList<User> BlockArrayList;
@@ -76,10 +79,9 @@ public class WhoLikesMeFragment extends ListFragment implements OnItemClickListe
         ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_expandable_list_item_1, appModel.getUsernameArray());
         //ArrayAdapter adapter = ArrayAdapter.createFromResource(getActivity(), R.array.user_list, android.R.layout.simple_list_item_1);
         setListAdapter(adapter);
-        getListView().setOnItemClickListener(this);
-        getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 mMode = null;
                 pos = position;
                 boolean favoriteCheck = false;
@@ -104,7 +106,7 @@ public class WhoLikesMeFragment extends ListFragment implements OnItemClickListe
                     photoMessage = getResources().getString(R.string.ask_start_sharing);
                 }
                 array[2] = getResources().getString(R.string.block);
-
+                array[3] = getResources().getString(R.string.see_private_album);
                 new AlertDialog.Builder(getActivity())
                         .setTitle(appModel.getUsers().get(position).getName())
                         .setItems(array, new DialogInterface.OnClickListener() {
@@ -127,7 +129,7 @@ public class WhoLikesMeFragment extends ListFragment implements OnItemClickListe
                                                 .setNegativeButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                                     public void onClick(DialogInterface dialog, int which) {
                                                         if (array[1].toString().equalsIgnoreCase(getResources().getString(R.string.stop_sharing_my_fav))) {
-                                                            Toast.makeText(getActivity(), getResources().getString(R.string.stopped_sharing) + appModel.getUsers().get(pos).getName(), Toast.LENGTH_SHORT).show();
+                                                          //  Toast.makeText(getActivity(), getResources().getString(R.string.stopped_sharing) + appModel.getUsers().get(pos).getName(), Toast.LENGTH_SHORT).show();
                                                             AccessPrivatePhotoList.remove(AccessPrivatePhotoList.indexOf(appModel.getUsers().get(pos)));
                                                             appModel.getCurrentUser().getInteractions().setPrivatePhotoAccess(AccessPrivatePhotoList);
                                                         } else {
@@ -135,6 +137,7 @@ public class WhoLikesMeFragment extends ListFragment implements OnItemClickListe
                                                             AccessPrivatePhotoList.add(appModel.getUsers().get(pos));
                                                             appModel.getCurrentUser().getInteractions().setPrivatePhotoAccess(AccessPrivatePhotoList);
                                                         }
+                                                        appModel.saveUser(appModel.getCurrentUser());
                                                     }
                                                 })
                                                 .setPositiveButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -157,6 +160,9 @@ public class WhoLikesMeFragment extends ListFragment implements OnItemClickListe
                                                     }
                                                 }).show();
                                         break;
+                                    case 3:
+                                        FragmentNavigationManager navManager = FragmentNavigationManager.obtain((MainActivity) getActivity());
+                                        navManager.showFragmentDisplayPrivateAlbum(appModel.getUsers().get(pos));
                                 }
                             }
                         })
@@ -166,20 +172,10 @@ public class WhoLikesMeFragment extends ListFragment implements OnItemClickListe
                             }
                         })
                         .show();
-                return true;
             }
         });
     }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//        Toast.makeText(getActivity(), "User: " + appModel.getUsers().get(position).getName(), Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
-
-
 }

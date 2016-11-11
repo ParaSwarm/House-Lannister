@@ -160,7 +160,12 @@
     <string name="remove_from_my_fav">Remove from my favorites</string>
     <string name="share_my_fav">Share my private album</string>
     <string name="stop_sharing_my_fav">Stop sharing my private album</string>
-    <string name="with">\u0020with\u0020</string>
+    <string name="go_to_private_album">Go to Private Album</string>
+    <string name="see_private_album">See Private Album</string>
+    <string-array name="photo_button">
+        <item>Take Photo</item>
+        <item>Choose from Gallery</item>
+    </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
