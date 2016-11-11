@@ -22,11 +22,13 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.uco.houselannister.saveasingle.R;
+import edu.uco.houselannister.saveasingle.activities.MainActivity;
 import edu.uco.houselannister.saveasingle.adapters.FavoriteUserItemAdapter;
 import edu.uco.houselannister.saveasingle.adapters.MessageItemAdapter;
 import edu.uco.houselannister.saveasingle.domain.Message;
 import edu.uco.houselannister.saveasingle.domain.Model;
 import edu.uco.houselannister.saveasingle.domain.User;
+import edu.uco.houselannister.saveasingle.helpers.FragmentNavigationManager;
 import edu.uco.houselannister.saveasingle.model.AppModel;
 import edu.uco.houselannister.saveasingle.service.AppService;
 
@@ -35,7 +37,7 @@ public class WhoLikesMeFragment extends ListFragment implements OnItemClickListe
     private Model appModel;
 
     ActionMode mMode;
-    CharSequence[] userMenuOptions = {"Add to my favorites", "Share my private album", "Block", "View Profile"};
+    CharSequence[] userMenuOptions = new CharSequence[5];
     private int pos;
 
     String photoMessage;
@@ -95,6 +97,8 @@ public class WhoLikesMeFragment extends ListFragment implements OnItemClickListe
                 }
 
                 userMenuOptions[2] = isBlocked ? getResources().getString(R.string.unblock) : getResources().getString(R.string.block);
+                userMenuOptions[3] = "View Profile";
+                userMenuOptions[4] = getResources().getString(R.string.see_private_album);
 
                 new AlertDialog.Builder(getActivity())
                         .setTitle(selectedUser.getName())
@@ -164,7 +168,9 @@ public class WhoLikesMeFragment extends ListFragment implements OnItemClickListe
                                         transaction.addToBackStack(null);
                                         transaction.commit();
                                         break;
-
+                                    case 4:
+                                        FragmentNavigationManager navManager = FragmentNavigationManager.obtain((MainActivity) getActivity());
+                                        navManager.showFragmentDisplayPrivateAlbum(appModel.getUsers().get(pos));
                                 }
                             }
                         })
