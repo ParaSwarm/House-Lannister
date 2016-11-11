@@ -140,17 +140,6 @@ tools:context="edu.uco.houselannister.saveasingle.fragments.UserProfile_Fragment
                     android:layout_below="@+id/lblHeight"
                     android:layout_alignStart="@+id/lblHeight" />
 
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Edit Profile"
-                    android:id="@+id/UserProfileEdit_Button"
-                    android:layout_alignParentBottom="true"
-                    android:textStyle="bold"
-                    android:textSize="15dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerHorizontal="true" />
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -253,5 +242,16 @@ tools:context="edu.uco.houselannister.saveasingle.fragments.UserProfile_Fragment
             </RelativeLayout>
         </HorizontalScrollView>
     </ScrollView>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit Profile"
+        android:id="@+id/UserProfileEdit_Button"
+        android:textStyle="bold"
+        android:textSize="15dp"
+        android:layout_alignTop="@+id/scrollView7"
+        android:layout_alignEnd="@+id/scrollView7"
+        android:layout_marginTop="256dp" />
 
 </RelativeLayout>
