@@ -56,14 +56,19 @@ public class DisplayPrivateAlbumFragment extends Fragment {
         title.setText(accessedUser.getName() + "'s Private photos");
 
         if (accessedUser.getInteractions().getPrivatePhotoAccess() == null) {
-            title.setText(accessedUser.getName() + " doesn't have any private photos");
+            title.setText(accessedUser.getName() + " didn't share private photos with you");
         } else if (accessedUser.getInteractions().getPrivatePhotoAccess().contains(appModel.getCurrentUser())) {
-            for (String s : accessedUser.getInteractions().getMyPrivatePhotos()) {
-                imageArrayList.add(StringToBitMap(s));
+            if (accessedUser.getInteractions().getMyPrivatePhotos() != null) {
+                for (String s : accessedUser.getInteractions().getMyPrivatePhotos()) {
+                    imageArrayList.add(StringToBitMap(s));
+                }
+            } else {
+                title.setText(accessedUser.getName() + " doesn't have any private photos");
             }
         } else {
-            title.setText(accessedUser.getName() + " doesn't share private photo with you");
+            title.setText(accessedUser.getName() + " didn't share private photos with you");
         }
+
 
         objImageAdapter = new ImageGridAdapter(getActivity(), imageArrayList);
         gridView.setAdapter(objImageAdapter);
