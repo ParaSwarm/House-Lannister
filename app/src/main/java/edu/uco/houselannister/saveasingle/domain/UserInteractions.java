@@ -17,7 +17,7 @@ public class UserInteractions implements Serializable {
 
     private ArrayList<Recommendation> recommendees;
 
-    private ArrayList<User> myPrivatePhotos;
+    private ArrayList<String> myPrivatePhotos;
 
     private ArrayList<User> privatePhotoAccess;
 
@@ -26,6 +26,8 @@ public class UserInteractions implements Serializable {
     private ArrayList<Message> outBox;
 
     private ArrayList<User> favorites;
+
+    private ArrayList<User> profileUpdated;
 
     private ArrayList<User> blocked;
 
@@ -77,11 +79,11 @@ public class UserInteractions implements Serializable {
         this.recommendees = recommendees;
     }
 
-    public ArrayList<User> getMyPrivatePhotos() {
+    public ArrayList<String> getMyPrivatePhotos() {
         return myPrivatePhotos;
     }
 
-    public void setMyPrivatePhotos(ArrayList<User> myPrivatePhotos) {
+    public void setMyPrivatePhotos(ArrayList<String> myPrivatePhotos) {
         this.myPrivatePhotos = myPrivatePhotos;
     }
 
@@ -207,4 +209,5 @@ public class UserInteractions implements Serializable {
     public void setReceivedGifts(ArrayList<Gift> receivedGifts) {
         this.receivedGifts = receivedGifts;
     }
+
 }

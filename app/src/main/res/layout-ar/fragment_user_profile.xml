@@ -1,0 +1,239 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+android:paddingRight="@dimen/activity_horizontal_margin"
+android:paddingTop="@dimen/activity_vertical_margin"
+android:paddingBottom="@dimen/activity_vertical_margin"
+tools:context="edu.uco.houselannister.saveasingle.fragments.UserProfile_Fragment">
+
+
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:id="@+id/imgPhoto"
+        android:src="@drawable/userprofile_image"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/Story_UserProfile_TextView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Full Name"
+        android:id="@+id/lblFullName"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/imgPhoto"
+        android:layout_marginLeft="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Display Name"
+        android:id="@+id/lblDisplayName"
+        android:layout_below="@+id/lblFullName"
+        android:layout_alignStart="@+id/lblFullName"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Age"
+        android:id="@+id/lblAge"
+        android:layout_below="@+id/lblDisplayName"
+        android:layout_alignStart="@+id/lblDisplayName"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Gender"
+        android:id="@+id/lblGender"
+        android:layout_below="@+id/lblAge"
+        android:layout_alignStart="@+id/lblAge"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Location"
+        android:id="@+id/lblLocation"
+        android:layout_below="@+id/PerfectMatch_UserProfile_TextView"
+        android:layout_alignStart="@+id/imgPhoto"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/DisplayName_UserProfile_TextView"
+        android:layout_alignTop="@+id/lblAge"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/Gender_UserProfile_TextView"
+        android:layout_above="@+id/lblLocation"
+        android:layout_toEndOf="@+id/lblAge" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/Age_UserProfile_TextView"
+        android:layout_below="@+id/Gender_UserProfile_TextView"
+        android:layout_toEndOf="@+id/lblDisplayName" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Education"
+        android:id="@+id/lblEducation"
+        android:layout_below="@+id/lblLocation"
+        android:layout_alignParentStart="true"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/Story_UserProfile_TextView"
+        android:layout_below="@+id/lblEducation"
+        android:layout_alignStart="@+id/lblEducation" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Height"
+        android:id="@+id/lblHeight"
+        android:layout_below="@+id/lblGender"
+        android:layout_alignStart="@+id/lblGender"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/PerfectMatch_UserProfile_TextView"
+        android:layout_below="@+id/lblHeight"
+        android:layout_alignStart="@+id/lblHeight" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit Profile"
+        android:id="@+id/UserProfileEdit_Button"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"
+        android:textSize="15dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Religion"
+        android:id="@+id/lblReligion"
+        android:layout_below="@+id/lblEducation"
+        android:layout_alignParentStart="true"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Ethnicity"
+        android:id="@+id/lblethnicity"
+        android:layout_below="@+id/Story_UserProfile_TextView"
+        android:layout_alignParentStart="true"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Smoking"
+        android:id="@+id/lblSmoking"
+        android:layout_below="@+id/lblethnicity"
+        android:layout_alignStart="@+id/lblLocation"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Body Type"
+        android:id="@+id/lblBodyType"
+        android:layout_below="@+id/lblSmoking"
+        android:layout_alignStart="@+id/lblSmoking"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Work"
+        android:id="@+id/lblWork"
+        android:layout_below="@+id/lblBodyType"
+        android:layout_alignStart="@+id/lblBodyType"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Income"
+        android:id="@+id/lblIncome"
+        android:layout_below="@+id/lblWork"
+        android:layout_alignStart="@+id/lblWork"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Married Status"
+        android:id="@+id/lblMarriedStatus"
+        android:layout_below="@+id/lblIncome"
+        android:layout_alignStart="@+id/lblIncome"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Children"
+        android:id="@+id/lblChildren"
+        android:layout_below="@+id/lblMarriedStatus"
+        android:layout_alignParentStart="true"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Story"
+        android:id="@+id/lblStory"
+        android:layout_below="@+id/lblChildren"
+        android:layout_alignParentStart="true"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Perfect Match"
+        android:id="@+id/lblPerfectMatch"
+        android:layout_below="@+id/lblStory"
+        android:layout_alignParentStart="true"
+        android:textStyle="bold" />
+
+</RelativeLayout>

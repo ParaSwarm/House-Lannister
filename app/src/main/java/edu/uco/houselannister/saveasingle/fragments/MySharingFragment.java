@@ -75,7 +75,7 @@ public class MySharingFragment extends ListFragment implements AdapterView.OnIte
 
                 new AlertDialog.Builder(getActivity())
                         .setTitle(appModel.getCurrentUser().getInteractions().getPrivatePhotoAccess().get(position).getName())
-                        .setMessage(getResources().getString(R.string.stop_sharing))
+                        .setMessage(getResources().getString(R.string.ask_stop_sharing))
                         .setNegativeButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 AccessPrivatePhotoList.remove(pos);
