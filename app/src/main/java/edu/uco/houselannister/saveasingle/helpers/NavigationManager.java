@@ -7,6 +7,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 
+import edu.uco.houselannister.saveasingle.domain.Message;
 import edu.uco.houselannister.saveasingle.domain.User;
 
 /**
@@ -19,7 +20,7 @@ public interface NavigationManager {
     void showFragmentList();
     void showFragmentInbox();
     void showFragmentSentMessages();
-    void showFragmentViewMessage(Bundle data);
+    void showFragmentViewMessage(Message message);
     void showFragmentComposeMessage(Bundle data);
     void showFragmentWhoLikesMe();
     void showFragmentMySharing();

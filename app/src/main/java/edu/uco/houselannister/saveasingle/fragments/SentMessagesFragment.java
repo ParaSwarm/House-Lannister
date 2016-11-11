@@ -77,11 +77,8 @@ public class SentMessagesFragment extends ListFragment implements OnItemClickLis
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Message selectedMessage = this.messages.get(position);
 
-        Bundle data = new Bundle();
-        data.putSerializable("Message", selectedMessage);
-
         FragmentNavigationManager navManager = FragmentNavigationManager.obtain((MainActivity) getActivity());
-        navManager.showFragmentViewMessage(data);
+        navManager.showFragmentViewMessage(selectedMessage);
     }
 
     public void goToInbox(){

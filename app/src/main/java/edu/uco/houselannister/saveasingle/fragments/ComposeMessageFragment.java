@@ -11,8 +11,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.uco.houselannister.saveasingle.R;
@@ -66,7 +64,10 @@ public class ComposeMessageFragment extends Fragment {
         messageBeingRepliedTo = (Message) data.getSerializable("Message");
 
         toText.setText(toUser.getName());
-        subjectText.setText(messageBeingRepliedTo.getSubject());
+
+        if(messageBeingRepliedTo != null) {
+            subjectText.setText(messageBeingRepliedTo.getSubject());
+        }
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,8 +129,7 @@ public class ComposeMessageFragment extends Fragment {
                                     message.setReplyToMessage(messageBeingRepliedTo);
                                 }
 
-                                appModel.getCurrentUser().getInteractions().getOutBox().add(message);
-                                appModel.getUser(toUser.getName()).getInteractions().getInBox().add(message);
+                                message.send(getContext(), ((MainActivity)getActivity()).getNotificationManager());
 
                                 Toast.makeText(getActivity(), String.format("Message sent to %s.", toUser.getName()), Toast.LENGTH_SHORT).show();
                                 getFragmentManager().popBackStack();

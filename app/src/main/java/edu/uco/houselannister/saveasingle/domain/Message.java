@@ -1,6 +1,17 @@
 package edu.uco.houselannister.saveasingle.domain;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
+
 import java.io.Serializable;
+
+import edu.uco.houselannister.saveasingle.R;
+import edu.uco.houselannister.saveasingle.activities.MainActivity;
 
 public class Message implements Serializable {
 
@@ -82,6 +93,35 @@ public class Message implements Serializable {
 
     public void setReplyToMessage(Message replyToMessage) {
         this.replyToMessage = replyToMessage;
+    }
+
+    public void send(Context context, NotificationManager notificationManager) {
+
+        this.getFrom().getInteractions().getOutBox().add(this);
+        this.getTo().getInteractions().getInBox().add(this);
+
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(context)
+                        .setContentTitle("New Message Received")
+                        .setContentText(this.getSubject())
+                        .setSmallIcon(R.drawable.stylebutton);
+
+        Intent resultIntent = new Intent(context, MainActivity.class);
+
+        resultIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        resultIntent.putExtra("Message", this);
+
+        PendingIntent resultPendingIntent =
+                PendingIntent.getActivity(
+                        context,
+                        0,
+                        resultIntent,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                );
+
+        mBuilder.setContentIntent(resultPendingIntent);
+
+        notificationManager.notify(1, mBuilder.build());
     }
 
     public String toString() {
