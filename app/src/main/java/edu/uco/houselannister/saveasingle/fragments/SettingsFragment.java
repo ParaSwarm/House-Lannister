@@ -3,6 +3,7 @@ package edu.uco.houselannister.saveasingle.fragments;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.DialogPreference;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -15,8 +16,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
+import butterknife.ButterKnife;
 import edu.uco.houselannister.saveasingle.R;
 import edu.uco.houselannister.saveasingle.activities.LoginActivity;
+import edu.uco.houselannister.saveasingle.activities.MainActivity;
 import edu.uco.houselannister.saveasingle.domain.Model;
 import edu.uco.houselannister.saveasingle.domain.User;
 import edu.uco.houselannister.saveasingle.model.AppModel;
@@ -28,8 +33,9 @@ import edu.uco.houselannister.saveasingle.service.AppService;
 public class SettingsFragment extends Fragment {
 
     private Model appModel;
-    View v;
-    Button btnDelete;
+    //View v;
+    Button btnDelete, btnReveal;
+    TextView userName, email, password;
 
     private static final String KEY_MOVIE_TITLE = "key_title";
 
@@ -61,38 +67,76 @@ public class SettingsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        View view =  inflater.inflate(R.layout.fragment_settings, container, false);
+        ButterKnife.bind(this, view);
         appModel = AppModel.getAppModelInstance(AppService.getAppServiceInstance());
-        v =  inflater.inflate(R.layout.fragment_settings, container, false);
-        btnDelete = (Button) v.findViewById(R.id.btn_delete);
+        User cu = AppModel.getAppModelInstance(AppService.getAppServiceInstance()).getCurrentUser();
+        User ce = AppModel.getAppModelInstance(AppService.getAppServiceInstance()).getAuthenticatedUser();
+        //User cp = AppModel.getAppModelInstance(AppService.getAppServiceInstance()).getCurrentUser();
+
+        //userName = (TextView) view.findViewById(R.id.userNameText);
+        ((TextView) view.findViewById(R.id.userNameText)).setText(cu.getName());
+        ((TextView) view.findViewById(R.id.emailText)).setText(ce.getEmailAddress());
+        //password = (TextView) view.findViewById(R.id.passwordText);
+
+        //userName.setText("Hello");
+        //email.setText(cu.getEmailAddress());
+        //password.setText("Password");
+        /*btnReveal = (Button) v.findViewById(R.id.btnRevealation);
+        btnReveal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TextView tv = (TextView) v.findViewById(R.id.emailText);
+                //tv.setText("Clicked");
+                ((TextView) v.findViewById(R.id.emailText)).setText("Done");
+            }
+        });*/
+        btnDelete = (Button) view.findViewById(R.id.btn_delete);
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                User u = (appModel.getCurrentUser());
-                appModel.deleteUser(u);
-                //DialogFragment dialog = new DialogFragment();
-                //dialog.show(getFragmentManager(), "Deleted");
-                /*AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
-                .setTitle("Deleted?")
-                .setPositiveButton("OK",
+                //User u = appModel.getCurrentUser();
+                //User cu = AppModel.getAppModelInstance(AppService.getAppServiceInstance()).getCurrentUser();
+                /*AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+                alertDialog.setMessage("Do you Want to delete !!!")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        User u = appModel.getCurrentUser();
+                                        appModel.deleteUser(u);
+                                        //dialog.dismiss();
+                                    }
+                                })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alert = alertDialog.create();
+                alert.setTitle("Delete Account!!!");
+                alert.show();
+                AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+                alertDialog.setTitle("Deleted!!!!");
+                alertDialog.setMessage("Are You Sure?");
+                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                User u = (appModel.getCurrentUser());
+                                User u = appModel.getCurrentUser();
                                 appModel.deleteUser(u);
+                                //dialog.dismiss();
                             }
-                }
-                )
-                        .setNegativeButton("Cancel",
-                                new DialogInterface.OnClickListener(){
-                                    public void onClick(DialogInterface dialog, int which){
-                                        dialog.dismiss();
-                                    }
-                                });*/
-                //appModel.deleteUser(u);
-                Toast.makeText(getActivity(),"Deleted", Toast.LENGTH_SHORT).show();
+                        });
+                alertDialog.show();*/
+                User u = appModel.getCurrentUser();
+                appModel.deleteUser(u);
+                Toast.makeText(getActivity(),R.string.Deleted, Toast.LENGTH_SHORT).show();
+                Intent i  = new Intent (getActivity(), LoginActivity.class);
+                startActivity(i);
             }
         });
-
-        return v;
+        return view;
     }
 
     @Override
