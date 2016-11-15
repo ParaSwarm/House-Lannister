@@ -55,14 +55,7 @@
          android:layout_alignParentStart="true" /> -->
 
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/scrollView4" >
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
             <EditText
                 android:layout_width="wrap_content"
@@ -122,8 +115,6 @@
                 android:id="@+id/textViewEmail"
                 android:layout_below="@+id/button_Register"
                 android:layout_alignEnd="@+id/editText_ConfirmPassword" />
-        </RelativeLayout>
-    </ScrollView>
 
 
 </RelativeLayout>
