@@ -4,6 +4,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +22,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 
 import edu.uco.houselannister.saveasingle.R;
+import edu.uco.houselannister.saveasingle.activities.MainActivity;
 import edu.uco.houselannister.saveasingle.domain.User;
+import edu.uco.houselannister.saveasingle.helpers.FragmentNavigationManager;
 
 public class MapsActivity extends Fragment implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
@@ -71,6 +74,7 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, Google
         mMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.getUiSettings().setZoomGesturesEnabled(true);
         mMap.getUiSettings().setCompassEnabled(true);
+        mMap.setOnMarkerClickListener(this);
         Location userLocation = getArguments().getParcelable("Location");
         matchingUsers = getArguments().getParcelableArrayList("matches");
         LatLng userLatLang = new LatLng(userLocation.getLatitude(), userLocation.getLongitude());
@@ -87,9 +91,12 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, Google
         for(int i = 0; i < matchingUsers.size(); i++) {
             if(marker.getTitle().compareTo(matchingUsers.get(i).getName()) == 0) {
                 //clicked on someone that matches, load their profile
-
+                FragmentNavigationManager manager = FragmentNavigationManager.getsInstance();
+                manager.showFragmentUserProfile(matchingUsers.get(i));
             }
         }
         return false;
     }
+
+
 }

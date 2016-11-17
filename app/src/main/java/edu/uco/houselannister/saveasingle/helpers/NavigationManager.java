@@ -32,4 +32,5 @@ public interface NavigationManager {
    // void showFragmentPrivateAlbum();
     void showFragmentDisplayPrivateAlbum(User user);
     void showFragmentQuestions();
+    void showFragmentUserProfile(User user);
 }

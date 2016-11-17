@@ -194,6 +194,7 @@ public class SearchCriteriaFragment extends Fragment implements GoogleApiClient.
                 Location location1 = new Location(mLastLocation);
                 location1.setLatitude(65.96297876);
                 location1.setLongitude(-18.50715637);
+                userList.get(3).setLocation(location2);
                 userList.get(0).getUserDemographics().setMyGender(Gender.MALE);
                 userList.get(1).getUserDemographics().setMyGender(Gender.FEMALE);
                 userList.get(2).setLocation(location1);
