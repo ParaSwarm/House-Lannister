@@ -64,6 +64,9 @@
     <string name="registration_password_hint">Password</string>
     <string name="registration_confirm_hint">Confirm Password</string>
     <string name="registration_button">Register</string>
+    <string name="settings_yes">Yes</string>
+    <string name="settings_no">No</string>
+    <string name="settings_wantToDelete">Do you Want to delete your account?</string>
     <string name="favorites">My Favorites</string>
     <string name="compose_cancel_button">Cancel</string>
     <string name="compose_send_button">Send</string>
