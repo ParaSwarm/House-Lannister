@@ -151,7 +151,7 @@ public class StaticUserModel {
     private static User CreateUser(String username, Boolean isAdmin, String userPassword, String userEmail, int age, int gender,
                                    Double height, int education, String religion,
                                    String Ethnicity, int Smoking, int BodyType, String Work, int Income,
-                                   int MarriedStatus, int numofChildren, String Story, String PerfectMatch,String fullname, Boolean enabled) {
+                                   int MarriedStatus, int numofChildren, String Story, String PerfectMatch,String fullname , Boolean enabled) {
 
         User user = new User();
 

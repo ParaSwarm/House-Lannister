@@ -2,7 +2,6 @@ package edu.uco.houselannister.saveasingle.fragments;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
@@ -304,7 +303,14 @@ public class Fragment_gallery extends Fragment {
                                 fug.remove(fth);
                                 fm.saveUser(fm.getCurrentUser());
                                 return true;
+                            case R.id.ProfilePic:
+                                fug.get(0);
+                                fm.getCurrentUser().setProfilePhoto(fth);
+                                Toast.makeText(getActivity(),"Your profile Pic has been set.",Toast.LENGTH_LONG).show();
+                                return true;
                         }
+
+
                         return false;
                     }
                 });
@@ -335,29 +341,7 @@ public class Fragment_gallery extends Fragment {
         }
     }
 
-    String LoginUserID;
-    static final String LoginID = "id";
-    static final String password = "password";
-    static final String TABLE_login = "Logins";
 
-    static final String LoginID_ForImages = "id";
-    static final String nameOFImages = "nameOFImages";
-    static final String TABLE_ListofImages = "ListofImages";
-
-    public void insertIntoDatabase(String id, String PassOR_Nameofimage, boolean flag) {
-        SQLiteDatabase theDB = DatabaseHelper.getInstance(this.getContext()).getWritableDatabase();
-        ContentValues cv = new ContentValues();
-//if flag is true the insert in logins lables
-        if (flag) {
-            cv.put(LoginID, id);
-            cv.put(password, PassOR_Nameofimage);
-            theDB.insert(TABLE_login, LoginID, cv);
-        } else {
-            cv.put(LoginID_ForImages, id);
-            cv.put(nameOFImages, PassOR_Nameofimage);
-            theDB.insert(TABLE_ListofImages, LoginID, cv);
-        }
-    }
     public void goToPrivateAlbum(){
         FragmentNavigationManager navManager = FragmentNavigationManager.obtain((MainActivity) getActivity());
         navManager.showFragmentPrivateAlbum();

@@ -180,6 +180,7 @@
 
     <string name="Upload_Image_Gallery"> Upload from Gallery</string>
     <string name="Delete_Image">Delete Image</string>
+    <string name="MakeProfilePic">Make this your Profile Pic</string>
     <string name="Choosefrom_gallery">Choose Image from Gallery</string>
     <string name="Take_photo">Take a Photo</string>
     

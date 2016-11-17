@@ -4,4 +4,8 @@
         android:id="@+id/item_remove"
         android:title="@string/Delete_Image"
         android:visible="true"/>
+    <item
+        android:id="@+id/ProfilePic"
+        android:title="@string/MakeProfilePic"
+        android:visible="true"/>
 </menu>

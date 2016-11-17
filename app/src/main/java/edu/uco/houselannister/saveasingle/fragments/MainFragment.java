@@ -6,11 +6,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.uco.houselannister.saveasingle.R;
+import edu.uco.houselannister.saveasingle.domain.Model;
 import edu.uco.houselannister.saveasingle.domain.User;
 import edu.uco.houselannister.saveasingle.model.AppModel;
 import edu.uco.houselannister.saveasingle.service.AppService;
@@ -22,6 +24,8 @@ public class MainFragment extends Fragment {
 
     @BindView(R.id.starting_fragment_text)
     TextView mStartingFragmentText;
+
+     Model appModel = AppModel.getAppModelInstance(AppService.getAppServiceInstance());;
 
     public static MainFragment newInstance() {
         MainFragment fragment = new MainFragment();
@@ -44,9 +48,15 @@ public class MainFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         ButterKnife.bind(this, view);
+
+        ImageView homeimgPhoto = (ImageView)view.findViewById(R.id.homeImageView);
+
+        if (appModel.getCurrentUser().getProfilePhoto().getPhoto() != null) {
+            homeimgPhoto.setImageBitmap(appModel.getCurrentUser().getProfilePhoto().getPhoto());
+        }
         User cu = AppModel.getAppModelInstance(AppService.getAppServiceInstance()).getCurrentUser();
         User lu = AppModel.getAppModelInstance(AppService.getAppServiceInstance()).getAuthenticatedUser();
-        mStartingFragmentText.append(String.format("\nCurrent Impersonated User: %1$s",cu.getName()));
+        mStartingFragmentText.append(String.format("\nWelcome back %1$s", cu.getName()));
         mStartingFragmentText.append(String.format("\nCurrent Authenticated User: %1$s",lu.getName()));
         return view;
     }
