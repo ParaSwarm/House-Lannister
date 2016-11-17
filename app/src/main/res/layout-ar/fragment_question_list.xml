@@ -5,6 +5,7 @@
     tools:listheader="@layout/fragment_question_list_group"
     tools:listitem="@layout/fragment_question"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/MainTheme"
     xmlns:tools="http://schemas.android.com/tools">
 
     </ExpandableListView>
