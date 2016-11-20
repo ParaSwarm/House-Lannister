@@ -98,6 +98,7 @@ public class PrivateAlbumFragment extends Fragment {
                                 imageStringList.remove(i);
                                 imageList.remove(i);
                                 objImageAdapter.notifyDataSetChanged();
+                                appModel.getCurrentUser().getInteractions().setMyPrivatePhotos(imageStringList);
                                 appModel.saveUser(appModel.getCurrentUser());
                             }
                         })
