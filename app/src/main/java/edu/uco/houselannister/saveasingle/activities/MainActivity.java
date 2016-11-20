@@ -32,6 +32,7 @@ import edu.uco.houselannister.saveasingle.domain.Question;
 import edu.uco.houselannister.saveasingle.domain.User;
 import edu.uco.houselannister.saveasingle.fragments.AdminUsersFragment;
 import edu.uco.houselannister.saveasingle.fragments.QuestionFragment;
+import edu.uco.houselannister.saveasingle.fragments.UserQuestionFragment;
 import edu.uco.houselannister.saveasingle.helpers.CustomExpandableListAdapter;
 import edu.uco.houselannister.saveasingle.helpers.ExpandableListDataSource;
 import edu.uco.houselannister.saveasingle.helpers.FragmentNavigationManager;
@@ -43,6 +44,7 @@ import edu.uco.houselannister.saveasingle.service.AppService;
 public class MainActivity extends AppCompatActivity
         implements AdminUsersFragment.OnUserAdminListFragmentInteractionListener
     , QuestionFragment.OnListFragmentInteractionListener
+    , UserQuestionFragment.OnUserQuestionListFragmentInteractionListener
 {
 
     @BindArray(R.array.user_profile_titles)
@@ -153,6 +155,8 @@ public class MainActivity extends AppCompatActivity
                     mNavigationManager.showFragmentInbox();
                 } else if (homeNavigationTitles[2].compareTo(selectedItem) == 0) {
                     mNavigationManager.showFragmentSentMessages();
+                } else if (homeNavigationTitles[3].compareTo(selectedItem) == 0) {
+                    mNavigationManager.showFragmentUserQuestions();
                 } else if (settingsNavigationTitles[0].compareTo(selectedItem) == 0) {
                     mNavigationManager.showFragmentUserProfile();
                 } else if (settingsNavigationTitles[1].compareTo(selectedItem) == 0) {
@@ -252,5 +256,10 @@ public class MainActivity extends AppCompatActivity
     }
     public NotificationManager getNotificationManager() {
         return (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+    }
+
+    @Override
+    public void onUserQuestionListFragmentInteraction(Question item) {
+
     }
 }

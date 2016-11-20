@@ -10,6 +10,7 @@
         <item>Casa</item>
         <item>Bandeja de entrada</item>
         <item>Expedido</item>
+        <item>Cuestionario</item>
     </string-array>
     <string-array name="people_titles">
         <item>Mis favoritos</item>

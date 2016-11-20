@@ -7,6 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    style="@style/MainTheme"
     tools:context="edu.uco.houselannister.saveasingle.activities.RegistrationActivity">
 
 
@@ -55,74 +56,69 @@
          android:layout_alignParentStart="true" /> -->
 
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/scrollView4" >
-
-        <RelativeLayout
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:hint="@string/registration_name_hint"
-                android:ems="10"
-                android:id="@+id/editText_FirstName"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentStart="true" />
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:hint="@string/registration_name_hint"
+                    android:ems="10"
+                    android:id="@+id/editText_FirstName"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true" />
 
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:ems="10"
-                android:hint="@string/registration_email_hint"
-                android:id="@+id/editText_Email"
-                android:layout_below="@+id/editText_FirstName"
-                android:layout_alignParentStart="true" />
+                <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="textEmailAddress"
+                        android:ems="10"
+                        android:hint="@string/registration_email_hint"
+                        android:id="@+id/editText_Email"
+                        android:layout_below="@+id/editText_FirstName"
+                        android:layout_alignParentStart="true" />
 
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:ems="10"
-                android:hint="@string/registration_password_hint"
-                android:id="@+id/editText_Password"
-                android:layout_below="@+id/editText_Email"
-                android:layout_alignParentStart="true" />
+                <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:ems="10"
+                        android:hint="@string/registration_password_hint"
+                        android:id="@+id/editText_Password"
+                        android:layout_below="@+id/editText_Email"
+                        android:layout_alignParentStart="true" />
 
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:ems="10"
-                android:hint="@string/registration_confirm_hint"
-                android:id="@+id/editText_ConfirmPassword"
-                android:layout_below="@+id/editText_Password"
-                android:layout_alignParentStart="true" />
+                <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:ems="10"
+                        android:hint="@string/registration_confirm_hint"
+                        android:id="@+id/editText_ConfirmPassword"
+                        android:layout_below="@+id/editText_Password"
+                        android:layout_alignParentStart="true" />
 
-            <Button
-                android:layout_width="200dp"
-                android:layout_height="50dp"
-                style="?android:textAppearanceSmall"
-                android:text="@string/registration_button"
-                android:id="@+id/button_Register"
-                android:layout_below="@+id/editText_ConfirmPassword"
-                android:textStyle="bold"
-                android:layout_alignEnd="@+id/editText_Password" />
+                <Button
+                        android:layout_width="200dp"
+                        android:layout_height="50dp"
+                        style="?android:textAppearanceSmall"
+                        android:text="@string/registration_button"
+                        android:id="@+id/button_Register"
+                        android:layout_below="@+id/editText_ConfirmPassword"
+                        android:textStyle="bold"
+                        android:layout_alignEnd="@+id/editText_Password" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=" "
-                android:id="@+id/textViewEmail"
-                android:layout_below="@+id/button_Register"
-                android:layout_alignEnd="@+id/editText_ConfirmPassword" />
-        </RelativeLayout>
-    </ScrollView>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" "
+                        android:id="@+id/textViewEmail"
+                        android:layout_below="@+id/button_Register"
+                        android:layout_alignEnd="@+id/editText_ConfirmPassword" />
+        </LinearLayout>
 
 
 </RelativeLayout>
