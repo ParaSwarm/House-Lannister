@@ -75,6 +75,7 @@ public class SettingsFragment extends Fragment {
 
         ((TextView) view.findViewById(R.id.userNameText)).setText(cu.getName());
         ((TextView) view.findViewById(R.id.emailText)).setText(ce.getEmailAddress());
+
         btnDelete = (Button) view.findViewById(R.id.btn_delete);
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,7 +93,7 @@ public class SettingsFragment extends Fragment {
                                         startActivity(i);
                                     }
                                 })
-                        .setNegativeButton(R.string.settings_no, new DialogInterface.OnClickListener() {
+                        .setNegativeButton(R.string.settings_No, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.cancel();

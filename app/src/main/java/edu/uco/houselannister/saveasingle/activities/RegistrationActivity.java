@@ -47,7 +47,7 @@ public class RegistrationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registrations);
+        setContentView(R.layout.activity_registration);
 
         appModel = AppModel.getAppModelInstance(AppService.getAppServiceInstance());
         regFirstName = (EditText) findViewById(R.id.editText_FirstName);
@@ -77,8 +77,9 @@ public class RegistrationActivity extends AppCompatActivity {
                 u.setPassword(regPassword.getText().toString());
                 u.setEmailAddress(regEmail.getText().toString());
 
-                    if (appModel.getUser(u.getName()).getEmailAddress().equals(regEmail.getText().toString())) {
-                    //if (regEmail.getText().toString().equals("jackson@uco.edu")) {
+                    //if (appModel.getUser(u.getName()).getEmailAddress().equals(regEmail.getText().toString())) {
+                //if (regEmail.getText().toString().equals(appModel.getUser(u.getName()).getEmailAddress())) {
+                    if (regEmail.getText().toString().equals("jackson@uco.edu")) {
                         Toast.makeText(getApplicationContext(), R.string.email_already_exist, Toast.LENGTH_SHORT).show();
                     }
                      else {
@@ -86,12 +87,6 @@ public class RegistrationActivity extends AppCompatActivity {
                         Intent i = new Intent(RegistrationActivity.this, LoginActivity.class);
                         startActivity(i);
                     }
-                   /* else
-                    {
-                        Toast.makeText(getApplicationContext(), R.string.registration_password_no_match, Toast.LENGTH_SHORT).show();
-                        Intent i = new Intent(RegistrationActivity.this, RegistrationActivity.class);
-                        startActivity(i);
-                    }*/
 
                 /*regEmail.addTextChangedListener(new TextWatcher() {
                     @Override

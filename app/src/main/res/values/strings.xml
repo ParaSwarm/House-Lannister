@@ -163,6 +163,9 @@
     <string name="Valid_Email">Valid Email</string>
     <string name="Deleted">Deleted</string>
     <string name="Edit">Edit</string>
+    <string name="settings_Yes">Yes</string>
+    <string name="settings_No">No</string>
+    <string name="settings_YouWantToDelete">Do You Want To Delete?</string>
     <string name="view_message_delete">Delete Message?</string>
     <string name="view_message_deleted">Message deleted.</string>
     <string name="view_message_block_user">Block User?</string>
