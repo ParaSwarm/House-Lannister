@@ -175,6 +175,8 @@
     <string name="stop_sharing_my_fav">Stop sharing my private album</string>
     <string name="go_to_private_album">Go to Private Album</string>
     <string name="see_private_album">See Private Album</string>
+    <string name="warning">Warning!!!</string>
+    <string name="do_you_want_delete_the_picture">Do you want to delete the picture?</string>
     <string-array name="photo_button">
         <item>Take Photo</item>
         <item>Choose from Gallery</item>

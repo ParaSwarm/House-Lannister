@@ -1,5 +1,6 @@
 package edu.uco.houselannister.saveasingle.fragments;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,11 +10,13 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -59,15 +62,13 @@ public class PrivateAlbumFragment extends Fragment {
         super.onCreate(savedInstanceState);
         appModel = AppModel.getAppModelInstance(AppService.getAppServiceInstance());
         if (appModel.getCurrentUser().getInteractions().getMyPrivatePhotos() != null) {
-            Toast.makeText(getActivity(), "NOT NULL",
-                    Toast.LENGTH_LONG).show();
+          //  Toast.makeText(getActivity(), "NOT NULL",                    Toast.LENGTH_LONG).show();
             imageStringList = appModel.getCurrentUser().getInteractions().getMyPrivatePhotos();
             for (String s : appModel.getCurrentUser().getInteractions().getMyPrivatePhotos()) {
                 imageList.add(StringToBitMap(s));
             }
-         } else {
-            Toast.makeText(getActivity(), "NULL",
-                    Toast.LENGTH_LONG).show();
+        } else {
+       //     Toast.makeText(getActivity(), "NULL",                    Toast.LENGTH_LONG).show();
         }
     }
 
@@ -86,6 +87,28 @@ public class PrivateAlbumFragment extends Fragment {
 
         objImageAdapter = new ImageGridAdapter(getActivity(), imageList);
         gridView.setAdapter(objImageAdapter);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
+                 new AlertDialog.Builder(getActivity())
+                        .setTitle(getResources().getString(R.string.warning))
+                        .setMessage(getResources().getString(R.string.do_you_want_delete_the_picture))
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                imageStringList.remove(i);
+                                imageList.remove(i);
+                                objImageAdapter.notifyDataSetChanged();
+                                appModel.saveUser(appModel.getCurrentUser());
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do nothing
+                            }
+                        })
+                        .show();
+            }
+        });
 
         rotatePicture.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -103,7 +126,6 @@ public class PrivateAlbumFragment extends Fragment {
                 gridView.setVisibility(View.VISIBLE);
 
 
-
                 String stringPic = BitMapToString(rotatedBitmap);
                 imageStringList.add(stringPic);
                 appModel.getCurrentUser().getInteractions().setMyPrivatePhotos(imageStringList);
@@ -114,7 +136,30 @@ public class PrivateAlbumFragment extends Fragment {
                 imageList.add(rotatedBitmap);
                 objImageAdapter = new ImageGridAdapter(getActivity(), imageList);
                 gridView.setAdapter(objImageAdapter);
+                gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
+                        Toast.makeText(getActivity(), "Picture: " + i + " " + l, Toast.LENGTH_SHORT).show();
 
+                        new AlertDialog.Builder(getActivity())
+                                .setTitle(getResources().getString(R.string.warning))
+                                .setMessage(getResources().getString(R.string.do_you_want_delete_the_picture))
+                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        imageStringList.remove(i);
+                                        imageList.remove(i);
+                                        objImageAdapter.notifyDataSetChanged();
+                                        appModel.saveUser(appModel.getCurrentUser());
+                                    }
+                                })
+                                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // do nothing
+                                    }
+                                })
+                                .show();
+                    }
+                });
 
             }
         });
@@ -193,10 +238,9 @@ public class PrivateAlbumFragment extends Fragment {
         float height = bitmap.getHeight();
 
 // Calculate image's size by maintain the image's aspect ratio
-        if(height > viewHeight)
-        {
-            float percente = (float)(height / 100);
-            float scale = (float)(viewHeight / percente);
+        if (height > viewHeight) {
+            float percente = (float) (height / 100);
+            float scale = (float) (viewHeight / percente);
             width *= (scale / 100);
             height *= (scale / 100);
         }
