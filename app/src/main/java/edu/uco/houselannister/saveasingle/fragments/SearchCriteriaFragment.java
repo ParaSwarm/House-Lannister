@@ -50,6 +50,7 @@ import edu.uco.houselannister.saveasingle.helpers.SearchCriteriaAnd;
 import edu.uco.houselannister.saveasingle.helpers.SearchCriteriaGenger;
 import edu.uco.houselannister.saveasingle.helpers.SearchCriteriaHasCats;
 import edu.uco.houselannister.saveasingle.helpers.SearchCriteriaHasDogs;
+import edu.uco.houselannister.saveasingle.helpers.SearchCriteriaHasPhotos;
 import edu.uco.houselannister.saveasingle.helpers.SearchCriteriaLanguage;
 import edu.uco.houselannister.saveasingle.helpers.SearchCriteriaRelationhip;
 import edu.uco.houselannister.saveasingle.helpers.SearchCriteriaReligion;
@@ -252,7 +253,7 @@ public class SearchCriteriaFragment extends Fragment implements GoogleApiClient.
                 //filter
                 //typically people want these to be exclusive and don't want to have outside their selection
                 SearchCriteria criteriaAge = new SearchCriteriaAge(Integer.valueOf(minAgeSpinner.getSelectedItem().toString()), Integer.valueOf(maxAgeSpinner.getSelectedItem().toString()));
-//                matchingUsers.addAll(criteriaAge.meetsSearchCriteria(userList));
+                matchingUsers.addAll(criteriaAge.meetsSearchCriteria(userList));
 
                 SearchCriteria religionCriteria = new SearchCriteriaReligion();
 //                matchingUsers.addAll(religionCriteria.meetsSearchCriteria(userList));
@@ -303,7 +304,8 @@ public class SearchCriteriaFragment extends Fragment implements GoogleApiClient.
 //                appModel.getCurrentUser().getUserPreferences().setSearchDistances(SearchDistances.valueOf(distanceSpinner.getSelectedItem().toString().toUpperCase()));
                 //criteria for distance
                 if (photosSwitch.isChecked()) {
-                    //add search criteria that has photos
+                    SearchCriteria photoCriteria = new SearchCriteriaHasPhotos();
+                    matchingUsers.addAll(photoCriteria.meetsSearchCriteria(userList));
                 }
                 String tokensEntered = multiAutoCompleteTextView.getText().toString();
                 //check tokens entered match with enum values, currently throw out others that aren't existent
