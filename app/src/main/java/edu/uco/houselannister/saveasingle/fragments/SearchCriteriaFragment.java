@@ -32,6 +32,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import edu.uco.houselannister.saveasingle.R;
+import edu.uco.houselannister.saveasingle.activities.MainActivity;
 import edu.uco.houselannister.saveasingle.domain.Ages;
 import edu.uco.houselannister.saveasingle.domain.EducationLevel;
 import edu.uco.houselannister.saveasingle.domain.Gender;
@@ -184,6 +185,10 @@ public class SearchCriteriaFragment extends Fragment implements GoogleApiClient.
                 ArrayList<User> userList = appModel.getUsers();
                 ArrayList<User> matchingUsers = new ArrayList<User>();
                 userList.get(0).setLocation(mLastLocation);
+                if(mLastLocation == null) {
+                    gpsOff();
+                    return;
+                }
                 Location location = new Location(mLastLocation);
                 location.setLatitude(65.9669);
                 location.setLongitude(-18.5333);
@@ -228,10 +233,23 @@ public class SearchCriteriaFragment extends Fragment implements GoogleApiClient.
                     case TWENTYFIVEMILES: distanceRange = 40233; break;
                     case FIFTYMILES: distanceRange = 80467; break;
                 }
-                for(int i = 0; i < userList.size(); i++) {
-                    float distanceToMatch = mLastLocation.distanceTo(userList.get(i).getLocation());
-                    if(distanceToMatch <= distanceRange){
-                        matchingUsers.add(userList.get(i));
+                if(mLastLocation != null) {
+                    for (int i = 0; i < userList.size(); i++) {
+                        float distanceToMatch = mLastLocation.distanceTo(userList.get(i).getLocation());
+                        if (distanceToMatch <= distanceRange) {
+                            matchingUsers.add(userList.get(i));
+                        }
+                    }
+                }
+                else {
+                    for (int i = 0; i < userList.size(); i++) {
+                        Location tempLocation = new Location(mLastLocation);
+                        tempLocation.setLatitude(65.9669);
+                        tempLocation.setLongitude(-18.5333);
+                        float distanceToMatch = tempLocation.distanceTo(userList.get(i).getLocation());
+                        if (distanceToMatch <= distanceRange) {
+                            matchingUsers.add(userList.get(i));
+                        }
                     }
                 }
 
@@ -408,5 +426,10 @@ public class SearchCriteriaFragment extends Fragment implements GoogleApiClient.
                 return;
             }
         }
+    }
+
+    public void gpsOff() {
+        String msg = MainActivity.getMainInstance().getResources().getString(R.string.gpsServices);
+        Toast.makeText(this.getContext(), msg, Toast.LENGTH_SHORT).show();
     }
 }

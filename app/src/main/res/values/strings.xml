@@ -217,6 +217,7 @@
     <string name="Gallery_private">Make Gallery Private</string>
     <string name="Profile_Private">Make Profile Private</string>
     <string name="one_mile">1 Mile</string>
+    <string name="gpsServices">Please turn on GPS services</string>
 
 </resources>
 
