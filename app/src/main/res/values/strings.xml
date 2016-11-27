@@ -64,6 +64,9 @@
     <string name="registration_password_hint">Password</string>
     <string name="registration_confirm_hint">Confirm Password</string>
     <string name="registration_button">Register</string>
+    <string name="settings_yes">Yes</string>
+    <string name="settings_no">No</string>
+    <string name="settings_wantToDelete">Do you Want to delete your account?</string>
     <string name="favorites">My Favorites</string>
     <string name="compose_cancel_button">Cancel</string>
     <string name="compose_send_button">Send</string>
@@ -160,6 +163,9 @@
     <string name="Valid_Email">Valid Email</string>
     <string name="Deleted">Deleted</string>
     <string name="Edit">Edit</string>
+    <string name="settings_Yes">Yes</string>
+    <string name="settings_No">No</string>
+    <string name="settings_YouWantToDelete">Do You Want To Delete?</string>
     <string name="view_message_delete">Delete Message?</string>
     <string name="view_message_deleted">Message deleted.</string>
     <string name="view_message_block_user">Block User?</string>
@@ -169,6 +175,8 @@
     <string name="stop_sharing_my_fav">Stop sharing my private album</string>
     <string name="go_to_private_album">Go to Private Album</string>
     <string name="see_private_album">See Private Album</string>
+    <string name="warning">Warning!!!</string>
+    <string name="do_you_want_delete_the_picture">Do you want to delete the picture?</string>
     <string-array name="photo_button">
         <item>Take Photo</item>
         <item>Choose from Gallery</item>

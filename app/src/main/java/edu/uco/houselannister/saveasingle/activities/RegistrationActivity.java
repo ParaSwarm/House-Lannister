@@ -34,12 +34,11 @@ import edu.uco.houselannister.saveasingle.service.AppService;
 
 public class RegistrationActivity extends AppCompatActivity {
 
-    final Calendar myCalendar = Calendar.getInstance();
 
     private Model appModel;
 
 
-    EditText regFirstName, regLastName, regEmail, regPassword, regConfirmPassword, regDateOfBirth;
+    EditText regFirstName, regEmail, regPassword, regConfirmPassword;
     Button btnRegister;
     TextView tv;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
@@ -52,7 +51,6 @@ public class RegistrationActivity extends AppCompatActivity {
 
         appModel = AppModel.getAppModelInstance(AppService.getAppServiceInstance());
         regFirstName = (EditText) findViewById(R.id.editText_FirstName);
-        //regLastName = (EditText) findViewById(R.id.editText_LastName);
         regEmail = (EditText) findViewById(R.id.editText_Email);
         regPassword = (EditText) findViewById(R.id.editText_Password);
         regConfirmPassword = (EditText) findViewById(R.id.editText_ConfirmPassword);
@@ -66,19 +64,27 @@ public class RegistrationActivity extends AppCompatActivity {
                     u.setName(regFirstName.getText().toString());
                     u.setPassword(regPassword.getText().toString());
                     u.setEmailAddress(regEmail.getText().toString());
-                    //if (appModel.getUser(u.getName()).getEmailAddress().equals(regEmail.getText().toString())) {
-                    if (regEmail.getText().toString().equals("jackson@uco.edu")) {
-                        Toast.makeText(getApplicationContext(), R.string.email_already_exist, Toast.LENGTH_SHORT).show();
-                    } else {
-                        appModel.saveUser(u);
-                        Intent i = new Intent(RegistrationActivity.this, LoginActivity.class);
-                        startActivity(i);
-                    }
                 }
                     else
                     {
                         Toast.makeText(getApplicationContext(), R.string.registration_password_no_match, Toast.LENGTH_SHORT).show();
-                        Intent i = new Intent(RegistrationActivity.this, RegistrationActivity.class);
+                        //Intent i = new Intent(RegistrationActivity.this, RegistrationActivity.class);
+                        //startActivity(i);
+                    }
+
+                User u = new User();
+                u.setName(regFirstName.getText().toString());
+                u.setPassword(regPassword.getText().toString());
+                u.setEmailAddress(regEmail.getText().toString());
+
+                    //if (appModel.getUser(u.getName()).getEmailAddress().equals(regEmail.getText().toString())) {
+                //if (regEmail.getText().toString().equals(appModel.getUser(u.getName()).getEmailAddress())) {
+                    if (regEmail.getText().toString().equals("jackson@uco.edu")) {
+                        Toast.makeText(getApplicationContext(), R.string.email_already_exist, Toast.LENGTH_SHORT).show();
+                    }
+                     else {
+                        appModel.saveUser(u);
+                        Intent i = new Intent(RegistrationActivity.this, LoginActivity.class);
                         startActivity(i);
                     }
 

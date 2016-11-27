@@ -17,6 +17,7 @@ import edu.uco.houselannister.saveasingle.domain.User;
 import edu.uco.houselannister.saveasingle.fragments.AdminUsersFragment;
 import edu.uco.houselannister.saveasingle.fragments.ComposeMessageFragment;
 import edu.uco.houselannister.saveasingle.fragments.DisplayPrivateAlbumFragment;
+import edu.uco.houselannister.saveasingle.fragments.Display_UserProfile;
 import edu.uco.houselannister.saveasingle.fragments.FavoriteListFragment;
 import edu.uco.houselannister.saveasingle.fragments.Fragment_gallery;
 import edu.uco.houselannister.saveasingle.fragments.InboxFragment;
@@ -84,6 +85,11 @@ public class FragmentNavigationManager implements NavigationManager {
         showFragment(UserProfile_Fragment.newInstance(), false);
     }
 
+    @Override
+    public void showFragmentUserProfile(User user) {
+        showFragment(Display_UserProfile.newInstance(user), false);
+    }
+
 
     public void showFragmentGallery(){
         showFragment(Fragment_gallery.newInstance(), false);
@@ -138,7 +144,9 @@ public class FragmentNavigationManager implements NavigationManager {
     }
 
     @Override
-    public void showFragmentMap(Location location, ArrayList<User> matchingUsers) {showFragment(MapsActivity.newInstance(location, matchingUsers), false);}
+    public void showFragmentMap(Location location, ArrayList<User> matchingUsers) {
+        showFragment(MapsActivity.newInstance(location, matchingUsers), false);
+    }
 
     @Override
     public void showFragmentViewMessage(Message message) {
@@ -162,7 +170,7 @@ public class FragmentNavigationManager implements NavigationManager {
         FragmentManager fm = mFragmentManager;
 
         @SuppressLint("CommitTransaction")
-        FragmentTransaction ft = fm.beginTransaction().replace(R.id.container, fragment);
+        FragmentTransaction ft = fm.beginTransaction().add(R.id.container, fragment);
 
 
 
