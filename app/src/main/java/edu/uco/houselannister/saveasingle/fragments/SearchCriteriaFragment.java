@@ -32,6 +32,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import edu.uco.houselannister.saveasingle.R;
+import edu.uco.houselannister.saveasingle.activities.MainActivity;
 import edu.uco.houselannister.saveasingle.domain.Ages;
 import edu.uco.houselannister.saveasingle.domain.EducationLevel;
 import edu.uco.houselannister.saveasingle.domain.Gender;
@@ -50,6 +51,7 @@ import edu.uco.houselannister.saveasingle.helpers.SearchCriteriaAnd;
 import edu.uco.houselannister.saveasingle.helpers.SearchCriteriaGenger;
 import edu.uco.houselannister.saveasingle.helpers.SearchCriteriaHasCats;
 import edu.uco.houselannister.saveasingle.helpers.SearchCriteriaHasDogs;
+import edu.uco.houselannister.saveasingle.helpers.SearchCriteriaHasPhotos;
 import edu.uco.houselannister.saveasingle.helpers.SearchCriteriaLanguage;
 import edu.uco.houselannister.saveasingle.helpers.SearchCriteriaRelationhip;
 import edu.uco.houselannister.saveasingle.helpers.SearchCriteriaReligion;
@@ -183,6 +185,10 @@ public class SearchCriteriaFragment extends Fragment implements GoogleApiClient.
                 ArrayList<User> userList = appModel.getUsers();
                 ArrayList<User> matchingUsers = new ArrayList<User>();
                 userList.get(0).setLocation(mLastLocation);
+                if(mLastLocation == null) {
+                    gpsOff();
+                    return;
+                }
                 Location location = new Location(mLastLocation);
                 location.setLatitude(65.9669);
                 location.setLongitude(-18.5333);
@@ -194,6 +200,7 @@ public class SearchCriteriaFragment extends Fragment implements GoogleApiClient.
                 Location location1 = new Location(mLastLocation);
                 location1.setLatitude(65.96297876);
                 location1.setLongitude(-18.50715637);
+                userList.get(3).setLocation(location2);
                 userList.get(0).getUserDemographics().setMyGender(Gender.MALE);
                 userList.get(1).getUserDemographics().setMyGender(Gender.FEMALE);
                 userList.get(2).setLocation(location1);
@@ -226,10 +233,23 @@ public class SearchCriteriaFragment extends Fragment implements GoogleApiClient.
                     case TWENTYFIVEMILES: distanceRange = 40233; break;
                     case FIFTYMILES: distanceRange = 80467; break;
                 }
-                for(int i = 0; i < userList.size(); i++) {
-                    float distanceToMatch = mLastLocation.distanceTo(userList.get(i).getLocation());
-                    if(distanceToMatch <= distanceRange){
-                        matchingUsers.add(userList.get(i));
+                if(mLastLocation != null) {
+                    for (int i = 0; i < userList.size(); i++) {
+                        float distanceToMatch = mLastLocation.distanceTo(userList.get(i).getLocation());
+                        if (distanceToMatch <= distanceRange) {
+                            matchingUsers.add(userList.get(i));
+                        }
+                    }
+                }
+                else {
+                    for (int i = 0; i < userList.size(); i++) {
+                        Location tempLocation = new Location(mLastLocation);
+                        tempLocation.setLatitude(65.9669);
+                        tempLocation.setLongitude(-18.5333);
+                        float distanceToMatch = tempLocation.distanceTo(userList.get(i).getLocation());
+                        if (distanceToMatch <= distanceRange) {
+                            matchingUsers.add(userList.get(i));
+                        }
                     }
                 }
 
@@ -251,7 +271,7 @@ public class SearchCriteriaFragment extends Fragment implements GoogleApiClient.
                 //filter
                 //typically people want these to be exclusive and don't want to have outside their selection
                 SearchCriteria criteriaAge = new SearchCriteriaAge(Integer.valueOf(minAgeSpinner.getSelectedItem().toString()), Integer.valueOf(maxAgeSpinner.getSelectedItem().toString()));
-//                matchingUsers.addAll(criteriaAge.meetsSearchCriteria(userList));
+                matchingUsers.addAll(criteriaAge.meetsSearchCriteria(userList));
 
                 SearchCriteria religionCriteria = new SearchCriteriaReligion();
 //                matchingUsers.addAll(religionCriteria.meetsSearchCriteria(userList));
@@ -302,7 +322,8 @@ public class SearchCriteriaFragment extends Fragment implements GoogleApiClient.
 //                appModel.getCurrentUser().getUserPreferences().setSearchDistances(SearchDistances.valueOf(distanceSpinner.getSelectedItem().toString().toUpperCase()));
                 //criteria for distance
                 if (photosSwitch.isChecked()) {
-                    //add search criteria that has photos
+                    SearchCriteria photoCriteria = new SearchCriteriaHasPhotos();
+                    matchingUsers.addAll(photoCriteria.meetsSearchCriteria(userList));
                 }
                 String tokensEntered = multiAutoCompleteTextView.getText().toString();
                 //check tokens entered match with enum values, currently throw out others that aren't existent
@@ -405,5 +426,10 @@ public class SearchCriteriaFragment extends Fragment implements GoogleApiClient.
                 return;
             }
         }
+    }
+
+    public void gpsOff() {
+        String msg = MainActivity.getMainInstance().getResources().getString(R.string.gpsServices);
+        Toast.makeText(this.getContext(), msg, Toast.LENGTH_SHORT).show();
     }
 }

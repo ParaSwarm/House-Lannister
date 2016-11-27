@@ -11,6 +11,16 @@ public class Questionnaire implements Serializable {
         return questions;
     }
 
+    public ArrayList<Question> getApprovedQuestions() {
+        ArrayList<Question> ret = new ArrayList<>();
+        for(Question q : questions){
+            if(q.getEnabled()){
+                ret.add(q);
+            }
+        }
+        return ret;
+    }
+
     public void setQuestions(ArrayList<Question> questions) {
         this.questions = questions;
     }
