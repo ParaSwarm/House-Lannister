@@ -39,7 +39,7 @@ public class User  implements Serializable, Parcelable {
     private Boolean isAdmin;
 
     private Boolean enabled;
-    private Location location;
+    private transient Location location = null;
 
     private String fullname;
     private int age;
@@ -203,29 +203,6 @@ public class User  implements Serializable, Parcelable {
         this.enabled = enabled;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.name);
-        dest.writeString(this.password);
-        dest.writeString(this.emailAddress);
-        dest.writeSerializable(this.userNotificationPreferences);
-        dest.writeSerializable(this.userDemographics);
-        dest.writeSerializable(this.userPreferences);
-        dest.writeSerializable(this.userExcludes);
-        dest.writeList(this.photos);
-        dest.writeSerializable(this.bio);
-        dest.writeList(this.questionResponses);
-        dest.writeSerializable(this.interactions);
-        dest.writeSerializable(this.profilePhoto);
-        dest.writeValue(this.isAdmin);
-        dest.writeValue(this.enabled);
-    }
-
     public UserStatus getStatus() {
         if(status == null){
             status = new UserStatus();
@@ -250,45 +227,6 @@ public class User  implements Serializable, Parcelable {
         photos = new ArrayList<Photo>();
         profilePhoto = new Photo();
     }
-
-    protected User(Parcel in) {
-        this.name = in.readString();
-        this.password = in.readString();
-        this.emailAddress = in.readString();
-        this.userNotificationPreferences = (UserNotificationPreferences) in.readSerializable();
-        this.userDemographics = (UserDemographics) in.readSerializable();
-        this.userPreferences = (UserPreferences) in.readSerializable();
-        this.userExcludes = (UserPreferences) in.readSerializable();
-        this.photos = new ArrayList<Photo>();
-        in.readList(this.photos, Photo.class.getClassLoader());
-        this.bio = (Bio) in.readSerializable();
-        this.questionResponses = new ArrayList<Response>();
-        in.readList(this.questionResponses, Response.class.getClassLoader());
-        this.interactions = (UserInteractions) in.readSerializable();
-        this.profilePhoto = (Photo) in.readSerializable();
-        this.isAdmin = (Boolean) in.readValue(Boolean.class.getClassLoader());
-        this.enabled = (Boolean) in.readValue(Boolean.class.getClassLoader());
-        fullname = "";
-        position = "";
-        //education = "";
-        religion = "";
-        ethnicity = "";
-        work = "";
-        story = "";
-        perfectMatch = "";
-    }
-
-    public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
-        @Override
-        public User createFromParcel(Parcel source) {
-            return new User(source);
-        }
-
-        @Override
-        public User[] newArray(int size) {
-            return new User[size];
-        }
-    };
 
     public Location getLocation() {
         return location;
@@ -448,4 +386,99 @@ public class User  implements Serializable, Parcelable {
         this.userNameForProfile = userNameForProfile;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.name);
+        dest.writeString(this.password);
+        dest.writeString(this.emailAddress);
+        dest.writeSerializable(this.userNotificationPreferences);
+        dest.writeSerializable(this.userDemographics);
+        dest.writeSerializable(this.userPreferences);
+        dest.writeSerializable(this.userExcludes);
+        dest.writeSerializable(this.status);
+        dest.writeList(this.photos);
+        dest.writeSerializable(this.bio);
+        dest.writeList(this.questionResponses);
+        dest.writeSerializable(this.interactions);
+        dest.writeSerializable(this.profilePhoto);
+        dest.writeValue(this.isAdmin);
+        dest.writeValue(this.enabled);
+        dest.writeParcelable(this.location, flags);
+        dest.writeString(this.fullname);
+        dest.writeInt(this.age);
+        dest.writeString(this.position);
+        dest.writeInt(this.education);
+        dest.writeDouble(this.height);
+        dest.writeString(this.religion);
+        dest.writeString(this.ethnicity);
+        dest.writeInt(this.smoking);
+        dest.writeInt(this.bodyType);
+        dest.writeString(this.work);
+        dest.writeInt(this.income);
+        dest.writeInt(this.marriedStatus);
+        dest.writeInt(this.children);
+        dest.writeString(this.story);
+        dest.writeString(this.perfectMatch);
+        dest.writeInt(this.gender);
+        dest.writeByte(this.galleryPrivate ? (byte) 1 : (byte) 0);
+        dest.writeByte(this.profilePrivate ? (byte) 1 : (byte) 0);
+        dest.writeString(this.userNameForProfile);
+    }
+
+    protected User(Parcel in) {
+        this.name = in.readString();
+        this.password = in.readString();
+        this.emailAddress = in.readString();
+        this.userNotificationPreferences = (UserNotificationPreferences) in.readSerializable();
+        this.userDemographics = (UserDemographics) in.readSerializable();
+        this.userPreferences = (UserPreferences) in.readSerializable();
+        this.userExcludes = (UserPreferences) in.readSerializable();
+        this.status = (UserStatus) in.readSerializable();
+        this.photos = new ArrayList<Photo>();
+        in.readList(this.photos, Photo.class.getClassLoader());
+        this.bio = (Bio) in.readSerializable();
+        this.questionResponses = new ArrayList<Response>();
+        in.readList(this.questionResponses, Response.class.getClassLoader());
+        this.interactions = (UserInteractions) in.readSerializable();
+        this.profilePhoto = (Photo) in.readSerializable();
+        this.isAdmin = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.enabled = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.location = in.readParcelable(Location.class.getClassLoader());
+        this.fullname = in.readString();
+        this.age = in.readInt();
+        this.position = in.readString();
+        this.education = in.readInt();
+        this.height = in.readDouble();
+        this.religion = in.readString();
+        this.ethnicity = in.readString();
+        this.smoking = in.readInt();
+        this.bodyType = in.readInt();
+        this.work = in.readString();
+        this.income = in.readInt();
+        this.marriedStatus = in.readInt();
+        this.children = in.readInt();
+        this.story = in.readString();
+        this.perfectMatch = in.readString();
+        this.gender = in.readInt();
+        this.galleryPrivate = in.readByte() != 0;
+        this.profilePrivate = in.readByte() != 0;
+        this.userNameForProfile = in.readString();
+    }
+
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel source) {
+            return new User(source);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 }
