@@ -2,7 +2,6 @@ package edu.uco.houselannister.saveasingle.adapters;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -57,6 +56,7 @@ public class ImageGridAdapter extends BaseAdapter {
     }
 
     public Integer[] mThumbIds = {
+
             R.drawable.header
     };
 }

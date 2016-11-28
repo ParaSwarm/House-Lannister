@@ -72,12 +72,6 @@ public class DisplayPrivateAlbumFragment extends Fragment {
 
         objImageAdapter = new ImageGridAdapter(getActivity(), imageArrayList);
         gridView.setAdapter(objImageAdapter);
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getActivity(), "Picture: " + i + " " + l, Toast.LENGTH_SHORT).show();
-            }
-        });
 
         return FragmentView;
     }
