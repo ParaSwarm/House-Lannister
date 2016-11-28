@@ -77,12 +77,16 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
         Bundle extras = intent.getExtras();
         if(extras != null){
-            if(extras.containsKey("Message"))
-            {
+            if(extras.containsKey("Message")) {
                 Message message = (Message)extras.getSerializable("Message");
                 mNavigationManager.showFragmentViewMessage(message);
+            }
+            else if(extras.containsKey("VisitingUser")) {
+                User visitingUser = (User)extras.getSerializable("VisitingUser");
+                mNavigationManager.showFragmentUserProfile(visitingUser);
             }
         }
     }

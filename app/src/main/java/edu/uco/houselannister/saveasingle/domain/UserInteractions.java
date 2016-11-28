@@ -179,6 +179,15 @@ public class UserInteractions implements Serializable {
         return blocked;
     }
 
+    public boolean isBlocked(User user) {
+        if(blocked == null) {
+            blocked = new ArrayList<>();
+            return false;
+        }
+
+        return blocked.contains(user);
+    }
+
     public void deleteFromFavorites(User userToRemove) {
         if(this.getFavorites().contains(userToRemove)) {
             this.favorites.remove(userToRemove);

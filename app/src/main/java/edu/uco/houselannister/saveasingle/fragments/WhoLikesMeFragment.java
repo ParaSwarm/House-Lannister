@@ -100,6 +100,8 @@ public class WhoLikesMeFragment extends ListFragment implements OnItemClickListe
                 userMenuOptions[3] = "View Profile";
                 userMenuOptions[4] = getResources().getString(R.string.see_private_album);
 
+                final FragmentNavigationManager navManager = FragmentNavigationManager.obtain((MainActivity) getActivity());
+
                 new AlertDialog.Builder(getActivity())
                         .setTitle(selectedUser.getName())
                         .setItems(userMenuOptions, new DialogInterface.OnClickListener() {
@@ -160,17 +162,11 @@ public class WhoLikesMeFragment extends ListFragment implements OnItemClickListe
                                             return;
                                         }
 
-                                        appModel.getCurrentUser().setUserNameForProfile(selectedUser.getName());
-
-                                        Fragment newFragment = new Display_UserProfile();
-                                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                                        transaction.replace(R.id.container, newFragment);
-                                        transaction.addToBackStack(null);
-                                        transaction.commit();
+                                        navManager.showFragmentUserProfile(selectedUser);
                                         break;
                                     case 4:
                                         FragmentNavigationManager navManager = FragmentNavigationManager.obtain((MainActivity) getActivity());
-                                        navManager.showFragmentDisplayPrivateAlbum(appModel.getUsers().get(pos));
+                                        navManager.showFragmentDisplayPrivateAlbum(selectedUser);
                                 }
                             }
                         })
