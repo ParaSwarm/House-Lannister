@@ -63,6 +63,9 @@ public class ComposeMessageFragment extends Fragment {
         toUser = (User) data.getSerializable("User");
         messageBeingRepliedTo = (Message) data.getSerializable("Message");
 
+        if(toUser==null){
+            toUser = appModel.getUsers().get(0);
+        }
         toText.setText(toUser.getName());
 
         if(messageBeingRepliedTo != null) {

@@ -1,7 +1,9 @@
 package edu.uco.houselannister.saveasingle.fragments;
 
 import android.os.Bundle;
+import android.support.annotation.BinderThread;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ListFragment;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
@@ -37,6 +39,9 @@ public class InboxFragment extends ListFragment implements OnItemClickListener {
     @BindView(R.id.goto_sent_messages)
     Button sentMessagesButton;
 
+    @BindView(R.id.fab_compose)
+    FloatingActionButton mFabCompose;
+
     public InboxFragment() {
     }
 
@@ -58,6 +63,12 @@ public class InboxFragment extends ListFragment implements OnItemClickListener {
         View view = inflater.inflate(R.layout.fragment_inbox, container, false);
         ButterKnife.bind(this, view);
 
+        mFabCompose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                composeMessage();
+            }
+        });
         sentMessagesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,4 +101,14 @@ public class InboxFragment extends ListFragment implements OnItemClickListener {
         FragmentNavigationManager navManager = FragmentNavigationManager.obtain((MainActivity) getActivity());
         navManager.showFragmentSentMessages();
     }
+
+    private void composeMessage() {
+
+        Bundle data = new Bundle();
+
+        FragmentNavigationManager navManager = FragmentNavigationManager.obtain((MainActivity) getActivity());
+        navManager.showFragmentComposeMessage(data);
+    }
+
+
 }
